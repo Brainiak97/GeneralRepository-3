@@ -44,14 +44,9 @@ namespace UserService.Api.Data
             }
 
             // Назначение роли Admin
-            var userRoles = await context.Set<User>()
-                .Where(u => u.Id == adminUser.Id)
-                .Select(u => u.Roles)
-                .FirstOrDefaultAsync();
-
-            if (userRoles != null && !userRoles.Any(r => r.Name == "Admin"))
+            if (adminRole != null)
             {
-                userRoles.Add(adminRole);
+                adminUser.Roles.Add(adminRole);
                 await context.SaveChangesAsync();
             }
         }
