@@ -1,0 +1,5 @@
+{
+  "SecretKey": "728b7ce97647f95d26c9a0d2151b1a31",
+  "Issuer": "HealthDiary.UserService",
+  "Audience": "HealthDiary"
+}
