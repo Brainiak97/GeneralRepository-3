@@ -1,9 +1,21 @@
+using EmailService.DAL.EF;
+using Microsoft.EntityFrameworkCore;
+using Shared.Auth;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Добавление контекста
+builder.Services.AddDbContext<EmailDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.EnableSensitiveDataLogging(true);
+});
+
+// Загрузка общей конфигурации JWT
+builder.Services.AddJwtAuthentication();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
