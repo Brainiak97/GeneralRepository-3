@@ -36,7 +36,11 @@ namespace UserService.Api.Data
                 adminUser = new User
                 {
                     Username = "admin",
-                    Email = "admin@example.com"
+                    Email = "admin@example.com",
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    PhoneNumber = "1234567890",
+                    PasswordHash = string.Empty
                 };
                 adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "Admin@123");
                 await context.Users.AddAsync(adminUser);

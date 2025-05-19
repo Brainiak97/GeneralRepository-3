@@ -9,12 +9,12 @@ namespace UserService.DAL.Repositories
     {
         private readonly UserServiceDbContext _context = context;
 
-        public async Task<User> GetUserByUsernameAsync(string username)
+        public async Task<User?> GetUserByUsernameAsync(string username)
         => await _context.Users
             .Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Username == username);
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
             => await _context.Users
                 .Include(u => u.Roles)
                 .FirstOrDefaultAsync(u => u.Email == email);
@@ -26,9 +26,9 @@ namespace UserService.DAL.Repositories
             return user;
         }
 
-        public async Task<Role> GetRoleByNameAsync(string roleName)
+        public async Task<Role?> GetRoleByNameAsync(string roleName)
             => await _context.Roles
-                .FirstOrDefaultAsync(r => r.Name == roleName);
+                        .FirstOrDefaultAsync(r => r.Name == roleName);
 
         public async Task AssignRoleToUserAsync(int userId, int roleId)
         {

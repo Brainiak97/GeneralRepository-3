@@ -27,8 +27,17 @@ namespace UserService.BLL.Services
             {
                 Username = request.Username,
                 Email = request.Email,
-                PasswordHash = _passwordHasher.HashPassword(new User { Username = request.Username }, request.Password)
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                PhoneNumber = request.PhoneNumber,
+                CreatedAt = DateTime.Now,
+                Gender = request.Gender,
+                DateOfBirth = request.DateOfBirth,
+                IsBlocked = false,
+                IsEmailConfirmed = false,
+                PasswordHash = string.Empty
             };
+            user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
 
             var createdUser = await _userRepository.AddAsync(user);
 
@@ -63,7 +72,7 @@ namespace UserService.BLL.Services
 
             string token = _jwtService.GenerateToken(user, user.Roles);
 
-            if(!_jwtService.ValidateToken(token))
+            if (!_jwtService.ValidateToken(token))
                 throw new Exception("Токен доступа поврежден");
 
             return new AuthResponseDto
