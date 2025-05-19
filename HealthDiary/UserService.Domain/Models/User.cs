@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace UserService.Domain.Models
+﻿namespace UserService.Domain.Models
 {
     public class User
     {
