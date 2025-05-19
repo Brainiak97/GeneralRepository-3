@@ -9,5 +9,6 @@ namespace UserService.DAL.Interfaces
         Task<User> AddAsync(User user);
         Task<Role?> GetRoleByNameAsync(string roleName);
         Task AssignRoleToUserAsync(int userId, int roleId);
+        Task<User> UpdateAsync(User user);
     }
 }

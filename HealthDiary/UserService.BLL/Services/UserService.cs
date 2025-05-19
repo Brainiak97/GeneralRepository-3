@@ -72,7 +72,7 @@ namespace UserService.BLL.Services
 
             string token = _jwtService.GenerateToken(user, user.Roles);
 
-            if (!_jwtService.ValidateToken(token))
+            if (_jwtService.ValidateToken(token, null) == null)
                 throw new Exception("Токен доступа поврежден");
 
             return new AuthResponseDto
@@ -81,6 +81,35 @@ namespace UserService.BLL.Services
                 Email = user.Email,
                 Token = token,
             };
+        }
+      
+        public async Task<UserDto> FindByEmail(string email)
+        {
+            var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");
+
+            return new UserDto()
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                Username = user.Username,
+                LastName = user.LastName,
+                IsEmailConfirmed = user.IsEmailConfirmed,
+                Id = user.Id
+            };
+        }
+
+        public async Task ConfirmEmailAsync(string email)
+        {
+            var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");
+            user.IsEmailConfirmed = true;
+            await _userRepository.UpdateAsync(user);
+        }
+
+        public async Task ResetPassword(string email, string newPassword)
+        {
+            var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");
+            user.PasswordHash = _passwordHasher.HashPassword(user, newPassword);
+            await _userRepository.UpdateAsync(user);
         }
     }
 }
