@@ -45,5 +45,12 @@ namespace UserService.DAL.Repositories
             user.Roles.Add(role);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<User> UpdateAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
     }
 }

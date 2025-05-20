@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Shared.Auth;
+using Shared.EmailClient;
 using UserService.Api.Data;
 using UserService.BLL.Interfaces;
 using UserService.DAL.EF;
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<UserServiceDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
     options.EnableSensitiveDataLogging(true);
 });
+
+// Email сервис
+builder.Services.AddEmailServiceClient("https://localhost:7281/");
 
 // Загрузка общей конфигурации JWT
 builder.Services.AddJwtAuthentication();

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -39,75 +38,58 @@ namespace Shared.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public bool ValidateToken(string token)
+        public string GenerateToken(int userId, string email, string purpose)
+        {
+            var claims = new List<Claim>
+            {
+                new("sub", userId.ToString()),
+                new("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", email),
+                new("purpose", purpose)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecretKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _settings.Issuer,
+                audience: _settings.Audience,
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public ClaimsPrincipal? ValidateToken(string token, string? expectedPurpose)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var validationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("728b7ce97647f95d26c9a0d2151b1a31")),
-                ValidateIssuer = true,
-                ValidIssuer = "HealthDiary.UserService",
-                ValidateAudience = true,
-                ValidAudience = "HealthDiary"
-            };
-
             try
             {
-                tokenHandler.ValidateToken(token, validationParameters, out _);
-                return true;
+                var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecretKey)),
+                    ValidateIssuer = true,
+                    ValidIssuer = "HealthDiary.UserService",
+                    ValidateAudience = true,
+                    ValidAudience = "HealthDiary"
+                }, out var validatedToken);
+
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var purposeClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "purpose");
+
+                if (purposeClaim?.Value != expectedPurpose)
+                    return null;
+
+                return principal;
             }
             catch
             {
-                return false;
+                return null;
             }
-        }
-
-        public string GenerateEmailVerificationToken(Guid userId, string email)
-        {
-            var claims = new List<Claim>
-            {
-                new(JwtRegisteredClaimNames.Sub, userId.ToString()),
-                new(JwtRegisteredClaimNames.Email, email),
-                new("purpose", "email_verification")
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecretKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _settings.Issuer,
-                audience: _settings.Audience,
-                claims: claims,
-                expires: DateTime.Now.AddHours(1), // короткий срок
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public string GeneratePasswordResetToken(Guid userId, string email)
-        {
-            var claims = new List<Claim>
-            {
-             new(JwtRegisteredClaimNames.Sub, userId.ToString()),
-                new(JwtRegisteredClaimNames.Email, email),
-                new("purpose", "password_reset")
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecretKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _settings.Issuer,
-                audience: _settings.Audience,
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
