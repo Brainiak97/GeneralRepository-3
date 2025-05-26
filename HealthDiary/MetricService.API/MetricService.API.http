@@ -1,6 +1,6 @@
-@MetricService.API_HostAddress = http://localhost:5199
+@MetricService.Api_HostAddress = http://localhost:5173
 
-GET {{MetricService.API_HostAddress}}/weatherforecast/
+GET {{MetricService.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

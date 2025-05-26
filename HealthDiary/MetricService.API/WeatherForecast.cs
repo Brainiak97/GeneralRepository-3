@@ -1,4 +1,4 @@
-namespace MetricService.API
+namespace MetricService.Api
 {
     public class WeatherForecast
     {
