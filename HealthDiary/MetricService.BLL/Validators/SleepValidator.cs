@@ -7,8 +7,9 @@ namespace MetricService.BLL.Validators
     {
         public bool Validate(Sleep entity, out IDictionary<string, string> errorList)
         {
-            //ValidationException validationException = new ValidationException("Некорректные данные о сне");
+            
             errorList =new Dictionary<string, string>();
+            
             if (entity.EndSleep < entity.StartSleep)
                 errorList.Add(nameof(entity.EndSleep), "Время завершения сна не может быть раньше времени начала сна");
 

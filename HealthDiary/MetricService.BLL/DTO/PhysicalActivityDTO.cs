@@ -5,16 +5,16 @@
         /// <summary>
         /// идентификатор
         /// </summary>
-        public new int Id { get;}
+        public int Id { get; set; }
 
         /// <summary>
         /// Наименование физической активности
         /// </summary>
-        public string Name { get; } = string.Empty;
+        public string Name { get; set;  } = string.Empty;
 
         /// <summary>
         /// Метаболический эквивалент
         /// </summary>
-        public float EnergyEquivalent { get; }
+        public float EnergyEquivalent { get; set; }
     }
 }

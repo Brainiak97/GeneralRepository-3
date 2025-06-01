@@ -14,6 +14,7 @@ namespace MetricService.DAL.Repositories
             _contextDb = metricServiceDb;
         }
 
+        public virtual string Name => _contextDb.Set<T>().EntityType.ClrType.Name;
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {

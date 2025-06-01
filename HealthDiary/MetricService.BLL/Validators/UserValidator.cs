@@ -8,7 +8,7 @@ namespace MetricService.BLL.Validators
         public bool Validate(User entity, out IDictionary<string, string> errorList)
         {
            errorList = new Dictionary<string, string>();
-
+                        
             if (entity.Height <= 50 || entity.Height > 250)
                 errorList.Add(nameof(entity.Height), "Параметр роста заданы некорректно");
 

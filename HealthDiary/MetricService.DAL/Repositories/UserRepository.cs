@@ -9,13 +9,9 @@ namespace MetricService.DAL.Repositories
         public UserRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb) { }
 
         public override async Task<bool> CreateAsync(User item)
-        {
-            if (!_contextDb.Set<User>().Any(i => i.Id == item.Id))
-            {
-                _contextDb.Add(item);
-                return await _contextDb.SaveChangesAsync() == 1;
-            }
-            return await UpdateAsync(item);
+        {                    
+            _contextDb.Add(item);
+            return await _contextDb.SaveChangesAsync() == 1;
         }
 
         public override async Task<bool> UpdateAsync(User item)

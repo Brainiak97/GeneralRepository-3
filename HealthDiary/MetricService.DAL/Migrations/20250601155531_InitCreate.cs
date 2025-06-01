@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,7 @@ namespace MetricService.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор"),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, comment: "дата рождения"),
+                    DateOfBirth = table.Column<DateTime>(type: "date", nullable: false, comment: "дата рождения"),
                     Height = table.Column<short>(type: "smallint", nullable: false, comment: "рост в сантиметрах"),
                     Weight = table.Column<double>(type: "double precision", nullable: false, comment: "Вес в килограммах")
                 },
@@ -51,7 +51,7 @@ namespace MetricService.DAL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя"),
-                    MetricDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, comment: "Дата замера показателя"),
+                    MetricDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата замера показателя"),
                     HeartRate = table.Column<short>(type: "smallint", nullable: false, comment: "Частота сердечных сокращений (ударов/мин)"),
                     BloodPressureSys = table.Column<short>(type: "smallint", nullable: true, comment: "Верхнее артериальное давление (мм рт. ст.)"),
                     BloodPressureDia = table.Column<short>(type: "smallint", nullable: true, comment: "Нижнее артериальное давление (мм рт. ст.)"),
@@ -77,8 +77,8 @@ namespace MetricService.DAL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false, comment: "идентификатор пользователя"),
-                    StartSleep = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, comment: "время начала сна"),
-                    EndSleep = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, comment: "время окончания сна"),
+                    StartSleep = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "время начала сна"),
+                    EndSleep = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "время окончания сна"),
                     QualityRating = table.Column<short>(type: "smallint", nullable: false, comment: "качество сна по 5-ой системе"),
                     Comment = table.Column<string>(type: "text", nullable: true, comment: "примечания о качестве сна")
                 },
@@ -103,8 +103,8 @@ namespace MetricService.DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя"),
                     PhysicalActivityId = table.Column<int>(type: "integer", nullable: false, comment: "Физ. активность"),
-                    StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, comment: "Время начала тренировки"),
-                    EndTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, comment: "Время окончания тренировки"),
+                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Время начала тренировки"),
+                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Время окончания тренировки"),
                     Description = table.Column<string>(type: "text", nullable: true, comment: "Описание")
                 },
                 constraints: table =>

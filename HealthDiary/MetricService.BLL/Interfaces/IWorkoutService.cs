@@ -1,11 +1,19 @@
 ﻿using MetricService.BLL.Dto;
+using System.Security.Claims;
 
 namespace MetricService.BLL.Interfaces
 {
     public  interface IWorkoutService
     {
         /// <summary>
-        /// Обновление или создание записи о тренировке пользователя
+        /// Создание записи о тренировке пользователя
+        /// </summary>
+        /// <param name="workoutDTO">параметры сна</param>
+        /// <returns></returns>
+        public Task<bool> CreateWorkoutAsync(WorkoutDTO workoutDTO);
+
+        /// <summary>
+        /// Обновление записи о тренировке пользователя
         /// </summary>
         /// <param name="workoutDTO">параметры сна</param>
         /// <returns></returns>
@@ -23,7 +31,7 @@ namespace MetricService.BLL.Interfaces
         /// </summary>
         /// <param name="workoutId"></param>
         /// <returns></returns>
-        public Task<WorkoutDTO?> GetWorkoutByUserIdAsync(int userId, int workoutId);
+        public Task<WorkoutDTO?> GetWorkoutByWorkoutIdAsync(int workoutId);
 
         /// <summary>
         /// Получение записей о тренировках пользователя за период
@@ -34,6 +42,6 @@ namespace MetricService.BLL.Interfaces
         /// <param name="pageNum">Номер страницы для пагинации</param>
         /// <param name="pageSize">Количество записей на странице</param>
         /// <returns></returns>
-        public Task<IEnumerable<SleepDTO>> GetAllWorkoutsByUserIdAsync(int userId, DateTime begDate, DateTime endDate, int pageNum, int pageSize);
+        public Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(int userId, DateTime begDate, DateTime endDate, int pageNum, int pageSize);
     }
 }

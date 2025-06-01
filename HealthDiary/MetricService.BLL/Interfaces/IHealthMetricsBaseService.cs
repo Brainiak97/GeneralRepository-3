@@ -1,11 +1,19 @@
 ﻿using MetricService.BLL.Dto;
+using System.Security.Claims;
 
 namespace MetricService.BLL.Interfaces
 {
-    public interface IHealthMetricsBase 
+    public interface IHealthMetricsBaseService 
     {
         /// <summary>
-        /// Обновление или создание записи о базовых медицинских показателей пользователя
+        /// Создание записи о базовых медицинских показателей пользователя
+        /// </summary>
+        /// <param name="HealthMetricsBaseDTO">параметры сна</param>
+        /// <returns></returns>
+        public Task<bool> CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseDTO healthMetricsBaseDTO);
+
+        /// <summary>
+        /// Обновление записи о базовых медицинских показателей пользователя
         /// </summary>
         /// <param name="HealthMetricsBaseDTO">параметры сна</param>
         /// <returns></returns>
@@ -16,14 +24,14 @@ namespace MetricService.BLL.Interfaces
         /// </summary>
         /// <param name="userId">ИД пользователя</param>
         /// <returns></returns>
-        public Task<bool> DeleteRecordOfHealthMetricsBaseAsync(int userId);
+        public Task<bool> DeleteRecordOfHealthMetricsBaseAsync(int uhealthMetricsBaseId);
 
         /// <summary>
         /// получить запись о базовых медицинских показателях пользователя
         /// </summary>
         /// <param name="healthMetricsBaseId"></param>
         /// <returns></returns>
-        public Task<HealthMetricsBaseDTO?> GetRecordOfHealthMetricsBaseByIdAsync(int userId, int healthMetricsBaseId);
+        public Task<HealthMetricsBaseDTO?> GetRecordOfHealthMetricsBaseByIdAsync(int healthMetricsBaseId);
 
         /// <summary>
         /// Получение записей о базовых медицинских показателях пользователя за период

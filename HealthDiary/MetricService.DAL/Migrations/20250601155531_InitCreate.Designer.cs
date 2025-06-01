@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    [Migration("20250518181242_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250601155531_InitCreate")]
+    partial class InitCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("Частота сердечных сокращений (ударов/мин)");
 
                     b.Property<DateTime>("MetricDate")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasComment("Дата замера показателя");
 
                     b.Property<int>("UserId")
@@ -613,7 +613,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("примечания о качестве сна");
 
                     b.Property<DateTime>("EndSleep")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasComment("время окончания сна");
 
                     b.Property<short>("QualityRating")
@@ -621,7 +621,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("качество сна по 5-ой системе");
 
                     b.Property<DateTime>("StartSleep")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasComment("время начала сна");
 
                     b.Property<int>("UserId")
@@ -647,7 +647,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("Идентификатор");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("date")
                         .HasComment("дата рождения");
 
                     b.Property<short>("Height")
@@ -680,7 +680,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("Описание");
 
                     b.Property<DateTime>("EndTime")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasComment("Время окончания тренировки");
 
                     b.Property<int>("PhysicalActivityId")
@@ -688,7 +688,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("Физ. активность");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasComment("Время начала тренировки");
 
                     b.Property<int>("UserId")

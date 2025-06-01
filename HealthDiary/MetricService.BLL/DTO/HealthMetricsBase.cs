@@ -1,11 +1,4 @@
-﻿using MetricService.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MetricService.BLL.Dto
+﻿namespace MetricService.BLL.Dto
 {
     public  class HealthMetricsBaseDTO
     {
@@ -19,11 +12,6 @@ namespace MetricService.BLL.Dto
         /// идентификатор пользователя
         /// </summary>        
         public int UserId { get; set; }
-
-        /// <summary>
-        /// идентификатор пользователя
-        /// </summary>        
-        public User User { get; set; } = null!;
 
         /// <summary>
         /// дата замера показателя

@@ -26,11 +26,11 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
 
             builder.Property(p => p.StartTime)
                 .HasComment("Время начала тренировки")
-                .HasColumnType("timestamp without time zone");
+                .HasColumnType("timestamp with time zone");
 
             builder.Property(p => p.EndTime)
                 .HasComment("Время окончания тренировки")
-                .HasColumnType("timestamp without time zone");            
+                .HasColumnType("timestamp with time zone");            
 
             builder.Property(p => p.Description)
                 .HasComment("Описание");

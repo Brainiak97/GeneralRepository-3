@@ -14,5 +14,10 @@
         /// <param name="id"></param>
         /// <returns>Возвращает объект</returns>
         public Task<T?> GetByIdAsync(int id);
+
+        /// <summary>
+        /// Имя набора данных
+        /// </summary>
+        public string Name {  get; }
     }
 }

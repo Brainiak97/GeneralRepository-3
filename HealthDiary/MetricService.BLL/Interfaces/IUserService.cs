@@ -1,9 +1,17 @@
 ﻿using MetricService.BLL.Dto;
+using System.Security.Claims;
 
 namespace MetricService.BLL.Interfaces
 {
    public  interface IUserService
     {
+        /// <summary>
+        /// Создание антропометрии пользователя
+        /// </summary>
+        /// <param name="useruserDTO"></param>
+        /// <returns></returns>
+        public Task<bool> CreateProfileAsync(UserDTO useruserDTO);
+
         /// <summary>
         /// Обновление антропометрии пользователя
         /// </summary>
@@ -33,6 +41,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="pageSize">Количество записей га странице</param>
         /// <returns></returns>
         public Task<IEnumerable<UserDTO>> GetAllUsersAsync(int pageNum, int pageSize);
+                
 
     }
 }

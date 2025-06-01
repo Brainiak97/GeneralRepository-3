@@ -18,7 +18,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
 
             builder.Property(p => p.MetricDate)
                .HasComment("Дата замера показателя")
-               .HasColumnType("timestamp without time zone");
+               .HasColumnType("timestamp with time zone");
 
             builder.Property(p => p.HeartRate)
               .HasComment("Частота сердечных сокращений (ударов/мин)");

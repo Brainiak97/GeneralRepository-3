@@ -20,11 +20,11 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
 
             builder.Property(p => p.StartSleep)
                .HasComment("время начала сна")
-               .HasColumnType("timestamp without time zone");
+               .HasColumnType("timestamp with time zone");
 
             builder.Property(p => p.EndSleep)
                .HasComment("время окончания сна")
-               .HasColumnType("timestamp without time zone");
+               .HasColumnType("timestamp with time zone");
 
             builder.Property(p => p.QualityRating)
                .HasComment("качество сна по 5-ой системе");

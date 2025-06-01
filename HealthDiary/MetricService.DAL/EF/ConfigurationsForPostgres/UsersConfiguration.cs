@@ -15,7 +15,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
 
             builder.Property(p => p.DateOfBirth)
                 .HasComment("дата рождения")
-                .HasColumnType("timestamp without time zone");
+                .HasColumnType("date");
 
             builder.Property(p => p.Height)
                .HasComment("рост в сантиметрах");

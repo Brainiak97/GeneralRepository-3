@@ -1,6 +1,4 @@
-﻿using MetricService.Domain.Models;
-
-namespace MetricService.BLL.Dto
+﻿namespace MetricService.BLL.Dto
 {
     public  class WorkoutDTO
     {
@@ -12,21 +10,11 @@ namespace MetricService.BLL.Dto
         /// пользователя
         /// </summary>        
         public int UserId { get; set; }
-
-        /// <summary>
-        /// Пользователь
-        /// </summary>        
-        public User User { get; set; } = null!;
-
+     
         /// <summary>
         /// Физическая активность
         /// </summary>
         public int PhysicalActivityId { get; set; }
-
-        /// <summary>
-        /// Физическая активность
-        /// </summary>
-        public PhysicalActivity PhysicalActivity { get; set; } = null!;
 
         /// <summary>
         /// время начала тренировки

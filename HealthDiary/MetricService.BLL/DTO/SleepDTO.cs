@@ -1,6 +1,4 @@
-﻿using MetricService.Domain.Models;
-
-namespace MetricService.BLL.Dto
+﻿namespace MetricService.BLL.Dto
 {
     public class SleepDTO 
     {
@@ -14,11 +12,6 @@ namespace MetricService.BLL.Dto
         /// идентификатор пользователя
         /// </summary>        
         public int UserId { get; set; }
-
-        /// <summary>
-        /// идентификатор пользователя
-        /// </summary>        
-        public UserDTO User { get; set; } = null!;
 
         /// <summary>
         /// время начала сна
