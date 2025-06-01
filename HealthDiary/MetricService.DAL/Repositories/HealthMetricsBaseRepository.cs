@@ -1,6 +1,7 @@
 ﻿using MetricService.DAL.EF;
 using MetricService.DAL.Interfaces;
 using MetricService.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
@@ -33,6 +34,17 @@ namespace MetricService.DAL.Repositories
 
             }
             return await _contextDb.SaveChangesAsync() == 1;
+        }
+
+        public async override Task<HealthMetricsBase?> GetByIdAsync(int id)
+        {
+            return await _contextDb.HealthMetricsBase.Include(h => h.User).FirstOrDefaultAsync(h => h.Id == id);
+        }
+
+        public async override Task<IEnumerable<HealthMetricsBase>> GetAllAsync()
+        {
+            return await _contextDb.HealthMetricsBase.Include(h => h.User)
+                 .ToListAsync();
         }
     }
 }

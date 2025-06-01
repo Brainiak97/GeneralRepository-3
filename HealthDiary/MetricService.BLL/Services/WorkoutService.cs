@@ -161,6 +161,9 @@ namespace MetricService.BLL.Services
         }
 
 
+        CaloriesBurned
+
+
 
         /// <summary>
         /// Создание DTO из модели
