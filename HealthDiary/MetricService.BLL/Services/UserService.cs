@@ -142,6 +142,7 @@ namespace MetricService.BLL.Services
                 DateOfBirth = user.DateOfBirth,
                 Height = user.Height,
                 Weight = user.Weight,
+                Age = user.Age,
             };
         }
 

@@ -43,5 +43,8 @@ namespace MetricService.BLL.Interfaces
         /// <param name="pageSize">Количество записей на странице</param>
         /// <returns></returns>
         public Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(int userId, DateTime begDate, DateTime endDate, int pageNum, int pageSize);
+
+
+        
     }
 }

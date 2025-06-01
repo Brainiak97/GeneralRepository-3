@@ -21,11 +21,11 @@
         /// возраст
         /// </summary>
         /// <returns>Значение возраста (лет)</returns>
-        public int Age
+        public Int16 Age
         {
             get
             {
-                return (int)(( DateTime.Now - DateOfBirth).TotalDays / 365.25);
+                return (Int16)(( DateTime.Now - DateOfBirth).TotalDays / 365.25);
             }
         }
 

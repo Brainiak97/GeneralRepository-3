@@ -20,5 +20,10 @@
         /// Вес в килограммах
         /// </summary>
         public double Weight { get; set; }
+
+        /// <summary>
+        /// Возраст
+        /// </summary>
+        public Int16 Age { get; internal set; }
     }
 }

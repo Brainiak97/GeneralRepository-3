@@ -34,7 +34,7 @@ namespace MetricService.DAL.Repositories
 
         public async override Task<Workout?> GetByIdAsync(int id)
         {
-            return await _contextDb.Workouts.Include(w => w.User).Include(w=>w.PhysicalActivityId).FirstOrDefaultAsync(s => s.Id == id);
+            return await _contextDb.Workouts.Include(w => w.User).Include(w=>w.PhysicalActivity).FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async override Task<IEnumerable<Workout>> GetAllAsync()

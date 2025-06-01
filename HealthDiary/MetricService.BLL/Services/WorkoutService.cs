@@ -161,7 +161,10 @@ namespace MetricService.BLL.Services
         }
 
 
-        CaloriesBurned
+        private static float CaloriesBurned(Workout workout)
+        {            
+            return  (float)(workout.PhysicalActivity.EnergyEquivalent * workout.User.Weight * (workout.EndTime - workout.StartTime).Hours);            
+        }
 
 
 
@@ -180,7 +183,8 @@ namespace MetricService.BLL.Services
                 StartTime = workout.StartTime,
                 Description = workout.Description,
                 PhysicalActivityId = workout.PhysicalActivityId,
-                UserId = workout.UserId
+                UserId = workout.UserId,
+                CaloriesBurned = CaloriesBurned(workout)
             };
         }
     }

@@ -30,5 +30,10 @@
         /// описание
         /// </summary>
         public string? Description { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Потраченные калории за тренировку
+        /// </summary>
+        public float CaloriesBurned { get; internal set; }
     }
 }
