@@ -39,7 +39,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService API", Version = "v1" });
-
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "UserService.Api.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "UserService.BLL.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "UserService.DAL.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "UserService.Domain.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Shared.Auth.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Shared.EmailClient.xml"));
     // Добавляем схему JWT в Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

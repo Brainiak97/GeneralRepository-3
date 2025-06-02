@@ -5,8 +5,17 @@ using UserService.Domain.Models;
 
 namespace UserService.Api.Data
 {
+    /// <summary>
+    /// Предоставляет методы для инициализации базы данных при запуске приложения.
+    /// Включает создание ролей и начального пользователя (администратора).
+    /// </summary>
     public static class InitializeDatabase
     {
+        /// <summary>
+        /// Асинхронно инициализирует базу данных: применяет миграции, создаёт роли и начального администратора.
+        /// </summary>
+        /// <param name="serviceProvider">Поставщик сервисов для получения контекста базы данных.</param>
+        /// <param name="passwordHasher">Сервис для хеширования паролей пользователей.</param>
         public static async Task Initialize(IServiceProvider serviceProvider, PasswordHasher<User> passwordHasher)
         {
             var context = serviceProvider.GetRequiredService<UserServiceDbContext>();

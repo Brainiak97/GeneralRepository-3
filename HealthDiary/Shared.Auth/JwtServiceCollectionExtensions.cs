@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -8,8 +7,17 @@ using System.Text;
 
 namespace Shared.Auth
 {
+    /// <summary>
+    /// Содержит методы расширения для регистрации JWT-аутентификации в контейнере зависимостей.
+    /// </summary>
     public static class JwtServiceCollectionExtensions
     {
+        /// <summary>
+        /// Добавляет настройки JWT-аутентификации в коллекцию сервисов.
+        /// Ожидает наличие встроенного ресурса jwt-config.json в проекте Shared.Auth.
+        /// </summary>
+        /// <param name="services">Коллекция сервисов для регистрации.</param>
+        /// <returns>Обновлённая коллекция сервисов.</returns>
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
         {
             // Чтение jwt-config.json как встроенного ресурса

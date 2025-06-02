@@ -1,7 +1,6 @@
 ﻿using EmailService.BLL.Dto;
 using EmailService.BLL.Interfaces;
 using EmailService.DAL.Interfaces;
-using EmailService.DAL.Repositories;
 using EmailService.Domain.Models;
 using EmailService.Domain.Models.Entities;
 using MailKit.Net.Smtp;
@@ -11,25 +10,34 @@ using MimeKit;
 
 namespace EmailService.BLL.Services
 {
-    public class SmtpEmailService : IEmailService
+    /// <summary>
+    /// Реализация сервиса для отправки email через SMTP.
+    /// </summary>
+    /// <remarks>
+    /// Инициализирует новый экземпляр <see cref="SmtpEmailService"/>.
+    /// </remarks>
+    /// <param name="smtpSettings">Настройки SMTP-сервера.</param>
+    /// <param name="templateRepo">Репозиторий шаблонов писем.</param>
+    /// <param name="logRepo">Репозиторий логов отправленных писем.</param>
+    /// <param name="logger">Логгер для записи ошибок и информации.</param>
+    public class SmtpEmailService(
+        IOptions<SmtpSettings> smtpSettings,
+        IRepository<EmailTemplate> templateRepo,
+        IRepository<EmailLog> logRepo,
+        ILogger<SmtpEmailService> logger) : IEmailService
     {
-        private readonly SmtpSettings _smtpSettings;
-        private readonly IRepository<EmailTemplate> _templateRepo;
-        private readonly IRepository<EmailLog> _logRepo;
-        private readonly ILogger<SmtpEmailService> _logger;
+        private readonly SmtpSettings _smtpSettings = smtpSettings.Value;
+        private readonly IRepository<EmailTemplate> _templateRepo = templateRepo;
+        private readonly IRepository<EmailLog> _logRepo = logRepo;
+        private readonly ILogger<SmtpEmailService> _logger = logger;
 
-        public SmtpEmailService(
-            IOptions<SmtpSettings> smtpSettings,
-            IRepository<EmailTemplate> templateRepo,
-            IRepository<EmailLog> logRepo,
-            ILogger<SmtpEmailService> logger)
-        {
-            _smtpSettings = smtpSettings.Value;
-            _templateRepo = templateRepo;
-            _logRepo = logRepo;
-            _logger = logger;
-        }
-
+        /// <summary>
+        /// Отправляет email на указанный адрес.
+        /// </summary>
+        /// <param name="to">Email получателя.</param>
+        /// <param name="subject">Тема письма.</param>
+        /// <param name="body">HTML-содержимое письма.</param>
+        /// <returns><see cref="EmailStatusResponseDto"/> с результатом отправки.</returns>
         public async Task<EmailStatusResponseDto> SendEmailAsync(string to, string subject, string body)
         {
             try
@@ -77,6 +85,13 @@ namespace EmailService.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Отправляет email, используя заранее подготовленный шаблон.
+        /// </summary>
+        /// <param name="templateName">Название шаблона.</param>
+        /// <param name="placeholders">Ключевые значения для замены в шаблоне.</param>
+        /// <param name="to">Email получателя.</param>
+        /// <returns><see cref="EmailStatusResponseDto"/> с результатом отправки.</returns>
         public async Task<EmailStatusResponseDto> SendEmailFromTemplateAsync(string templateName, Dictionary<string, string> placeholders, string to)
         {
             var template = await _templateRepo.GetAllAsync()
@@ -101,4 +116,3 @@ namespace EmailService.BLL.Services
         }
     }
 }
-
