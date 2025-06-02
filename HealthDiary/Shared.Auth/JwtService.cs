@@ -6,10 +6,23 @@ using UserService.Domain.Models;
 
 namespace Shared.Auth
 {
+    /// <summary>
+    /// Предоставляет реализацию сервиса для работы с JWT-токенами: генерация и валидация.
+    /// </summary>
+    /// <remarks>
+    /// Инициализирует новый экземпляр <see cref="JwtService"/> с указанными настройками.
+    /// </remarks>
+    /// <param name="settings">Настройки JWT (ключ, аудитория, издатель и т. д.).</param>
     public class JwtService(JwtSettings settings) : IJwtService
     {
         private readonly JwtSettings _settings = settings;
 
+        /// <summary>
+        /// Генерирует JWT-токен на основе данных пользователя и его ролей.
+        /// </summary>
+        /// <param name="user">Пользователь, для которого генерируется токен.</param>
+        /// <param name="roles">Список ролей пользователя.</param>
+        /// <returns>Сгенерированный JWT-токен в виде строки.</returns>
         public string GenerateToken(User user, IEnumerable<Role> roles)
         {
             var claims = new List<Claim>
@@ -38,12 +51,19 @@ namespace Shared.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        /// <summary>
+        /// Генерирует JWT-токен для конкретной цели (например, подтверждение email или сброс пароля).
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="email">Email пользователя.</param>
+        /// <param name="purpose">Цель генерации токена (например, "email_verification", "password_reset").</param>
+        /// <returns>Сгенерированный JWT-токен в виде строки.</returns>
         public string GenerateToken(int userId, string email, string purpose)
         {
             var claims = new List<Claim>
             {
                 new("sub", userId.ToString()),
-                new("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", email),
+                new(ClaimTypes.Email, email),
                 new("purpose", purpose)
             };
 
@@ -61,6 +81,12 @@ namespace Shared.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        /// <summary>
+        /// Проверяет корректность токена и возвращает содержимое, если он действителен.
+        /// </summary>
+        /// <param name="token">JWT-токен в виде строки.</param>
+        /// <param name="expectedPurpose">Ожидаемая цель токена (необязательно).</param>
+        /// <returns><see cref="ClaimsPrincipal"/> с данными из токена, если он валиден; иначе — null.</returns>
         public ClaimsPrincipal? ValidateToken(string token, string? expectedPurpose)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -76,7 +102,6 @@ namespace Shared.Auth
                     ValidateAudience = true,
                     ValidAudience = "HealthDiary"
                 }, out var validatedToken);
-
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var purposeClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "purpose");

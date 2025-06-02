@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UserService.Domain.Models
+﻿namespace UserService.Domain.Models
 {
+    /// <summary>
+    /// Представляет пол пользователя.
+    /// </summary>
     public enum Gender
     {
+        /// <summary>
+        /// Мужской пол.
+        /// </summary>
         Male,
+
+        /// <summary>
+        /// Женский пол.
+        /// </summary>
         Female
     }
 }

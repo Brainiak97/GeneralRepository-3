@@ -7,12 +7,22 @@ using UserService.Domain.Models;
 
 namespace UserService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для регистрации, аутентификации и управления пользователями.
+    /// </summary>
     public class UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtService jwtService) : IUserService
     {
         private readonly IUserRepository _userRepository = userRepository;
-        private readonly IPasswordHasher<User> _passwordHasher = passwordHasher; // Для хеширования
-        private readonly IJwtService _jwtService = jwtService; // Для получения настроек JWT
+        private readonly IPasswordHasher<User> _passwordHasher = passwordHasher; // Для хеширования паролей
+        private readonly IJwtService _jwtService = jwtService; // Для генерации JWT-токенов
 
+        /// <summary>
+        /// Регистрирует нового пользователя на основе предоставленных данных.
+        /// </summary>
+        /// <param name="request">Объект <see cref="RegisterRequestDto"/>, содержащий данные о пользователе.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает <see cref="AuthResponseDto"/> с данными аутентификации.</returns>
+        /// <exception cref="Exception">Выбрасывается, если логин или email уже заняты.</exception>
         public async Task<AuthResponseDto> Register(RegisterRequestDto request)
         {
             // Проверка на существование пользователя
@@ -58,6 +68,13 @@ namespace UserService.BLL.Services
             };
         }
 
+        /// <summary>
+        /// Выполняет вход пользователя по имени пользователя (или email) и паролю.
+        /// </summary>
+        /// <param name="request">Объект <see cref="LoginRequestDto"/>, содержащий учетные данные пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает <see cref="AuthResponseDto"/> с данными аутентификации.</returns>
+        /// <exception cref="Exception">Выбрасывается, если пользователь не найден или пароль неверен.</exception>
         public async Task<AuthResponseDto> Login(LoginRequestDto request)
         {
             var user = await _userRepository.GetUserByUsernameAsync(request.Username) ?? throw new Exception("Пользователь с таким логином не существует");
@@ -82,13 +99,29 @@ namespace UserService.BLL.Services
                 Token = token,
             };
         }
-      
-        public async Task<UserDto> FindByEmail(string email)
+
+        /// <summary>
+        /// Находит пользователя по его email-адресу.
+        /// </summary>
+        /// <param name="email">Email-адрес пользователя для поиска.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает найденного пользователя в виде <see cref="UserDto"/> или null, если пользователь не найден.</returns>
+        public async Task<UserDto?> FindByEmail(string email)
         {
-            var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");
+            var user = await _userRepository.GetUserByEmailAsync(email);
+
+            if (user == null)
+            {
+                return null;
+            }
 
             return new UserDto()
             {
+                Roles = (ICollection<RoleDto>)user.Roles,
+                Gender = user.Gender,
+                DateOfBirth = user.DateOfBirth,
+                CreatedAt = user.CreatedAt,
+                PhoneNumber = user.PhoneNumber,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 Username = user.Username,
@@ -98,6 +131,43 @@ namespace UserService.BLL.Services
             };
         }
 
+        /// <summary>
+        /// Находит пользователя по его email-адресу.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, чью информацию требуется отправить.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает найденного пользователя в виде <see cref="UserDto"/> или null, если пользователь не найден.</returns>
+        public async Task<UserDto?> FindById(int userId)
+        {
+            var user = await _userRepository.FindByIdAsync(userId) ?? throw new Exception("Пользователь с таким логином не существует");
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserDto()
+            {
+                Roles = (ICollection<RoleDto>)user.Roles,
+                Gender = user.Gender,
+                DateOfBirth = user.DateOfBirth,
+                CreatedAt = user.CreatedAt,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                Username = user.Username,
+                LastName = user.LastName,
+                IsEmailConfirmed = user.IsEmailConfirmed,
+                Id = user.Id
+            };
+        }
+
+        /// <summary>
+        /// Подтверждает email пользователя.
+        /// </summary>
+        /// <param name="email">Email-адрес пользователя, который нужно подтвердить.</param>
+        /// <returns>Задача, представляющая асинхронную операцию.</returns>
+        /// <exception cref="Exception">Выбрасывается, если пользователь не найден.</exception>
         public async Task ConfirmEmailAsync(string email)
         {
             var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");
@@ -105,6 +175,13 @@ namespace UserService.BLL.Services
             await _userRepository.UpdateAsync(user);
         }
 
+        /// <summary>
+        /// Сбрасывает пароль пользователя на новый.
+        /// </summary>
+        /// <param name="email">Email-адрес пользователя, чей пароль нужно изменить.</param>
+        /// <param name="newPassword">Новый пароль, который будет установлен.</param>
+        /// <returns>Задача, представляющая асинхронную операцию.</returns>
+        /// <exception cref="Exception">Выбрасывается, если пользователь не найден.</exception>
         public async Task ResetPassword(string email, string newPassword)
         {
             var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");

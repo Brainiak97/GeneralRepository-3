@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmailService.BLL.Dto
+﻿namespace EmailService.BLL.Dto
 {
     /// <summary>
     /// DTO для отправки письма на основе шаблона.
