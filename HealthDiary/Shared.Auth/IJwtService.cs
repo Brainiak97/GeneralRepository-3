@@ -15,7 +15,7 @@ namespace Shared.Auth
         /// <param name="roles">Список ролей пользователя.</param>
         /// <returns>Сгенерированный JWT-токен в виде строки.</returns>
         string GenerateToken(User user, IEnumerable<Role> roles);
-
+      
         /// <summary>
         /// Генерирует JWT-токен для конкретной цели (например, подтверждение email или сброс пароля).
         /// </summary>

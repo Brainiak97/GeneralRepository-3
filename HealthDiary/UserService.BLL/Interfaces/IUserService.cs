@@ -1,4 +1,5 @@
 ﻿using UserService.BLL.Dto;
+using UserService.Domain.Models;
 
 namespace UserService.BLL.Interfaces
 {

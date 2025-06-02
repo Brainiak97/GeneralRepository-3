@@ -99,7 +99,7 @@ namespace UserService.BLL.Services
                 Token = token,
             };
         }
-
+        
         /// <summary>
         /// Находит пользователя по его email-адресу.
         /// </summary>
