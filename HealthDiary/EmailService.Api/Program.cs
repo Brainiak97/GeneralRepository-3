@@ -32,7 +32,11 @@ builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 // Настройка свагера
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService API", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "EmailService API", Version = "v1" });
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "EmailService.Api.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "EmailService.BLL.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "EmailService.DAL.xml"));
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "EmailService.Domain.xml"));
 
     // Добавляем схему JWT в Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
