@@ -10,7 +10,7 @@
         /// <summary>
         /// рост в сантиметрах
         /// </summary>
-        public Int16 Height { get; set; }
+        public short Height { get; set; }
 
         /// <summary>
         /// Вес в килограммах
@@ -21,13 +21,12 @@
         /// возраст
         /// </summary>
         /// <returns>Значение возраста (лет)</returns>
-        public Int16 Age
+        public short Age
         {
             get
             {
-                return (Int16)(( DateTime.Now - DateOfBirth).TotalDays / 365.25);
+                return (short)(( DateTime.Now - DateOfBirth).TotalDays / 365.25);
             }
         }
-
     }
 }

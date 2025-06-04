@@ -8,12 +8,12 @@
         /// <summary>
         /// идентификатор
         /// </summary>
-        public new int Id { get; }
+        public new int Id { get; set; }
 
         /// <summary>
         /// Наименование физической активности
         /// </summary>
-        public string Name { get; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Метаболический эквивалент
