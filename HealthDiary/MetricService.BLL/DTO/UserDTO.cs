@@ -14,7 +14,7 @@
         /// <summary>
         /// рост в сантиметрах
         /// </summary>
-        public Int16 Height { get; set; }
+        public short Height { get; set; }
 
         /// <summary>
         /// Вес в килограммах
@@ -24,6 +24,6 @@
         /// <summary>
         /// Возраст
         /// </summary>
-        public Int16 Age { get; internal set; }
+        public short Age { get; internal set; }
     }
 }

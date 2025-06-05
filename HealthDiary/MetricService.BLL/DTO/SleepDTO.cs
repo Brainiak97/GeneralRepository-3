@@ -26,7 +26,7 @@
         /// <summary>
         /// качество сна по 5-ой системе
         /// </summary>
-        public Int16 QualityRating { get; set; }
+        public short QualityRating { get; set; }
 
         /// <summary>
         /// примечания о качестве сна

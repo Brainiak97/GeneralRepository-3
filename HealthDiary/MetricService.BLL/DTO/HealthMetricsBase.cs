@@ -21,17 +21,17 @@
         /// <summary>
         /// частота сердечных сокращений (ударов/мин)
         /// </summary>        
-        public Int16 HeartRate { get; set; }
+        public short HeartRate { get; set; }
 
         /// <summary>
         /// Верхнее артериальное давление (мм рт. ст.)
         /// </summary>
-        public Int16? BloodPressureSys { get; set; }
+        public short? BloodPressureSys { get; set; }
 
         /// <summary>
         /// Нижнее артериальное давление (мм рт. ст.)
         /// </summary>
-        public Int16? BloodPressureDia { get; set; }
+        public short? BloodPressureDia { get; set; }
 
         /// <summary>
         /// Процент жира в организме
@@ -41,6 +41,6 @@
         /// <summary>
         /// Потребление воды (мл)
         /// </summary>
-        public Int16? WaterIntake { get; set; }
+        public short? WaterIntake { get; set; }
     }
 }
