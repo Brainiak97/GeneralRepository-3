@@ -3,12 +3,12 @@
     /// <summary>
     /// тренировка
     /// </summary>
-    public class Workout: BaseModel
+    public class Workout : BaseModel
     {
         /// <summary>
         /// пользователя
         /// </summary>        
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Пользователь
@@ -33,11 +33,14 @@
         /// <summary>
         /// время окончания тренировки
         /// </summary>       
-        public DateTime EndTime { get; set; }        
+        public DateTime EndTime { get; set; }
 
         /// <summary>
         /// описание
         /// </summary>
         public string? Description { get; set; }
+
+        public float CaloriesBurned => 
+            (float) (PhysicalActivity.EnergyEquivalent* User.Weight* (EndTime - StartTime).Hours);
     }
 }

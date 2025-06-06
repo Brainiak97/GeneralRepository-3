@@ -1,47 +1,51 @@
-﻿using MetricService.BLL.Dto;
-using System.Security.Claims;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.HealthMetricsBase;
 
 namespace MetricService.BLL.Interfaces
 {
     public interface IHealthMetricsBaseService 
     {
         /// <summary>
-        /// Создание записи о базовых медицинских показателей пользователя
+        /// Создать запись
         /// </summary>
-        /// <param name="HealthMetricsBaseDTO">параметры сна</param>
+        /// <param name="healthMetricsBaseDTO">Информация о записи</param>
         /// <returns></returns>
-        public Task<bool> CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseDTO healthMetricsBaseDTO);
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>        
+        public Task CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseCreateDTO healthMetricsBaseDTO);
 
         /// <summary>
-        /// Обновление записи о базовых медицинских показателей пользователя
+        /// обновить запись
         /// </summary>
-        /// <param name="HealthMetricsBaseDTO">параметры сна</param>
-        /// <returns></returns>
-        public Task<bool> UpdateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseDTO healthMetricsBaseDTO);
+        /// <param name="healthMetricsBaseDTO">информвция о записи</param>        
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Запись о базовых мед. показателях не зарегистрирована</exception>
+        public Task UpdateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseUpdateDTO healthMetricsBaseDTO);
 
         /// <summary>
-        /// удаление записи о базовых медицинских показателях пользователя
+        /// Удалить запись о базовых медицинских показателей
         /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <returns></returns>
-        public Task<bool> DeleteRecordOfHealthMetricsBaseAsync(int uhealthMetricsBaseId);
+        /// <param name="healthMetricsBaseId">идентификатор записи</param>        
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанная запись о базовых мед. показателях не существует</exception>
+        public Task DeleteRecordOfHealthMetricsBaseAsync(int uhealthMetricsBaseId);
 
         /// <summary>
-        /// получить запись о базовых медицинских показателях пользователя
+        /// получить запись о базовых показателях пользователя
         /// </summary>
-        /// <param name="healthMetricsBaseId"></param>
-        /// <returns></returns>
-        public Task<HealthMetricsBaseDTO?> GetRecordOfHealthMetricsBaseByIdAsync(int healthMetricsBaseId);
+        /// <param name="healthMetricsBaseId">ИД записи</param>
+        /// <returns>модель DTO</returns>
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанная запись о базовых мед. показателях не существует</exception>
+        public Task<HealthMetricsBaseDTO> GetRecordOfHealthMetricsBaseByIdAsync(int healthMetricsBaseId);
 
         /// <summary>
-        /// Получение записей о базовых медицинских показателях пользователя за период
+        /// Получить все записи для пользователя
         /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <param name="begDate">Начало периода выборки данных</param>
-        /// <param name="endDate">Конец периода выборки данных</param>
-        /// <param name="pageNum">Номер страницы для пагинации</param>
-        /// <param name="pageSize">Количество записей на странице</param>
+        /// <param cref="RequestListWithPeriodByIdDTO">Запрос</param>        
         /// <returns></returns>
-        public Task<IEnumerable<HealthMetricsBaseDTO>> GetAllRecordsOfHealthMetricsBaseByUserIdAsync(int userId, DateTime begDate, DateTime endDate, int pageNum, int pageSize);
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        public Task<IEnumerable<HealthMetricsBaseDTO>> GetAllRecordsOfHealthMetricsBaseByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
     }
 }

@@ -2,5 +2,5 @@
 
 namespace MetricService.DAL.Interfaces
 {
-    public interface IWorkoutRepository : IWriteRepository<Workout> { }
+    public interface IWorkoutRepository : IRepository<Workout> { }
 }

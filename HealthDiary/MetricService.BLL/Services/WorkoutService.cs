@@ -1,9 +1,11 @@
-﻿using MetricService.BLL.Dto;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.Sleep;
+using MetricService.BLL.DTO.Workout;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
+using MetricService.BLL.Mappers;
 using MetricService.DAL.Interfaces;
 using MetricService.Domain.Models;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 namespace MetricService.BLL.Services
@@ -17,175 +19,121 @@ namespace MetricService.BLL.Services
         /// <summary>
         /// Удалить тренировку
         /// </summary>
-        /// <param name="workoutId">ИД тренировки</param>
-        /// <returns>true - если даление успешно</returns>
-        /// <exception cref="ViolationAccessException"></exception>
-        public async Task<bool> DeleteWorkoutAsync(int workoutId)
+        /// <param name="workoutId">ИД тренировки</param>       
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанная тренировка не существует</exception>
+        public async Task DeleteWorkoutAsync(int workoutId)
         {
-            var workoutFind = await _repository.GetByIdAsync(workoutId);
-            if (workoutFind == null) return false;
+            var workoutFind = await _repository.GetByIdAsync(workoutId) ??
+                throw new IncorrectOrEmptyResultException("Указанная тренировка не существует", new Dictionary<object, object>()
+                {
+                    { "workoutId", workoutId }
+                });
 
             if (!_authorizationService.IsInRole("Admin") && workoutFind.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
                 throw new ViolationAccessException("Вам разрешено удалить только свою тренировку", Common.Common.GetAuthorId(_authorizationService), workoutFind.UserId, _repository.Name);
             }
 
-            return await _repository.DeleteAsync(workoutId);
+            await _repository.DeleteAsync(workoutId);
         }
-
 
         /// <summary>
         /// Получить все тренировки для пользователя
         /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <param name="begDate">начало периода выбора тренировок</param>
-        /// <param name="endDate">конец периода выбора тренировок</param>
-        /// <param name="pageNum">номер страницы при пагинации</param>
-        /// <param name="pageSize">кол-во строк на странице при пагинации</param>
+        /// <param cref="RequestListWithPeriodByIdDTO">Запрос</param>        
         /// <returns></returns>
-        /// <exception cref="ViolationAccessException"></exception>
-        public async Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(int userId, DateTime begDate, DateTime endDate, int pageNum, int pageSize)
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        public async Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && userId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои тренировки", Common.Common.GetAuthorId(_authorizationService), userId, _repository.Name);
+                throw new ViolationAccessException("Вам разрешено просматривать только свои тренировки", 
+                    Common.Common.GetAuthorId(_authorizationService), requestListWithPeriodByIdDTO.UserId, _repository.Name);
             }
 
-            var workouts = (await _repository.GetAllAsync()).Where(w => w.UserId == userId && w.StartTime >= begDate && w.EndTime <= endDate)
-                .Skip((pageNum - 1) * pageSize).Take(pageSize);
+            var workouts = (await _repository.GetAllAsync()).Where(w => w.UserId == requestListWithPeriodByIdDTO.UserId &&
+                                    w.StartTime >= requestListWithPeriodByIdDTO.BegDate && w.EndTime <= requestListWithPeriodByIdDTO.EndDate)
+                .Skip((requestListWithPeriodByIdDTO.NumPage - 1) * requestListWithPeriodByIdDTO.PageSize).Take(requestListWithPeriodByIdDTO.PageSize).ToWorkoutDTO();
 
-            var workoutsDTO = new List<WorkoutDTO>();
-            if (workouts.Any())
-            {
-                foreach (var workout in workouts)
-                {
-                    workoutsDTO.Add(CreateWorkoutDTO(workout)!);
-                }
-            }
-            return workoutsDTO;
+            return workouts;
         }
-
 
         /// <summary>
         /// Получить тренировку по ИД
         /// </summary>
         /// <param name="workoutId">ИД тренировки</param>
         /// <returns></returns>
-        /// <exception cref="ViolationAccessException"></exception>
-        public async Task<WorkoutDTO?> GetWorkoutByWorkoutIdAsync(int workoutId)
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанная тренировка не существует</exception>
+        public async Task<WorkoutDTO> GetWorkoutByIdAsync(int workoutId)
         {
-            var workoutFind = await _repository.GetByIdAsync(workoutId);
-            if (workoutFind == null) return null;
+            var workoutFind = await _repository.GetByIdAsync(workoutId) ??
+                throw new IncorrectOrEmptyResultException("Указанная тренировка не существует", new Dictionary<object, object>()
+                {
+                    { "workoutId", workoutId }
+                });
 
             if (!_authorizationService.IsInRole("Admin") && workoutFind.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свою тренировку", Common.Common.GetAuthorId(_authorizationService), workoutFind.UserId, _repository.Name);
             }
 
-            return CreateWorkoutDTO(workoutFind);
+            return workoutFind.ToWorkoutDTO();
         }
-
 
         /// <summary>
         /// Создание тренировки
         /// </summary>
-        /// <param name="workoutDTO">тренировка</param>
-        /// <returns>true - в случае успеха</returns>
+        /// <param name="workoutDTO">тренировка</param>       
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим тренировкам</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        public async Task<bool> CreateWorkoutAsync(WorkoutDTO workoutDTO)
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>        
+        public async Task CreateWorkoutAsync(WorkoutCreateDTO workoutDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && workoutDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные о тренировке для других пользователей", Common.Common.GetAuthorId(_authorizationService), workoutDTO.UserId, _repository.Name);
             }
 
-            Workout workout = CreateModelFromDTO(workoutDTO);
+            Workout workout = workoutDTO.ToWorkout();
 
-            if (!_validator.Validate(workout, out IDictionary<string, string> errorList))
+            if (!_validator.Validate(workout, out Dictionary<string, string> errorList))
             {
                 throw new ValidateModelException("Некорректные данные о тренировке пользователя", errorList);
             }
-            return await _repository.CreateAsync(workout);
-        }
 
+            await _repository.CreateAsync(workout);
+        }
 
         /// <summary>
         /// Обновить данные о тренировке
         /// </summary>
-        /// <param name="workoutDTO">тренировка</param>
-        /// <returns>true - в случае успеха</returns>
+        /// <param name="workoutDTO">тренировка</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим тренировкам</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        public async Task<bool> UpdateWorkoutAsync(WorkoutDTO workoutDTO)
+        /// <exception cref="ValidateModelException">Тренировка не зарегистрирована</exception>
+        public async Task UpdateWorkoutAsync(WorkoutUpdateDTO workoutDTO)
         {
-            var findWorkout = await _repository.GetByIdAsync(workoutDTO.Id);
-            if (findWorkout == null) return false;
+            var findWorkout = await _repository.GetByIdAsync(workoutDTO.Id) ??
+                throw new IncorrectOrEmptyResultException("Тренировка не зарегистрирована",
+                    new Dictionary<object, object>()
+                    {
+                        {"workoutDTO", workoutDTO}
+                    });
 
             if (!_authorizationService.IsInRole("Admin") && findWorkout.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные о тренировке для других пользователей", Common.Common.GetAuthorId(_authorizationService), findWorkout.UserId, _repository.Name);
             }
 
-            findWorkout.Description = workoutDTO.Description;
-            findWorkout.EndTime = workoutDTO.EndTime;
-            findWorkout.StartTime = workoutDTO.StartTime;
-            findWorkout.PhysicalActivityId = workoutDTO.PhysicalActivityId;
+            findWorkout = workoutDTO.ToWorkout(findWorkout.UserId);
 
-            if (!_validator.Validate(findWorkout, out IDictionary<string, string> errorList))
+            if (!_validator.Validate(findWorkout, out Dictionary<string, string> errorList))
             {
                 throw new ValidateModelException("Некорректные данные о тренировке пользователя", errorList);
             }
 
-            return await _repository.UpdateAsync(findWorkout);
-        }
-
-
-        /// <summary>
-        /// Создание модели из DTO
-        /// </summary>
-        /// <param name="workoutDTO"></param>
-        /// <returns></returns>
-        private static Workout CreateModelFromDTO(WorkoutDTO workoutDTO)
-        {
-            return new Workout
-            {
-                Id = workoutDTO.Id,
-                UserId = workoutDTO.UserId,
-                Description = workoutDTO.Description,
-                StartTime = workoutDTO.StartTime,
-                EndTime = workoutDTO.EndTime,
-                PhysicalActivityId = workoutDTO.PhysicalActivityId,
-            };
-
-        }
-
-
-        private static float CaloriesBurned(Workout workout)
-        {            
-            return  (float)(workout.PhysicalActivity.EnergyEquivalent * workout.User.Weight * (workout.EndTime - workout.StartTime).Hours);            
-        }
-
-
-
-        /// <summary>
-        /// Создание DTO из модели
-        /// </summary>
-        /// <param name="workout"></param>
-        /// <returns></returns>
-        private static WorkoutDTO? CreateWorkoutDTO(Workout? workout)
-        {
-            if (workout == null) return null;
-            return new WorkoutDTO
-            {
-                Id = workout.Id,
-                EndTime = workout.EndTime,
-                StartTime = workout.StartTime,
-                Description = workout.Description,
-                PhysicalActivityId = workout.PhysicalActivityId,
-                UserId = workout.UserId,
-                CaloriesBurned = CaloriesBurned(workout)
-            };
+            await _repository.UpdateAsync(findWorkout);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using MetricService.BLL.Dto;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.HealthMetricsBase;
+using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,60 +15,81 @@ namespace MetricService.API.Controllers
         private readonly IHealthMetricsBaseService _healthMetricsBaseService = healthMetricsBaseService
 ;
 
-        [HttpPost("SaveHealthMetricsBase")]
-        public async Task<IActionResult> SaveHealthMetricsBase([FromBody] HealthMetricsBaseDTO HealthMetricsBaseDTO)
+        [HttpPost("CreateHealthMetricsBase")]
+        public async Task<IActionResult> CreateHealthMetricsBase([FromBody] HealthMetricsBaseCreateDTO HealthMetricsBaseDTO)
         {
-            if (HealthMetricsBaseDTO.Id == 0)
+            try
             {
-                return Ok(await _healthMetricsBaseService.CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseDTO));
-            }
-            else
+                await _healthMetricsBaseService.CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseDTO);
+                return Ok();
+            }catch(BaseException ex)
             {
-                return Ok(await _healthMetricsBaseService.UpdateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseDTO));
+                return BadRequest(ex.GetError());
             }
+           
+        }
+
+        [HttpPost("UpdateHealthMetricsBase")]
+        public async Task<IActionResult> UpdateHealthMetricsBase([FromBody] HealthMetricsBaseUpdateDTO HealthMetricsBaseDTO)
+        {
+            try
+            {
+                await _healthMetricsBaseService.UpdateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseDTO);
+                return Ok();
+            }catch(BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }            
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteHealthMetricsBase")]
         public async Task<IActionResult> DeleteHealthMetricsBase(int id)
         {
-            var responce = await _healthMetricsBaseService.DeleteRecordOfHealthMetricsBaseAsync(id);
-            if (responce)
+            try
             {
-                return NoContent();
+                await _healthMetricsBaseService.DeleteRecordOfHealthMetricsBaseAsync(id);
+                return Ok();
             }
-            else
+            catch (BaseException ex)
             {
-                return NotFound();
+                return BadRequest(ex.GetError());
             }
         }
 
 
         [HttpGet("GetAllRecordsOfHealthMetricsBase")]
-        public async Task<IActionResult> GetAllRecordsOfHealthMetricsBase(int userid, DateTime begDate, DateTime endDate, int pagenum, int pagesize)
+        public async Task<IActionResult> GetAllRecordsOfHealthMetricsBase([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            var result = await _healthMetricsBaseService.GetAllRecordsOfHealthMetricsBaseByUserIdAsync(userid, begDate, endDate, pagenum, pagesize);
-
-            if (!result.Any())
+            try
             {
-                return Ok("Список пуст");
-            }
+                var result = await _healthMetricsBaseService.GetAllRecordsOfHealthMetricsBaseByUserIdAsync(requestListWithPeriodByIdDTO);
 
-            return Ok(result.ToArray());
+                if (!result.Any())
+                {
+                    return Ok("Список пуст");
+                }
+
+                return Ok(result.ToArray());
+            }catch(BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
         }
 
 
         [HttpGet("GetHealthMetricsBaseById")]
         public async Task<IActionResult> GetHealthMetricsBaseById(int hmbid)
         {
-            var result = await _healthMetricsBaseService.GetRecordOfHealthMetricsBaseByIdAsync(hmbid);
-
-            if (result == null)
+            try
             {
-                return NotFound();
-            }
 
-            return Ok(result);
+                return Ok(await _healthMetricsBaseService.GetRecordOfHealthMetricsBaseByIdAsync(hmbid));
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
         }
     }
 }

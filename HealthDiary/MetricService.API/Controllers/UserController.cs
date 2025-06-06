@@ -1,7 +1,8 @@
-﻿using MetricService.BLL.Dto;
-using MetricService.BLL.Interfaces;
+﻿using MetricService.BLL.Interfaces;
+using MetricService.BLL.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MetricService.BLL.DTO;
 
 namespace MetricService.Api.Controllers
 {
@@ -12,58 +13,79 @@ namespace MetricService.Api.Controllers
     {
         private readonly IUserService _userService = userService;
 
-        [HttpPost("SaveProfile")]
-        public async Task<IActionResult> SaveProfile([FromBody] UserDTO userDTO)
+        [HttpPost("CreateProfile")]
+        public async Task<IActionResult> CreateProfile([FromBody] UserDTO userDTO)
         {
-            var user = await _userService.GetUserByIdAsync(userDTO.Id);
-            if (user == null)
+            try
             {
-                return Ok(await _userService.CreateProfileAsync(userDTO));
+                await _userService.CreateProfileAsync(userDTO);
+                return Ok();
             }
-            else
+            catch (BaseException ex)
             {
-                return Ok(await _userService.UpdateProfileAsync(userDTO));
+                return BadRequest(ex.GetError());
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost("UpdateProfile")]
+        public async Task<IActionResult> UpdateProfile([FromBody] UserDTO userDTO)
+        {
+            try
+            {
+                await _userService.UpdateProfileAsync(userDTO);
+                return Ok();
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
+        }
+
+        [HttpDelete("DeleteProfile")]
         public async Task<IActionResult> DeleteProfile(int id)
         {
-            var responce = await _userService.DeleteProfileAsync(id);
-            if (responce)
+            try
             {
-                return NoContent();
+                await _userService.DeleteProfileAsync(id);
+                return Ok();
             }
-            else
+            catch (BaseException ex)
             {
-                return NotFound();
+                return BadRequest(ex.GetError());
             }
         }
 
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers(int pagenum, int pagesize)
         {
-            var result = await _userService.GetAllUsersAsync(pagenum, pagesize);
-
-            if (!result.Any())
+            try
             {
-                return Ok("Список пуст");
-            }
+                var result = await _userService.GetAllUsersAsync(pagenum, pagesize);
 
-            return Ok(result.ToArray());
+                if (!result.Any())
+                {
+                    return Ok("Список пуст");
+                }
+
+                return Ok(result.ToArray());
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
         }
 
         [HttpGet("GetUserById")]
         public async Task<IActionResult> GetUserByIds(int userid)
         {
-            var result = await _userService.GetUserByIdAsync(userid);
-
-            if (result == null)
+            try
             {
-                return NotFound();
+                return Ok(await _userService.GetUserByIdAsync(userid));
             }
-
-            return Ok(result);
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ namespace MetricService.BLL.Validators
 {
     public  class WorkoutValidator : IValidator<Workout>
     {
-        public bool Validate(Workout entity, out IDictionary<string, string> errorList)
+        public bool Validate(Workout entity, out Dictionary<string, string> errorList)
         {
 
             errorList = new Dictionary<string, string>();

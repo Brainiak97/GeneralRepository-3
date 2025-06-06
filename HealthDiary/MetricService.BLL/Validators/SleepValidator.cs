@@ -5,7 +5,7 @@ namespace MetricService.BLL.Validators
 {
     public class SleepValidator : IValidator<Sleep>
     {
-        public bool Validate(Sleep entity, out IDictionary<string, string> errorList)
+        public bool Validate(Sleep entity, out Dictionary<string, string> errorList)
         {
             
             errorList =new Dictionary<string, string>();

@@ -2,7 +2,7 @@
 
 namespace MetricService.DAL.Interfaces
 {
-    public interface ISleepRepository : IWriteRepository<Sleep> 
+    public interface ISleepRepository : IRepository<Sleep> 
     {
         
     }

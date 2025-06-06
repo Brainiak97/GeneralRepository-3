@@ -1,4 +1,7 @@
-﻿using MetricService.BLL.Interfaces;
+﻿using MetricService.BLL.DTO.PhysicalActivity;
+using MetricService.BLL.Exceptions;
+using MetricService.BLL.Interfaces;
+using MetricService.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
@@ -10,6 +13,48 @@ namespace MetricService.API.Controllers
         readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;
 
 
+        [HttpPost("CreatePhysicalActivity")]
+        public async Task<IActionResult> CreatePhysicalActivity([FromBody] PhysicalActivityDTO physicalActivityDTO)
+        {
+            try
+            {
+                await _physicalActivityService.CreatePhysicalActivityAsync(physicalActivityDTO);
+                return Ok();
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
+        }
+
+        [HttpPost("UpdatePhysicalActivity")]
+        public async Task<IActionResult> UpdatePhysicalActivity([FromBody] PhysicalActivityDTO physicalActivityDTO)
+        {
+            try
+            {
+                await _physicalActivityService.UpdatePhysicalActivityAsync(physicalActivityDTO);
+                return Ok();
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
+        }
+
+
+        [HttpDelete("DeletePhysicalActivity")]
+        public async Task<IActionResult> DeletePhysicalActivity(int id)
+        {
+            try
+            {
+                await _physicalActivityService.DeletePhysicalActivityAsync(id);
+                return Ok();
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
+        }
 
         [HttpGet("GetAllPhysicalActivities")]
         public async Task<IActionResult> GetAllPhysicalActivities(int pagenum, int pagesize)
@@ -27,14 +72,20 @@ namespace MetricService.API.Controllers
         [HttpGet("GetPhysicalActivityById")]
         public async Task<IActionResult> GetPhysicalActivityById(int phaid)
         {
-            var result = await _physicalActivityService.GetPhysicalActivityByIdAsync(phaid);
-
-            if (result == null)
+            try
             {
-                return NotFound();
-            }
+                var result = await _physicalActivityService.GetPhysicalActivityByIdAsync(phaid);
 
-            return Ok(result);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
+            }catch(BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
         }
 
         [HttpGet("FindPhysicalActivityByName")]

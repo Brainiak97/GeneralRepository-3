@@ -1,47 +1,55 @@
-﻿using MetricService.BLL.Dto;
-using System.Security.Claims;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
    public  interface IUserService
     {
         /// <summary>
-        /// Создание антропометрии пользователя
+        /// Создание профиля пользователя
         /// </summary>
-        /// <param name="useruserDTO"></param>
-        /// <returns></returns>
-        public Task<bool> CreateProfileAsync(UserDTO useruserDTO);
+        /// /// <param name="author"></param>
+        /// <param name="userDTO"></param>        
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
+        ///  <exception cref="IncorrectOrEmptyResultException">Возникает когда пользователь уже зарегистрирован</exception>
+        public Task CreateProfileAsync(UserDTO userDTO);
 
         /// <summary>
-        /// Обновление антропометрии пользователя
+        /// Обновление профиля пользователя
         /// </summary>
-        /// <param name="useruserDTO"></param>
-        /// <returns></returns>
-        public Task<bool> UpdateProfileAsync(UserDTO useruserDTO);
+        /// /// <param name="author"></param>
+        /// <param name="userDTO"></param>
+        /// <returns>true - в случае успеха</returns>
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
+        public Task UpdateProfileAsync(UserDTO userDTO);
 
         /// <summary>
-        /// Удаление профиля пользователя из системы
+        /// Удаление профиля пользователя
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public Task<bool> DeleteProfileAsync(int userId);
+        /// <param name="userId"></param>       
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>    
+        /// <exception cref="IncorrectOrEmptyResultException">Возникает если указанный пользователь не существует</exception>   
+        public Task DeleteProfileAsync(int userId);
 
 
         /// <summary>
-        /// получение пользователя по ИД
+        /// получение пользователя по идентификатору
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public Task<UserDTO?> GetUserByIdAsync(int userId);
+        /// <param name="userId">идентификатор пользователя</param>
+        /// <returns>Модель DTO</returns>
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>  
+        /// <exception cref="IncorrectOrEmptyResultException">Возникает когда пользователь с заданным ИД не найден</exception> 
+        public Task<UserDTO> GetUserByIdAsync(int userId);
 
         /// <summary>
-        /// Возвращает список пользователей системы
+        /// Вывести список пользователей с пагинацией
         /// </summary>
-        /// <param name="pageNum">Номер страницы пагинации</param>
-        /// <param name="pageSize">Количество записей га странице</param>
-        /// <returns></returns>
+        /// <param name="pageNum">номер страницы</param>
+        /// <param name="pageSize">кол-во позиций на странице</param>
+        /// <returns>Список моделей DTO</returns>,
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>     
         public Task<IEnumerable<UserDTO>> GetAllUsersAsync(int pageNum, int pageSize);
-                
-
     }
 }

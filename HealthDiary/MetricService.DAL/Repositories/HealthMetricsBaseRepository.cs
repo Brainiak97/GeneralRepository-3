@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
-    public class HealthMetricsBaseRepository : WriteBaseRepository<HealthMetricsBase>, IHealthMetricsBaseRepository
+    public class HealthMetricsBaseRepository : BaseRepository<HealthMetricsBase>, IHealthMetricsBaseRepository
     {
         public HealthMetricsBaseRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
@@ -26,12 +26,10 @@ namespace MetricService.DAL.Repositories
             {
                 healthMetricsBase.BloodPressureSys = item.BloodPressureSys;
                 healthMetricsBase.BloodPressureDia = item.BloodPressureDia;
-                healthMetricsBase.UserId = item.UserId;
-                healthMetricsBase.WaterIntake = item.WaterIntake;
+                healthMetricsBase.BodyFatPercentage = item.BodyFatPercentage;
                 healthMetricsBase.HeartRate = item.HeartRate;
                 healthMetricsBase.MetricDate = item.MetricDate;
-                healthMetricsBase.BodyFatPercentage = item.BodyFatPercentage;
-
+                healthMetricsBase.WaterIntake = item.WaterIntake;
             }
             return await _contextDb.SaveChangesAsync() == 1;
         }

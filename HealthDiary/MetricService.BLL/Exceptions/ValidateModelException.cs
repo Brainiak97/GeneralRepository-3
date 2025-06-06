@@ -1,16 +1,22 @@
 ﻿namespace MetricService.BLL.Exceptions
 {
-    public class ValidateModelException: ApplicationException
+    public class ValidateModelException : BaseException
     {
         /// <summary>
         /// Возникает если валидация модели не прошла
         /// </summary>
         /// <param name="message">Сообщение об ошибке</param>
         /// <param name="errorDetail">детализация ошибки</param>
-        public ValidateModelException(string message, IDictionary <string, string> errorDetail): base( message)
+        public ValidateModelException(string message, Dictionary<string, string>? errorDetail = null) : base(message)
         {
-        ErrorDetail = errorDetail;     
+            if (errorDetail != null)
+            {
+                foreach (var error in errorDetail)
+                {
+                    Data.Add(error.Key, error.Value);   
+                }
+            }
         }
-        public IDictionary<string, string> ErrorDetail { get; init; }
+
     }
 }

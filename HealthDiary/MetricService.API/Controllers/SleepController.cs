@@ -1,4 +1,6 @@
-﻿using MetricService.BLL.Dto;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.Sleep;
+using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,59 +15,81 @@ namespace MetricService.API.Controllers
         private readonly ISleepService _sleepService = sleepService;
 
 
-        [HttpPost("SaveSleep")]
-        public async Task<IActionResult> SaveSleep([FromBody] SleepDTO sleepDTO)
+        [HttpPost("CreateSleep")]
+        public async Task<IActionResult> CreateSleep([FromBody] SleepCreateDTO sleepDTO)
         {
-            if (sleepDTO.Id == 0)
+            try
             {
-                return Ok(await _sleepService.CreateRecordOfSleepAsync(sleepDTO));
+                await _sleepService.CreateRecordOfSleepAsync(sleepDTO);
+                return Ok();
             }
-            else
+            catch (BaseException ex)
             {
-                return Ok(await _sleepService.UpdateRecordOfSleepAsync(sleepDTO));
+                return BadRequest(ex.GetError());
+            }
+        }
+
+        [HttpPost("UpdateSleep")]
+        public async Task<IActionResult> UpdateSleep([FromBody] SleepUpdateDTO sleepDTO)
+        {
+            try
+            {
+                await _sleepService.UpdateRecordOfSleepAsync(sleepDTO);
+                return Ok();
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
             }
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteSleep")]
         public async Task<IActionResult> DeleteSleep(int id)
         {
-            var responce = await _sleepService.DeleteRecordOfSleepAsync(id);
-            if (responce)
+            try
             {
-                return NoContent();
+                await _sleepService.DeleteRecordOfSleepAsync(id);
+                return Ok();
             }
-            else
+            catch (BaseException ex)
             {
-                return NotFound();
+                return BadRequest(ex.GetError());
             }
         }
 
-        [HttpGet("GetAllSleeps")]
-        public async Task<IActionResult> GetAllSleeps(int userid, DateTime begDate, DateTime endDate, int pagenum, int pagesize)
+        [HttpGet("GetAllSleeps")]       
+        public async Task<IActionResult> GetAllSleeps([FromQuery]RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            var result = await _sleepService.GetAllRecordsOfSleepByUserIdAsync(userid, begDate, endDate, pagenum, pagesize);
-
-            if (!result.Any())
+            try
             {
-                return Ok("Список пуст");
-            }
+                var result = await _sleepService.GetAllRecordsOfSleepByUserIdAsync(requestListWithPeriodByIdDTO);
 
-            return Ok(result.ToArray());
+                if (!result.Any())
+                {
+                    return Ok("Список пуст");
+                }
+
+                return Ok(result.ToArray());
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
         }
 
 
         [HttpGet("GetSleepById")]
         public async Task<IActionResult> GetSleepById(int sleepid)
         {
-            var result = await _sleepService.GetRecordOfSleepByIdAsync(sleepid);
-
-            if (result == null)
+            try
             {
-                return NotFound();
+                return Ok(await _sleepService.GetRecordOfSleepByIdAsync(sleepid));
             }
-
-            return Ok(result);
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
         }
     }
 }

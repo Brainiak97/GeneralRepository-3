@@ -4,12 +4,12 @@ using MetricService.Domain.Models;
 
 namespace MetricService.DAL.Repositories
 {
-    public class UserRepository : WriteBaseRepository<User>, IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb) { }
 
         public override async Task<bool> CreateAsync(User item)
-        {                    
+        {
             _contextDb.Add(item);
             return await _contextDb.SaveChangesAsync() == 1;
         }
@@ -20,11 +20,10 @@ namespace MetricService.DAL.Repositories
             if (user != null)
             {
                 user.Weight = item.Weight;
-                user.DateOfBirth = item.DateOfBirth;
                 user.Height = item.Height;
+                user.DateOfBirth = item.DateOfBirth;                
             }
-
-            return await _contextDb.SaveChangesAsync() == 1;
+            return await _contextDb.SaveChangesAsync() == 1;            
         }
     }
 }

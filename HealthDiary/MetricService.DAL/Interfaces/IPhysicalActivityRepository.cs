@@ -2,5 +2,5 @@
 
 namespace MetricService.DAL.Interfaces
 {
-   public interface IPhysicalActivityRepository : IReadRepository<PhysicalActivity> { }
+   public interface IPhysicalActivityRepository : IRepository<PhysicalActivity> { }
 }

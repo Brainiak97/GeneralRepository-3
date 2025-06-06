@@ -18,6 +18,6 @@
         /// <summary>
         /// Метаболический эквивалент
         /// </summary>
-        public float EnergyEquivalent { get; }
+        public float EnergyEquivalent { get; set; }
     }
 }

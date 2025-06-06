@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
-    public class WorkoutRepository : WriteBaseRepository<Workout>, IWorkoutRepository
+    public class WorkoutRepository : BaseRepository<Workout>, IWorkoutRepository
     {
         public WorkoutRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
@@ -27,14 +27,14 @@ namespace MetricService.DAL.Repositories
                 workout.EndTime = item.EndTime;
                 workout.Description = item.Description;
                 workout.PhysicalActivityId = item.PhysicalActivityId;
-                workout.UserId = item.UserId;
             }
             return await _contextDb.SaveChangesAsync() == 1;
         }
 
         public async override Task<Workout?> GetByIdAsync(int id)
         {
-            return await _contextDb.Workouts.Include(w => w.User).Include(w=>w.PhysicalActivity).FirstOrDefaultAsync(s => s.Id == id);
+            return await _contextDb.Workouts.Include(w => w.User).Include(w=>w.PhysicalActivity)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async override Task<IEnumerable<Workout>> GetAllAsync()

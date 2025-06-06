@@ -2,5 +2,5 @@
 
 namespace MetricService.DAL.Interfaces
 {
-   public interface IHealthMetricsBaseRepository : IWriteRepository<HealthMetricsBase> { }
+   public interface IHealthMetricsBaseRepository : IRepository<HealthMetricsBase> { }
 }

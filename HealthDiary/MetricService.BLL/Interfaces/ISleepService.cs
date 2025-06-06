@@ -1,48 +1,53 @@
-﻿using MetricService.BLL.Dto;
-using System.Security.Claims;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.Sleep;
 
 namespace MetricService.BLL.Interfaces
 {
     public  interface ISleepService
     {
         /// <summary>
-        /// Создание записи о сне пользователя
+        /// Создание информации о сне
         /// </summary>
-        /// <param name="sleepDTO">параметры сна</param>
-        /// <returns></returns>
-        public Task<bool> CreateRecordOfSleepAsync(SleepDTO sleepDTO);
+        /// <param name="sleepDTO">Сон</param>
+        /// <returns>true - в случае успеха</returns>
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>       
+        public Task CreateRecordOfSleepAsync(SleepCreateDTO sleepDTO);
 
         /// <summary>
-        /// Обновление записи о сне пользователя
+        /// Обновление информации о сне
         /// </summary>
-        /// <param name="sleepDTO">параметры сна</param>
+        /// <param name="sleepDTO">сон</param>
         /// <returns></returns>
-        public Task<bool> UpdateRecordOfSleepAsync(SleepDTO sleepDTO);
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Сон не зарегистрирован</exception>
+        public Task UpdateRecordOfSleepAsync(SleepUpdateDTO sleepDTO);
 
         /// <summary>
-        /// удаление записи о сне пользователя
+        /// Удаление информации о сне пользователя
         /// </summary>
         /// <param name="sleepId">ИД сна</param>
-        /// <returns></returns>
-        public Task<bool> DeleteRecordOfSleepAsync(int sleepId);
+        /// <returns>true - в случае успеха</returns>
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанный пользователь не существует</exception>
+        public Task DeleteRecordOfSleepAsync(int sleepId);
 
         /// <summary>
-        /// получить запись о сне пользователя
+        /// Получить информацию о сне
         /// </summary>
-        /// <param name="sleepId"></param>
-        /// <returns></returns>
-        public Task<SleepDTO?> GetRecordOfSleepByIdAsync(int sleepId);
+        /// <param name="sleepId">ИД сна</param>
+        /// <returns>Модель DTO</returns>
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанный пользователь не существует</exception>
+        public Task<SleepDTO> GetRecordOfSleepByIdAsync(int sleepId);
 
         /// <summary>
-        /// Получение записей о снах пользователя за период
+        /// Получить все записи о снах пользователя
         /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <param name="begDate">Начало периода выборки данных</param>
-        /// <param name="endDate">Конец периода выборки данных</param>
-        /// <param name="pageNum">Номер страницы для пагинации</param>
-        /// <param name="pageSize">Количество записей на странице</param>
+        /// <param cref="RequestListWithPeriodByIdDTO">Запрос</param>        
         /// <returns></returns>
-        public Task<IEnumerable<SleepDTO>> GetAllRecordsOfSleepByUserIdAsync(int userId, DateTime begDate, DateTime endDate, int pageNum, int pageSize);
-
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        public Task<IEnumerable<SleepDTO>> GetAllRecordsOfSleepByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MetricService.BLL.Dto
+﻿namespace MetricService.BLL.DTO
 {
     public  class UserDTO
     {

@@ -1,16 +1,7 @@
-﻿namespace MetricService.BLL.Dto
+﻿namespace MetricService.BLL.DTO.Workout
 {
-    public  class WorkoutDTO
-    {
-        /// <summary>
-        /// идентификатор
-        /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// пользователя
-        /// </summary>        
-        public int UserId { get; set; }
-     
+    public abstract class WorkoutBaseDTO
+    {  
         /// <summary>
         /// Физическая активность
         /// </summary>
@@ -29,7 +20,7 @@
         /// <summary>
         /// описание
         /// </summary>
-        public string? Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         /// <summary>
         /// Потраченные калории за тренировку

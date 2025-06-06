@@ -1,16 +1,42 @@
-﻿using MetricService.BLL.Dto;
-using MetricService.Domain.Models;
+﻿using MetricService.Domain.Models;
+using MetricService.BLL.Exceptions;
+using MetricService.BLL.DTO.PhysicalActivity;
 
 namespace MetricService.BLL.Interfaces
 {
     public interface IPhysicalActivityService 
     {
-       /// <summary>
-       /// получение физической активности по ИД
-       /// </summary>
-       /// <param name="activityId">ИД активности</param>
-       /// <returns></returns>
-       public Task<PhysicalActivityDTO?> GetPhysicalActivityByIdAsync(int activityId);
+        /// <summary>
+        /// Создание физической активности
+        /// </summary>
+        /// <param name="physicalActivityDTO">физическая активность</param>        
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>        
+        /// <exception cref="ValidateModelException">физическая активность уже зарегистрирована</exception>
+        public Task CreatePhysicalActivityAsync(PhysicalActivityDTO physicalActivityDTO);
+
+        /// <summary>
+        /// Обновить данные о физической активностие
+        /// </summary>
+        /// <param name="physicalActivityDTO">физическая активность</param>        
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>        
+        /// <exception cref="ValidateModelException">физическая активность не зарегистрирована</exception>
+        public Task UpdatePhysicalActivityAsync(PhysicalActivityDTO physicalActivityDTO);
+
+        /// <summary>
+        /// Удалить физическую активность
+        /// </summary>
+        /// <param name="physicalActivityId">ИД активности/param>        
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанная физическая активность не существует</exception>
+        public Task DeletePhysicalActivityAsync(int physicalActivityId);
+
+        /// <summary>
+        /// Получить запись о физической автивности по ИД
+        /// </summary>
+        /// <param name="activityId">ИД физ. активности</param>
+        /// <returns>Модель DTO</returns>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанная физическая активность не существует</exception>
+        public Task<PhysicalActivityDTO> GetPhysicalActivityByIdAsync(int activityId);
 
        /// <summary>
        /// получение списка физической активности
@@ -27,6 +53,6 @@ namespace MetricService.BLL.Interfaces
         /// </summary>
         /// <param name="search">строка поиска по наименованию</param>
         /// <returns></returns>
-        public Task<IEnumerable<PhysicalActivity>> GetListPhysicalActivitiesBySearchAsync(string search);
+        public Task<IEnumerable<PhysicalActivityDTO>> GetListPhysicalActivitiesBySearchAsync(string search);
     }
 }

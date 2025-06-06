@@ -1,6 +1,8 @@
-﻿using MetricService.BLL.Dto;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.Sleep;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
+using MetricService.BLL.Mappers;
 using MetricService.DAL.Interfaces;
 using MetricService.Domain.Models;
 using System.Security.Claims;
@@ -11,7 +13,7 @@ namespace MetricService.BLL.Services
     {
         private readonly ISleepRepository _repository = sleepRepository;
         private readonly IValidator<Sleep> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService =authorizationService;
+        private readonly ClaimsPrincipal _authorizationService = authorizationService;
 
 
         /// <summary>
@@ -20,52 +22,44 @@ namespace MetricService.BLL.Services
         /// <param name="sleepId">ИД сна</param>
         /// <returns>true - в случае успеха</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        public async Task<bool> DeleteRecordOfSleepAsync(int sleepId)
+        /// <exception cref="IncorrectOrEmptyResultException">Указанный пользователь не существует</exception>
+        public async Task DeleteRecordOfSleepAsync(int sleepId)
         {
-            var sleepFind = await _repository.GetByIdAsync(sleepId);
-            if (sleepFind == null) return false;
+            var sleepFind = await _repository.GetByIdAsync(sleepId) ??
+                throw new IncorrectOrEmptyResultException("Указанный пользователь не существует", new Dictionary<object, object>()
+                {
+                    { "sleepId", sleepId }
+                });
 
             if (!_authorizationService.IsInRole("Admin") && sleepFind.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вам разрешено удалить только свою запись о сне", Common.Common.GetAuthorId(_authorizationService), sleepFind.UserId, _repository.Name);
+                throw new ViolationAccessException("Вам разрешено удалить только свою запись о сне", 
+                    Common.Common.GetAuthorId(_authorizationService), sleepFind.UserId, _repository.Name);
             }
 
-            return await _repository.DeleteAsync(sleepId);
+            await _repository.DeleteAsync(sleepId);
         }
-
-
 
         /// <summary>
         /// Получить все записи о снах пользователя
         /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <param name="begDate">Начало периода для отбора значений</param>
-        /// <param name="endDate">Конец периода для отбора значений</param>
-        /// <param name="pageNum">Номер страницы для пагинации</param>
-        /// <param name="pageSize">Кол-во строк на странице для пагинации</param>
+        /// <param cref="RequestListWithPeriodByIdDTO">Запрос</param>        
         /// <returns></returns>
-        /// <exception cref="ViolationAccessException"></exception>
-        public async Task<IEnumerable<SleepDTO>> GetAllRecordsOfSleepByUserIdAsync(int userId, DateTime begDate, DateTime endDate, int pageNum, int pageSize)
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        public async Task<IEnumerable<SleepDTO>> GetAllRecordsOfSleepByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && userId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о сне", Common.Common.GetAuthorId(_authorizationService), userId, _repository.Name);
+                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о сне", 
+                    Common.Common.GetAuthorId(_authorizationService), requestListWithPeriodByIdDTO.UserId, _repository.Name);
             }
 
-            var sleeps = (await _repository.GetAllAsync()).Where(s => s.UserId == userId && s.StartSleep >= begDate && s.StartSleep <= endDate)
-                .Skip((pageNum - 1) * pageSize).Take(pageSize);
-
-            var sleepsDTO = new List<SleepDTO>();
-            if (sleeps.Any())
-            {
-                foreach (var sleep in sleeps)
-                {
-                    sleepsDTO.Add(CreateSleepDTO(sleep)!);
-                }
-            }
-            return sleepsDTO;
+            var sleeps = (await _repository.GetAllAsync()).Where(s => s.UserId == requestListWithPeriodByIdDTO.UserId && s.StartSleep >= requestListWithPeriodByIdDTO.BegDate && 
+            s.StartSleep <= requestListWithPeriodByIdDTO.EndDate)
+                .Skip((requestListWithPeriodByIdDTO.NumPage - 1) * requestListWithPeriodByIdDTO.PageSize).Take(requestListWithPeriodByIdDTO.PageSize).ToSleepDTO();
+           
+            return sleeps;
         }
-
 
 
         /// <summary>
@@ -73,21 +67,24 @@ namespace MetricService.BLL.Services
         /// </summary>
         /// <param name="sleepId">ИД сна</param>
         /// <returns>Модель DTO</returns>
-        /// <exception cref="ViolationAccessException"></exception>
-        public async Task<SleepDTO?> GetRecordOfSleepByIdAsync(int sleepId)
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Указанный пользователь не существует</exception>
+        public async Task<SleepDTO> GetRecordOfSleepByIdAsync(int sleepId)
         {
-            var sleepFind = await _repository.GetByIdAsync(sleepId);
-            if (sleepFind == null) return null;
+            var sleepFind = await _repository.GetByIdAsync(sleepId) ??
+            throw new IncorrectOrEmptyResultException("Указанный пользователь не существует", new Dictionary<object, object>()
+                {
+                    { "sleepId", sleepId }
+                });
 
             if (!_authorizationService.IsInRole("Admin") && sleepFind.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о сне", Common.Common.GetAuthorId(_authorizationService), sleepFind.UserId, _repository.Name);
+                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о сне", 
+                    Common.Common.GetAuthorId(_authorizationService), sleepFind.UserId, _repository.Name);
             }
 
-            return CreateSleepDTO(sleepFind);
+            return sleepFind.ToSleepDTO();
         }
-
-
 
         /// <summary>
         /// Создание информации о сне
@@ -95,24 +92,24 @@ namespace MetricService.BLL.Services
         /// <param name="sleepDTO">Сон</param>
         /// <returns>true - в случае успеха</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        public async Task<bool> CreateRecordOfSleepAsync(SleepDTO sleepDTO)
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>       
+        public async Task CreateRecordOfSleepAsync(SleepCreateDTO sleepDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && (sleepDTO.UserId != Common.Common.GetAuthorId(_authorizationService)))
             {
-                throw new ViolationAccessException("Вы не можете создавать данные о сне для других пользователей", Common.Common.GetAuthorId(_authorizationService), sleepDTO.UserId, _repository.Name);
+                throw new ViolationAccessException("Вы не можете создавать данные о сне для других пользователей", 
+                    Common.Common.GetAuthorId(_authorizationService), sleepDTO.UserId, _repository.Name);
             }
 
-            Sleep sleep = CreateModelFromDTO(sleepDTO);
+            Sleep sleep = sleepDTO.ToSleep();
 
-            if (!_validator.Validate(sleep, out IDictionary<string, string> errorList))
+            if (!_validator.Validate(sleep, out Dictionary<string, string> errorList))
             {
                 throw new ValidateModelException("Некорректные данные о сне пользователя", errorList);
             }
 
-            return await _repository.CreateAsync(sleep);
+            await _repository.CreateAsync(sleep);
         }
-
 
         /// <summary>
         /// Обновление информации о сне
@@ -121,69 +118,31 @@ namespace MetricService.BLL.Services
         /// <returns></returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        public async Task<bool> UpdateRecordOfSleepAsync(SleepDTO sleepDTO)
+        /// <exception cref="IncorrectOrEmptyResultException">Сон не зарегистрирован</exception>
+        public async Task UpdateRecordOfSleepAsync(SleepUpdateDTO sleepDTO)
         {
-            var findSleep = await _repository.GetByIdAsync(sleepDTO.Id);
-            if (findSleep == null) return false;
+            var findSleep = await _repository.GetByIdAsync(sleepDTO.Id) ??
+                           throw new IncorrectOrEmptyResultException("Сон не зарегистрирован",
+                               new Dictionary<object, object>()
+                               {
+                                    {"sleepDTO", sleepDTO}
+                               });
+
 
             if (!_authorizationService.IsInRole("Admin") && (findSleep.UserId != Common.Common.GetAuthorId(_authorizationService)))
             {
-                throw new ViolationAccessException("Вы не можете изменять данные о сне для других пользователей", Common.Common.GetAuthorId(_authorizationService), findSleep.UserId, _repository.Name);
+                throw new ViolationAccessException("Вы не можете изменять данные о сне для других пользователей", 
+                    Common.Common.GetAuthorId(_authorizationService), findSleep.UserId, _repository.Name);
             }
 
-            findSleep.StartSleep = sleepDTO.StartSleep;
-            findSleep.EndSleep = sleepDTO.EndSleep;
-            findSleep.Comment = sleepDTO.Comment;
+            findSleep = sleepDTO.ToSleep(findSleep.UserId);
 
-            if (!_validator.Validate(findSleep, out IDictionary<string, string> errorList))
+            if (!_validator.Validate(findSleep, out Dictionary<string, string> errorList))
             {
                 throw new ValidateModelException("Некорректные данные о сне пользователя", errorList);
             }
-                        
-            return await _repository.UpdateAsync(findSleep);
-        }
 
-        /// <summary>
-        /// Создание SleepDTO по модели "Сон"
-        /// </summary>
-        /// <param name="sleep">Модель</param>
-        /// <returns>Модель DTO</returns>
-        private static SleepDTO? CreateSleepDTO(Sleep? sleep)
-        {
-            if (sleep == null) return null;
-            return new SleepDTO
-            {
-                Id = sleep.Id,
-                Comment = sleep.Comment,
-                EndSleep = sleep.EndSleep,
-                QualityRating = sleep.QualityRating,
-                StartSleep = sleep.StartSleep,
-                UserId = sleep.UserId,
-
-
-            };
-        }
-
-
-
-        /// <summary>
-        /// Создание модели из DTO
-        /// </summary>
-        /// <param name="sleepDTO">Модель DTO</param>
-        /// <returns>Модель</returns>
-        private static Sleep CreateModelFromDTO(SleepDTO sleepDTO)
-        {
-            var sleep = new Sleep
-            {
-                Id = sleepDTO.Id,
-                Comment = sleepDTO.Comment,
-                EndSleep = sleepDTO.EndSleep,
-                QualityRating = sleepDTO.QualityRating,
-                StartSleep = sleepDTO.StartSleep,
-                UserId = sleepDTO.UserId
-
-            };
-            return sleep;
-        }
+            await _repository.UpdateAsync(findSleep);
+        }                
     }
 }

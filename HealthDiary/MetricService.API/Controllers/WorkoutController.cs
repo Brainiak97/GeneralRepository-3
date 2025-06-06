@@ -1,4 +1,6 @@
-﻿using MetricService.BLL.Dto;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.Workout;
+using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,37 +14,51 @@ namespace MetricService.API.Controllers
     {
         private readonly IWorkoutService _workoutService = workoutService;
 
-        [HttpPost("SaveWorkout")]
-        public async Task<IActionResult> SaveWorkout([FromBody] WorkoutDTO workoutDTO)
+        [HttpPost("CreateWorkout")]
+        public async Task<IActionResult> CreateWorkout([FromBody] WorkoutCreateDTO workoutDTO)
         {
-            if (workoutDTO.Id == 0)
+            try
             {
-                return Ok(await _workoutService.CreateWorkoutAsync(workoutDTO));
+                await _workoutService.CreateWorkoutAsync(workoutDTO);
+                return Ok();
             }
-            else
+            catch (BaseException ex)
             {
-                return Ok(await _workoutService.UpdateWorkoutAsync(workoutDTO));
+                return BadRequest(ex.GetError());
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost("UpdateWorkout")]
+        public async Task<IActionResult> UpdateWorkout([FromBody] WorkoutUpdateDTO workoutDTO)
+        {
+            try
+            {
+                await _workoutService.UpdateWorkoutAsync(workoutDTO);
+                return Ok();
+            }
+            catch (BaseException ex)
+            {
+                return BadRequest(ex.GetError());
+            }
+        }
+
+        [HttpDelete("DeleteWorkout")]
         public async Task<IActionResult> DeleteWorkout(int id)
         {
-            var responce = await _workoutService.DeleteWorkoutAsync(id);
-            if (responce)
+            try
             {
-                return NoContent();
-            }
-            else
+                await _workoutService.DeleteWorkoutAsync(id);
+                return Ok();
+            }catch(BaseException ex)
             {
-                return NotFound();
-            }
+                return BadRequest(ex.GetError());
+            }            
         }
 
         [HttpGet("GetAllWorkouts")]
-        public async Task<IActionResult> GetAllWorkouts(int userid, DateTime begDate, DateTime endDate, int pagenum, int pagesize)
+        public async Task<IActionResult> GetAllWorkouts([FromQuery]RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            var result = await _workoutService.GetAllWorkoutsByUserIdAsync(userid, begDate, endDate, pagenum, pagesize);
+            var result = await _workoutService.GetAllWorkoutsByUserIdAsync(requestListWithPeriodByIdDTO);
 
             if (!result.Any())
             {
@@ -55,16 +71,13 @@ namespace MetricService.API.Controllers
         [HttpGet("GetWorkoutById")]
         public async Task<IActionResult> GetWorkoutByIds(int workoutid)
         {
-            var result = await _workoutService.GetWorkoutByWorkoutIdAsync(workoutid);
-
-            if (result == null)
+            try
             {
-                return NotFound();
+                return Ok(await _workoutService.GetWorkoutByIdAsync(workoutid));
+            }catch(BaseException ex)
+            {
+                return BadRequest(ex.GetError());
             }
-
-            return Ok(result);
         }
-
-
     }
 }

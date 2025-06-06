@@ -37,7 +37,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                 .Append(Path.DirectorySeparatorChar)
                 .Append("InitData")
                 .Append(Path.DirectorySeparatorChar)
-                .Append(typeof(PhysicalActivity).Name)
+                .Append(nameof(PhysicalActivity))
                 .Append(".csv");
 
 

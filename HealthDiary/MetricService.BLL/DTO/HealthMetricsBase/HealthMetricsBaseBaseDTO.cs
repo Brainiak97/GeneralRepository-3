@@ -1,17 +1,7 @@
-﻿namespace MetricService.BLL.Dto
+﻿namespace MetricService.BLL.DTO.HealthMetricsBase
 {
-    public  class HealthMetricsBaseDTO
-    {
-        /// <summary>
-        /// идентификатор
-        /// 0 - для новых записей
-        /// >0 - для существующих записей
-        /// </summary>    
-        public int Id { get; set; }
-        /// <summary>
-        /// идентификатор пользователя
-        /// </summary>        
-        public int UserId { get; set; }
+    public abstract class HealthMetricsBaseBaseDTO
+    {     
 
         /// <summary>
         /// дата замера показателя

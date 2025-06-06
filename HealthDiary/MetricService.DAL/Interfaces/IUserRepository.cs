@@ -2,5 +2,5 @@
 
 namespace MetricService.DAL.Interfaces
 {
-    public interface IUserRepository : IWriteRepository<User> { }
+    public interface IUserRepository : IRepository<User> { }
 }

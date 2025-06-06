@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
-    public class SleepRepository : WriteBaseRepository<Sleep>, ISleepRepository
+    public class SleepRepository : BaseRepository<Sleep>, ISleepRepository
     {
         public SleepRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb) { }
 
@@ -18,14 +18,13 @@ namespace MetricService.DAL.Repositories
         }
         public override async Task<bool> UpdateAsync(Sleep item)
         {
-            Sleep? sleep = await GetByIdAsync(item.Id);
+            Sleep? sleep = await GetByIdAsync(item.Id); 
             if (sleep != null)
             {
-                sleep.StartSleep = item.StartSleep;
-                sleep.User = item.User;
-                sleep.EndSleep = item.EndSleep;
-                sleep.QualityRating = item.QualityRating;
-                sleep.Comment = item.Comment;
+                 sleep.StartSleep = item.StartSleep;
+                 sleep.EndSleep = item.EndSleep;
+                 sleep.Comment = item.Comment;
+                 sleep.QualityRating = item.QualityRating;                
             }
             return await _contextDb.SaveChangesAsync() == 1;
         }
@@ -38,8 +37,6 @@ namespace MetricService.DAL.Repositories
         {
             return await _contextDb.Sleeps.Include(s => s.User)
                 .ToListAsync();
-        }
-               
+        }               
     }
-
 }

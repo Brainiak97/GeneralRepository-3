@@ -1,4 +1,4 @@
-using MetricService.BLL.Interfaces;
+п»їusing MetricService.BLL.Interfaces;
 using MetricService.BLL.Services;
 using MetricService.BLL.Validators;
 using MetricService.DAL.EF;
@@ -18,17 +18,17 @@ namespace MetricService.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Добавление контекста
+            // Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРЅС‚РµРєСЃС‚Р°
             builder.Services.AddDbContext<MetricServiceDbContext>(options =>
             {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
                 options.EnableSensitiveDataLogging(false);
             });
 
-            // Загрузка общей конфигурации JWT
+            // Р—Р°РіСЂСѓР·РєР° РѕР±С‰РµР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё JWT
             builder.Services.AddJwtAuthentication();
 
-            // Регистрация сервисов и репозиториев
+            // Р РµРіРёСЃС‚СЂР°С†РёСЏ СЃРµСЂРІРёСЃРѕРІ Рё СЂРµРїРѕР·РёС‚РѕСЂРёРµРІ
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, MetricService.BLL.Services.UserService>();
             builder.Services.AddScoped<IValidator<User>, UserValidator>();
@@ -43,6 +43,7 @@ namespace MetricService.Api
 
             builder.Services.AddScoped<IPhysicalActivityRepository, PhysicalActivityRepository>();
             builder.Services.AddScoped<IPhysicalActivityService, PhysicalActivityService>();
+            builder.Services.AddScoped<IValidator<PhysicalActivity>, PhysicalActivityValidator>();
 
             builder.Services.AddScoped<IHealthMetricsBaseRepository, HealthMetricsBaseRepository>();
             builder.Services.AddScoped<IHealthMetricsBaseService, HealthMetricsBaseService>();
@@ -56,18 +57,18 @@ namespace MetricService.Api
             });
             builder.Services.AddSingleton<IJwtService, JwtService>();
 
-            // Остальные сервисы
+            // РћСЃС‚Р°Р»СЊРЅС‹Рµ СЃРµСЂРІРёСЃС‹
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
 
 
-            // Настройка свагера            
+            // РќР°СЃС‚СЂРѕР№РєР° СЃРІР°РіРµСЂР°            
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "MetricService API", Version = "v1" });
 
-                // Добавляем схему JWT в Swagger
+                // Р”РѕР±Р°РІР»СЏРµРј СЃС…РµРјСѓ JWT РІ Swagger
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
@@ -103,14 +104,14 @@ namespace MetricService.Api
                 {
                     var context = services.GetRequiredService<MetricServiceDbContext>();
 
-                    // Применение миграций
+                    // РџСЂРёРјРµРЅРµРЅРёРµ РјРёРіСЂР°С†РёР№
                     await context.Database.MigrateAsync();
 
                 }
                 catch (Exception ex)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "Ошибка при инициализации БД");
+                    logger.LogError(ex, "РћС€РёР±РєР° РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё Р‘Р”");
                 }
             }
 

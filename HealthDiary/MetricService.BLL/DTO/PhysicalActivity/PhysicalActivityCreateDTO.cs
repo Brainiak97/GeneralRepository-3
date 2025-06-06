@@ -1,16 +1,12 @@
-﻿namespace MetricService.BLL.Dto
+﻿namespace MetricService.BLL.DTO.PhysicalActivity
 {
-    public class PhysicalActivityDTO
-    {
-        /// <summary>
-        /// идентификатор
-        /// </summary>
-        public int Id { get; set; }
+    public class PhysicalActivityCreateDTO
+    {        
 
         /// <summary>
         /// Наименование физической активности
         /// </summary>
-        public string Name { get; set;  } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Метаболический эквивалент

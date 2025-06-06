@@ -5,7 +5,7 @@ namespace MetricService.BLL.Validators
 {
     public  class HealtMetricBaseValidator : IValidator<HealthMetricsBase>
     {
-        public bool Validate(HealthMetricsBase entity, out IDictionary<string, string> errorList)
+        public bool Validate(HealthMetricsBase entity, out Dictionary<string, string> errorList)
         {
             errorList = new Dictionary<string, string>();
             
