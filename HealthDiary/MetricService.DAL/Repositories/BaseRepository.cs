@@ -25,7 +25,7 @@ namespace MetricService.DAL.Repositories
             {
                 _contextDb.Set<T>().Remove(entity);
             }
-
+            
             return await _contextDb.SaveChangesAsync() == 1;
         }
 

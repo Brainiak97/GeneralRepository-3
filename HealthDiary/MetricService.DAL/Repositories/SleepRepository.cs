@@ -11,7 +11,6 @@ namespace MetricService.DAL.Repositories
 
         public override async Task<bool> CreateAsync(Sleep item)
         {
-            item.Id = 0;
             _contextDb.Add(item);
             return await _contextDb.SaveChangesAsync() == 1;            
         }

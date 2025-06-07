@@ -10,8 +10,7 @@ namespace MetricService.DAL.Repositories
         {
         }
         public async override Task<bool> CreateAsync(PhysicalActivity item)
-        {
-            item.Id = 0;
+        {            
             _contextDb.Add(item);
             return await _contextDb.SaveChangesAsync() == 1;
         }

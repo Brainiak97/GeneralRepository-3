@@ -67,7 +67,7 @@ namespace MetricService.Api.Controllers
                     return Ok("Список пуст");
                 }
 
-                return Ok(result.ToArray());
+                return Ok(result);
             }
             catch (BaseException ex)
             {
