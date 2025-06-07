@@ -1,0 +1,30 @@
+@CentralService.Api_HostAddress = http://localhost:5004
+
+GET {{CentralService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{CentralService.Api_HostAddress}}/weatherforecast/Test
+Accept: application/json
+
+###
+GET {{CentralService.Api_HostAddress}}/own/GetName
+Accept: application/json
+
+###
+
+GET {{CentralService.Api_HostAddress}}/ocelot/posts/1
+Accept: application/json
+
+###
+
+GET {{CentralService.Api_HostAddress}}/ocelot/yandex
+Accept: application/json
+
+###
+
+GET {{CentralService.Api_HostAddress}}/ocelot/userinfo
+Accept: application/json
+
+###

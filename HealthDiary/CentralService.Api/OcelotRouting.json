@@ -1,0 +1,116 @@
+{
+    "Routes": [
+        {
+            // test
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/ocelot/posts/{id}",
+            "DownstreamPathTemplate": "/todos/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "jsonplaceholder.typicode.com",
+                    "Port": 443
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/ocelot/register",
+            "DownstreamPathTemplate": "/User/register",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/ocelot/login",
+            "DownstreamPathTemplate": "/User/login",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/ocelot/users",
+            "DownstreamPathTemplate": "/User/users",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/ocelot/userinfo",
+            "DownstreamPathTemplate": "/User/me",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/ocelot/send-verification-email",
+            "DownstreamPathTemplate": "/User/send-verification-email",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/ocelot/verify-email",
+            "DownstreamPathTemplate": "/User/verify-email",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/ocelot/forgot-password",
+            "DownstreamPathTemplate": "/User/forgot-password",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/ocelot/reset-password",
+            "DownstreamPathTemplate": "/User/reset-password",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:5004"
+    }
+}
