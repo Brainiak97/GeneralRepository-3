@@ -10,10 +10,7 @@ namespace MetricService.BLL.Validators
             errorList = new Dictionary<string, string>();
             
             if (entity.BloodPressureDia > entity.BloodPressureSys)
-                errorList.Add(nameof(entity. BloodPressureDia), "Нижнее артериальное давление не может быть больше верхнего артериального давления");
-
-            if (entity.BloodPressureSys < entity.BloodPressureDia)
-                errorList.Add(nameof(entity.BloodPressureSys), "Верхнее артериальное давление не модет быть меньше нижнего артериального давления");
+                errorList.Add(nameof(entity. BloodPressureDia), "Нижнее артериальное давление не может быть больше верхнего артериального давления");            
 
             return errorList.Count == 0;
         }
