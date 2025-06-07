@@ -12,8 +12,7 @@ namespace MetricService.API.Controllers
     [Authorize]
     public class HealthMetricsBaseController(IHealthMetricsBaseService healthMetricsBaseService) : Controller
     {
-        private readonly IHealthMetricsBaseService _healthMetricsBaseService = healthMetricsBaseService
-;
+        private readonly IHealthMetricsBaseService _healthMetricsBaseService = healthMetricsBaseService;
 
         [HttpPost("CreateHealthMetricsBase")]
         public async Task<IActionResult> CreateHealthMetricsBase([FromBody] HealthMetricsBaseCreateDTO HealthMetricsBaseDTO)
@@ -79,12 +78,12 @@ namespace MetricService.API.Controllers
 
 
         [HttpGet("GetHealthMetricsBaseById")]
-        public async Task<IActionResult> GetHealthMetricsBaseById(int hmbid)
+        public async Task<IActionResult> GetHealthMetricsBaseById(int healthMetricsBaseId)
         {
             try
             {
 
-                return Ok(await _healthMetricsBaseService.GetRecordOfHealthMetricsBaseByIdAsync(hmbid));
+                return Ok(await _healthMetricsBaseService.GetRecordOfHealthMetricsBaseByIdAsync(healthMetricsBaseId));
             }
             catch (BaseException ex)
             {

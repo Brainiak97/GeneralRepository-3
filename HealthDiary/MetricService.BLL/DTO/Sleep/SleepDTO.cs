@@ -12,5 +12,4 @@
         /// </summary>        
         public int UserId { get; set; }
     }
-
 }

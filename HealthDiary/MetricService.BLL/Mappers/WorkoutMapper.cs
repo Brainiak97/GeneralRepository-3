@@ -4,21 +4,7 @@ using MetricService.Domain.Models;
 namespace MetricService.BLL.Mappers
 {
     public static class WorkoutMapper
-    {
-        public static WorkoutCreateDTO ToWorkoutCreateDTO(this Workout workout)
-        {
-            return new WorkoutCreateDTO
-            {
-                
-                CaloriesBurned = workout.CaloriesBurned,
-                Description = workout.Description,
-                EndTime = workout.EndTime,
-                PhysicalActivityId = workout.PhysicalActivityId,
-                StartTime = workout.StartTime,
-                UserId = workout.UserId,
-            };
-        }
-
+    {       
         public static Workout ToWorkout(this WorkoutCreateDTO workoutCreate)
         {
             return new Workout()
@@ -32,19 +18,7 @@ namespace MetricService.BLL.Mappers
             };
         }
 
-        public static WorkoutUpdateDTO ToWorkoutUpdateDTO(this Workout workout)
-        {
-            return new WorkoutUpdateDTO
-            {
-                StartTime = workout.StartTime,
-                EndTime = workout.EndTime,
-                CaloriesBurned=workout.CaloriesBurned,
-                Description = workout.Description,
-                Id = workout.Id,
-                PhysicalActivityId = workout.PhysicalActivityId,
-            };
-        }
-
+      
         public static Workout ToWorkout(this WorkoutUpdateDTO workoutUpdateDTO, int userId)
         {
             return new Workout()
@@ -72,19 +46,7 @@ namespace MetricService.BLL.Mappers
             };
         }
 
-        public static Workout ToWorkout(this WorkoutDTO workoutDTO)
-        {
-            return new Workout
-            {                    
-                UserId = workoutDTO.UserId,
-                PhysicalActivityId = workoutDTO.PhysicalActivityId,
-                EndTime = workoutDTO.EndTime,
-                Description = workoutDTO.Description,
-                Id = workoutDTO.Id,
-                StartTime = workoutDTO.StartTime,
-            };
-        }
-
+      
         public static IEnumerable<WorkoutDTO> ToWorkoutDTO(this IEnumerable<Workout> workout)
         {
 

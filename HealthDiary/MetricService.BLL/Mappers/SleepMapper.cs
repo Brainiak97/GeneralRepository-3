@@ -4,20 +4,7 @@ using MetricService.Domain.Models;
 namespace MetricService.BLL.Mappers
 {
     public static class SleepMapper
-    {
-        public static SleepCreateDTO ToSleepCreateDTO(this Sleep sleep)
-        {
-            return new SleepCreateDTO()
-            {
-                Comment = sleep.Comment,
-                EndSleep = sleep.EndSleep,
-                QualityRating = sleep.QualityRating,
-                SleepDuration = sleep.SleepDuration,
-                StartSleep = sleep.StartSleep,
-                UserId = sleep.UserId,
-            };
-        }
-
+    {  
         public static Sleep ToSleep(this SleepCreateDTO sleepDTO)
         {
             return new Sleep()
@@ -29,20 +16,7 @@ namespace MetricService.BLL.Mappers
                 StartSleep = sleepDTO.StartSleep,
                 Id = 0
             };
-        }
-
-        public static SleepUpdateDTO ToSleepUpdateDTO(this Sleep sleep)
-        {
-            return new SleepUpdateDTO()
-            {
-                Comment = sleep.Comment,
-                EndSleep = sleep.EndSleep,
-                QualityRating = sleep.QualityRating,
-                SleepDuration = sleep.SleepDuration,
-                StartSleep = sleep.StartSleep,
-                Id = sleep.Id
-            };
-        }
+        }        
 
         public static Sleep ToSleep(this SleepUpdateDTO sleepDTO, int userId)
         {
@@ -78,19 +52,6 @@ namespace MetricService.BLL.Mappers
                 result.Add(ToSleepDTO(item));
             }
             return result;
-        }
-
-        public static Sleep ToSleep(this SleepDTO sleepDTO)
-        {
-            return new Sleep()
-            {
-                Comment = sleepDTO.Comment,
-                EndSleep = sleepDTO.EndSleep,
-                Id = sleepDTO.Id,
-                QualityRating = sleepDTO.QualityRating,
-                StartSleep = sleepDTO.StartSleep,
-                UserId = sleepDTO.UserId
-            };
         }
     }
 }

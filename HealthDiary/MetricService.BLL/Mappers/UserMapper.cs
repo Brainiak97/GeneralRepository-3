@@ -4,12 +4,7 @@ using MetricService.Domain.Models;
 namespace MetricService.BLL.Mappers
 {
     public static class UserMapper
-    {
-        /// <summary>
-        /// Возвращает DTO объект
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
+    {       
         public static UserDTO ToUserDTO(this User user)
         {
             return new UserDTO

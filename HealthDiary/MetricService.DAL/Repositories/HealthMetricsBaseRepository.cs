@@ -10,8 +10,6 @@ namespace MetricService.DAL.Repositories
         public HealthMetricsBaseRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
         }
-
-
         public override async Task<bool> CreateAsync(HealthMetricsBase item)
         {
             item.Id = 0;

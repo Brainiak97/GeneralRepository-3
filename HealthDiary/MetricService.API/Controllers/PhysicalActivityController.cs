@@ -1,7 +1,6 @@
 ﻿using MetricService.BLL.DTO.PhysicalActivity;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
-using MetricService.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
@@ -70,11 +69,11 @@ namespace MetricService.API.Controllers
         }
 
         [HttpGet("GetPhysicalActivityById")]
-        public async Task<IActionResult> GetPhysicalActivityById(int phaid)
+        public async Task<IActionResult> GetPhysicalActivityById(int physicalActivityId)
         {
             try
             {
-                var result = await _physicalActivityService.GetPhysicalActivityByIdAsync(phaid);
+                var result = await _physicalActivityService.GetPhysicalActivityByIdAsync(physicalActivityId);
 
                 if (result == null)
                 {

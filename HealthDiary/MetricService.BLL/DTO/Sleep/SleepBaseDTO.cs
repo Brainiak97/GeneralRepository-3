@@ -24,5 +24,4 @@
         /// </summary>
         public TimeSpan SleepDuration { get; internal set; }
     }
-
 }

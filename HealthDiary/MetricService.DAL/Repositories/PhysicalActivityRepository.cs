@@ -9,7 +9,6 @@ namespace MetricService.DAL.Repositories
         public PhysicalActivityRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
         }
-
         public async override Task<bool> CreateAsync(PhysicalActivity item)
         {
             item.Id = 0;

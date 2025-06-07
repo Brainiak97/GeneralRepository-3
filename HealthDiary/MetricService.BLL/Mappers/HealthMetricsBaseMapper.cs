@@ -4,21 +4,7 @@ using MetricService.Domain.Models;
 namespace MetricService.BLL.Mappers
 {
     public static class HealthMetricsBaseMapper
-    {
-        public static HealthMetricsBaseCreateDTO ToHealthMetricsBaseCreateDTO(this HealthMetricsBase healthMetricsBase)
-        {
-            return new HealthMetricsBaseCreateDTO
-            {
-                BloodPressureDia = healthMetricsBase.BloodPressureDia,
-                BloodPressureSys = healthMetricsBase.BloodPressureSys,
-                BodyFatPercentage = healthMetricsBase.BodyFatPercentage,
-                HeartRate = healthMetricsBase.HeartRate,
-                MetricDate = healthMetricsBase.MetricDate,
-                UserId = healthMetricsBase.UserId,
-                WaterIntake = healthMetricsBase.WaterIntake
-            };
-        }
-
+    {    
         public static HealthMetricsBase ToHealthMetricsBase(this HealthMetricsBaseCreateDTO healthMetricsBaseCreateDTO)
         {
             return new HealthMetricsBase
@@ -34,20 +20,7 @@ namespace MetricService.BLL.Mappers
             };
         }
 
-        public static HealthMetricsBaseUpdateDTO ToHealthMetricsBaseUpdateDTO(this HealthMetricsBase healthMetricsBase)
-        {
-            return new HealthMetricsBaseUpdateDTO
-            {
-                BloodPressureDia = healthMetricsBase.BloodPressureDia,
-                WaterIntake = healthMetricsBase.WaterIntake,
-                MetricDate = healthMetricsBase.MetricDate,
-                Id = healthMetricsBase.Id,
-                HeartRate = healthMetricsBase.HeartRate,
-                BloodPressureSys = healthMetricsBase.BloodPressureSys,
-                BodyFatPercentage = healthMetricsBase.BodyFatPercentage,
-            };
-        }
-
+       
         public static HealthMetricsBase ToHealthMetricsBase(this HealthMetricsBaseUpdateDTO healthMetricsBaseUpdateDTO, int userId)
         {
             return new HealthMetricsBase

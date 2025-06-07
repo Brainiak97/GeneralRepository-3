@@ -2,8 +2,7 @@
 using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Validators
-{
-    public  class UserValidator : IValidator<User>
+{    public  class UserValidator : IValidator<User>
     {
         public bool Validate(User entity, out Dictionary<string, string> errorList)
         {
