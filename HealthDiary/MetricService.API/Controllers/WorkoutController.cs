@@ -14,7 +14,7 @@ namespace MetricService.API.Controllers
     {
         private readonly IWorkoutService _workoutService = workoutService;
 
-        [HttpPost("CreateWorkout")]
+        [HttpPost(nameof(CreateWorkout))]
         public async Task<IActionResult> CreateWorkout([FromBody] WorkoutCreateDTO workoutDTO)
         {
             try
@@ -28,7 +28,7 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpPost("UpdateWorkout")]
+        [HttpPost(nameof(UpdateWorkout))]
         public async Task<IActionResult> UpdateWorkout([FromBody] WorkoutUpdateDTO workoutDTO)
         {
             try
@@ -42,7 +42,7 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpDelete("DeleteWorkout")]
+        [HttpDelete(nameof(DeleteWorkout))]
         public async Task<IActionResult> DeleteWorkout(int id)
         {
             try
@@ -55,7 +55,7 @@ namespace MetricService.API.Controllers
             }            
         }
 
-        [HttpGet("GetAllWorkouts")]
+        [HttpGet(nameof(GetAllWorkouts))]
         public async Task<IActionResult> GetAllWorkouts([FromQuery]RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             var result = await _workoutService.GetAllWorkoutsByUserIdAsync(requestListWithPeriodByIdDTO);
@@ -68,8 +68,8 @@ namespace MetricService.API.Controllers
             return Ok(result.ToArray());
         }
 
-        [HttpGet("GetWorkoutById")]
-        public async Task<IActionResult> GetWorkoutByIds(int workoutid)
+        [HttpGet(nameof(GetWorkoutById))]
+        public async Task<IActionResult> GetWorkoutById(int workoutid)
         {
             try
             {

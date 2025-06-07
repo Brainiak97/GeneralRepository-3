@@ -14,7 +14,7 @@ namespace MetricService.API.Controllers
     {
         private readonly IHealthMetricsBaseService _healthMetricsBaseService = healthMetricsBaseService;
 
-        [HttpPost("CreateHealthMetricsBase")]
+        [HttpPost(nameof(CreateHealthMetricsBase))]
         public async Task<IActionResult> CreateHealthMetricsBase([FromBody] HealthMetricsBaseCreateDTO HealthMetricsBaseDTO)
         {
             try
@@ -28,7 +28,7 @@ namespace MetricService.API.Controllers
            
         }
 
-        [HttpPost("UpdateHealthMetricsBase")]
+        [HttpPost(nameof(UpdateHealthMetricsBase))]
         public async Task<IActionResult> UpdateHealthMetricsBase([FromBody] HealthMetricsBaseUpdateDTO HealthMetricsBaseDTO)
         {
             try
@@ -42,7 +42,7 @@ namespace MetricService.API.Controllers
         }
 
 
-        [HttpDelete("DeleteHealthMetricsBase")]
+        [HttpDelete(nameof(DeleteHealthMetricsBase))]
         public async Task<IActionResult> DeleteHealthMetricsBase(int id)
         {
             try
@@ -57,7 +57,7 @@ namespace MetricService.API.Controllers
         }
 
 
-        [HttpGet("GetAllRecordsOfHealthMetricsBase")]
+        [HttpGet(nameof(GetAllRecordsOfHealthMetricsBase))]
         public async Task<IActionResult> GetAllRecordsOfHealthMetricsBase([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             try
@@ -77,7 +77,7 @@ namespace MetricService.API.Controllers
         }
 
 
-        [HttpGet("GetHealthMetricsBaseById")]
+        [HttpGet(nameof(GetHealthMetricsBaseById))]
         public async Task<IActionResult> GetHealthMetricsBaseById(int healthMetricsBaseId)
         {
             try

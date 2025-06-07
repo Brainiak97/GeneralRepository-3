@@ -12,7 +12,7 @@ namespace MetricService.API.Controllers
         readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;
 
 
-        [HttpPost("CreatePhysicalActivity")]
+        [HttpPost(nameof(CreatePhysicalActivity))]
         public async Task<IActionResult> CreatePhysicalActivity([FromBody] PhysicalActivityDTO physicalActivityDTO)
         {
             try
@@ -26,7 +26,7 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpPost("UpdatePhysicalActivity")]
+        [HttpPost(nameof(UpdatePhysicalActivity))]
         public async Task<IActionResult> UpdatePhysicalActivity([FromBody] PhysicalActivityDTO physicalActivityDTO)
         {
             try
@@ -41,7 +41,7 @@ namespace MetricService.API.Controllers
         }
 
 
-        [HttpDelete("DeletePhysicalActivity")]
+        [HttpDelete(nameof(DeletePhysicalActivity))]
         public async Task<IActionResult> DeletePhysicalActivity(int id)
         {
             try
@@ -55,7 +55,7 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpGet("GetAllPhysicalActivities")]
+        [HttpGet(nameof(GetAllPhysicalActivities))]
         public async Task<IActionResult> GetAllPhysicalActivities(int pagenum, int pagesize)
         {
             var result = await _physicalActivityService.GetAllPhysicalActivitiesAsync(pagenum, pagesize);
@@ -68,7 +68,7 @@ namespace MetricService.API.Controllers
             return Ok(result.ToArray());
         }
 
-        [HttpGet("GetPhysicalActivityById")]
+        [HttpGet(nameof(GetPhysicalActivityById))]
         public async Task<IActionResult> GetPhysicalActivityById(int physicalActivityId)
         {
             try
@@ -87,7 +87,7 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpGet("FindPhysicalActivityByName")]
+        [HttpGet(nameof(FindPhysicalActivityByName))]
         public async Task<IActionResult> FindPhysicalActivityByName(string search)
         {
             var result = await _physicalActivityService.GetListPhysicalActivitiesBySearchAsync(search);

@@ -4,7 +4,7 @@ using MetricService.Domain.Models;
 namespace MetricService.BLL.Mappers
 {
     public static class SleepMapper
-    {  
+    {
         public static Sleep ToSleep(this SleepCreateDTO sleepDTO)
         {
             return new Sleep()
@@ -16,7 +16,7 @@ namespace MetricService.BLL.Mappers
                 StartSleep = sleepDTO.StartSleep,
                 Id = 0
             };
-        }        
+        }
 
         public static Sleep ToSleep(this SleepUpdateDTO sleepDTO, int userId)
         {
@@ -47,8 +47,9 @@ namespace MetricService.BLL.Mappers
 
         public static IEnumerable<SleepDTO> ToSleepDTO(this IEnumerable<Sleep> sleep)
         {
-            var result =new List<SleepDTO>();
-            foreach (var item in sleep) {
+            var result = new List<SleepDTO>();
+            foreach (var item in sleep)
+            {
                 result.Add(ToSleepDTO(item));
             }
             return result;

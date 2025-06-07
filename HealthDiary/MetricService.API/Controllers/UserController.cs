@@ -13,7 +13,7 @@ namespace MetricService.Api.Controllers
     {
         private readonly IUserService _userService = userService;
 
-        [HttpPost("CreateProfile")]
+        [HttpPost(nameof(CreateProfile))]
         public async Task<IActionResult> CreateProfile([FromBody] UserDTO userDTO)
         {
             try
@@ -27,7 +27,7 @@ namespace MetricService.Api.Controllers
             }
         }
 
-        [HttpPost("UpdateProfile")]
+        [HttpPost(nameof(UpdateProfile))]
         public async Task<IActionResult> UpdateProfile([FromBody] UserDTO userDTO)
         {
             try
@@ -41,7 +41,7 @@ namespace MetricService.Api.Controllers
             }
         }
 
-        [HttpDelete("DeleteProfile")]
+        [HttpDelete(nameof(DeleteProfile))]
         public async Task<IActionResult> DeleteProfile(int id)
         {
             try
@@ -55,7 +55,7 @@ namespace MetricService.Api.Controllers
             }
         }
 
-        [HttpGet("GetAllUsers")]
+        [HttpGet(nameof(GetAllUsers))]
         public async Task<IActionResult> GetAllUsers(int pagenum, int pagesize)
         {
             try
@@ -75,8 +75,8 @@ namespace MetricService.Api.Controllers
             }
         }
 
-        [HttpGet("GetUserById")]
-        public async Task<IActionResult> GetUserByIds(int userid)
+        [HttpGet(nameof(GetUserById))]
+        public async Task<IActionResult> GetUserById(int userid)
         {
             try
             {

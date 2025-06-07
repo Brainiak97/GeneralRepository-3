@@ -11,10 +11,7 @@ namespace MetricService.BLL.Validators
             errorList =new Dictionary<string, string>();
             
             if (entity.EndSleep < entity.StartSleep)
-                errorList.Add(nameof(entity.EndSleep), "Время завершения сна не может быть раньше времени начала сна");
-
-            if(entity.StartSleep > entity.EndSleep)
-                errorList.Add(nameof(entity.EndSleep), "Время начала сна не может быть позже времени окончания сна");
+                errorList.Add(nameof(entity.EndSleep), "Время завершения сна не может быть раньше времени начала сна");            
 
             return errorList.Count == 0;
         }

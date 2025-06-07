@@ -11,10 +11,7 @@ namespace MetricService.BLL.Validators
             errorList = new Dictionary<string, string>();
            
             if (entity.EndTime < entity.StartTime)
-                errorList.Add(nameof(entity.EndTime), "Время завершения тренировки не может быть раньше времени начала тренировки");
-
-            if (entity.StartTime > entity.EndTime)
-                errorList.Add(nameof(entity.StartTime), "Время начала тренировки не может быть позже времени окончания тренировки");
+                errorList.Add(nameof(entity.EndTime), "Время завершения тренировки не может быть раньше времени начала тренировки");           
 
             return errorList.Count == 0;
         }

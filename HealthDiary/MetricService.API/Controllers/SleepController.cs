@@ -15,7 +15,7 @@ namespace MetricService.API.Controllers
         private readonly ISleepService _sleepService = sleepService;
 
 
-        [HttpPost("CreateSleep")]
+        [HttpPost(nameof(CreateSleep))]
         public async Task<IActionResult> CreateSleep([FromBody] SleepCreateDTO sleepDTO)
         {
             try
@@ -29,7 +29,7 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpPost("UpdateSleep")]
+        [HttpPost(nameof(UpdateSleep))]
         public async Task<IActionResult> UpdateSleep([FromBody] SleepUpdateDTO sleepDTO)
         {
             try
@@ -44,7 +44,7 @@ namespace MetricService.API.Controllers
         }
 
 
-        [HttpDelete("DeleteSleep")]
+        [HttpDelete(nameof(DeleteSleep))]
         public async Task<IActionResult> DeleteSleep(int id)
         {
             try
@@ -58,7 +58,7 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpGet("GetAllSleeps")]       
+        [HttpGet(nameof(GetAllSleeps))]       
         public async Task<IActionResult> GetAllSleeps([FromQuery]RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             try
@@ -79,7 +79,7 @@ namespace MetricService.API.Controllers
         }
 
 
-        [HttpGet("GetSleepById")]
+        [HttpGet(nameof(GetSleepById))]
         public async Task<IActionResult> GetSleepById(int sleepid)
         {
             try
