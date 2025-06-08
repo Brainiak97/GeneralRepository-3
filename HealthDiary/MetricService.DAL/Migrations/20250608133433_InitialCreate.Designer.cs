@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    [Migration("20250601155531_InitCreate")]
-    partial class InitCreate
+    [Migration("20250608133433_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -636,7 +636,7 @@ namespace MetricService.DAL.Migrations
                         {
                             t.HasComment("Сон");
 
-                            t.HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 or \"QualityRating\"<=5");
+                            t.HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 and \"QualityRating\"<=5");
                         });
                 });
 

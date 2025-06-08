@@ -9,8 +9,7 @@ namespace MetricService.API.Controllers
     [Route("[controller]")]    
     public class PhysicalActivityController(IPhysicalActivityService physicalActivityService) : Controller
     {
-        readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;
-
+        readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;       
 
         [HttpPost(nameof(CreatePhysicalActivity))]
         public async Task<IActionResult> CreatePhysicalActivity([FromBody] PhysicalActivityDTO physicalActivityDTO)

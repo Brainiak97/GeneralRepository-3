@@ -9,7 +9,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
         public void Configure(EntityTypeBuilder<Sleep> builder)
         {
             builder.ToTable(t => t.HasComment("Сон")
-                            .HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 or \"QualityRating\"<=5")
+                            .HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 and \"QualityRating\"<=5")
                             );
 
             builder.Property(p => p.Id)

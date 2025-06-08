@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -85,7 +85,7 @@ namespace MetricService.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sleeps", x => x.Id);
-                    table.CheckConstraint("ValidQualityRating", "\"QualityRating\">=1 or \"QualityRating\"<=5");
+                    table.CheckConstraint("ValidQualityRating", "\"QualityRating\">=1 and \"QualityRating\"<=5");
                     table.ForeignKey(
                         name: "FK_Sleeps_Users_UserId",
                         column: x => x.UserId,

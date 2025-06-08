@@ -14,23 +14,35 @@ namespace MetricService.Api
 {
     public class Program
     {
+        public IConfiguration AppConfiguration { get; set; } = null!;
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            
+                       
+            //объект конфигурация
+            var configBuilder = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json");
+           var AppConfiguration = configBuilder.Build();
+            
 
-            // Добавление контекста
-            builder.Services.AddDbContext<MetricServiceDbContext>(options =>
-            {
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+        // Добавление контекста
+        builder.Services.AddDbContext<MetricServiceDbContext>(options =>
+            {                
+                options.UseNpgsql(AppConfiguration.GetConnectionString("DefaultConnection"));
                 options.EnableSensitiveDataLogging(false);
             });
 
             // Загрузка общей конфигурации JWT
             builder.Services.AddJwtAuthentication();
 
+            //загрузка конфигурации
+            builder.Services.AddTransient<IConfiguration>(provider => AppConfiguration);
+
             // Регистрация сервисов и репозиториев
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IUserService, MetricService.BLL.Services.UserService>();
+            builder.Services.AddScoped<IUserService, BLL.Services.UserService>();
             builder.Services.AddScoped<IValidator<User>, UserValidator>();
 
             builder.Services.AddScoped<ISleepRepository, SleepRepository>();

@@ -10,7 +10,7 @@ using System.Text;
 namespace MetricService.DAL.EF.ConfigurationsForPostgres
 {
     internal class PhysicalActivitiesConfiguration : IEntityTypeConfiguration<PhysicalActivity>
-    {
+    {        
         public void Configure(EntityTypeBuilder<PhysicalActivity> builder)
         {
             builder.ToTable(t => t.HasComment("Тренировки"));
@@ -38,31 +38,38 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                 .Append("InitData")
                 .Append(Path.DirectorySeparatorChar)
                 .Append(nameof(PhysicalActivity))
-                .Append(".csv");
-
+                .Append(".csv");            
 
             var records = new List<object>();
-
-            var readerConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture);
-            readerConfiguration.Delimiter = ";";
-            using (var reader = new StreamReader(sb.ToString()))
-            using (var csv = new CsvReader(reader, readerConfiguration))
+            try
             {
-
-                csv.Read();
-                csv.ReadHeader();
-                int i = 0;
-                while (csv.Read())
+                var readerConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture);
+                readerConfiguration.Delimiter = ";";
+                using (var reader = new StreamReader(sb.ToString()))
+                using (var csv = new CsvReader(reader, readerConfiguration))
                 {
-                    i++;
-                    var record = new 
+
+                    csv.Read();
+                    csv.ReadHeader();
+                    int i = 0;
+                    while (csv.Read())
                     {
-                        Id = i,
-                        Name = csv.GetField(0)!.Trim(),
-                        EnergyEquivalent = csv.GetField<float>(1)
-                    };
-                    records.Add(record);
+                        i++;
+                        var record = new
+                        {
+                            Id = i,
+                            Name = csv.GetField(0)!.Trim(),
+                            EnergyEquivalent = csv.GetField<float>(1)
+                        };
+                        records.Add(record);
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Environment.Exit(0);
             }
             return records;
         }

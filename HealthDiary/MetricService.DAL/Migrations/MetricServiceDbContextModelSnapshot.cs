@@ -633,7 +633,7 @@ namespace MetricService.DAL.Migrations
                         {
                             t.HasComment("Сон");
 
-                            t.HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 or \"QualityRating\"<=5");
+                            t.HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 and \"QualityRating\"<=5");
                         });
                 });
 
