@@ -1,12 +1,13 @@
 ﻿using MetricService.BLL.Interfaces;
 using MetricService.Domain.Models;
-using Microsoft.Extensions.Configuration;
 
 namespace MetricService.BLL.Validators
 {
-    public class SleepValidator(IConfiguration configuration) : IValidator<Sleep>
+    public class SleepValidator: IValidator<Sleep>
     {
-        readonly IConfiguration _configuration = configuration.GetSection($"Validate:{nameof(Sleep)}");
+        const short QUALITYRATINGMIN = 1;
+        const short QUALITYRATINGMAX = 5;
+       
         public bool Validate(Sleep entity, out Dictionary<string, string> errorList)
         {
 
@@ -15,9 +16,9 @@ namespace MetricService.BLL.Validators
             if (entity.EndSleep < entity.StartSleep)
                 errorList.Add(nameof(entity.EndSleep), "Время завершения сна не может быть раньше времени начала сна");
 
-            if (entity.QualityRating < _configuration.GetValue<int>("QualityRating:Min") || entity.QualityRating > _configuration.GetValue<int>("QualityRating:Min"))
+            if ((entity.QualityRating < QUALITYRATINGMIN) || (entity.QualityRating > QUALITYRATINGMAX))
                 errorList.Add(nameof(entity.EndSleep), $"Качество сна должно быть в диапазоне " +
-                                                    $"{_configuration.GetValue<int>("QualityRating:Min")} ... {_configuration.GetValue<int>("QualityRating:Min")}");
+                                                    $"{QUALITYRATINGMIN} ... {QUALITYRATINGMAX}");
 
             return errorList.Count == 0;
         }

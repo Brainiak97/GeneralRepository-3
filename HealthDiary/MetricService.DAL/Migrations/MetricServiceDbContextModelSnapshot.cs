@@ -632,8 +632,6 @@ namespace MetricService.DAL.Migrations
                     b.ToTable("Sleeps", t =>
                         {
                             t.HasComment("Сон");
-
-                            t.HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 and \"QualityRating\"<=5");
                         });
                 });
 

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    [Migration("20250608133433_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250609080908_InitCreate")]
+    partial class InitCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -635,8 +635,6 @@ namespace MetricService.DAL.Migrations
                     b.ToTable("Sleeps", t =>
                         {
                             t.HasComment("Сон");
-
-                            t.HasCheckConstraint("ValidQualityRating", "\"QualityRating\">=1 and \"QualityRating\"<=5");
                         });
                 });
 
