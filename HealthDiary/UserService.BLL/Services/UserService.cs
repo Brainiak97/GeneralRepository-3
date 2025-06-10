@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Shared.Auth;
 using UserService.BLL.Dto;
 using UserService.BLL.Interfaces;
@@ -10,11 +11,12 @@ namespace UserService.BLL.Services
     /// <summary>
     /// Предоставляет реализацию бизнес-логики для регистрации, аутентификации и управления пользователями.
     /// </summary>
-    public class UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtService jwtService) : IUserService
+    public class UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtService jwtService, IMapper mapper) : IUserService
     {
         private readonly IUserRepository _userRepository = userRepository;
         private readonly IPasswordHasher<User> _passwordHasher = passwordHasher; // Для хеширования паролей
         private readonly IJwtService _jwtService = jwtService; // Для генерации JWT-токенов
+        private readonly IMapper _mapper = mapper; // Для генерации JWT-токенов
 
         /// <summary>
         /// Регистрирует нового пользователя на основе предоставленных данных.
@@ -115,20 +117,7 @@ namespace UserService.BLL.Services
                 return null;
             }
 
-            return new UserDto()
-            {
-                Roles = (ICollection<RoleDto>)user.Roles,
-                Gender = user.Gender,
-                DateOfBirth = user.DateOfBirth,
-                CreatedAt = user.CreatedAt,
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Username = user.Username,
-                LastName = user.LastName,
-                IsEmailConfirmed = user.IsEmailConfirmed,
-                Id = user.Id
-            };
+            return _mapper.Map<UserDto>(user);
         }
 
         /// <summary>
@@ -146,20 +135,7 @@ namespace UserService.BLL.Services
                 return null;
             }
 
-            return new UserDto()
-            {
-                Roles = (ICollection<RoleDto>)user.Roles,
-                Gender = user.Gender,
-                DateOfBirth = user.DateOfBirth,
-                CreatedAt = user.CreatedAt,
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Username = user.Username,
-                LastName = user.LastName,
-                IsEmailConfirmed = user.IsEmailConfirmed,
-                Id = user.Id
-            };
+            return _mapper.Map<UserDto>(user);
         }
 
         /// <summary>
@@ -187,6 +163,35 @@ namespace UserService.BLL.Services
             var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");
             user.PasswordHash = _passwordHasher.HashPassword(user, newPassword);
             await _userRepository.UpdateAsync(user);
+        }
+
+        /// <summary>
+        /// Выдает список всех пользователей в системе.
+        /// </summary>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает найденных пользователей в виде списка <see cref="UserDto"/> или null, если пользователи не найдены.</returns>
+        public async Task<IEnumerable<UserDto?>> GetAll()
+        {
+            var users = await _userRepository.GetAllUsers();
+            return _mapper.Map<IEnumerable<UserDto>>(users);
+        }
+
+        /// <summary>
+        /// Обновляет данные пользователя в хранилище.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="dto"></param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает обновлённого пользователя.</returns>
+        public async Task<bool> UpdateUserAsync(int userId, UserUpdateDto dto)
+        {
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user == null) return false;
+
+            user.DateOfBirth = DateTime.SpecifyKind(dto.DateOfBirth, DateTimeKind.Utc);
+
+            await _userRepository.UpdateAsync(_mapper.Map(dto, user));
+            return true;
         }
     }
 }

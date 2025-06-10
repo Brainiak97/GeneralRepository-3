@@ -112,5 +112,15 @@ namespace UserService.DAL.Repositories
             await _context.SaveChangesAsync();
             return user;
         }
+
+        /// <summary>
+        /// Асинхронно получает всех пользователей из базы данных.
+        /// </summary>
+        /// <returns>Задача, представляющая асинхронную операцию.
+        /// Возвращает всех пользователей</returns>
+        public async Task<IEnumerable<User>> GetAllUsers()
+            => await _context.Users
+                .Include(u => u.Roles)
+                .ToListAsync();
     }
 }

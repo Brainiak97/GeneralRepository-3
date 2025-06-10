@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Shared.Auth;
 using Shared.EmailClient;
+using System.ComponentModel;
 using UserService.Api.Data;
+using UserService.Api.Infrastructure;
+using UserService.BLL;
 using UserService.BLL.Interfaces;
 using UserService.DAL.EF;
 using UserService.DAL.Interfaces;
@@ -18,6 +22,15 @@ builder.Services.AddDbContext<UserServiceDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
     options.EnableSensitiveDataLogging(true);
 });
+
+// Настройка JSON-сериализатора
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new UserServiceDateTimeConverter());
+});
+
+// Регистрируем AutoMapper из BLL
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 // Email сервис
 builder.Services.AddEmailServiceClient("https://localhost:7281/");

@@ -53,5 +53,21 @@ namespace UserService.BLL.Interfaces
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает найденного пользователя в виде <see cref="UserDto"/> или null, если пользователь не найден.</returns>
         Task<UserDto?> FindById(int userId);
+
+        /// <summary>
+        /// Выдает список всех пользователей в системе.
+        /// </summary>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает найденных пользователей в виде списка <see cref="UserDto"/> или null, если пользователи не найдены.</returns>
+        Task<IEnumerable<UserDto?>> GetAll();
+
+        /// <summary>
+        /// Обновляет данные пользователя в хранилище.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="dto"></param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает обновлённого пользователя.</returns>
+        Task<bool> UpdateUserAsync(int userId, UserUpdateDto dto);
     }
 }

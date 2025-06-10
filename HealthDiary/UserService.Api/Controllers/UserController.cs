@@ -10,7 +10,7 @@ using UserService.BLL.Interfaces;
 namespace UserService.Api.Controllers
 {
     /// <summary>
-    /// Предоставляет API-методы для регистрации, авторизации, подтверждения email и восстановления пароля.
+    /// Предоставляет API-методы для обновления данных, подтверждения email и восстановления пароля.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -21,38 +21,15 @@ namespace UserService.Api.Controllers
         private readonly string serviceLink = "https://localhost:7188/user/";
 
         /// <summary>
-        /// Регистрирует нового пользователя.
-        /// </summary>
-        /// <param name="request">Данные для регистрации пользователя.</param>
-        /// <returns>Результат операции регистрации.</returns>
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
-        {
-            var response = await _userService.Register(request);
-            return Ok(response);
-        }
-
-        /// <summary>
-        /// Выполняет вход пользователя по логину и паролю.
-        /// </summary>
-        /// <param name="request">Данные для входа (логин/пароль).</param>
-        /// <returns>Токен аутентификации или ошибку.</returns>
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
-        {
-            var response = await _userService.Login(request);
-            return Ok(response);
-        }
-
-        /// <summary>
         /// Получает список всех пользователей.
         /// </summary>
         /// <returns>Сообщение о доступе (пример ответа).</returns>
         [HttpGet("GetAllUsers")]
         [Authorize]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
-            return Ok(new { Message = "Доступ разрешён для администраторов" });
+            var users = await _userService.GetAll();
+            return Ok(users);
         }
 
         /// <summary>
@@ -166,6 +143,24 @@ namespace UserService.Api.Controllers
             await _userService.ResetPassword(emailClaim.Value, dto.NewPassword);
 
             return Ok(new { message = "Пароль успешно изменён" });
+        }
+
+        /// <summary>
+        /// Обновляет информацию о пользователе по его ID.
+        /// </summary>
+        [HttpPut("UpdateUser/{id}")]
+        [Authorize(Policy = "SelfOrAdmin")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _userService.UpdateUserAsync(id, dto);
+
+            if (!success)
+                return NotFound("Пользователь не найден.");
+
+            return NoContent();
         }
 
         /// <summary>
