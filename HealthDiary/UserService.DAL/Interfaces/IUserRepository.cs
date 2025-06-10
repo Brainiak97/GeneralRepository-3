@@ -62,5 +62,12 @@ namespace UserService.DAL.Interfaces
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает найденного пользователя или <see langword="null"/>, если пользователь не найден.</returns>
         Task<User?> FindByIdAsync(int userId);
+
+        /// <summary>
+        /// Асинхронно получает всех пользователей.
+        /// </summary>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает найденных пользователей или <see langword="null"/>, если пользователи не найдены.</returns>
+        Task<IEnumerable<User>> GetAllUsers();
     }
 }
