@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UserService.DAL.EF;
@@ -11,9 +12,11 @@ using UserService.DAL.EF;
 namespace UserService.DAL.Migrations
 {
     [DbContext(typeof(UserServiceDbContext))]
-    partial class UserServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250610075510_AddDeleteProperties")]
+    partial class AddDeleteProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,6 +85,12 @@ namespace UserService.DAL.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsEmailConfirmed")
                         .HasColumnType("boolean");
 
@@ -96,9 +105,6 @@ namespace UserService.DAL.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Username")
                         .IsRequired()

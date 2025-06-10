@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Shared.Auth;
 using Shared.EmailClient;
-using System.ComponentModel;
 using UserService.Api.Data;
 using UserService.Api.Infrastructure;
 using UserService.BLL;
@@ -58,6 +57,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "UserService.Domain.xml"));
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Shared.Auth.xml"));
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Shared.EmailClient.xml"));
+
     // Добавляем схему JWT в Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
