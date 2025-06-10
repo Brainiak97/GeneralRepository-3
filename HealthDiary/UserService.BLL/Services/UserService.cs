@@ -45,7 +45,7 @@ namespace UserService.BLL.Services
                 CreatedAt = DateTime.Now,
                 Gender = request.Gender,
                 DateOfBirth = request.DateOfBirth,
-                IsBlocked = false,
+                Status = UserStatus.Active,
                 IsEmailConfirmed = false,
                 PasswordHash = string.Empty
             };
@@ -80,6 +80,13 @@ namespace UserService.BLL.Services
         public async Task<AuthResponseDto> Login(LoginRequestDto request)
         {
             var user = await _userRepository.GetUserByUsernameAsync(request.Username) ?? throw new Exception("Пользователь с таким логином не существует");
+
+            if (user.Status == UserStatus.Blocked)
+                throw new Exception("Пользователь заблокирован");
+
+            if (user.Status == UserStatus.Deleted)
+                throw new Exception("Пользователь удалён");
+
             var result = _passwordHasher.VerifyHashedPassword(
                 user,
                 user.PasswordHash,
@@ -179,10 +186,10 @@ namespace UserService.BLL.Services
         /// <summary>
         /// Обновляет данные пользователя в хранилище.
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">Идентификатор пользователя.</param>
         /// <param name="dto"></param>
         /// <returns>Задача, представляющая асинхронную операцию. 
-        /// Возвращает обновлённого пользователя.</returns>
+        /// Возвращает положительный или отрицательный результат.</returns>
         public async Task<bool> UpdateUserAsync(int userId, UserUpdateDto dto)
         {
             var user = await _userRepository.FindByIdAsync(userId);
@@ -191,6 +198,67 @@ namespace UserService.BLL.Services
             user.DateOfBirth = DateTime.SpecifyKind(dto.DateOfBirth, DateTimeKind.Utc);
 
             await _userRepository.UpdateAsync(_mapper.Map(dto, user));
+            return true;
+        }
+
+        /// <summary>
+        /// Отмечает пользователя как удаленного.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user == null) return false;
+
+            // Мягкое удаление
+            user.Status = UserStatus.Deleted;
+            user.DeletedAt = DateTime.UtcNow;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        /// <summary>
+        /// Восстанавливает пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>  
+        public async Task<bool> RestoreUserAsync(int userId)
+        {
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user == null || user.Status != UserStatus.Deleted) return false;
+
+            user.Status = UserStatus.Active;
+            user.DeletedAt = null;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        /// <summary>
+        /// Блокировка и разблокировка пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="isBlocked">Указывает нужно заблокировать или разблокировать пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        /// <exception cref="Exception">Выбрасывается, если пользователь помечен как удаленный.</exception>
+        public async Task<bool> BlockUserAsync(int userId, bool isBlocked)
+        {
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user == null) return false;
+
+            if (user.Status == UserStatus.Deleted)
+                throw new Exception("Невозможно заблокировать удалённого пользователя.");
+
+            if (user.Status == UserStatus.Blocked)
+                return true; // уже в нужном состоянии
+
+            user.Status = UserStatus.Blocked;
+            await _userRepository.UpdateAsync(user);
             return true;
         }
     }

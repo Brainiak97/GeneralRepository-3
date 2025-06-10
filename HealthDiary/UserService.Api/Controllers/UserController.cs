@@ -146,8 +146,10 @@ namespace UserService.Api.Controllers
         }
 
         /// <summary>
-        /// Обновляет информацию о пользователе по его ID.
+        /// Обновляет данные пользователя по его ID.
         /// </summary>
+        /// <param name="id">Идентификатор пользователя.</param>
+        /// <param name="dto">Dto модель обновленных данных пользователя.</param>
         [HttpPut("UpdateUser/{id}")]
         [Authorize(Policy = "SelfOrAdmin")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDto dto)
@@ -156,6 +158,76 @@ namespace UserService.Api.Controllers
                 return BadRequest(ModelState);
 
             var success = await _userService.UpdateUserAsync(id, dto);
+
+            if (!success)
+                return NotFound("Пользователь не найден.");
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Блокирует пользователя по его ID.
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя.</param>
+        [HttpPut("BlockUser/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> BlockUser(int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _userService.BlockUserAsync(id, isBlocked: true);
+
+            if (!success)
+                return NotFound("Пользователь не найден.");
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Разблокирует пользователя по его ID.
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя.</param>
+        [HttpPut("UnblockUser/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UnblockUser(int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _userService.BlockUserAsync(id, isBlocked: false);
+
+            if (!success)
+                return NotFound("Пользователь не найден.");
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Удаляет пользователя по его ID.
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя.</param>
+        [HttpDelete("DeleteUser/{id}")]
+        [Authorize(Policy = "SelfOrAdmin")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var success = await _userService.DeleteUserAsync(id);
+
+            if (!success)
+                return NotFound("Пользователь не найден.");
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Восстанавливает пользователя по его ID.
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя.</param>
+        [HttpDelete("RestoreUser/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RestoreUser(int id)
+        {
+            var success = await _userService.RestoreUserAsync(id);
 
             if (!success)
                 return NotFound("Пользователь не найден.");

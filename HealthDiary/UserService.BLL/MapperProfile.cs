@@ -22,7 +22,8 @@ namespace UserService.BLL
                 .ForMember(dest => dest.Username, opt => opt.Ignore())
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
                 .ForMember(dest => dest.IsEmailConfirmed, opt => opt.Ignore())
-                .ForMember(dest => dest.IsBlocked, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.DeletedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.Roles, opt => opt.Ignore());
         }
