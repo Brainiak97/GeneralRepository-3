@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http.Json;
+п»їusing Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -15,39 +15,39 @@ using UserService.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Добавление контекста
+// Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРЅС‚РµРєСЃС‚Р°
 builder.Services.AddDbContext<UserServiceDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
     options.EnableSensitiveDataLogging(true);
 });
 
-// Настройка JSON-сериализатора
+// РќР°СЃС‚СЂРѕР№РєР° JSON-СЃРµСЂРёР°Р»РёР·Р°С‚РѕСЂР°
 builder.Services.Configure<JsonOptions>(options =>
 {
     options.SerializerOptions.Converters.Add(new UserServiceDateTimeConverter());
 });
 
-// Регистрируем AutoMapper из BLL
+// Р РµРіРёСЃС‚СЂРёСЂСѓРµРј AutoMapper РёР· BLL
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
-// Email сервис
+// Email СЃРµСЂРІРёСЃ
 builder.Services.AddEmailServiceClient("https://localhost:7281/");
 
-// Загрузка общей конфигурации JWT
+// Р—Р°РіСЂСѓР·РєР° РѕР±С‰РµР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё JWT
 builder.Services.AddJwtAuthentication();
 
-// Регистрация сервисов и репозиториев
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ СЃРµСЂРІРёСЃРѕРІ Рё СЂРµРїРѕР·РёС‚РѕСЂРёРµРІ
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService.BLL.Services.UserService>();
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
-// Остальные сервисы
+// РћСЃС‚Р°Р»СЊРЅС‹Рµ СЃРµСЂРІРёСЃС‹
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Настройка свагера
+// РќР°СЃС‚СЂРѕР№РєР° СЃРІР°РіРµСЂР°
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService API", Version = "v1" });
@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Shared.Auth.xml"));
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Shared.EmailClient.xml"));
 
-    // Добавляем схему JWT в Swagger
+    // Р”РѕР±Р°РІР»СЏРµРј СЃС…РµРјСѓ JWT РІ Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
@@ -93,16 +93,16 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<UserServiceDbContext>();
 
-        // Применение миграций
+        // РџСЂРёРјРµРЅРµРЅРёРµ РјРёРіСЂР°С†РёР№
         await context.Database.MigrateAsync();
 
-        // Инициализация ролей и админа
+        // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЂРѕР»РµР№ Рё Р°РґРјРёРЅР°
         await InitializeDatabase.Initialize(services, new PasswordHasher<User>());
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ошибка при инициализации БД");
+        logger.LogError(ex, "РћС€РёР±РєР° РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё Р‘Р”");
     }
 }
 

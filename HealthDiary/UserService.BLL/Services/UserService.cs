@@ -248,16 +248,18 @@ namespace UserService.BLL.Services
         /// <exception cref="Exception">Выбрасывается, если пользователь помечен как удаленный.</exception>
         public async Task<bool> BlockUserAsync(int userId, bool isBlocked)
         {
-            var user = await _userRepository.FindByIdAsync(userId);
-            if (user == null) return false;
+            var user = await _userRepository.FindByIdAsync(userId) ?? throw new Exception("Пользователь не найден.");
 
             if (user.Status == UserStatus.Deleted)
                 throw new Exception("Невозможно заблокировать удалённого пользователя.");
 
-            if (user.Status == UserStatus.Blocked)
-                return true; // уже в нужном состоянии
+            var desiredStatus = isBlocked ? UserStatus.Blocked : UserStatus.Active;
 
-            user.Status = UserStatus.Blocked;
+            if (user.Status == desiredStatus)
+                return true;
+
+            user.Status = desiredStatus;
+
             await _userRepository.UpdateAsync(user);
             return true;
         }
