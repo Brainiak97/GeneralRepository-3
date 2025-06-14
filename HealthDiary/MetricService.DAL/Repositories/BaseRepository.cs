@@ -15,7 +15,11 @@ namespace MetricService.DAL.Repositories
 
         public virtual string Name => _contextDb.Set<T>().EntityType.ClrType.Name;
 
-        public abstract Task<bool> CreateAsync(T item);
+        public virtual async Task<bool> CreateAsync(T item)
+        {
+            _contextDb.Add(item);
+            return await _contextDb.SaveChangesAsync() == 1;
+        }
 
         public virtual async Task<bool> DeleteAsync(int id)
         {

@@ -4,7 +4,7 @@ using MetricService.Domain.Models;
 namespace MetricService.BLL.Mappers
 {
     public static class WorkoutMapper
-    {       
+    {
         public static Workout ToWorkout(this WorkoutCreateDTO workoutCreate)
         {
             return new Workout()
@@ -18,7 +18,7 @@ namespace MetricService.BLL.Mappers
             };
         }
 
-      
+
         public static Workout ToWorkout(this WorkoutUpdateDTO workoutUpdateDTO, int userId)
         {
             return new Workout()
@@ -28,15 +28,15 @@ namespace MetricService.BLL.Mappers
                 EndTime = workoutUpdateDTO.EndTime,
                 PhysicalActivityId = workoutUpdateDTO.PhysicalActivityId,
                 StartTime = workoutUpdateDTO.StartTime,
-                UserId = userId,                
+                UserId = userId
             };
         }
 
         public static WorkoutDTO ToWorkoutDTO(this Workout workout)
         {
             return new WorkoutDTO
-            {                
-                CaloriesBurned= workout.CaloriesBurned,
+            {
+                CaloriesBurned = workout.CaloriesBurned,
                 Description = workout.Description,
                 EndTime = workout.EndTime,
                 Id = workout.Id,
@@ -46,7 +46,7 @@ namespace MetricService.BLL.Mappers
             };
         }
 
-      
+
         public static IEnumerable<WorkoutDTO> ToWorkoutDTO(this IEnumerable<Workout> workout)
         {
 

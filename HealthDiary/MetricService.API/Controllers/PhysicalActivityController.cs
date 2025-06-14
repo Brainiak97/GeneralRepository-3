@@ -1,6 +1,7 @@
 ﻿using MetricService.BLL.DTO.PhysicalActivity;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
@@ -12,6 +13,7 @@ namespace MetricService.API.Controllers
         readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;       
 
         [HttpPost(nameof(CreatePhysicalActivity))]
+        [Authorize]
         public async Task<IActionResult> CreatePhysicalActivity([FromBody] PhysicalActivityCreateDTO physicalActivityCreateDTO)
         {
             try
@@ -26,6 +28,7 @@ namespace MetricService.API.Controllers
         }
 
         [HttpPost(nameof(UpdatePhysicalActivity))]
+        [Authorize]
         public async Task<IActionResult> UpdatePhysicalActivity([FromBody] PhysicalActivityUpdateDTO physicalActivityUpdateDTO)
         {
             try
@@ -41,6 +44,7 @@ namespace MetricService.API.Controllers
 
 
         [HttpDelete(nameof(DeletePhysicalActivity))]
+        [Authorize]
         public async Task<IActionResult> DeletePhysicalActivity(int id)
         {
             try

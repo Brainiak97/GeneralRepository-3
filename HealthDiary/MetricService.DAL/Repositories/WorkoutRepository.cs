@@ -9,13 +9,7 @@ namespace MetricService.DAL.Repositories
     {
         public WorkoutRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
-        }
-
-        public override async Task<bool> CreateAsync(Workout item)
-        {            
-            _contextDb.Add(item);
-            return await _contextDb.SaveChangesAsync() == 1;
-        }
+        }       
 
         public override async Task<bool> UpdateAsync(Workout item)
         {

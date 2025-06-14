@@ -9,11 +9,7 @@ namespace MetricService.DAL.Repositories
     {
         public SleepRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb) { }
 
-        public override async Task<bool> CreateAsync(Sleep item)
-        {
-            _contextDb.Add(item);
-            return await _contextDb.SaveChangesAsync() == 1;            
-        }
+        
         public override async Task<bool> UpdateAsync(Sleep item)
         {
             Sleep? sleep = await GetByIdAsync(item.Id); 

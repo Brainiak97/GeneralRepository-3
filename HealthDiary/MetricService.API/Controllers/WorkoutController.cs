@@ -42,8 +42,8 @@ namespace MetricService.API.Controllers
             }
         }
 
-        [HttpDelete(nameof(DeleteWorkout))]
-        public async Task<IActionResult> DeleteWorkout(int id)
+        [HttpDelete(nameof(DeleteWorkoutAsync))]
+        public async Task<IActionResult> DeleteWorkoutAsync(int id)
         {
             try
             {

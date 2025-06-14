@@ -92,7 +92,7 @@ namespace MetricService.BLL.Services
         {
             if (!_authorizationService.IsInRole("Admin") && workoutDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вы не можете создавать данные о тренировке для других пользователей", Common.Common.GetAuthorId(_authorizationService), workoutDTO.UserId, _repository.Name);
+                throw new ViolationAccessException("Вы не можете создавать данные для других пользователей", Common.Common.GetAuthorId(_authorizationService), workoutDTO.UserId, _repository.Name);
             }
 
             Workout workout = workoutDTO.ToWorkout();

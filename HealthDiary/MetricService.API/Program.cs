@@ -1,4 +1,6 @@
-﻿using MetricService.BLL.Interfaces;
+﻿using MetricService.BLL.DTO.AnalysisCategory;
+using MetricService.BLL.Interfaces;
+using MetricService.BLL.Mappers;
 using MetricService.BLL.Services;
 using MetricService.BLL.Validators;
 using MetricService.DAL.EF;
@@ -48,6 +50,18 @@ namespace MetricService.Api
             builder.Services.AddScoped<IHealthMetricsBaseRepository, HealthMetricsBaseRepository>();
             builder.Services.AddScoped<IHealthMetricsBaseService, HealthMetricsBaseService>();
             builder.Services.AddScoped<IValidator<HealthMetricsBase>, HealtMetricBaseValidator>();
+
+            builder.Services.AddScoped<IAnalysisCategoryRepository, AnalysisCategoryRepository>();
+            builder.Services.AddScoped<IAnalysisCategoryService, AnalysisCategoryService>();
+            builder.Services.AddScoped<IValidator<AnalysisCategory>, AnalysisCategoryValidator>();
+
+            builder.Services.AddScoped<IAnalysisTypeRepository, AnalysisTypeRepository>();
+            builder.Services.AddScoped<IAnalysisTypeService, AnalysisTypeService>();
+            builder.Services.AddScoped<IValidator<AnalysisType>, AnalysisTypeValidator>();
+
+            builder.Services.AddScoped<IAnalysisResultRepository, AnalysisResultRepository>();
+            builder.Services.AddScoped<IAnalysisResultService, AnalysisResultService>();
+            builder.Services.AddScoped<IValidator<AnalysisResult>, AnalysisResultValidator>();
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped<ClaimsPrincipal>(x =>

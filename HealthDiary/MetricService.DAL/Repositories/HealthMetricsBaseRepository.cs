@@ -9,12 +9,7 @@ namespace MetricService.DAL.Repositories
     {
         public HealthMetricsBaseRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
-        }
-        public override async Task<bool> CreateAsync(HealthMetricsBase item)
-        {           
-            _contextDb.Add(item);
-            return await _contextDb.SaveChangesAsync() == 1;            
-        }
+        }       
 
         public override async Task<bool> UpdateAsync(HealthMetricsBase item)
         {

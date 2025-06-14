@@ -4,7 +4,7 @@ using MetricService.Domain.Models;
 namespace MetricService.BLL.Mappers
 {
     public static class HealthMetricsBaseMapper
-    {    
+    {
         public static HealthMetricsBase ToHealthMetricsBase(this HealthMetricsBaseCreateDTO healthMetricsBaseCreateDTO)
         {
             return new HealthMetricsBase
@@ -20,7 +20,7 @@ namespace MetricService.BLL.Mappers
             };
         }
 
-       
+
         public static HealthMetricsBase ToHealthMetricsBase(this HealthMetricsBaseUpdateDTO healthMetricsBaseUpdateDTO, int userId)
         {
             return new HealthMetricsBase

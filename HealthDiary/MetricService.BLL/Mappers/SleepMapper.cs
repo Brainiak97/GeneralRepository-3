@@ -21,13 +21,13 @@ namespace MetricService.BLL.Mappers
         public static Sleep ToSleep(this SleepUpdateDTO sleepDTO, int userId)
         {
             return new Sleep()
-            {
-                UserId = userId,
+            {                
                 Comment = sleepDTO.Comment,
                 EndSleep = sleepDTO.EndSleep,
                 QualityRating = sleepDTO.QualityRating,
                 StartSleep = sleepDTO.StartSleep,
                 Id = sleepDTO.Id,
+                UserId = userId
             };
         }
 
