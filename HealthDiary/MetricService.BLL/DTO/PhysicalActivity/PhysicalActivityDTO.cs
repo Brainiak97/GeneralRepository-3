@@ -1,6 +1,6 @@
 ﻿namespace MetricService.BLL.DTO.PhysicalActivity
 {
-    public class PhysicalActivityDTO: PhysicalActivityCreateDTO
+    public class PhysicalActivityDTO: PhysicalActivityBaseDTO
     {
         /// <summary>
         /// идентификатор

@@ -12,11 +12,11 @@ namespace MetricService.API.Controllers
         readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;       
 
         [HttpPost(nameof(CreatePhysicalActivity))]
-        public async Task<IActionResult> CreatePhysicalActivity([FromBody] PhysicalActivityDTO physicalActivityDTO)
+        public async Task<IActionResult> CreatePhysicalActivity([FromBody] PhysicalActivityCreateDTO physicalActivityCreateDTO)
         {
             try
             {
-                await _physicalActivityService.CreatePhysicalActivityAsync(physicalActivityDTO);
+                await _physicalActivityService.CreatePhysicalActivityAsync(physicalActivityCreateDTO);
                 return Ok();
             }
             catch (BaseException ex)
@@ -26,11 +26,11 @@ namespace MetricService.API.Controllers
         }
 
         [HttpPost(nameof(UpdatePhysicalActivity))]
-        public async Task<IActionResult> UpdatePhysicalActivity([FromBody] PhysicalActivityDTO physicalActivityDTO)
+        public async Task<IActionResult> UpdatePhysicalActivity([FromBody] PhysicalActivityUpdateDTO physicalActivityUpdateDTO)
         {
             try
             {
-                await _physicalActivityService.UpdatePhysicalActivityAsync(physicalActivityDTO);
+                await _physicalActivityService.UpdatePhysicalActivityAsync(physicalActivityUpdateDTO);
                 return Ok();
             }
             catch (BaseException ex)

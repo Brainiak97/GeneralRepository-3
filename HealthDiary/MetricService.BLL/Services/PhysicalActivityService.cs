@@ -67,26 +67,20 @@ namespace MetricService.BLL.Services
         /// <summary>
         /// Создание данных о физической активности
         /// </summary>
-        /// <param name="physicalActivityDTO"></param>
+        /// <param name="physicalActivityCreateDTO"></param>
         /// <returns></returns>
         /// <exception cref="IncorrectOrEmptyResultException">Физическая активность уже зарегистрирована</exception>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        public async Task CreatePhysicalActivityAsync(PhysicalActivityDTO physicalActivityDTO)
-        {
-            if( await _repository.GetByIdAsync(physicalActivityDTO.Id)!=null)
-                throw new IncorrectOrEmptyResultException("Физическая активность уже зарегистрирована",
-                    new Dictionary<object, object>()
-                    {
-                        {"physicalActivityDTO", physicalActivityDTO}
-                    });
+        public async Task CreatePhysicalActivityAsync(PhysicalActivityCreateDTO physicalActivityCreateDTO)
+        {           
 
             if (!_authorizationService.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные", Common.Common.GetAuthorId(_authorizationService), 0, _repository.Name);
             }
 
-            PhysicalActivity physicalActivity = physicalActivityDTO.ToPhysicalActivity();
+            PhysicalActivity physicalActivity = physicalActivityCreateDTO.ToPhysicalActivity();
 
             if (!_validator.Validate(physicalActivity, out Dictionary<string, string> errorList))
             {
@@ -100,18 +94,18 @@ namespace MetricService.BLL.Services
         /// <summary>
         /// Обновление данных о физической активности
         /// </summary>
-        /// <param name="physicalActivityDTO"></param>
+        /// <param name="physicalActivityUpdateDTO"></param>
         /// <returns></returns>
         /// <exception cref="IncorrectOrEmptyResultException"></exception>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        public async Task UpdatePhysicalActivityAsync(PhysicalActivityDTO physicalActivityDTO)
+        public async Task UpdatePhysicalActivityAsync(PhysicalActivityUpdateDTO physicalActivityUpdateDTO)
         {
-            var physicalActivityFind = await _repository.GetByIdAsync(physicalActivityDTO.Id)??
+            var physicalActivityFind = await _repository.GetByIdAsync(physicalActivityUpdateDTO.Id)??
                 throw new IncorrectOrEmptyResultException("Физическая активность не зарегистрирована",
                     new Dictionary<object, object>()
                     {
-                        {"physicalActivityDTO", physicalActivityDTO}
+                        {"physicalActivityUpdateDTO", physicalActivityUpdateDTO}
                     });
 
             if (!_authorizationService.IsInRole("Admin"))
@@ -119,7 +113,7 @@ namespace MetricService.BLL.Services
                 throw new ViolationAccessException("Вы не можете создавать данные", Common.Common.GetAuthorId(_authorizationService), 0, _repository.Name);
             }
 
-            physicalActivityFind = physicalActivityDTO.ToPhysicalActivity();
+            physicalActivityFind = physicalActivityUpdateDTO.ToPhysicalActivity();
 
             if (!_validator.Validate(physicalActivityFind, out Dictionary<string, string> errorList))
             {
