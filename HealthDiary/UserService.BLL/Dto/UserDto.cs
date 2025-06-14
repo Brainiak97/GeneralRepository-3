@@ -54,6 +54,11 @@ namespace UserService.BLL.Dto
         public bool IsEmailConfirmed { get; set; }
 
         /// <summary>
+        /// Указывает активен, удален или заблокирован пользователь.
+        /// </summary>
+        public UserStatus Status { get; set; }
+
+        /// <summary>
         /// Получает или задаёт дату и время создания учетной записи пользователя.
         /// </summary>
         public DateTime CreatedAt { get; set; }

@@ -53,5 +53,46 @@ namespace UserService.BLL.Interfaces
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает найденного пользователя в виде <see cref="UserDto"/> или null, если пользователь не найден.</returns>
         Task<UserDto?> FindById(int userId);
+
+        /// <summary>
+        /// Выдает список всех пользователей в системе.
+        /// </summary>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает найденных пользователей в виде списка <see cref="UserDto"/> или null, если пользователи не найдены.</returns>
+        Task<IEnumerable<UserDto?>> GetAll();
+
+        /// <summary>
+        /// Обновляет данные пользователя в хранилище.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="dto">Dto модель обновленных данных пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        Task<bool> UpdateUserAsync(int userId, UserUpdateDto dto);
+
+        /// <summary>
+        /// Отмечает пользователя как удаленного.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        Task<bool> DeleteUserAsync(int userId);
+
+        /// <summary>
+        /// Восстановление пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        Task<bool> RestoreUserAsync(int userId);
+
+        /// <summary>
+        /// Блокировка и разблокировка пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="isBlocked">Указывает нужно заблокировать или разблокировать пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        Task<bool> BlockUserAsync(int userId, bool isBlocked);
     }
 }

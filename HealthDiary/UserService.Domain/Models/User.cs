@@ -57,9 +57,14 @@
         public bool IsEmailConfirmed { get; set; }
 
         /// <summary>
-        /// Указывает, заблокирован ли пользователь.
+        /// Указывает активен, удален или заблокирован пользователь.
         /// </summary>
-        public bool IsBlocked { get; set; }
+        public UserStatus Status { get; set; }
+
+        /// <summary>
+        /// Получает или задает дату удаления пользователя
+        /// </summary>
+        public DateTime? DeletedAt { get; set; }
 
         /// <summary>
         /// Получает или задаёт дату и время создания учетной записи пользователя.

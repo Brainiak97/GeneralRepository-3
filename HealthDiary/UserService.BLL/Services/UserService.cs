@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Shared.Auth;
 using UserService.BLL.Dto;
 using UserService.BLL.Interfaces;
@@ -10,11 +11,12 @@ namespace UserService.BLL.Services
     /// <summary>
     /// Предоставляет реализацию бизнес-логики для регистрации, аутентификации и управления пользователями.
     /// </summary>
-    public class UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtService jwtService) : IUserService
+    public class UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtService jwtService, IMapper mapper) : IUserService
     {
         private readonly IUserRepository _userRepository = userRepository;
         private readonly IPasswordHasher<User> _passwordHasher = passwordHasher; // Для хеширования паролей
         private readonly IJwtService _jwtService = jwtService; // Для генерации JWT-токенов
+        private readonly IMapper _mapper = mapper; // Для генерации JWT-токенов
 
         /// <summary>
         /// Регистрирует нового пользователя на основе предоставленных данных.
@@ -43,7 +45,7 @@ namespace UserService.BLL.Services
                 CreatedAt = DateTime.Now,
                 Gender = request.Gender,
                 DateOfBirth = request.DateOfBirth,
-                IsBlocked = false,
+                Status = UserStatus.Active,
                 IsEmailConfirmed = false,
                 PasswordHash = string.Empty
             };
@@ -78,6 +80,13 @@ namespace UserService.BLL.Services
         public async Task<AuthResponseDto> Login(LoginRequestDto request)
         {
             var user = await _userRepository.GetUserByUsernameAsync(request.Username) ?? throw new Exception("Пользователь с таким логином не существует");
+
+            if (user.Status == UserStatus.Blocked)
+                throw new Exception("Пользователь заблокирован");
+
+            if (user.Status == UserStatus.Deleted)
+                throw new Exception("Пользователь удалён");
+
             var result = _passwordHasher.VerifyHashedPassword(
                 user,
                 user.PasswordHash,
@@ -115,20 +124,7 @@ namespace UserService.BLL.Services
                 return null;
             }
 
-            return new UserDto()
-            {
-                Roles = (ICollection<RoleDto>)user.Roles,
-                Gender = user.Gender,
-                DateOfBirth = user.DateOfBirth,
-                CreatedAt = user.CreatedAt,
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Username = user.Username,
-                LastName = user.LastName,
-                IsEmailConfirmed = user.IsEmailConfirmed,
-                Id = user.Id
-            };
+            return _mapper.Map<UserDto>(user);
         }
 
         /// <summary>
@@ -146,20 +142,7 @@ namespace UserService.BLL.Services
                 return null;
             }
 
-            return new UserDto()
-            {
-                Roles = (ICollection<RoleDto>)user.Roles,
-                Gender = user.Gender,
-                DateOfBirth = user.DateOfBirth,
-                CreatedAt = user.CreatedAt,
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Username = user.Username,
-                LastName = user.LastName,
-                IsEmailConfirmed = user.IsEmailConfirmed,
-                Id = user.Id
-            };
+            return _mapper.Map<UserDto>(user);
         }
 
         /// <summary>
@@ -187,6 +170,98 @@ namespace UserService.BLL.Services
             var user = await _userRepository.GetUserByEmailAsync(email) ?? throw new Exception("Пользователь с таким логином не существует");
             user.PasswordHash = _passwordHasher.HashPassword(user, newPassword);
             await _userRepository.UpdateAsync(user);
+        }
+
+        /// <summary>
+        /// Выдает список всех пользователей в системе.
+        /// </summary>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает найденных пользователей в виде списка <see cref="UserDto"/> или null, если пользователи не найдены.</returns>
+        public async Task<IEnumerable<UserDto?>> GetAll()
+        {
+            var users = await _userRepository.GetAllUsers();
+            return _mapper.Map<IEnumerable<UserDto>>(users);
+        }
+
+        /// <summary>
+        /// Обновляет данные пользователя в хранилище.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="dto"></param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        public async Task<bool> UpdateUserAsync(int userId, UserUpdateDto dto)
+        {
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user == null) return false;
+
+            user.DateOfBirth = DateTime.SpecifyKind(dto.DateOfBirth, DateTimeKind.Utc);
+
+            await _userRepository.UpdateAsync(_mapper.Map(dto, user));
+            return true;
+        }
+
+        /// <summary>
+        /// Отмечает пользователя как удаленного.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user == null) return false;
+
+            // Мягкое удаление
+            user.Status = UserStatus.Deleted;
+            user.DeletedAt = DateTime.UtcNow;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        /// <summary>
+        /// Восстанавливает пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>  
+        public async Task<bool> RestoreUserAsync(int userId)
+        {
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user == null || user.Status != UserStatus.Deleted) return false;
+
+            user.Status = UserStatus.Active;
+            user.DeletedAt = null;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        /// <summary>
+        /// Блокировка и разблокировка пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="isBlocked">Указывает нужно заблокировать или разблокировать пользователя.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает положительный или отрицательный результат.</returns>
+        /// <exception cref="Exception">Выбрасывается, если пользователь помечен как удаленный.</exception>
+        public async Task<bool> BlockUserAsync(int userId, bool isBlocked)
+        {
+            var user = await _userRepository.FindByIdAsync(userId) ?? throw new Exception("Пользователь не найден.");
+
+            if (user.Status == UserStatus.Deleted)
+                throw new Exception("Невозможно заблокировать удалённого пользователя.");
+
+            var desiredStatus = isBlocked ? UserStatus.Blocked : UserStatus.Active;
+
+            if (user.Status == desiredStatus)
+                return true;
+
+            user.Status = desiredStatus;
+
+            await _userRepository.UpdateAsync(user);
+            return true;
         }
     }
 }
