@@ -59,13 +59,13 @@ namespace MetricService.Api.Controllers
         public async Task<IActionResult> GetAllUsers(int pagenum, int pagesize)
         {
             try
-            {
+    {
                 var result = await _userService.GetAllUsersAsync(pagenum, pagesize);
 
                 if (!result.Any())
-                {
+        {
                     return Ok("Список пуст");
-                }
+        }
 
                 return Ok(result);
             }
@@ -74,7 +74,7 @@ namespace MetricService.Api.Controllers
                 return BadRequest(ex.GetError());
             }
         }
-
+        
         [HttpGet(nameof(GetUserById))]
         public async Task<IActionResult> GetUserById(int userid)
         {

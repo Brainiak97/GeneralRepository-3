@@ -9,18 +9,18 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Создание физической активности
         /// </summary>
-        /// <param name="physicalActivityDTO">физическая активность</param>        
+        /// <param name="physicalActivityCreateDTO">физическая активность</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>        
         /// <exception cref="ValidateModelException">физическая активность уже зарегистрирована</exception>
-        public Task CreatePhysicalActivityAsync(PhysicalActivityDTO physicalActivityDTO);
+        public Task CreatePhysicalActivityAsync(PhysicalActivityCreateDTO physicalActivityCreateDTO);
 
         /// <summary>
         /// Обновить данные о физической активностие
         /// </summary>
-        /// <param name="physicalActivityDTO">физическая активность</param>        
+        /// <param name="physicalActivityUpdateDTO">физическая активность</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>        
         /// <exception cref="ValidateModelException">физическая активность не зарегистрирована</exception>
-        public Task UpdatePhysicalActivityAsync(PhysicalActivityDTO physicalActivityDTO);
+        public Task UpdatePhysicalActivityAsync(PhysicalActivityUpdateDTO physicalActivityUpdateDTO);
 
         /// <summary>
         /// Удалить физическую активность
