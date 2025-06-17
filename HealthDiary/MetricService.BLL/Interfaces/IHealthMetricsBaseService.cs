@@ -1,5 +1,6 @@
 ﻿using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.HealthMetricsBase;
+using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
@@ -11,7 +12,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="healthMetricsBaseDTO">Информация о записи</param>
         /// <returns></returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>        
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>  
         public Task CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseCreateDTO healthMetricsBaseDTO);
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Получить все записи для пользователя
         /// </summary>
-        /// <param cref="RequestListWithPeriodByIdDTO">Запрос</param>        
+        /// <param name="requestListWithPeriodByIdDTO">Запрос</param>        
         /// <returns></returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         public Task<IEnumerable<HealthMetricsBaseDTO>> GetAllRecordsOfHealthMetricsBaseByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);

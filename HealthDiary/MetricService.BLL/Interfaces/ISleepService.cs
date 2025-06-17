@@ -1,5 +1,6 @@
 ﻿using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.Sleep;
+using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
@@ -11,7 +12,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="sleepDTO">Сон</param>
         /// <returns>true - в случае успеха</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>       
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>          
         public Task CreateRecordOfSleepAsync(SleepCreateDTO sleepDTO);
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Получить все записи о снах пользователя
         /// </summary>
-        /// <param cref="RequestListWithPeriodByIdDTO">Запрос</param>        
+        /// <param name="requestListWithPeriodByIdDTO">Запрос</param>        
         /// <returns></returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         public Task<IEnumerable<SleepDTO>> GetAllRecordsOfSleepByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);

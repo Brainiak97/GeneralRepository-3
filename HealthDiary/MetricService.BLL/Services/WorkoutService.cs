@@ -1,5 +1,4 @@
 ﻿using MetricService.BLL.DTO;
-using MetricService.BLL.DTO.Sleep;
 using MetricService.BLL.DTO.Workout;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
@@ -16,12 +15,7 @@ namespace MetricService.BLL.Services
         private readonly IValidator<Workout> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
 
-        /// <summary>
-        /// Удалить тренировку
-        /// </summary>
-        /// <param name="workoutId">ИД тренировки</param>       
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="IncorrectOrEmptyResultException">Указанная тренировка не существует</exception>
+        
         public async Task DeleteWorkoutAsync(int workoutId)
         {
             var workoutFind = await _repository.GetByIdAsync(workoutId) ??
@@ -38,12 +32,7 @@ namespace MetricService.BLL.Services
             await _repository.DeleteAsync(workoutId);
         }
 
-        /// <summary>
-        /// Получить все тренировки для пользователя
-        /// </summary>
-        /// <param cref="RequestListWithPeriodByIdDTO">Запрос</param>        
-        /// <returns></returns>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+        
         public async Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -59,13 +48,7 @@ namespace MetricService.BLL.Services
             return workouts;
         }
 
-        /// <summary>
-        /// Получить тренировку по ИД
-        /// </summary>
-        /// <param name="workoutId">ИД тренировки</param>
-        /// <returns></returns>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="IncorrectOrEmptyResultException">Указанная тренировка не существует</exception>
+        
         public async Task<WorkoutDTO> GetWorkoutByIdAsync(int workoutId)
         {
             var workoutFind = await _repository.GetByIdAsync(workoutId) ??
@@ -81,18 +64,12 @@ namespace MetricService.BLL.Services
 
             return workoutFind.ToWorkoutDTO();
         }
-
-        /// <summary>
-        /// Создание тренировки
-        /// </summary>
-        /// <param name="workoutDTO">тренировка</param>       
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим тренировкам</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>        
+                
         public async Task CreateWorkoutAsync(WorkoutCreateDTO workoutDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && workoutDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вы не можете создавать данные о тренировке для других пользователей", Common.Common.GetAuthorId(_authorizationService), workoutDTO.UserId, _repository.Name);
+                throw new ViolationAccessException("Вы не можете создавать данные для других пользователей", Common.Common.GetAuthorId(_authorizationService), workoutDTO.UserId, _repository.Name);
             }
 
             Workout workout = workoutDTO.ToWorkout();
@@ -104,14 +81,8 @@ namespace MetricService.BLL.Services
 
             await _repository.CreateAsync(workout);
         }
-
-        /// <summary>
-        /// Обновить данные о тренировке
-        /// </summary>
-        /// <param name="workoutDTO">тренировка</param>        
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим тренировкам</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        /// <exception cref="ValidateModelException">Тренировка не зарегистрирована</exception>
+        
+        
         public async Task UpdateWorkoutAsync(WorkoutUpdateDTO workoutDTO)
         {
             var findWorkout = await _repository.GetByIdAsync(workoutDTO.Id) ??

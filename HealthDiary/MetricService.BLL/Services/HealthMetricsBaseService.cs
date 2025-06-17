@@ -17,12 +17,7 @@ namespace MetricService.BLL.Services
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
 
 
-        /// <summary>
-        /// Удалить запись о базовых медицинских показателей
-        /// </summary>
-        /// <param name="healthMetricsBaseId">идентификатор записи</param>        
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="IncorrectOrEmptyResultException">Указанная запись о базовых мед. показателях не существует</exception>
+
         public async Task DeleteRecordOfHealthMetricsBaseAsync(int healthMetricsBaseId)
         {
             var healthMetricsBaseFind = await _repository.GetByIdAsync(healthMetricsBaseId) ??
@@ -33,23 +28,14 @@ namespace MetricService.BLL.Services
 
             if (!_authorizationService.IsInRole("Admin") && healthMetricsBaseFind.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вам разрешено удалить только свою запись о базовых показателях здоровья", 
+                throw new ViolationAccessException("Вам разрешено удалить только свою запись о базовых показателях здоровья",
                     Common.Common.GetAuthorId(_authorizationService), healthMetricsBaseFind.UserId, _repository.Name);
             }
 
             await _repository.DeleteAsync(healthMetricsBaseId);
         }
 
-        /// <summary>
-        /// Получить все записи для пользователя
-        /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <param name="begDate">начало периода для выборки</param>
-        /// <param name="endDate">конец периода для выборки</param>
-        /// <param name="pageNum">номер страницы для пагинации</param>
-        /// <param name="pageSize">кол-во строк на странице для пагинации</param>
-        /// <returns></returns>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
+
         public async Task<IEnumerable<HealthMetricsBaseDTO>> GetAllRecordsOfHealthMetricsBaseByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -66,13 +52,7 @@ namespace MetricService.BLL.Services
             return recordsOfHealthMetricsBase;
         }
 
-        /// <summary>
-        /// получить запись о базовых показателях пользователя
-        /// </summary>
-        /// <param name="healthMetricsBaseId">ИД записи</param>
-        /// <returns>модель DTO</returns>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="IncorrectOrEmptyResultException">Указанная запись о базовых мед. показателях не существует</exception>
+
         public async Task<HealthMetricsBaseDTO> GetRecordOfHealthMetricsBaseByIdAsync(int healthMetricsBaseId)
         {
             var healthMetricsBaseFind = await _repository.GetByIdAsync(healthMetricsBaseId) ??
@@ -83,20 +63,14 @@ namespace MetricService.BLL.Services
 
             if (!_authorizationService.IsInRole("Admin") && healthMetricsBaseFind.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о базовых показателях здоровья", 
+                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о базовых показателях здоровья",
                     Common.Common.GetAuthorId(_authorizationService), healthMetricsBaseFind.UserId, _repository.Name);
             }
 
             return healthMetricsBaseFind.ToHealthMetricsBaseDTO();
         }
 
-        /// <summary>
-        /// обновить запись
-        /// </summary>
-        /// <param name="healthMetricsBaseDTO">информвция о записи</param>        
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        /// <exception cref="IncorrectOrEmptyResultException">Запись о базовых мед. показателях не зарегистрирована</exception>
+
         public async Task UpdateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseUpdateDTO healthMetricsBaseDTO)
         {
             var findHealthMetricsBase = await _repository.GetByIdAsync(healthMetricsBaseDTO.Id) ??
@@ -108,7 +82,7 @@ namespace MetricService.BLL.Services
 
             if (!_authorizationService.IsInRole("Admin") && findHealthMetricsBase.UserId != Common.Common.GetAuthorId(_authorizationService))
             {
-                throw new ViolationAccessException("Вы не можете изменять данные о базовых показателях здоровья для других пользователей", 
+                throw new ViolationAccessException("Вы не можете изменять данные о базовых показателях здоровья для других пользователей",
                     Common.Common.GetAuthorId(_authorizationService), findHealthMetricsBase.UserId, _repository.Name);
             }
 
@@ -123,14 +97,7 @@ namespace MetricService.BLL.Services
         }
 
 
-        /// <summary>
-        /// Создать запись
-        /// </summary>
-        /// <param name="healthMetricsBaseDTO">Информация о записи</param>
-        /// <returns></returns>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        ///  <exception cref="IncorrectOrEmptyResultException">Запись о базовых мед. показателях уже зарегистрирована</exception>
+              
         public async Task CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseCreateDTO healthMetricsBaseDTO)
         {
 

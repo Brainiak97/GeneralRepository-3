@@ -15,12 +15,7 @@ namespace MetricService.BLL.Services
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
        
 
-        /// <summary>
-        /// Получить все записи о физической активности
-        /// </summary>
-        /// <param name="pageNum">Номер страницы для пагинации</param>
-        /// <param name="pageSize">Кол-во строк на странице для пагинации</param>
-        /// <returns></returns>
+        
         public async Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync(int pageNum, int pageSize)
         {
             var physicalActivities = (await _repository.GetAllAsync()).Skip((pageNum - 1) * pageSize).Take(pageSize).ToPhysicalActivityDTO();
@@ -29,12 +24,7 @@ namespace MetricService.BLL.Services
             return physicalActivities;
         }
 
-        /// <summary>
-        /// Получить запись о физической автивности по ИД
-        /// </summary>
-        /// <param name="activityId">ИД физ. активности</param>
-        /// <returns>Модель DTO</returns>
-        /// <exception cref="IncorrectOrEmptyResultException">Указанная физическая активность не существует</exception>
+        
         public async Task<PhysicalActivityDTO> GetPhysicalActivityByIdAsync(int activityId)
         {                  
             return (await _repository.GetByIdAsync(activityId)??
@@ -44,12 +34,7 @@ namespace MetricService.BLL.Services
                })).ToPhysicalActivityDTO();
         }
 
-        /// <summary>
-        /// Получить список физической акстивности по строке поиска.
-        /// Разные фразы для поиска разделяются ","
-        /// </summary>
-        /// <param name="search">строка поиска. Для разделения фраз использовать ","</param>
-        /// <returns>Список</returns>
+        
         public async Task<IEnumerable<PhysicalActivityDTO>> GetListPhysicalActivitiesBySearchAsync(string search)
         {
             var stringsSearch = search.Split(',');
@@ -64,14 +49,7 @@ namespace MetricService.BLL.Services
             return filterrecords;
         }
 
-        /// <summary>
-        /// Создание данных о физической активности
-        /// </summary>
-        /// <param name="physicalActivityCreateDTO"></param>
-        /// <returns></returns>
-        /// <exception cref="IncorrectOrEmptyResultException">Физическая активность уже зарегистрирована</exception>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
+        
         public async Task CreatePhysicalActivityAsync(PhysicalActivityCreateDTO physicalActivityCreateDTO)
         {           
 
@@ -91,17 +69,10 @@ namespace MetricService.BLL.Services
         }
 
 
-        /// <summary>
-        /// Обновление данных о физической активности
-        /// </summary>
-        /// <param name="physicalActivityUpdateDTO"></param>
-        /// <returns></returns>
-        /// <exception cref="IncorrectOrEmptyResultException"></exception>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
+        
         public async Task UpdatePhysicalActivityAsync(PhysicalActivityUpdateDTO physicalActivityUpdateDTO)
         {
-            var physicalActivityFind = await _repository.GetByIdAsync(physicalActivityUpdateDTO.Id)??
+            _ = await _repository.GetByIdAsync(physicalActivityUpdateDTO.Id)??
                 throw new IncorrectOrEmptyResultException("Физическая активность не зарегистрирована",
                     new Dictionary<object, object>()
                     {
@@ -113,7 +84,7 @@ namespace MetricService.BLL.Services
                 throw new ViolationAccessException("Вы не можете создавать данные", Common.Common.GetAuthorId(_authorizationService), 0, _repository.Name);
             }
 
-            physicalActivityFind = physicalActivityUpdateDTO.ToPhysicalActivity();
+            var physicalActivityFind = physicalActivityUpdateDTO.ToPhysicalActivity();
 
             if (!_validator.Validate(physicalActivityFind, out Dictionary<string, string> errorList))
             {
@@ -123,16 +94,10 @@ namespace MetricService.BLL.Services
             await _repository.UpdateAsync(physicalActivityFind);
         }
 
-        /// <summary>
-        /// Удаление данных о физической активности
-        /// </summary>
-        /// <param name="physicalActivityId"></param>
-        /// <returns></returns>
-        /// <exception cref="IncorrectOrEmptyResultException">Физическая активность не зарегистрирована</exception>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
+       
         public async Task DeletePhysicalActivityAsync(int physicalActivityId)
         {
-            var physicalActivityFind = await _repository.GetByIdAsync(physicalActivityId) ??
+            _ = await _repository.GetByIdAsync(physicalActivityId) ??
                throw new IncorrectOrEmptyResultException("Физическая активность не зарегистрирована", new Dictionary<object, object>()
                {
                     { "physicalActivityId", physicalActivityId }

@@ -1,57 +1,39 @@
 ﻿using MetricService.BLL.DTO.PhysicalActivity;
-using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]    
+    [Route("api/[controller]")]
     public class PhysicalActivityController(IPhysicalActivityService physicalActivityService) : Controller
     {
-        readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;       
+        readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;
 
         [HttpPost(nameof(CreatePhysicalActivity))]
+        [Authorize]
         public async Task<IActionResult> CreatePhysicalActivity([FromBody] PhysicalActivityCreateDTO physicalActivityCreateDTO)
         {
-            try
-            {
-                await _physicalActivityService.CreatePhysicalActivityAsync(physicalActivityCreateDTO);
-                return Ok();
-            }
-            catch (BaseException ex)
-            {
-                return BadRequest(ex.GetError());
-            }
+            await _physicalActivityService.CreatePhysicalActivityAsync(physicalActivityCreateDTO);
+            return Ok();
         }
 
-        [HttpPost(nameof(UpdatePhysicalActivity))]
+        [HttpPut(nameof(UpdatePhysicalActivity))]
+        [Authorize]
         public async Task<IActionResult> UpdatePhysicalActivity([FromBody] PhysicalActivityUpdateDTO physicalActivityUpdateDTO)
         {
-            try
-            {
-                await _physicalActivityService.UpdatePhysicalActivityAsync(physicalActivityUpdateDTO);
-                return Ok();
-            }
-            catch (BaseException ex)
-            {
-                return BadRequest(ex.GetError());
-            }
+            await _physicalActivityService.UpdatePhysicalActivityAsync(physicalActivityUpdateDTO);
+            return Ok();
         }
 
 
         [HttpDelete(nameof(DeletePhysicalActivity))]
+        [Authorize]
         public async Task<IActionResult> DeletePhysicalActivity(int id)
         {
-            try
-            {
-                await _physicalActivityService.DeletePhysicalActivityAsync(id);
-                return Ok();
-            }
-            catch (BaseException ex)
-            {
-                return BadRequest(ex.GetError());
-            }
+            await _physicalActivityService.DeletePhysicalActivityAsync(id);
+            return Ok();
         }
 
         [HttpGet(nameof(GetAllPhysicalActivities))]
@@ -70,20 +52,14 @@ namespace MetricService.API.Controllers
         [HttpGet(nameof(GetPhysicalActivityById))]
         public async Task<IActionResult> GetPhysicalActivityById(int physicalActivityId)
         {
-            try
-            {
-                var result = await _physicalActivityService.GetPhysicalActivityByIdAsync(physicalActivityId);
+            var result = await _physicalActivityService.GetPhysicalActivityByIdAsync(physicalActivityId);
 
-                if (result == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(result);
-            }catch(BaseException ex)
+            if (result == null)
             {
-                return BadRequest(ex.GetError());
+                return NotFound();
             }
+
+            return Ok(result);
         }
 
         [HttpGet(nameof(FindPhysicalActivityByName))]

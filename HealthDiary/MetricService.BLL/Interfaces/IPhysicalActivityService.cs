@@ -7,27 +7,31 @@ namespace MetricService.BLL.Interfaces
     public interface IPhysicalActivityService 
     {
         /// <summary>
-        /// Создание физической активности
+        /// Создание данных о физической активности
         /// </summary>
-        /// <param name="physicalActivityCreateDTO">физическая активность</param>        
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>        
-        /// <exception cref="ValidateModelException">физическая активность уже зарегистрирована</exception>
+        /// <param name="physicalActivityCreateDTO"></param>
+        /// <returns></returns>        
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
         public Task CreatePhysicalActivityAsync(PhysicalActivityCreateDTO physicalActivityCreateDTO);
 
         /// <summary>
-        /// Обновить данные о физической активностие
+        /// Обновление данных о физической активности
         /// </summary>
-        /// <param name="physicalActivityUpdateDTO">физическая активность</param>        
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>        
-        /// <exception cref="ValidateModelException">физическая активность не зарегистрирована</exception>
+        /// <param name="physicalActivityUpdateDTO"></param>
+        /// <returns></returns>
+        /// <exception cref="IncorrectOrEmptyResultException"></exception>
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
         public Task UpdatePhysicalActivityAsync(PhysicalActivityUpdateDTO physicalActivityUpdateDTO);
 
         /// <summary>
-        /// Удалить физическую активность
+        /// Удаление данных о физической активности
         /// </summary>
-        /// <param name="physicalActivityId">ИД активности/param>        
+        /// <param name="physicalActivityId"></param>
+        /// <returns></returns>
+        /// <exception cref="IncorrectOrEmptyResultException">Физическая активность не зарегистрирована</exception>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
-        /// <exception cref="IncorrectOrEmptyResultException">Указанная физическая активность не существует</exception>
         public Task DeletePhysicalActivityAsync(int physicalActivityId);
 
         /// <summary>
@@ -38,21 +42,21 @@ namespace MetricService.BLL.Interfaces
         /// <exception cref="IncorrectOrEmptyResultException">Указанная физическая активность не существует</exception>
         public Task<PhysicalActivityDTO> GetPhysicalActivityByIdAsync(int activityId);
 
-       /// <summary>
-       /// получение списка физической активности
-       /// </summary>
-       /// <param name="pageNum">номер страницы для пагинации</param>
-       /// <param name="pageSize">количество позиций на странице</param>
-       /// <returns></returns>
+        /// <summary>
+        /// Получить все записи о физической активности
+        /// </summary>
+        /// <param name="pageNum">Номер страницы для пагинации</param>
+        /// <param name="pageSize">Кол-во строк на странице для пагинации</param>
+        /// <returns></returns>
         public Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync(int pageNum, int pageSize);
 
 
         /// <summary>
-        /// получение списка физической активности, заданной строкой поиска по наименованию.
-        /// В строку поиска по наименованию можно передать несколько фраз поиска через ","
+        /// Получить список физической акстивности по строке поиска.
+        /// Разные фразы для поиска разделяются ","
         /// </summary>
-        /// <param name="search">строка поиска по наименованию</param>
-        /// <returns></returns>
+        /// <param name="search">строка поиска. Для разделения фраз использовать ","</param>
+        /// <returns>Список</returns>
         public Task<IEnumerable<PhysicalActivityDTO>> GetListPhysicalActivitiesBySearchAsync(string search);
     }
 }

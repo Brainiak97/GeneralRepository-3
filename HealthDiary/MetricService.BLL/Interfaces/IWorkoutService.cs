@@ -1,5 +1,6 @@
 ﻿using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.Workout;
+using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
@@ -8,9 +9,9 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Создание тренировки
         /// </summary>
-        /// <param name="workoutDTO">тренировка</param>        
+        /// <param name="workoutDTO">тренировка</param>       
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим тренировкам</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>       
+        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>      
         public Task CreateWorkoutAsync(WorkoutCreateDTO workoutDTO);
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="workoutId">ИД тренировки</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="IncorrectOrEmptyResultException">Указанная тренировка не существует</exception>
-        public Task DeleteWorkoutAsync(int userId);
+        public Task DeleteWorkoutAsync(int workoutId);
 
         /// <summary>
         /// Получить тренировку по ИД
@@ -42,7 +43,7 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Получить все тренировки для пользователя
         /// </summary>
-        /// <param cref="RequestListWithPeriodByIdDTO">запрос</param>        
+        /// <param name="requestListWithPeriodByIdDTO">запрос</param>        
         /// <returns></returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         public Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);       
