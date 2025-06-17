@@ -9,13 +9,7 @@ namespace MetricService.DAL.Repositories
     {
         public WorkoutRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
-        }
-
-        public override async Task<bool> CreateAsync(Workout item)
-        {            
-            _contextDb.Add(item);
-            return await _contextDb.SaveChangesAsync() == 1;
-        }
+        }       
 
         public override async Task<bool> UpdateAsync(Workout item)
         {
@@ -32,13 +26,17 @@ namespace MetricService.DAL.Repositories
 
         public async override Task<Workout?> GetByIdAsync(int id)
         {
-            return await _contextDb.Workouts.Include(w => w.User).Include(w=>w.PhysicalActivity)
+            return await _contextDb.Workouts
+                .Include(w => w.User)
+                .Include(w=>w.PhysicalActivity)
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async override Task<IEnumerable<Workout>> GetAllAsync()
         {
-            return await _contextDb.Workouts.Include(w => w.User).Include(w => w.PhysicalActivity)
+            return await _contextDb.Workouts
+                .Include(w => w.User)
+                .Include(w => w.PhysicalActivity)
                 .ToListAsync();
         }
     }

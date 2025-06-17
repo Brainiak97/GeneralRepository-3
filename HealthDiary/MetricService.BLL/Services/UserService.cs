@@ -13,12 +13,7 @@ namespace MetricService.BLL.Services
         private readonly IValidator<Domain.Models.User> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
 
-        /// <summary>
-        /// Удаление профиля пользователя
-        /// </summary>
-        /// <param name="userId"></param>       
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>    
-        /// <exception cref="IncorrectOrEmptyResultException">Возникает если указанный пользователь не существует</exception>   
+       
         public async Task DeleteProfileAsync(int userId)
         {
             if (await _repository.GetByIdAsync(userId) == null)
@@ -37,13 +32,7 @@ namespace MetricService.BLL.Services
 
         }
 
-        /// <summary>
-        /// Вывести список пользователей с пагинацией
-        /// </summary>
-        /// <param name="pageNum">номер страницы</param>
-        /// <param name="pageSize">кол-во позиций на странице</param>
-        /// <returns>Список моделей DTO</returns>,
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>        
+          
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync(int pageNum, int pageSize)
         {
             if (!_authorizationService.IsInRole("Admin"))
@@ -56,13 +45,7 @@ namespace MetricService.BLL.Services
             return users;
         }
 
-        /// <summary>
-        /// получение пользователя по идентификатору
-        /// </summary>
-        /// <param name="userId">идентификатор пользователя</param>
-        /// <returns>Модель DTO</returns>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>  
-        /// <exception cref="IncorrectOrEmptyResultException">Возникает когда пользователь с заданным ИД не найден</exception> 
+        
         public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
             var findUser = await _repository.GetByIdAsync(userId)??
@@ -81,17 +64,9 @@ namespace MetricService.BLL.Services
             return findUser.ToUserDTO();
         }
 
-        /// <summary>
-        /// Создание профиля пользователя
-        /// </summary>
-        /// /// <param name="author"></param>
-        /// <param name="userDTO"></param>        
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
-        ///  <exception cref="IncorrectOrEmptyResultException">Возникает когда пользователь уже зарегистрирован</exception>
+       
         public async Task CreateProfileAsync(UserDTO userDTO)
-        {
-            
+        {            
             if (await _repository.GetByIdAsync(userDTO.Id) != null)
                 throw new IncorrectOrEmptyResultException("Пользователь уже зарегистрирован",
                     new Dictionary<object, object>()
@@ -115,14 +90,7 @@ namespace MetricService.BLL.Services
             await _repository.CreateAsync(user);
         }
 
-        /// <summary>
-        /// Обновление профиля пользователя
-        /// </summary>
-        /// /// <param name="author"></param>
-        /// <param name="userDTO"></param>
-        /// <returns>true - в случае успеха</returns>
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
+        
         public async Task UpdateProfileAsync(UserDTO userDTO)
         {
             var findUser = await _repository.GetByIdAsync(userDTO.Id) ?? 

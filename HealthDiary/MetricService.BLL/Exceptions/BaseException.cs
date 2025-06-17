@@ -1,6 +1,4 @@
-﻿using MetricService.BLL.DTO;
-
-namespace MetricService.BLL.Exceptions
+﻿namespace MetricService.BLL.Exceptions
 {
     public abstract class BaseException : ApplicationException
     {
@@ -13,15 +11,6 @@ namespace MetricService.BLL.Exceptions
                     Data.Add(item.Key, item.Value);
                 }
             }
-        }
-
-        public virtual ErrorDTO GetError()
-        {
-            return new ErrorDTO()
-            {
-                Message = this.Message,
-                DetailErrors = Data
-            };
         }
     }
 }

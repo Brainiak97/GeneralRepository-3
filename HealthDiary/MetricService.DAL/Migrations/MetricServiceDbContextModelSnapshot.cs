@@ -22,6 +22,1153 @@ namespace MetricService.DAL.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("MetricService.Domain.Models.AnalysisCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasComment("Идентификатор");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasComment("Описание категории анализа");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasComment("Наименование категории анализа");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnalysisCategories", t =>
+                        {
+                            t.HasComment("Категории анализов");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Стандартные анализы крови, мочи, слюны, фекалий",
+                            Name = "Общеклинические исследования"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Анализы, определяющие состав и метаболизм веществ в теле",
+                            Name = "Биохимические исследования"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Анализы гормонов и их регуляторов",
+                            Name = "Гормональные исследования"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Определение наличия антител и белков иммунной защиты",
+                            Name = "Серологические исследования"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Анализы бактериального происхождения",
+                            Name = "Бактериологические исследования"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Исследования мужской половой сферы",
+                            Name = "Андрогенно-половые исследования"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Анализ генетического материала (ДНК, хромосомы)",
+                            Name = "Генетические исследования"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Анализы женской репродуктивной системы",
+                            Name = "Гинекологические исследования"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Анализы на наличие паразитарных организмов",
+                            Name = "Паразитологические исследования"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Анализы на туберкулез",
+                            Name = "Туберкулёзные исследования"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Анализ тканей организма",
+                            Name = "Гистологические исследования"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Аппаратные исследования органов и систем",
+                            Name = "Функциональные исследования"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Анализы иммунной системы",
+                            Name = "Иммунологические исследования"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "Анализы ревматологических заболеваний",
+                            Name = "Ревматологические исследования"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "Анализы нарушений эндокринной системы",
+                            Name = "Эндокринологические исследования"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "Женские гормоны и менструация",
+                            Name = "Гинекологическо-эндокринные исследования"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "Анализы мочевыделительной системы",
+                            Name = "Урологические исследования"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "Анализы патологий крови и сосудов",
+                            Name = "Заболевания кровеносной системы"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "Баланс электролитов и газов в крови",
+                            Name = "Нарушения кислотно-щелочного равновесия"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "Анализы секреторной функции поджелудочной железы",
+                            Name = "Заболевания поджелудочной железы"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "Анализы диабета и преддиабета",
+                            Name = "Заболевания углеводного обмена"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "Анализы желудочно-кишечного тракта",
+                            Name = "Заболевания ЖКТ"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "Диагностика психических расстройств",
+                            Name = "Психиатрические исследования"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "Анализы аллергических реакций",
+                            Name = "Аллергические исследования"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "Анализы уровня гликированного гемоглобина",
+                            Name = "Гликозилирующие исследования"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "Анализ наследственных факторов риска заболеваний",
+                            Name = "Генетически-наследственные заболевания"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Description = "Анализы сердечной деятельности",
+                            Name = "Заболевания сердечно-сосудистой системы"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Description = "Биомаркеры скрытых воспалительных процессов",
+                            Name = "Латентные воспалительные реакции"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Description = "Анализы зрительного аппарата",
+                            Name = "Офтальмологические исследования"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Description = "Анализы нервной системы",
+                            Name = "Неврологические исследования"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "Анализ цереброспинальной, плевральной жидкости",
+                            Name = "Образцы жидкостей организма"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Description = "Исследования внутренних органов с эндоскопом",
+                            Name = "Эндоскопические исследования"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Description = "Постоянный контроль жизненно важных функций",
+                            Name = "Суточные мониторинги"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Description = "Анализ дыхательных путей и лёгких",
+                            Name = "Дыхательная система"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Description = "Анализы беременности и родоразрешения",
+                            Name = "Беременность и роды"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Description = "Анализы воспалений суставов, мягких тканей",
+                            Name = "Воспалительные заболевания"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Description = "Анализы глаза и офтальмологического статуса",
+                            Name = "Орган зрения"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Description = "Анализы прямой кишки и ануса",
+                            Name = "Проктологические исследования"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Description = "Анализ сердечного ритма и нарушений",
+                            Name = "Диагностика аритмий"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Description = "Анализ бронхиальной проходимости и лёгочной вентиляции",
+                            Name = "Бронхолегочная патология"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Description = "Анализы почечной недостаточности и нефропатий",
+                            Name = "Нефротические синдромы"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Description = "Анализ водно-электролитного баланса",
+                            Name = "Водно-электролитный баланс"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Description = "Анализ пищевода и желудка",
+                            Name = "Пищеводно-кишечные нарушения"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Description = "Анализ костно-мышечной системы",
+                            Name = "Травматология и ортопедия"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Description = "Анализ неврологической природы приступов",
+                            Name = "Эпилепсия и судорожные расстройства"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Description = "Томографические исследования организма",
+                            Name = "Магнитно-резонансная томография"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Description = "Анализ мозговых волн и нервных импульсов",
+                            Name = "Функциональная нервная деятельность"
+                        });
+                });
+
+            modelBuilder.Entity("MetricService.Domain.Models.AnalysisResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasComment("Идентификатор");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AnalysisTypeId")
+                        .HasColumnType("integer")
+                        .HasComment("Тип анализа");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("text")
+                        .HasComment("Любые заметки или замечания по этому анализу");
+
+                    b.Property<string>("DetailedResearchDescription")
+                        .HasColumnType("text")
+                        .HasComment("Развернутое описание исследования");
+
+                    b.Property<DateTime>("TestedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasComment("Дата сдачи анализа");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasComment("Идентификатор пользователя");
+
+                    b.Property<decimal?>("Value")
+                        .HasColumnType("numeric")
+                        .HasComment("Числовое значение результата анализа");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnalysisTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AnalysisResults", t =>
+                        {
+                            t.HasComment("Результаты анализов");
+                        });
+                });
+
+            modelBuilder.Entity("MetricService.Domain.Models.AnalysisType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasComment("Идентификатор");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AnalysisCategoryId")
+                        .HasColumnType("integer")
+                        .HasComment("Ссылка на категорию анализа");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasComment("Название конкретного анализа(например, «Лейкоциты», «Холестерин»)");
+
+                    b.Property<string>("ReferenceValueFemale")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasComment("Эталонное значение женский");
+
+                    b.Property<string>("ReferenceValueMale")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasComment("Эталонное значение мужской");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnalysisCategoryId");
+
+                    b.ToTable("AnalysisTypes", t =>
+                        {
+                            t.HasComment("Типы анализов");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AnalysisCategoryId = 2,
+                            Name = "Аланинаминотрансфераза (АЛТ)",
+                            ReferenceValueFemale = "До 34",
+                            ReferenceValueMale = "До 41",
+                            Unit = "Ед/л"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AnalysisCategoryId = 17,
+                            Name = "Альдостерон",
+                            ReferenceValueFemale = "2—16",
+                            ReferenceValueMale = "2—16",
+                            Unit = "нг/дл"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AnalysisCategoryId = 39,
+                            Name = "Амбулаторная холтеровская регистрация ЭКГ",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AnalysisCategoryId = 23,
+                            Name = "Анализ венозной крови на токсины и наркотики",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AnalysisCategoryId = 6,
+                            Name = "Анализ на вирус гриппа",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AnalysisCategoryId = 37,
+                            Name = "Анализ спинномозговой жидкости (СМЖ)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AnalysisCategoryId = 4,
+                            Name = "Антитела IgG к коронавирусу SARS-CoV-2",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AnalysisCategoryId = 2,
+                            Name = "Аспаратаминотрансфераза (АСТ)",
+                            ReferenceValueFemale = "До 31",
+                            ReferenceValueMale = "До 37",
+                            Unit = "Ед/л"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AnalysisCategoryId = 5,
+                            Name = "Бакпосев мочи",
+                            ReferenceValueFemale = "Отсутствие роста",
+                            ReferenceValueMale = "Отсутствие роста",
+                            Unit = "Колонии/мл"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AnalysisCategoryId = 5,
+                            Name = "Бактерии кишечной флоры (микробиология стула)",
+                            ReferenceValueFemale = "Норма микрофлоры",
+                            ReferenceValueMale = "Норма микрофлоры",
+                            Unit = "кол-во кл/мл"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AnalysisCategoryId = 34,
+                            Name = "Беременность (анализ на ХГЧ)",
+                            ReferenceValueFemale = "Положительная (беремен.)",
+                            ReferenceValueMale = "Не применимо",
+                            Unit = "мМЕ/мл"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AnalysisCategoryId = 30,
+                            Name = "Биохимический анализ мочи",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AnalysisCategoryId = 2,
+                            Name = "Биохимия крови",
+                            ReferenceValueFemale = "—",
+                            ReferenceValueMale = "—",
+                            Unit = "—"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AnalysisCategoryId = 4,
+                            Name = "ВИЧ-антиген/антитело",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AnalysisCategoryId = 28,
+                            Name = "Волчаночный антикоагулянт (ВА)",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AnalysisCategoryId = 35,
+                            Name = "Воспалительные процессы (С-реактивный белок)",
+                            ReferenceValueFemale = "Менее 5",
+                            ReferenceValueMale = "Менее 5",
+                            Unit = "мг/л"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AnalysisCategoryId = 9,
+                            Name = "Гельминтозы (яйца глистов)",
+                            ReferenceValueFemale = "Нет яиц",
+                            ReferenceValueMale = "Нет яиц",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AnalysisCategoryId = 1,
+                            Name = "Гемоглобин",
+                            ReferenceValueFemale = "120—150",
+                            ReferenceValueMale = "130—170",
+                            Unit = "г/л"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AnalysisCategoryId = 11,
+                            Name = "Гистология опухоли",
+                            ReferenceValueFemale = "Доброкачественный",
+                            ReferenceValueMale = "Доброкачественный",
+                            Unit = "—"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AnalysisCategoryId = 25,
+                            Name = "Гликозилированный гемоглобин (HbA1c)",
+                            ReferenceValueFemale = "Менее 6,5%",
+                            ReferenceValueMale = "Менее 6,5%",
+                            Unit = "%"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            AnalysisCategoryId = 2,
+                            Name = "Глюкоза",
+                            ReferenceValueFemale = "3,9—6,1",
+                            ReferenceValueMale = "3,9—6,1",
+                            Unit = "ммоль/л"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            AnalysisCategoryId = 3,
+                            Name = "Гормональные исследования",
+                            ReferenceValueFemale = "",
+                            ReferenceValueMale = "",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 23,
+                            AnalysisCategoryId = 10,
+                            Name = "Диаскинтест (для туберкулеза)",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            AnalysisCategoryId = 7,
+                            Name = "ДНК-исследование BRCA1/BRCA2",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            AnalysisCategoryId = 20,
+                            Name = "Железо сывороточное",
+                            ReferenceValueFemale = "9,0—30,4",
+                            ReferenceValueMale = "11,6—31,3",
+                            Unit = "мкмоль/л"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            AnalysisCategoryId = 13,
+                            Name = "Иммуноглобулин E (IgE)",
+                            ReferenceValueFemale = "Менее 100",
+                            ReferenceValueMale = "Менее 100",
+                            Unit = "кЕд/л"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            AnalysisCategoryId = 31,
+                            Name = "Иммунограммой",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 28,
+                            AnalysisCategoryId = 6,
+                            Name = "Исследование мокроты",
+                            ReferenceValueFemale = "—",
+                            ReferenceValueMale = "—",
+                            Unit = "—"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            AnalysisCategoryId = 42,
+                            Name = "Кислотно-основное состояние (КОС)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 30,
+                            AnalysisCategoryId = 19,
+                            Name = "Коагулограмма (Международное нормализованное отношение INR)",
+                            ReferenceValueFemale = "0,8—1,2",
+                            ReferenceValueMale = "0,8—1,2",
+                            Unit = "Ед"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            AnalysisCategoryId = 1,
+                            Name = "Количество лейкоцитов",
+                            ReferenceValueFemale = "4—10",
+                            ReferenceValueMale = "4—10",
+                            Unit = "×10⁹/л"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            AnalysisCategoryId = 38,
+                            Name = "Колоноскопия кишечника",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 33,
+                            AnalysisCategoryId = 44,
+                            Name = "Компьютерная томография головы",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 34,
+                            AnalysisCategoryId = 20,
+                            Name = "Кровеносные газы (pCO₂, pO₂)",
+                            ReferenceValueFemale = "35—45 (pCO₂)/80—100(pO₂)",
+                            ReferenceValueMale = "35—45 (pCO₂)/80—100(pO₂)",
+                            Unit = "мм рт. ст."
+                        },
+                        new
+                        {
+                            Id = 35,
+                            AnalysisCategoryId = 1,
+                            Name = "Лейкоциты",
+                            ReferenceValueFemale = "4—10",
+                            ReferenceValueMale = "4—10",
+                            Unit = "×10⁹/л"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            AnalysisCategoryId = 21,
+                            Name = "Магний",
+                            ReferenceValueFemale = "0,7—1,1",
+                            ReferenceValueMale = "0,7—1,1",
+                            Unit = "ммоль/л"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            AnalysisCategoryId = 8,
+                            Name = "Мазок из влагалища (цитология)",
+                            ReferenceValueFemale = "Без атипичных клеток",
+                            ReferenceValueMale = "Без атипичных клеток",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 38,
+                            AnalysisCategoryId = 33,
+                            Name = "Межпозвонковая грыжа (МРТ поясничного отдела позвоночника)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 39,
+                            AnalysisCategoryId = 8,
+                            Name = "Микроскопия мазка",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = "—"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            AnalysisCategoryId = 7,
+                            Name = "Молекулярно-генетические",
+                            ReferenceValueFemale = "—",
+                            ReferenceValueMale = "—",
+                            Unit = "—"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            AnalysisCategoryId = 2,
+                            Name = "Мочевина",
+                            ReferenceValueFemale = "2,5—7,1",
+                            ReferenceValueMale = "2,8—8,3",
+                            Unit = "ммоль/л"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            AnalysisCategoryId = 46,
+                            Name = "МРТ головного мозга",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 43,
+                            AnalysisCategoryId = 7,
+                            Name = "Мутация BRCA1/BRCA2",
+                            ReferenceValueFemale = "Отсутствует мутация",
+                            ReferenceValueMale = "Отсутствует мутация",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            AnalysisCategoryId = 32,
+                            Name = "Наркотики и психоактивные вещества (алкоголь, никотин)",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 45,
+                            AnalysisCategoryId = 30,
+                            Name = "Новорождённому скрининг",
+                            ReferenceValueFemale = "Согласно нормативам ВОЗ",
+                            ReferenceValueMale = "Согласно нормативам ВОЗ",
+                            Unit = "—"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            AnalysisCategoryId = 1,
+                            Name = "Общий анализ крови",
+                            ReferenceValueFemale = "",
+                            ReferenceValueMale = "",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 47,
+                            AnalysisCategoryId = 41,
+                            Name = "Общий анализ мочи",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 48,
+                            AnalysisCategoryId = 19,
+                            Name = "Онкомаркер ПСА",
+                            ReferenceValueFemale = "Не применяется",
+                            ReferenceValueMale = "Менее 4,0",
+                            Unit = "нг/мл"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            AnalysisCategoryId = 36,
+                            Name = "Осмотр глазного дна (офтальмоскопия)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 50,
+                            AnalysisCategoryId = 24,
+                            Name = "Панель аллергенов",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 51,
+                            AnalysisCategoryId = 26,
+                            Name = "Полиморфизм генов предрасположенности к заболеваниям",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 52,
+                            AnalysisCategoryId = 16,
+                            Name = "Прогестерон (лютеиновая фаза)",
+                            ReferenceValueFemale = "1,5—56,6 (2-я фаза цикла)",
+                            ReferenceValueMale = "Менее 5,3",
+                            Unit = "нмоль/л"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            AnalysisCategoryId = 3,
+                            Name = "Пролактин",
+                            ReferenceValueFemale = "4,5—25",
+                            ReferenceValueMale = "2,5—17",
+                            Unit = "нг/мл"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            AnalysisCategoryId = 14,
+                            Name = "Ревматоидный фактор (РФ)",
+                            ReferenceValueFemale = "Менее 14",
+                            ReferenceValueMale = "Менее 14",
+                            Unit = "Ед/л"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            AnalysisCategoryId = 25,
+                            Name = "С-реактивный белок",
+                            ReferenceValueFemale = "Менее 5",
+                            ReferenceValueMale = "Менее 5",
+                            Unit = "мг/л"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            AnalysisCategoryId = 3,
+                            Name = "Свободный тироксин (FT4)",
+                            ReferenceValueFemale = "12—22",
+                            ReferenceValueMale = "12—22",
+                            Unit = "пмоль/л"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            AnalysisCategoryId = 4,
+                            Name = "Серология",
+                            ReferenceValueFemale = "",
+                            ReferenceValueMale = "",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 58,
+                            AnalysisCategoryId = 1,
+                            Name = "Скорость оседания эритроцитов (СОЭ)",
+                            ReferenceValueFemale = "2—15",
+                            ReferenceValueMale = "1—10",
+                            Unit = "мм/ч"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            AnalysisCategoryId = 29,
+                            Name = "СКРИНИНГ новорожденных",
+                            ReferenceValueFemale = "Соответствие стандартам",
+                            ReferenceValueMale = "Соответствие стандартам",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 60,
+                            AnalysisCategoryId = 1,
+                            Name = "СОЭ (скорость оседания)",
+                            ReferenceValueFemale = "2—15",
+                            ReferenceValueMale = "1—10",
+                            Unit = "мм/ч"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            AnalysisCategoryId = 6,
+                            Name = "Спермограмма",
+                            ReferenceValueFemale = "Не применимо",
+                            ReferenceValueMale = "Нормы согласно ВОЗ",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 62,
+                            AnalysisCategoryId = 21,
+                            Name = "Тест толерантности к глюкозе (ГТТ)",
+                            ReferenceValueFemale = "Менее 7,8 спустя 2 ч",
+                            ReferenceValueMale = "Менее 7,8 спустя 2 ч",
+                            Unit = "ммоль/л"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            AnalysisCategoryId = 3,
+                            Name = "Тиреотропный гормон (ТТГ)",
+                            ReferenceValueFemale = "0,4—4,0",
+                            ReferenceValueMale = "0,4—4,0",
+                            Unit = "мЕд/л"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            AnalysisCategoryId = 3,
+                            Name = "Тироксин свободный (FT₄)",
+                            ReferenceValueFemale = "12—22",
+                            ReferenceValueMale = "12—22",
+                            Unit = "пмоль/л"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            AnalysisCategoryId = 43,
+                            Name = "Толстый кишечник (эндоскопия толстой кишки)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 66,
+                            AnalysisCategoryId = 15,
+                            Name = "Трийодтиронин (Т3)",
+                            ReferenceValueFemale = "1,2—2,8",
+                            ReferenceValueMale = "1,2—2,8",
+                            Unit = "нмоль/л"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            AnalysisCategoryId = 1,
+                            Name = "Тромбоциты",
+                            ReferenceValueFemale = "150—400",
+                            ReferenceValueMale = "150—400",
+                            Unit = "×10⁹/л"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            AnalysisCategoryId = 18,
+                            Name = "Уровень железа в сыворотке крови",
+                            ReferenceValueFemale = "9,0—30,4",
+                            ReferenceValueMale = "11,6—31,3",
+                            Unit = "мкмоль/л"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            AnalysisCategoryId = 23,
+                            Name = "Фолиевая кислота",
+                            ReferenceValueFemale = "3—17",
+                            ReferenceValueMale = "3—17",
+                            Unit = "нг/мл"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            AnalysisCategoryId = 15,
+                            Name = "Фолликулостимулирующий гормон (ФСГ)",
+                            ReferenceValueFemale = "1,7—25,0 (1-я фаза цикла)",
+                            ReferenceValueMale = "1,5—12,4 (1-я фаза цикла)",
+                            Unit = "мЕд/л"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            AnalysisCategoryId = 40,
+                            Name = "Функциональная диагностика дыхания (спирометрия)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 72,
+                            AnalysisCategoryId = 2,
+                            Name = "Холестерин общий",
+                            ReferenceValueFemale = "Менее 5,2",
+                            ReferenceValueMale = "Менее 5,2",
+                            Unit = "ммоль/л"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            AnalysisCategoryId = 22,
+                            Name = "Цервикальный соскоб на цитологию",
+                            ReferenceValueFemale = "Без признаков дисплазии",
+                            ReferenceValueMale = "Без признаков дисплазии",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 74,
+                            AnalysisCategoryId = 10,
+                            Name = "Цитология шейки матки",
+                            ReferenceValueFemale = "Без атипичных клеток",
+                            ReferenceValueMale = "Без атипичных клеток",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 75,
+                            AnalysisCategoryId = 22,
+                            Name = "Щёлочная фосфатаза",
+                            ReferenceValueFemale = "35—105",
+                            ReferenceValueMale = "40—150",
+                            Unit = "Ед/л"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            AnalysisCategoryId = 12,
+                            Name = "Электрокардиограмма (ЭКГ)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 77,
+                            AnalysisCategoryId = 45,
+                            Name = "Электроэнцефалография (ЭЭГ)",
+                            ReferenceValueFemale = "Норма",
+                            ReferenceValueMale = "Норма",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 78,
+                            AnalysisCategoryId = 1,
+                            Name = "Эритроциты",
+                            ReferenceValueFemale = "3,7—5,0",
+                            ReferenceValueMale = "4,0—5,5",
+                            Unit = "×10¹²/л"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            AnalysisCategoryId = 9,
+                            Name = "Яйца гельминтов",
+                            ReferenceValueFemale = "Нет яиц",
+                            ReferenceValueMale = "Нет яиц",
+                            Unit = ""
+                        },
+                        new
+                        {
+                            Id = 80,
+                            AnalysisCategoryId = 4,
+                            Name = "Anti-HBs (маркер иммунитета к гепатиту B)",
+                            ReferenceValueFemale = "Да",
+                            ReferenceValueMale = "Да",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            AnalysisCategoryId = 29,
+                            Name = "BRCA-маркеры рака груди",
+                            ReferenceValueFemale = "Отсутствуют мутации",
+                            ReferenceValueMale = "Отсутствуют мутации",
+                            Unit = "Да/Нет"
+                        },
+                        new
+                        {
+                            Id = 82,
+                            AnalysisCategoryId = 24,
+                            Name = "D-димер",
+                            ReferenceValueFemale = "Менее 243",
+                            ReferenceValueMale = "Менее 243",
+                            Unit = "нг/мл"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            AnalysisCategoryId = 4,
+                            Name = "RW (сифилис)",
+                            ReferenceValueFemale = "Нет",
+                            ReferenceValueMale = "Нет",
+                            Unit = "Да/Нет"
+                        });
+                });
+
             modelBuilder.Entity("MetricService.Domain.Models.HealthMetricsBase", b =>
                 {
                     b.Property<int>("Id")
@@ -700,6 +1847,36 @@ namespace MetricService.DAL.Migrations
                         {
                             t.HasComment("Тренировки");
                         });
+                });
+
+            modelBuilder.Entity("MetricService.Domain.Models.AnalysisResult", b =>
+                {
+                    b.HasOne("MetricService.Domain.Models.AnalysisType", "AnalysisType")
+                        .WithMany()
+                        .HasForeignKey("AnalysisTypeId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.HasOne("MetricService.Domain.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("AnalysisType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MetricService.Domain.Models.AnalysisType", b =>
+                {
+                    b.HasOne("MetricService.Domain.Models.AnalysisCategory", "AnalysisCategory")
+                        .WithMany()
+                        .HasForeignKey("AnalysisCategoryId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.Navigation("AnalysisCategory");
                 });
 
             modelBuilder.Entity("MetricService.Domain.Models.HealthMetricsBase", b =>

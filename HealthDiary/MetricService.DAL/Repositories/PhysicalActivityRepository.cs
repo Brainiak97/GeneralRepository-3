@@ -9,12 +9,7 @@ namespace MetricService.DAL.Repositories
         public PhysicalActivityRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
         }
-        public async override Task<bool> CreateAsync(PhysicalActivity item)
-        {            
-            _contextDb.Add(item);
-            return await _contextDb.SaveChangesAsync() == 1;
-        }
-
+        
         public async override Task<bool> UpdateAsync(PhysicalActivity item)
         {
             PhysicalActivity? physicalActivity = await GetByIdAsync(item.Id);

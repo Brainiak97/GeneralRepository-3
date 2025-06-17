@@ -7,8 +7,7 @@ namespace MetricService.BLL.Interfaces
     {
         /// <summary>
         /// Создание профиля пользователя
-        /// </summary>
-        /// /// <param name="author"></param>
+        /// </summary>        
         /// <param name="userDTO"></param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
@@ -17,8 +16,7 @@ namespace MetricService.BLL.Interfaces
 
         /// <summary>
         /// Обновление профиля пользователя
-        /// </summary>
-        /// /// <param name="author"></param>
+        /// </summary>       
         /// <param name="userDTO"></param>
         /// <returns>true - в случае успеха</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
@@ -49,7 +47,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="pageNum">номер страницы</param>
         /// <param name="pageSize">кол-во позиций на странице</param>
         /// <returns>Список моделей DTO</returns>,
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>     
+        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>         
         public Task<IEnumerable<UserDTO>> GetAllUsersAsync(int pageNum, int pageSize);
     }
 }
