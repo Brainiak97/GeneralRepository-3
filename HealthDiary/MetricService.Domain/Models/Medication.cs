@@ -1,9 +1,12 @@
 ﻿namespace MetricService.Domain.Models
 {
+    /// <summary>
+    /// Медикаменты
+    /// </summary>
     public class Medication: BaseModel
     {
         /// <summary>
-        /// название препарата
+        /// Наименование препарата
         /// </summary>        
         public string Name { get; set; } = string.Empty;
 

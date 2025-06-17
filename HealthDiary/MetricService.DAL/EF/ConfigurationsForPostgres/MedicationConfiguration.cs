@@ -9,19 +9,30 @@ using System.Text;
 
 namespace MetricService.DAL.EF.ConfigurationsForPostgres
 {
-    class DosageFormConfiguration : IEntityTypeConfiguration<DosageForm>
+    class MedicationConfiguration : IEntityTypeConfiguration<Medication>
     {
-        public void Configure(EntityTypeBuilder<DosageForm> builder)
+        public void Configure(EntityTypeBuilder<Medication> builder)
         {
-            builder.ToTable(t => t.HasComment("Форма выпуска препарата"));
+            builder.ToTable(t => t.HasComment("Медикаменты"));
 
-            builder.Property(d => d.Id)
+            builder.Property(m => m.Id)
                 .HasComment("Идентификатор");
 
-            builder.Property(d => d.Name)
-               .HasComment("Наименование формы выпуска (таблетка, капсул, раствор и т.д.)")
+            builder.Property(m => m.Name)
+               .HasComment("Наименование препарата")
                .HasMaxLength(150);
-           
+
+            builder.Property(m => m.DosageFormId)
+               .HasComment("Форма выпуска (таблетка, капсул, раствор и т.д.)");
+
+            builder.Property(m => m.Instruction)
+               .HasComment("Инструкции по применению");
+
+            builder.HasOne<DosageForm>(m => m.DosageForm)
+                .WithMany()
+                .HasForeignKey(m => m.DosageFormId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasData(InitData());
         }
 
@@ -34,7 +45,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                 .Append(Path.DirectorySeparatorChar)
                 .Append("InitData")
                 .Append(Path.DirectorySeparatorChar)
-                .Append(typeof(DosageForm).Name)
+                .Append(typeof(Medication).Name)
                 .Append(".csv");
 
 
@@ -55,11 +66,14 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                         var record = new
                         {
                             Id = csv.GetField<int>(0),
-                            Name = csv.GetField(1)!.Trim()                            
-                        };
-                        records.Add(record);
+                            Name = csv.GetField(1)!.Trim(),
+                            DosageFormId = csv.GetField<int>(2),
+                            Instruction = csv.GetField(3)!.Trim(),
                     }
+                    ;
+                    records.Add(record);
                 }
+            }
             }
             catch (Exception ex)
             {

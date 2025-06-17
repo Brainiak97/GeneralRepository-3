@@ -1,23 +1,9 @@
 ﻿using MetricService.Domain.Models.Enums;
-using System.Data;
 
-namespace MetricService.Domain.Models
+namespace MetricService.BLL.DTO.Intake
 {
-    /// <summary>
-    /// Прием лекарств
-    /// </summary>
-    public class Intake : BaseModel
-    {
-        /// <summary>
-        /// Схема приема лекарств
-        /// </summary>        
-        public int RegimenId { get; set; }
-
-        /// <summary>
-        /// Схема приема лекарств
-        /// </summary>  
-        public Regimen Regimen { get; set; } = null!;
-
+    public class IntakeBaseDTO
+    {       
         /// <summary>
         /// Дата и время приема
         /// </summary>        

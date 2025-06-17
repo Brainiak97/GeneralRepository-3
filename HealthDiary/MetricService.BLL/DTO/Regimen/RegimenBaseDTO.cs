@@ -1,30 +1,9 @@
-﻿namespace MetricService.Domain.Models
+﻿using MetricService.Domain.Models;
+
+namespace MetricService.BLL.DTO.Regimen
 {
-    /// <summary>
-    /// Схема приема медикаментов
-    /// </summary>
-    public class Regimen: BaseModel
-    {
-        /// <summary>
-        /// Пользователь
-        /// </summary>       
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Пользователь
-        /// </summary>    
-        public User User { get; set; } = null!;
-
-        /// <summary>
-        /// медицинский препарат
-        /// </summary>       
-        public int MedicationId { get; set; }
-
-        /// <summary>
-        /// медицинский препарат
-        /// </summary>       
-        public Medication Medication { get; set; } = null!;
-
+    public  class RegimenBaseDTO
+    {       
         /// <summary>
         /// прописанная дозировка (например, "1 табл." или "5 мл")
         /// </summary>       

@@ -19,7 +19,7 @@ namespace MetricService.DAL.Repositories
                 regimen.Dosage = item.Dosage;
                 regimen.Shedule = item.Shedule;
                 regimen.StartDate = item.StartDate;
-                regimen.EnadDate = item.EnadDate;
+                regimen.EndDate = item.EndDate;
                 regimen.Comment = item.Comment;
             }
             return await _contextDb.SaveChangesAsync() == 1;
