@@ -1,4 +1,4 @@
-﻿using MetricService.BLL.DTO.BaseModel;
+﻿using MetricService.BLL.DTO.DosageForm;
 using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Mappers

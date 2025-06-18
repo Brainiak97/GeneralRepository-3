@@ -5,7 +5,6 @@ namespace MetricService.BLL.Interfaces
 {
     public interface IRegimenService
     {
-
         public Task CreateRegimenAsync(RegimenCreateDTO regimenCreateDTO);
 
 

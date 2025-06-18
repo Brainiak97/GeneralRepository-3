@@ -70,7 +70,7 @@ namespace MetricService.BLL.Mappers
             };
         }
 
-        public static IEnumerable<MedicationDTO> ToIntakeDTO(this IEnumerable<Medication> medications)
+        public static IEnumerable<MedicationDTO> ToMedicationDTO(this IEnumerable<Medication> medications)
         {
             var result = new List<MedicationDTO>();
 

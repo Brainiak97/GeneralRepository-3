@@ -3,7 +3,7 @@
 
 namespace MetricService.DAL.Interfaces
 {
-    interface IMedicationRepository : IRepository<Medication>
+    public interface IMedicationRepository : IRepository<Medication>
     {
     }
 }

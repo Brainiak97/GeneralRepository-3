@@ -3,7 +3,7 @@
 
 namespace MetricService.DAL.Interfaces
 {
-    interface IIntakeRepository : IRepository<Intake>
+    public interface IIntakeRepository : IRepository<Intake>
     {
     }
 }

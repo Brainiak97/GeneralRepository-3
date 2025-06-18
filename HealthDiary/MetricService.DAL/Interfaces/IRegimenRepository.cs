@@ -3,7 +3,7 @@
 
 namespace MetricService.DAL.Interfaces
 {
-    interface IRegimenRepository : IRepository<Regimen>
+    public interface IRegimenRepository : IRepository<Regimen>
     {
     }
 }

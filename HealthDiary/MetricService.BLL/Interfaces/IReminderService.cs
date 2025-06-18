@@ -5,7 +5,6 @@ namespace MetricService.BLL.Interfaces
 {
     public interface IReminderService
     {
-
         public Task CreateReminderAsync(ReminderCreateDTO reminderCreateDTO);
 
 

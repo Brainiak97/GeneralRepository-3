@@ -3,7 +3,7 @@
 
 namespace MetricService.DAL.Interfaces
 {
-    interface IReminderRepository: IRepository<Reminder>
+    public interface IReminderRepository: IRepository<Reminder>
     {
     }
 }

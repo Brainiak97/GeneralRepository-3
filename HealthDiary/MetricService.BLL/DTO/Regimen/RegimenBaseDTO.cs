@@ -1,6 +1,4 @@
-﻿using MetricService.Domain.Models;
-
-namespace MetricService.BLL.DTO.Regimen
+﻿namespace MetricService.BLL.DTO.Regimen
 {
     public  class RegimenBaseDTO
     {       
@@ -27,6 +25,6 @@ namespace MetricService.BLL.DTO.Regimen
         /// <summary>
         /// Заметки или дополнения
         /// </summary>        
-        public string Comment { get; set; } = string.Empty;
+        public string? Comment { get; set; } = string.Empty;
     }
 }

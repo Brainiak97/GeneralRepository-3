@@ -1,4 +1,4 @@
-﻿namespace MetricService.BLL.DTO.BaseModel
+﻿namespace MetricService.BLL.DTO.DosageForm
 {
     public class DosageFormCreateDTO: DosageFormBaseDTO  {}
 }
