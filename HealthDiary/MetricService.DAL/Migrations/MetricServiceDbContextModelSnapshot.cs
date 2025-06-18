@@ -1289,8 +1289,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("text")
                         .HasComment("Дополнительные заметки (например, причины пропуска)");
 
-                    b.Property<int>("IntakeStatus")
-                        .HasColumnType("integer")
+                    b.Property<short>("IntakeStatus")
+                        .HasColumnType("smallint")
                         .HasComment("Статусы приема (например, \"принято\", \"пропущено\", \"перенесено\")");
 
                     b.Property<int>("RegimenId")
@@ -2024,7 +2024,6 @@ namespace MetricService.DAL.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasComment("Заметки или дополнения");
 
@@ -2034,7 +2033,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("Прописанная дозировка (например, \"1 табл.\" или \"5 мл\")");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("date")
                         .HasComment("Предполагаемая дата окончания приема");
 
                     b.Property<int>("MedicationId")
@@ -2047,7 +2046,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("График приема (например, \"Утро, обед, вечер\")");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("date")
                         .HasComment("Дата начала приема");
 
                     b.Property<int>("UserId")

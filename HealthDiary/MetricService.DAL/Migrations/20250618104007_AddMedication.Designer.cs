@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    [Migration("20250618055605_AddMedication")]
+    [Migration("20250618104007_AddMedication")]
     partial class AddMedication
     {
         /// <inheritdoc />
@@ -365,8 +365,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("integer")
                         .HasComment("Идентификатор пользователя");
 
-                    b.Property<decimal?>("Value")
-                        .HasColumnType("numeric")
+                    b.Property<float?>("Value")
+                        .HasColumnType("real")
                         .HasComment("Числовое значение результата анализа");
 
                     b.HasKey("Id");
@@ -1292,8 +1292,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("text")
                         .HasComment("Дополнительные заметки (например, причины пропуска)");
 
-                    b.Property<int>("IntakeStatus")
-                        .HasColumnType("integer")
+                    b.Property<short>("IntakeStatus")
+                        .HasColumnType("smallint")
                         .HasComment("Статусы приема (например, \"принято\", \"пропущено\", \"перенесено\")");
 
                     b.Property<int>("RegimenId")
@@ -2027,7 +2027,6 @@ namespace MetricService.DAL.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasComment("Заметки или дополнения");
 
@@ -2037,7 +2036,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("Прописанная дозировка (например, \"1 табл.\" или \"5 мл\")");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("date")
                         .HasComment("Предполагаемая дата окончания приема");
 
                     b.Property<int>("MedicationId")
@@ -2050,7 +2049,7 @@ namespace MetricService.DAL.Migrations
                         .HasComment("График приема (например, \"Утро, обед, вечер\")");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("date")
                         .HasComment("Дата начала приема");
 
                     b.Property<int>("UserId")
@@ -2153,8 +2152,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("smallint")
                         .HasComment("рост в сантиметрах");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("double precision")
+                    b.Property<float>("Weight")
+                        .HasColumnType("real")
                         .HasComment("Вес в килограммах");
 
                     b.HasKey("Id");

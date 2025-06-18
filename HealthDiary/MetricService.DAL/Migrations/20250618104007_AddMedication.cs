@@ -59,9 +59,9 @@ namespace MetricService.DAL.Migrations
                     MedicationId = table.Column<int>(type: "integer", nullable: false, comment: "Медицинский препарат"),
                     Dosage = table.Column<string>(type: "text", nullable: false, comment: "Прописанная дозировка (например, \"1 табл.\" или \"5 мл\")"),
                     Shedule = table.Column<string>(type: "text", nullable: false, comment: "График приема (например, \"Утро, обед, вечер\")"),
-                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата начала приема"),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, comment: "Предполагаемая дата окончания приема"),
-                    Comment = table.Column<string>(type: "text", nullable: false, comment: "Заметки или дополнения")
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false, comment: "Дата начала приема"),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: true, comment: "Предполагаемая дата окончания приема"),
+                    Comment = table.Column<string>(type: "text", nullable: true, comment: "Заметки или дополнения")
                 },
                 constraints: table =>
                 {
@@ -88,7 +88,7 @@ namespace MetricService.DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RegimenId = table.Column<int>(type: "integer", nullable: false, comment: "Схема приема лекарств"),
                     TakenAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата и время приема"),
-                    IntakeStatus = table.Column<int>(type: "integer", nullable: false, comment: "Статусы приема (например, \"принято\", \"пропущено\", \"перенесено\")"),
+                    IntakeStatus = table.Column<short>(type: "smallint", nullable: false, comment: "Статусы приема (например, \"принято\", \"пропущено\", \"перенесено\")"),
                     Comment = table.Column<string>(type: "text", nullable: true, comment: "Дополнительные заметки (например, причины пропуска)")
                 },
                 constraints: table =>

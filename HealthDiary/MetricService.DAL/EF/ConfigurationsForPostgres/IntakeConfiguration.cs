@@ -21,7 +21,8 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                .HasColumnType("timestamp with time zone");
 
             builder.Property(i => i.IntakeStatus)
-               .HasComment("Статусы приема (например, \"принято\", \"пропущено\", \"перенесено\")");
+               .HasComment("Статусы приема (например, \"принято\", \"пропущено\", \"перенесено\")")
+               .HasColumnType("smallint");
 
             builder.Property(i => i.Comment)
                 .HasComment("Дополнительные заметки (например, причины пропуска)");

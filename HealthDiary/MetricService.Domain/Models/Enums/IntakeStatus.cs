@@ -1,6 +1,6 @@
 ﻿namespace MetricService.Domain.Models.Enums
 {
-    public enum IntakeStatus
+    public enum IntakeStatus: ushort
     {
         НеОпределено,
         Принято,

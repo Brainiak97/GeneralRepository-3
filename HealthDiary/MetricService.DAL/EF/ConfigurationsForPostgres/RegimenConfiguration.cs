@@ -27,11 +27,11 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
 
             builder.Property(r => r.StartDate)
                 .HasComment("Дата начала приема")
-                .HasColumnType("timestamp with time zone");
+                .HasColumnType("date");
 
             builder.Property(r => r.EndDate)
                .HasComment("Предполагаемая дата окончания приема")
-               .HasColumnType("timestamp with time zone");
+               .HasColumnType("date");
 
             builder.Property(r => r.Comment)
               .HasComment("Заметки или дополнения");
