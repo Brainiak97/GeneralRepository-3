@@ -51,7 +51,7 @@ namespace MetricService.DAL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор"),
                     DateOfBirth = table.Column<DateTime>(type: "date", nullable: false, comment: "дата рождения"),
                     Height = table.Column<short>(type: "smallint", nullable: false, comment: "рост в сантиметрах"),
-                    Weight = table.Column<double>(type: "double precision", nullable: false, comment: "Вес в килограммах")
+                    Weight = table.Column<float>(type: "real", nullable: false, comment: "Вес в килограммах")
                 },
                 constraints: table =>
                 {
@@ -169,7 +169,7 @@ namespace MetricService.DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя"),
                     AnalysisTypeId = table.Column<int>(type: "integer", nullable: false, comment: "Тип анализа"),
-                    Value = table.Column<decimal>(type: "numeric", nullable: true, comment: "Числовое значение результата анализа"),
+                    Value = table.Column<float>(type: "real", nullable: true, comment: "Числовое значение результата анализа"),
                     DetailedResearchDescription = table.Column<string>(type: "text", nullable: true, comment: "Развернутое описание исследования"),
                     TestedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата сдачи анализа"),
                     Comment = table.Column<string>(type: "text", nullable: true, comment: "Любые заметки или замечания по этому анализу")

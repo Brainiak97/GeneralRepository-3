@@ -365,8 +365,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("integer")
                         .HasComment("Идентификатор пользователя");
 
-                    b.Property<decimal?>("Value")
-                        .HasColumnType("numeric")
+                    b.Property<float?>("Value")
+                        .HasColumnType("real")
                         .HasComment("Числовое значение результата анализа");
 
                     b.HasKey("Id");
@@ -1799,8 +1799,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("smallint")
                         .HasComment("рост в сантиметрах");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("double precision")
+                    b.Property<float>("Weight")
+                        .HasColumnType("real")
                         .HasComment("Вес в килограммах");
 
                     b.HasKey("Id");

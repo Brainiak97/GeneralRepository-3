@@ -15,7 +15,7 @@
         /// <summary>
         /// Вес в килограммах
         /// </summary>
-        public double Weight { get; set; }
+        public float Weight { get; set; }
 
         /// <summary>
         /// возраст
