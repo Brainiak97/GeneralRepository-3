@@ -30,7 +30,7 @@
         /// <summary>
         /// Числовое значение результата анализа
         /// </summary>        
-        public decimal? Value { get; set; }
+        public float? Value { get; set; }
 
 
         /// <summary>
