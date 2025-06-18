@@ -48,6 +48,6 @@
         /// <summary>
         /// Заметки или дополнения
         /// </summary>        
-        public string Comment { get; set; } = string.Empty;
+        public string? Comment { get; set; }
     }
 }

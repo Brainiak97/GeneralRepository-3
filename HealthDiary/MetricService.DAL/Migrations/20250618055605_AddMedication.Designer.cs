@@ -3,6 +3,7 @@ using System;
 using MetricService.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    partial class MetricServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250618055605_AddMedication")]
+    partial class AddMedication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,8 +365,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("integer")
                         .HasComment("Идентификатор пользователя");
 
-                    b.Property<float?>("Value")
-                        .HasColumnType("real")
+                    b.Property<decimal?>("Value")
+                        .HasColumnType("numeric")
                         .HasComment("Числовое значение результата анализа");
 
                     b.HasKey("Id");
@@ -2150,8 +2153,8 @@ namespace MetricService.DAL.Migrations
                         .HasColumnType("smallint")
                         .HasComment("рост в сантиметрах");
 
-                    b.Property<float>("Weight")
-                        .HasColumnType("real")
+                    b.Property<double>("Weight")
+                        .HasColumnType("double precision")
                         .HasComment("Вес в килограммах");
 
                     b.HasKey("Id");
