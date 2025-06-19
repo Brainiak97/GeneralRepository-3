@@ -1,5 +1,4 @@
-﻿using MetricService.BLL.DTO.MedicationDTO;
-using MetricService.BLL.DTO.Reminder;
+﻿using MetricService.BLL.DTO.Reminder;
 using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Mappers

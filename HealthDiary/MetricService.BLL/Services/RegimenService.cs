@@ -1,11 +1,9 @@
 ﻿using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.Regimen;
-using MetricService.BLL.DTO.Workout;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using MetricService.BLL.Mappers;
 using MetricService.DAL.Interfaces;
-using MetricService.DAL.Repositories;
 using MetricService.Domain.Models;
 using System.Security.Claims;
 
@@ -17,6 +15,8 @@ namespace MetricService.BLL.Services
         private readonly IValidator<Regimen> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
 
+
+        
         public async Task CreateRegimenAsync(RegimenCreateDTO regimenCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && regimenCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -37,6 +37,7 @@ namespace MetricService.BLL.Services
             await _repository.CreateAsync(regimen);
         }
 
+        
         public async Task DeleteRegimenAsync(int regimenId)
         {
             var regimenFind = await _repository.GetByIdAsync(regimenId) ??
@@ -56,6 +57,7 @@ namespace MetricService.BLL.Services
             await _repository.DeleteAsync(regimenId);
         }
 
+        
         public async Task<IEnumerable<RegimenDTO>> GetAllRegimenByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && 
@@ -77,6 +79,7 @@ namespace MetricService.BLL.Services
             return regimens;
         }
 
+        
         public async Task<RegimenDTO> GetRegimenByIdAsync(int regimenId)
         {
             var regimenFind = await _repository.GetByIdAsync(regimenId) ??
@@ -96,6 +99,7 @@ namespace MetricService.BLL.Services
             return regimenFind.ToRegimenDTO();
         }
 
+        
         public async Task UpdateRegimenAsync(RegimenUpdateDTO regimenUpdateDTO)
         {
             var regimenFind = await _repository.GetByIdAsync(regimenUpdateDTO.Id) ??
