@@ -1,0 +1,130 @@
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.Intake;
+using MetricService.BLL.Exceptions;
+using MetricService.BLL.Interfaces;
+using MetricService.BLL.Mappers;
+using MetricService.DAL.Interfaces;
+using MetricService.Domain.Models;
+using System.Security.Claims;
+
+namespace MetricService.BLL.Services
+{
+    public class IntakeService(
+        IIntakeRepository intakeRepository, 
+        IValidator<Intake> validator, 
+        ClaimsPrincipal authorizationService,
+        IRegimenService regimenService
+        ) : IIntakeService
+    {
+        private readonly IIntakeRepository _repository = intakeRepository;
+        private readonly IValidator<Intake> _validator = validator;
+        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly IRegimenService _regimenService = regimenService;
+
+        
+        public async Task CreateIntakeAsync(IntakeCreateDTO intakeCreateDTO)
+        {
+            var regimen = await _regimenService.GetRegimenByIdAsync(intakeCreateDTO.RegimenId);
+            if (!_authorizationService.IsInRole("Admin") && regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            {
+                throw new ViolationAccessException("Вы не можете создавать данные для других пользователей", 
+                    Common.Common.GetAuthorId(_authorizationService),
+                    regimen.UserId,
+                    _repository.Name);
+            }
+
+            Intake intake = intakeCreateDTO.ToIntake();
+
+            if (!_validator.Validate(intake, out Dictionary<string, string> errorList))
+            {
+                throw new ValidateModelException("Некорректные данные о приеме лекарств", errorList);
+            }
+
+            await _repository.CreateAsync(intake);
+        }
+
+       
+        public async Task DeleteIntakeAsync(int intakeId)
+        {
+            var intakeFind = await _repository.GetByIdAsync(intakeId) ??
+                throw new IncorrectOrEmptyResultException("Указанная запись приема лекарств не существует", new Dictionary<object, object>()
+                {
+                    { "intakeId", intakeId }
+                });
+
+            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            {
+                throw new ViolationAccessException("Вам разрешено удалить только свою запись приема лекарств", 
+                    Common.Common.GetAuthorId(_authorizationService),
+                    intakeFind.Regimen.UserId, 
+                    _repository.Name);
+            }
+
+            await _repository.DeleteAsync(intakeId);
+        }
+
+        
+        public async Task<IEnumerable<IntakeDTO>> GetAllIntakeByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        {
+            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+            {
+                throw new ViolationAccessException("Вам разрешено просматривать только свои записи приема лекарств",
+                    Common.Common.GetAuthorId(_authorizationService), requestListWithPeriodByIdDTO.UserId, _repository.Name);
+            }
+
+            var intakes = (await _repository.GetAllAsync()).Where(i => i.Regimen.UserId == requestListWithPeriodByIdDTO.UserId &&
+                                    i.TakenAt >= requestListWithPeriodByIdDTO.BegDate && i.TakenAt <= requestListWithPeriodByIdDTO.EndDate)
+                .Skip((requestListWithPeriodByIdDTO.NumPage - 1) * requestListWithPeriodByIdDTO.PageSize).Take(requestListWithPeriodByIdDTO.PageSize).ToIntakeDTO();
+
+            return intakes;
+        }
+
+        
+        public async Task<IntakeDTO> GetIntakeByIdAsync(int intakeId)
+        {
+            var intakeFind = await _repository.GetByIdAsync(intakeId) ??
+               throw new IncorrectOrEmptyResultException("Указанная запись приема лекарств не существует", new Dictionary<object, object>()
+               {
+                    { "intakeId", intakeId }
+               });
+
+            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            {
+                throw new ViolationAccessException("Вам разрешено просматривать только свои записи приема лекарств", 
+                    Common.Common.GetAuthorId(_authorizationService),
+                    intakeFind.Regimen.UserId,
+                    _repository.Name);
+            }
+
+            return intakeFind.ToIntakeDTO();
+        }
+
+        
+        public async Task UpdateIntakeAsync(IntakeUpdateDTO intakeUpdateDTO)
+        {
+            var intakeFind = await _repository.GetByIdAsync(intakeUpdateDTO.Id) ??
+               throw new IncorrectOrEmptyResultException("Запись приема лекарств не зарегистрирована",
+                   new Dictionary<object, object>()
+                   {
+                        {"intakeUpdateDTO", intakeUpdateDTO}
+                   });
+
+            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            {
+                throw new ViolationAccessException("Вы не можете изменять данные для других пользователей", 
+                    Common.Common.GetAuthorId(_authorizationService),
+                    intakeFind.Regimen.UserId,
+                    _repository.Name);
+            }
+
+            intakeFind = intakeUpdateDTO.ToIntake(intakeFind.RegimenId);
+
+            if (!_validator.Validate(intakeFind, out Dictionary<string, string> errorList))
+            {
+                throw new ValidateModelException("Некорректные данные о записи приема лекарств", errorList);
+            }
+
+            await _repository.UpdateAsync(intakeFind);
+        }
+    }
+}
