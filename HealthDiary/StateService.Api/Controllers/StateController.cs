@@ -1,0 +1,28 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using StateService.BLL.Interfaces;
+using StateService.DAL.Interfaces;
+
+namespace StateService.Api.Controllers
+{
+    public class StateController(IStateService stateService, IFoodDataProvider foodDataProvider, IMetricDataProvider metricDataProvider) : ControllerBase
+    {
+        private readonly IStateService _stateService = stateService;
+        private readonly IFoodDataProvider _foodDataProvider = foodDataProvider;
+        private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
+
+        [HttpGet("GetDailySummary")]
+        public async Task<IActionResult> GetDailySummary([FromBody] int userId)
+        {
+            try
+            {
+                var summary = await _stateService.GetDailySummaryAsync(userId);
+
+                return Ok(summary);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    }
+}
