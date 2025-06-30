@@ -41,7 +41,7 @@ namespace UserService.Api.Controllers
         /// <returns>Информация о пользователе.</returns>
         [HttpGet("GetUserInfo")]
         [Authorize]
-        public async Task<IActionResult> GetUserInfoAsync([FromBody] int userId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUserInfoAsync(int userId)
         {
             var user = await _userService.FindById(userId, cancellationToken);
 
