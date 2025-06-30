@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 
 namespace Shared.Auth
@@ -33,6 +37,30 @@ namespace Shared.Auth
 
             // Регистрация JwtSettings как singleton
             services.AddSingleton(jwtSettings);
+
+            services.AddAuthorizationBuilder()
+                .AddPolicy("SelfOrAdmin", policy =>
+                    policy.RequireAssertion(context =>
+                    {
+                        var httpContext = context.Resource as HttpContext
+                            ?? throw new InvalidOperationException("Expected resource to be an HttpContext.");
+
+                        var routeData = httpContext.GetRouteData()
+                            ?? throw new InvalidOperationException("Route data is null.");
+
+                        var userId = routeData.Values["id"]?.ToString();
+
+                        if (string.IsNullOrEmpty(userId))
+                            return false;
+
+                        var user = httpContext.User;
+
+                        var currentUserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                        var isAdmin = user.IsInRole("Admin");
+
+                        return currentUserId == userId || isAdmin;
+                    }));
 
             // Настройка аутентификации
             services.AddAuthentication(options =>
