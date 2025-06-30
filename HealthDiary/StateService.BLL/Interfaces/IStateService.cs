@@ -4,6 +4,6 @@ namespace StateService.BLL.Interfaces
 {
     public interface IStateService
     {
-        Task<UserHealthSummary> GetDailySummaryAsync(int userId);
+        Task<UserHealthReport> GetDailySummaryAsync(int userId);
     }
 }

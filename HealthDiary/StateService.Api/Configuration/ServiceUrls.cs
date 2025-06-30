@@ -2,8 +2,8 @@
 {
     public class ServiceUrls
     {
-        public string UserService { get; set; } = string.Empty;
-        public string NutritionService { get; set; } = string.Empty;
-        public string ActivityService { get; set; } = string.Empty;
+        public string UserServiceUrl { get; set; } = string.Empty;
+        public string FoodServiceUrl { get; set; } = string.Empty;
+        public string MetricServiceUrl { get; set; } = string.Empty;
     }
 }

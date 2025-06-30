@@ -13,9 +13,9 @@ namespace StateService.BLL.Services
         private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
         private readonly IFoodDataProvider _foodDataProvider = foodDataProvider;
 
-        public async Task<UserHealthSummary> GetDailySummaryAsync(int userId)
+        public async Task<UserHealthReport> GetDailySummaryAsync(int userId)
         {
-            return new UserHealthSummary
+            return new UserHealthReport
             {
                 UserId = userId,
                 //CurrentWeight = user.Weight,
