@@ -5,13 +5,13 @@ namespace MetricService.BLL.Validators
 {
     public class PhysicalActivityValidator : IValidator<PhysicalActivity>
     {
-        const short NAMEMAX = 150;        
+        const short NameMax = 150;        
         public bool Validate(PhysicalActivity entity, out Dictionary<string, string> errorList)
         {
             errorList = new Dictionary<string, string>();
 
-            if (entity.Name.Length > NAMEMAX)
-                errorList.Add(nameof(entity.Name), $"Длина наименования не должна превышать {NAMEMAX}");
+            if (entity.Name.Length > NameMax)
+                errorList.Add(nameof(entity.Name), $"Длина наименования не должна превышать {NameMax}");
 
             return errorList.Count == 0;
         }

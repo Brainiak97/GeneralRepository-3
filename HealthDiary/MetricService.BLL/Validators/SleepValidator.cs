@@ -5,8 +5,8 @@ namespace MetricService.BLL.Validators
 {
     public class SleepValidator: IValidator<Sleep>
     {
-        const short QUALITYRATINGMIN = 1;
-        const short QUALITYRATINGMAX = 5;
+        const short QualityRatingMin = 1;
+        const short QualityRatingMax = 5;
        
         public bool Validate(Sleep entity, out Dictionary<string, string> errorList)
         {
@@ -16,9 +16,9 @@ namespace MetricService.BLL.Validators
             if (entity.EndSleep < entity.StartSleep)
                 errorList.Add(nameof(entity.EndSleep), "Время завершения сна не может быть раньше времени начала сна");
 
-            if ((entity.QualityRating < QUALITYRATINGMIN) || (entity.QualityRating > QUALITYRATINGMAX))
+            if ((entity.QualityRating < QualityRatingMin) || (entity.QualityRating > QualityRatingMax))
                 errorList.Add(nameof(entity.EndSleep), $"Качество сна должно быть в диапазоне " +
-                                                    $"{QUALITYRATINGMIN} ... {QUALITYRATINGMAX}");
+                                                    $"{QualityRatingMin} ... {QualityRatingMax}");
 
             return errorList.Count == 0;
         }

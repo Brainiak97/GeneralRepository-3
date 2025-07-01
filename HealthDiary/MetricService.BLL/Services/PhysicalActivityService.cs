@@ -18,7 +18,10 @@ namespace MetricService.BLL.Services
         
         public async Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync(int pageNum, int pageSize)
         {
-            var physicalActivities = (await _repository.GetAllAsync()).Skip((pageNum - 1) * pageSize).Take(pageSize).ToPhysicalActivityDTO();
+            var physicalActivities = (await _repository.GetAllAsync())
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize)
+                .ToPhysicalActivityDTO();
 
             
             return physicalActivities;
@@ -30,7 +33,7 @@ namespace MetricService.BLL.Services
             return (await _repository.GetByIdAsync(activityId)??
                  throw new IncorrectOrEmptyResultException("Указанная физическая активность не существует", new Dictionary<object, object>()
                {
-                   { "activityId", activityId }
+                   { nameof(activityId), activityId }
                })).ToPhysicalActivityDTO();
         }
 
@@ -43,7 +46,9 @@ namespace MetricService.BLL.Services
             var filterrecords = new List<PhysicalActivityDTO>();
             foreach (var item in stringsSearch) 
             {
-                filterrecords.AddRange(workrecords.Where(s => s.Name.Contains(item.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList().ToPhysicalActivityDTO());                          
+                filterrecords.AddRange(workrecords.Where(s => s.Name.Contains(item.Trim(), StringComparison.CurrentCultureIgnoreCase))
+                    .ToList()
+                    .ToPhysicalActivityDTO());                          
             }
            
             return filterrecords;
@@ -55,7 +60,10 @@ namespace MetricService.BLL.Services
 
             if (!_authorizationService.IsInRole("Admin"))
             {
-                throw new ViolationAccessException("Вы не можете создавать данные", Common.Common.GetAuthorId(_authorizationService), 0, _repository.Name);
+                throw new ViolationAccessException("Вы не можете создавать данные", 
+                    Common.Common.GetAuthorId(_authorizationService), 
+                    0, 
+                    _repository.Name);
             }
 
             PhysicalActivity physicalActivity = physicalActivityCreateDTO.ToPhysicalActivity();
@@ -76,12 +84,15 @@ namespace MetricService.BLL.Services
                 throw new IncorrectOrEmptyResultException("Физическая активность не зарегистрирована",
                     new Dictionary<object, object>()
                     {
-                        {"physicalActivityUpdateDTO", physicalActivityUpdateDTO}
+                        {nameof(physicalActivityUpdateDTO), physicalActivityUpdateDTO}
                     });
 
             if (!_authorizationService.IsInRole("Admin"))
             {
-                throw new ViolationAccessException("Вы не можете создавать данные", Common.Common.GetAuthorId(_authorizationService), 0, _repository.Name);
+                throw new ViolationAccessException("Вы не можете создавать данные", 
+                    Common.Common.GetAuthorId(_authorizationService), 
+                    0, 
+                    _repository.Name);
             }
 
             var physicalActivityFind = physicalActivityUpdateDTO.ToPhysicalActivity();
@@ -100,12 +111,15 @@ namespace MetricService.BLL.Services
             _ = await _repository.GetByIdAsync(physicalActivityId) ??
                throw new IncorrectOrEmptyResultException("Физическая активность не зарегистрирована", new Dictionary<object, object>()
                {
-                    { "physicalActivityId", physicalActivityId }
+                    { nameof(physicalActivityId), physicalActivityId }
                });
 
             if (!_authorizationService.IsInRole("Admin"))
             {
-                throw new ViolationAccessException("Вам не разрешено удалить данные", Common.Common.GetAuthorId(_authorizationService), 0, _repository.Name);
+                throw new ViolationAccessException("Вам не разрешено удалить данные", 
+                    Common.Common.GetAuthorId(_authorizationService), 
+                    0, 
+                    _repository.Name);
             }
 
             await _repository.DeleteAsync(physicalActivityId);
