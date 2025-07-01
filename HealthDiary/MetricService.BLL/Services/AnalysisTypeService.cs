@@ -17,12 +17,13 @@ namespace MetricService.BLL.Services
 
         public async Task<IEnumerable<AnalysisTypeDTO>> GetAllAnalysisTypeAsync(int pageNum, int pageSize)
         {
-            var analysisTypes = (await _repository.GetAllAsync()).Skip((pageNum - 1) * pageSize).Take(pageSize).ToAnalysisTypeDTO();
+            var analysisTypes = (await _repository.GetAllAsync())
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize)
+                .ToAnalysisTypeDTO();
 
             return analysisTypes;
-        }
-
-        
+        }        
         
         public async Task<AnalysisTypeDTO?> GetAnalysisTypeByIdAsync(int typeId)
         {
@@ -30,7 +31,7 @@ namespace MetricService.BLL.Services
             return (await _repository.GetByIdAsync(typeId) ??
                throw new IncorrectOrEmptyResultException("Указанный тип анализов не существует", new Dictionary<object, object>()
              {
-                   { "typeId", typeId }
+                   { nameof(typeId), typeId }
              })).ToAnalysisTypeDTO();
         }
 

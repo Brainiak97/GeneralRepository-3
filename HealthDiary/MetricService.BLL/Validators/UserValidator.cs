@@ -5,25 +5,25 @@ namespace MetricService.BLL.Validators
 {
     public class UserValidator : IValidator<User>
     {
-        const short HEIGHTMIN = 50;
-        const short HEIGHTMAX = 250;
-        const short WEIGHTMIN = 0;
-        const short WEIGHTMAX = 400;
-        const short AGEMAX = 130;
-        const short AGEMIN = 5;
+        const short HeightMin = 50;
+        const short HeightMax = 250;
+        const short WeightMin = 0;
+        const short WeightMax = 400;
+        const short AgeMax = 130;
+        const short AgeMin = 5;
 
         public bool Validate(User entity, out Dictionary<string, string> errorList)
         {
             errorList = new Dictionary<string, string>();
 
-            if (entity.Height <= HEIGHTMIN || entity.Height > HEIGHTMAX)
-                errorList.Add(nameof(entity.Height), $"Параметр роста могут быть заданы в диапазоне {HEIGHTMIN} ... {HEIGHTMAX}");
+            if (entity.Height <= HeightMin || entity.Height > HeightMax)
+                errorList.Add(nameof(entity.Height), $"Параметр роста могут быть заданы в диапазоне {HeightMin} ... {HeightMax}");
 
-            if ((entity.Weight <= WEIGHTMIN) || (entity.Weight > WEIGHTMAX))
-                errorList.Add(nameof(entity.Weight), $"Параметр веса могут быть заданы в диапазоне {WEIGHTMIN} ... {WEIGHTMAX}");
+            if ((entity.Weight <= WeightMin) || (entity.Weight > WeightMax))
+                errorList.Add(nameof(entity.Weight), $"Параметр веса могут быть заданы в диапазоне {WeightMin} ... {WeightMax}");
             var age = DateTime.Now.Year - entity.DateOfBirth.Year;
-            if ((age > AGEMAX) || (age < AGEMIN))
-                errorList.Add(nameof(entity.DateOfBirth), $"Дата рождения задана некорректно. Возраст может быть в диапазоне {AGEMIN} ... {AGEMAX}");
+            if ((age > AgeMax) || (age < AgeMin))
+                errorList.Add(nameof(entity.DateOfBirth), $"Дата рождения задана некорректно. Возраст может быть в диапазоне {AgeMin} ... {AgeMax}");
 
             return errorList.Count == 0;
         }
