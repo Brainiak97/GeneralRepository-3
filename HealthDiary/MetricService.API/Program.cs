@@ -1,4 +1,5 @@
 ﻿using MetricService.API.ExceptionHandlers;
+using MetricService.BLL.Common;
 using MetricService.BLL.DTO.AnalysisCategory;
 using MetricService.BLL.Interfaces;
 using MetricService.BLL.Mappers;
@@ -9,6 +10,7 @@ using MetricService.DAL.Interfaces;
 using MetricService.DAL.Repositories;
 using MetricService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Shared.Auth;
 using System.Security.Claims;
@@ -111,7 +113,7 @@ namespace MetricService.Api
 
             builder.Services.AddProblemDetails();
             builder.Services.AddExceptionHandler<BaseExceptionHandler>();
-
+            builder.Services.AddAutoMapper(cfg=>cfg.AddProfile<MapperProfile>());
 
             var app = builder.Build();
 
