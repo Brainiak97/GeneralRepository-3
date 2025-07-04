@@ -5,6 +5,10 @@ using MetricService.BLL.DTO;
 
 namespace MetricService.Api.Controllers
 {
+    /// <summary>
+    /// Предоставляет API-методы для работы с данные о профиле пользователя системы
+    /// </summary>
+    /// <seealso cref="ControllerBase" />
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
@@ -12,6 +16,11 @@ namespace MetricService.Api.Controllers
     {
         private readonly IUserService _userService = userService;
 
+        /// <summary>
+        /// Зарегистрировать новый профиль пользователя
+        /// </summary>
+        /// <param name="userDTO">Данные для регистрации профиля пользователя</param>
+        /// <returns></returns>
         [HttpPost(nameof(CreateProfile))]
         public async Task<IActionResult> CreateProfile([FromBody] UserDTO userDTO)
         {
@@ -19,6 +28,11 @@ namespace MetricService.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Изменить данные профиля пользователя
+        /// </summary>
+        /// <param name="userDTO">Измененные данные профиля пользователя</param>
+        /// <returns></returns>
         [HttpPut(nameof(UpdateProfile))]
         public async Task<IActionResult> UpdateProfile([FromBody] UserDTO userDTO)
         {
@@ -26,13 +40,21 @@ namespace MetricService.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Удалить профиль пользователя и все его данные из системы
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns></returns>
         [HttpDelete(nameof(DeleteProfile))]
-        public async Task<IActionResult> DeleteProfile(int id)
+        public async Task<IActionResult> DeleteProfile(int userId)
         {
-            await _userService.DeleteProfileAsync(id);
+            await _userService.DeleteProfileAsync(userId);
             return Ok();
         }
-
+        /// <summary>
+        /// Получить список профилей пользователей
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(nameof(GetAllUsers))]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -46,10 +68,15 @@ namespace MetricService.Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Получить профиль пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns></returns>
         [HttpGet(nameof(GetUserById))]
-        public async Task<IActionResult> GetUserById(int userid)
+        public async Task<IActionResult> GetUserById(int userId)
         {
-            return Ok(await _userService.GetUserByIdAsync(userid));
+            return Ok(await _userService.GetUserByIdAsync(userId));
         }
     }
 }

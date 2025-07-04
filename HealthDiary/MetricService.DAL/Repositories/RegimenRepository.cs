@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
-    class RegimenRepository : BaseRepository<Regimen>, IRegimenRepository
+    public class RegimenRepository : BaseRepository<Regimen>, IRegimenRepository
     {
         public RegimenRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {

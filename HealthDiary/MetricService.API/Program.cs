@@ -1,16 +1,8 @@
-﻿using MetricService.API.ExceptionHandlers;
+﻿using MetricService.API;
+using MetricService.API.ExceptionHandlers;
 using MetricService.BLL.Common;
-using MetricService.BLL.DTO.AnalysisCategory;
-using MetricService.BLL.Interfaces;
-using MetricService.BLL.Mappers;
-using MetricService.BLL.Services;
-using MetricService.BLL.Validators;
 using MetricService.DAL.EF;
-using MetricService.DAL.Interfaces;
-using MetricService.DAL.Repositories;
-using MetricService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Shared.Auth;
 using System.Security.Claims;
@@ -32,39 +24,10 @@ namespace MetricService.Api
 
             // Загрузка общей конфигурации JWT
             builder.Services.AddJwtAuthentication();
-              
+
             // Регистрация сервисов и репозиториев
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IUserService, BLL.Services.UserService>();
-            builder.Services.AddScoped<IValidator<User>, UserValidator>();
+            EntitiesServices.Register(builder);
 
-            builder.Services.AddScoped<ISleepRepository, SleepRepository>();
-            builder.Services.AddScoped<ISleepService, SleepService>();
-            builder.Services.AddScoped<IValidator<Sleep>, SleepValidator>();
-
-            builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
-            builder.Services.AddScoped<IWorkoutService, WorkoutService>();
-            builder.Services.AddScoped<IValidator<Workout>, WorkoutValidator>();
-
-            builder.Services.AddScoped<IPhysicalActivityRepository, PhysicalActivityRepository>();
-            builder.Services.AddScoped<IPhysicalActivityService, PhysicalActivityService>();
-            builder.Services.AddScoped<IValidator<PhysicalActivity>, PhysicalActivityValidator>();
-
-            builder.Services.AddScoped<IHealthMetricsBaseRepository, HealthMetricsBaseRepository>();
-            builder.Services.AddScoped<IHealthMetricsBaseService, HealthMetricsBaseService>();
-            builder.Services.AddScoped<IValidator<HealthMetricsBase>, HealtMetricBaseValidator>();
-
-            builder.Services.AddScoped<IAnalysisCategoryRepository, AnalysisCategoryRepository>();
-            builder.Services.AddScoped<IAnalysisCategoryService, AnalysisCategoryService>();
-            builder.Services.AddScoped<IValidator<AnalysisCategory>, AnalysisCategoryValidator>();
-
-            builder.Services.AddScoped<IAnalysisTypeRepository, AnalysisTypeRepository>();
-            builder.Services.AddScoped<IAnalysisTypeService, AnalysisTypeService>();
-            builder.Services.AddScoped<IValidator<AnalysisType>, AnalysisTypeValidator>();
-
-            builder.Services.AddScoped<IAnalysisResultRepository, AnalysisResultRepository>();
-            builder.Services.AddScoped<IAnalysisResultService, AnalysisResultService>();
-            builder.Services.AddScoped<IValidator<AnalysisResult>, AnalysisResultValidator>();
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped<ClaimsPrincipal>(x =>
@@ -84,6 +47,11 @@ namespace MetricService.Api
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "MetricService API", Version = "v1" });
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MetricService.Api.xml"));
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MetricService.BLL.xml"));
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MetricService.DAL.xml"));
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MetricService.Domain.xml"));
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Shared.Auth.xml"));
 
                 // Добавляем схему JWT в Swagger
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

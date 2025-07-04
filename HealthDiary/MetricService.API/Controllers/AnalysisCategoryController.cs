@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
 {
-
+    /// <summary>
+    /// Предоставляет API-методы для работы с данными справочника категории анализов
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [ApiController]
     [Route("api/[controller]")]
     public class AnalysisCategoryController(IAnalysisCategoryService analysisCategoryService) : Controller
@@ -13,6 +16,11 @@ namespace MetricService.API.Controllers
 
         readonly IAnalysisCategoryService _analysisCategoryService = analysisCategoryService;
 
+        /// <summary>
+        /// Зарегистрировать новую категорию анализов в справочнике
+        /// </summary>
+        /// <param name="analysisCategoryCreateDTO">Данные для регистрации новой категории анализов</param>
+        /// <returns></returns>
         [HttpPost(nameof(CreateAnalysisCategory))]
         [Authorize]
         public async Task<IActionResult> CreateAnalysisCategory([FromBody] AnalysisCategoryCreateDTO analysisCategoryCreateDTO)
@@ -21,6 +29,11 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Изменить данные категории анализов в справочнике
+        /// </summary>
+        /// <param name="analysisCategoryUpdateDTO">Измененные данные категории анализов</param>
+        /// <returns></returns>
         [HttpPut(nameof(UpdateAnalysisCategory))]
         [Authorize]
         public async Task<IActionResult> UpdateAnalysisCategory([FromBody] AnalysisCategoryUpdateDTO analysisCategoryUpdateDTO)
@@ -29,15 +42,23 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Удалить категорию анализов из справочника
+        /// </summary>
+        /// <param name="analysisCategoryId">Идентификатор категории анализов</param>
+        /// <returns></returns>
         [HttpDelete(nameof(DeleteAnalysisCategory))]
         [Authorize]
-        public async Task<IActionResult> DeleteAnalysisCategory(int id)
+        public async Task<IActionResult> DeleteAnalysisCategory(int analysisCategoryId)
         {
-            await _analysisCategoryService.DeleteAnalysisCategoryAsync(id);
+            await _analysisCategoryService.DeleteAnalysisCategoryAsync(analysisCategoryId);
             return Ok();
         }
 
-
+        /// <summary>
+        /// Получить список категорий анализов из справочника
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(nameof(GetAllAnalysisCategories))]
         public async Task<IActionResult> GetAllAnalysisCategories()
         {
@@ -51,11 +72,15 @@ namespace MetricService.API.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Получить категорию анализов из справочника
+        /// </summary>
+        /// <param name="analysisCategoryId">Идентификатор категории анализов</param>
+        /// <returns></returns>
         [HttpGet(nameof(GetAnalysisCategoryById))]
-        public async Task<IActionResult> GetAnalysisCategoryById(int categoryid)
+        public async Task<IActionResult> GetAnalysisCategoryById(int analysisCategoryId)
         {
-            var result = await _analysisCategoryService.GetAnalysisCategoryByIdAsync(categoryid);
+            var result = await _analysisCategoryService.GetAnalysisCategoryByIdAsync(analysisCategoryId);
 
             if (result == null)
             {
@@ -65,7 +90,11 @@ namespace MetricService.API.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Поучить из справочника категорий анализов все подходящие строки, заданные критерием
+        /// </summary>
+        /// <param name="search">Строка поиска. Для множественного поиска фразы разделять запятой</param>
+        /// <returns></returns>
         [HttpGet(nameof(FindAnalysisCategoryByName))]
         public async Task<IActionResult> FindAnalysisCategoryByName(string search)
         {

@@ -5,12 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
 {
+    /// <summary>
+    /// Предоставляет API-методы для работы с данные формы выпуска препарата
+    /// </summary>
+    /// <seealso cref="Controller" />
     [ApiController]
     [Route("api/[controller]")]
     public class DosageFormController(IDosageFormService dosageFormService) : Controller
     {
         readonly IDosageFormService _dosageFormService = dosageFormService;
 
+        /// <summary>
+        /// Зарегистрировать новую форму препарата
+        /// </summary>
+        /// <param name="dosageFormCreateDTO">Данные для регистрации формы препарата</param>
+        /// <returns></returns>
         [HttpPost(nameof(CreateDosageForm))]
         [Authorize]
         public async Task<IActionResult> CreateDosageForm([FromBody] DosageFormCreateDTO dosageFormCreateDTO)
@@ -19,6 +28,11 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Изменить данные о форме препарата
+        /// </summary>
+        /// <param name="dosageFormUpdateDTO">Измененные данные формы препарата</param>
+        /// <returns></returns>
         [HttpPut(nameof(UpdateDosageForm))]
         [Authorize]
         public async Task<IActionResult> UpdateDosageForm([FromBody] DosageFormUpdateDTO dosageFormUpdateDTO)
@@ -27,19 +41,27 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Удалить данные формы препарата
+        /// </summary>
+        /// <param name="dosageFormId">Идентификатор формы препарата</param>
+        /// <returns></returns>
         [HttpDelete(nameof(DeleteDosageForm))]
         [Authorize]
-        public async Task<IActionResult> DeleteDosageForm(int id)
+        public async Task<IActionResult> DeleteDosageForm(int dosageFormId)
         {
-            await _dosageFormService.DeleteDosageFormAsync(id);
+            await _dosageFormService.DeleteDosageFormAsync(dosageFormId);
             return Ok();
         }
 
-
+        /// <summary>
+        /// Получить список форм препаратов
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(nameof(GetAllDosageForms))]
-        public async Task<IActionResult> GetAllDosageForms(int pagenum, int pagesize)
+        public async Task<IActionResult> GetAllDosageForms()
         {
-            var result = await _dosageFormService.GetAllDosageFormsAsync(pagenum, pagesize);
+            var result = await _dosageFormService.GetAllDosageFormsAsync();
 
             if (!result.Any())
             {
@@ -49,11 +71,15 @@ namespace MetricService.API.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Получить форму препарата
+        /// </summary>
+        /// <param name="dosageFormId">Идентификатор формы препарата</param>
+        /// <returns></returns>
         [HttpGet(nameof(GetDosageFormById))]
-        public async Task<IActionResult> GetDosageFormById(int id)
+        public async Task<IActionResult> GetDosageFormById(int dosageFormId)
         {
-            var result = await _dosageFormService.GetDosageFormByIdAsync(id);
+            var result = await _dosageFormService.GetDosageFormByIdAsync(dosageFormId);
 
             if (result == null)
             {

@@ -1,6 +1,9 @@
 ﻿namespace MetricService.BLL.DTO.AnalysisCategory
 {
-    public class AnalysisCategoryBaseDTO
+    /// <summary>
+    /// Общие данные для справочника категории анализов
+    /// </summary>
+    public abstract class AnalysisCategoryBaseDTO
     {
         /// <summary>
         /// Наименование категории анализа(например, «Клинический анализ крови», «Биохимия»)

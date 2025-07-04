@@ -9,8 +9,7 @@ namespace MetricService.BLL.Interfaces
         /// создает форму выпуска препарата
         /// </summary>
         /// <param name="dosageFormCreateDTO">Форма выпуска</param>
-        /// <exception cref="ViolationAccessException">Вы не можете создавать данные</exception>
-        /// <exception cref="ValidateModelException">Некорректные данные о форме выпуска препарата</exception>
+        /// <exception cref="ViolationAccessException">Вы не можете создавать данные</exception>        
         public Task CreateDosageFormAsync(DosageFormCreateDTO dosageFormCreateDTO);
 
         /// <summary>
@@ -18,8 +17,7 @@ namespace MetricService.BLL.Interfaces
         /// </summary>
         /// <param name="dosageFormUpdateDTO">Форма выпуска</param>
         /// <exception cref="IncorrectOrEmptyResultException">Форма выпуска не зарегистрирована</exception>        
-        /// <exception cref="ViolationAccessException">Вы не можете изменять данные</exception>
-        /// <exception cref="ValidateModelException">Некорректные данные о форме выпуска</exception>
+        /// <exception cref="ViolationAccessException">Вы не можете изменять данные</exception>        
         public Task UpdateDosageFormAsync(DosageFormUpdateDTO dosageFormUpdateDTO);
 
         /// <summary>
@@ -40,10 +38,8 @@ namespace MetricService.BLL.Interfaces
 
         /// <summary>
         /// Получить список форм выпуска
-        /// </summary>
-        /// <param name="pageNum">номер страницы для пагинации</param>
-        /// <param name="pageSize">кол-во строк на странице для пагинации</param>
+        /// </summary>        
         /// <returns></returns>
-        public Task<IEnumerable<DosageFormDTO>> GetAllDosageFormsAsync(int pageNum, int pageSize);
+        public Task<IEnumerable<DosageFormDTO>> GetAllDosageFormsAsync();
     }
 }
