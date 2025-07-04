@@ -42,11 +42,9 @@ namespace MetricService.BLL.Interfaces
 
         /// <summary>
         /// получение списка категорий анализов
-        /// </summary>
-        /// <param name="pageNum">номер страницы для пагинации</param>
-        /// <param name="pageSize">количество позиций на странице</param>
+        /// </summary>       
         /// <returns></returns>
-        public Task<IEnumerable<AnalysisCategoryDTO>> GetAllAnalysisCategoriesAsync(int pageNum, int pageSize);
+        public Task<IEnumerable<AnalysisCategoryDTO>> GetAllAnalysisCategoriesAsync();
 
 
         /// <summary>

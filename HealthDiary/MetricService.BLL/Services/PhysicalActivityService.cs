@@ -4,6 +4,7 @@ using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using MetricService.DAL.Interfaces;
 using MetricService.Domain.Models;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace MetricService.BLL.Services
@@ -16,13 +17,9 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
-        public async Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync(int pageNum, int pageSize)
+        public async Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync()
         {
-            var physicalActivities = (await _repository.GetAllAsync())
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize);
-
-            return _mapper.Map<IEnumerable<PhysicalActivityDTO>>(physicalActivities);
+            return _mapper.Map<IEnumerable<PhysicalActivityDTO>>(await _repository.GetAllAsync());
         }
 
 
@@ -108,7 +105,7 @@ namespace MetricService.BLL.Services
         public async Task DeletePhysicalActivityAsync(int physicalActivityId)
         {
             _ = await _repository.GetByIdAsync(physicalActivityId) ??
-               throw new IncorrectOrEmptyResultException("Физическая активность не зарегистрирована", 
+               throw new IncorrectOrEmptyResultException("Физическая активность не зарегистрирована",
                                                            new Dictionary<object, object>()
                                                            {
                                                                 { nameof(physicalActivityId), physicalActivityId }

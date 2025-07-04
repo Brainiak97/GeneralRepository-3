@@ -43,11 +43,9 @@ namespace MetricService.BLL.Interfaces
 
         /// <summary>
         /// Вывести список пользователей с пагинацией
-        /// </summary>
-        /// <param name="pageNum">номер страницы</param>
-        /// <param name="pageSize">кол-во позиций на странице</param>
+        /// </summary>        
         /// <returns>Список моделей DTO</returns>,
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>         
-        public Task<IEnumerable<UserDTO>> GetAllUsersAsync(int pageNum, int pageSize);
+        public Task<IEnumerable<UserDTO>> GetAllUsersAsync();
     }
 }

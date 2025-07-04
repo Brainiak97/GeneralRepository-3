@@ -38,7 +38,7 @@ namespace MetricService.BLL.Services
         }
 
 
-        public async Task<IEnumerable<UserDTO>> GetAllUsersAsync(int pageNum, int pageSize)
+        public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
             if (!_authorizationService.IsInRole("Admin"))
             {
@@ -48,11 +48,8 @@ namespace MetricService.BLL.Services
                                                     _repository.Name);
             }
 
-            var users = (await _repository.GetAllAsync())
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize);
+            return _mapper.Map<IEnumerable<UserDTO>>(await _repository.GetAllAsync());               
 
-            return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
 
