@@ -6,12 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
 {
+    /// <summary>
+    /// Предоставляет API-методы для работы с данные о приеме лекарств пользователем
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [ApiController]
     [Route("api/[controller]")]
     public class IntakeController(IIntakeService intakeService) : Controller
     {
         readonly IIntakeService _intakeService = intakeService;
 
+        /// <summary>
+        /// Зарегистрировать прием лекарств
+        /// </summary>
+        /// <param name="intakeDTO">Данные для регисрации о приеме лекарств</param>
+        /// <returns></returns>
         [HttpPost(nameof(CreateIntake))]
         [Authorize]
         public async Task<IActionResult> CreateIntake([FromBody] IntakeCreateDTO intakeDTO)
@@ -20,6 +29,11 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Изменить данные примема лекарств
+        /// </summary>
+        /// <param name="intakeUpdateDTO">Измененные данные приема лекарств</param>
+        /// <returns></returns>
         [HttpPut(nameof(UpdateIntake))]
         [Authorize]
         public async Task<IActionResult> UpdateIntake([FromBody] IntakeUpdateDTO intakeUpdateDTO)
@@ -28,15 +42,24 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Удалить данные о приеме лекарств
+        /// </summary>
+        /// <param name="intakeId">Идентификатор приема лекарств</param>
+        /// <returns></returns>
         [HttpDelete(nameof(DeleteIntake))]
         [Authorize]
-        public async Task<IActionResult> DeleteIntake(int id)
+        public async Task<IActionResult> DeleteIntake(int intakeId)
         {
-            await _intakeService.DeleteIntakeAsync(id);
+            await _intakeService.DeleteIntakeAsync(intakeId);
             return Ok();
         }
 
-
+        /// <summary>
+        /// Получить все приемы лекарств по пользователю за период
+        /// </summary>
+        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <returns></returns>
         [HttpGet(nameof(GetAllIntakes))]
         public async Task<IActionResult> GetAllIntakes([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
@@ -50,11 +73,15 @@ namespace MetricService.API.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Получить данные приема лекарств
+        /// </summary>
+        /// <param name="intakeId">Идентификатор данных приема лекарств</param>
+        /// <returns></returns>
         [HttpGet(nameof(GetIntakeById))]
-        public async Task<IActionResult> GetIntakeById(int id)
+        public async Task<IActionResult> GetIntakeById(int intakeId)
         {
-            var result = await _intakeService.GetIntakeByIdAsync(id);
+            var result = await _intakeService.GetIntakeByIdAsync(intakeId);
 
             if (result == null)
             {

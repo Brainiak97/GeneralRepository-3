@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
-    class IntakeRepository : BaseRepository<Intake>, IIntakeRepository
+    public class IntakeRepository : BaseRepository<Intake>, IIntakeRepository
     {
         public IntakeRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {

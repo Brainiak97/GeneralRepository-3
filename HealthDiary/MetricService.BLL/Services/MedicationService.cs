@@ -1,104 +1,97 @@
-﻿using MetricService.BLL.DTO.MedicationDTO;
+﻿using AutoMapper;
+using MetricService.BLL.DTO.MedicationDTO;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
-using MetricService.BLL.Mappers;
 using MetricService.DAL.Interfaces;
 using MetricService.Domain.Models;
 using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
-    public class MedicationService(IMedicationRepository medicationRepository, IValidator<Medication> validator, ClaimsPrincipal authorizationService) : IMedicationService
+    public class MedicationService(IMedicationRepository medicationRepository, ClaimsPrincipal authorizationService, IMapper mapper) : IMedicationService
     {
-        private readonly IMedicationRepository _repository = medicationRepository;
-        private readonly IValidator<Medication> _validator = validator;
+        private readonly IMedicationRepository _repository = medicationRepository;        
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly IMapper _mapper = mapper;
 
-       
+
         public async Task CreateMedicationAsync(MedicationCreateDTO medicationCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin"))
             {
-                throw new ViolationAccessException("Вы не можете создавать данные", 
-                    Common.Common.GetAuthorId(_authorizationService), 
-                    0, 
+                throw new ViolationAccessException("Вы не можете создавать данные",
+                    Common.Common.GetAuthorId(_authorizationService),
+                    0,
                     _repository.Name);
             }
 
-            Medication medication = medicationCreateDTO.ToMedication();
-
-            if (!_validator.Validate(medication, out Dictionary<string, string> errorList))
-            {
-                throw new ValidateModelException("Некорректные данные о лекарстве", errorList);
-            }
+            var medication = _mapper.Map<Medication>(medicationCreateDTO);                       
 
             await _repository.CreateAsync(medication);
         }
 
-        
+
         public async Task DeleteMedicationAsync(int medicationId)
         {
             _ = await _repository.GetByIdAsync(medicationId) ??
-              throw new IncorrectOrEmptyResultException("Лекарство не зарегистрировано", new Dictionary<object, object>()
-              {
-                    { "medicationId", medicationId }
-              });
+              throw new IncorrectOrEmptyResultException("Лекарство не зарегистрировано",
+                                                          new Dictionary<object, object>()
+                                                          {
+                                                                { nameof(medicationId), medicationId }
+                                                          });
 
             if (!_authorizationService.IsInRole("Admin"))
             {
-                throw new ViolationAccessException("Вам не разрешено удалить данные", 
-                    Common.Common.GetAuthorId(_authorizationService), 
-                    0, 
-                    _repository.Name);
+                throw new ViolationAccessException("Вам не разрешено удалить данные",
+                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    0,
+                                                    _repository.Name);
             }
 
             await _repository.DeleteAsync(medicationId);
         }
 
-        
-        public async Task<IEnumerable<MedicationDTO>> GetAllMedicationAsync(int pageNum, int pageSize)
-        {
-            var medications = (await _repository.GetAllAsync()).Skip((pageNum - 1) * pageSize).Take(pageSize).ToMedicationDTO();
 
-            return medications;
+        public async Task<IEnumerable<MedicationDTO>> GetAllMedicationAsync()
+        {
+            return _mapper.Map<IEnumerable<MedicationDTO>>(await _repository.GetAllAsync());
         }
 
-              
+
         public async Task<MedicationDTO> GetMedicationByIdAsync(int medicationId)
         {
-            return (await _repository.GetByIdAsync(medicationId) ??
-              throw new IncorrectOrEmptyResultException("Указанное лекарство не существует", new Dictionary<object, object>()
-            {
-                   { "medicationId", medicationId }
-            })).ToMedicationDTO();
+            var medication = (await _repository.GetByIdAsync(medicationId) ??
+               throw new IncorrectOrEmptyResultException("Указанное лекарство не существует",
+                                                       new Dictionary<object, object>()
+                                                       {
+                                                             { nameof(medicationId), medicationId }
+                                                       }));
+
+            return _mapper.Map<MedicationDTO>(medication);
         }
 
-        
+
         public async Task UpdateMedicationAsync(MedicationUpdateDTO medicationUpdateDTO)
         {
             var medicationFind = await _repository.GetByIdAsync(medicationUpdateDTO.Id) ??
                 throw new IncorrectOrEmptyResultException("Лекарство не зарегистрировано",
-                    new Dictionary<object, object>()
-                    {
-                        {"medicationUpdateDTO", medicationUpdateDTO}
-                    });
+                                                            new Dictionary<object, object>()
+                                                            {
+                                                                {nameof(medicationUpdateDTO), medicationUpdateDTO}
+                                                            });
 
             if (!_authorizationService.IsInRole("Admin"))
             {
-                throw new ViolationAccessException("Вы не можете изменять данные", 
-                    Common.Common.GetAuthorId(_authorizationService), 
-                    0, 
-                    _repository.Name);
+                throw new ViolationAccessException("Вы не можете изменять данные",
+                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    0,
+                                                    _repository.Name);
             }
 
-            medicationFind = medicationUpdateDTO.ToMedication(medicationFind.DosageFormId);
+            var medication = _mapper.Map<Medication>(medicationUpdateDTO);
+            medication.DosageFormId = medicationFind.DosageFormId;                      
 
-            if (!_validator.Validate(medicationFind, out Dictionary<string, string> errorList))
-            {
-                throw new ValidateModelException("Некорректные данные о лекарстве", errorList);
-            }
-
-            await _repository.UpdateAsync(medicationFind);
+            await _repository.UpdateAsync(medication);
         }
     }
 }

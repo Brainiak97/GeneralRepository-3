@@ -1,5 +1,4 @@
 ﻿using MetricService.Domain.Models.Enums;
-using System.Data;
 
 namespace MetricService.Domain.Models
 {

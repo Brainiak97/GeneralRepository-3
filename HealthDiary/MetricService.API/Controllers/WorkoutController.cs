@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
 {
+    /// <summary>
+    /// Предоставляет API-методы для работы с данными о тренировках пользователя
+    /// </summary>
+    /// <seealso cref="Controller" />
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
@@ -13,6 +17,11 @@ namespace MetricService.API.Controllers
     {
         private readonly IWorkoutService _workoutService = workoutService;
 
+        /// <summary>
+        /// Зарегистрировать тренировку
+        /// </summary>
+        /// <param name="workoutDTO">Дянные для регистрации о тренировке</param>
+        /// <returns></returns>
         [HttpPost(nameof(CreateWorkout))]
         public async Task<IActionResult> CreateWorkout([FromBody] WorkoutCreateDTO workoutDTO)
         {
@@ -20,6 +29,11 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Изменить данные о тренировке
+        /// </summary>
+        /// <param name="workoutDTO">Измененные данные о тренировке</param>
+        /// <returns></returns>
         [HttpPut(nameof(UpdateWorkout))]
         public async Task<IActionResult> UpdateWorkout([FromBody] WorkoutUpdateDTO workoutDTO)
         {
@@ -27,13 +41,23 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Удалить трениовку
+        /// </summary>
+        /// <param name="workoutId">Идентификатор тренировки</param>
+        /// <returns></returns>
         [HttpDelete(nameof(DeleteWorkoutAsync))]
-        public async Task<IActionResult> DeleteWorkoutAsync(int id)
+        public async Task<IActionResult> DeleteWorkoutAsync(int workoutId)
         {
-            await _workoutService.DeleteWorkoutAsync(id);
+            await _workoutService.DeleteWorkoutAsync(workoutId);
             return Ok();
         }
 
+        /// <summary>
+        /// Получить список тренировок по пользователю за период
+        /// </summary>
+        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <returns></returns>
         [HttpGet(nameof(GetAllWorkouts))]
         public async Task<IActionResult> GetAllWorkouts([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
@@ -47,10 +71,15 @@ namespace MetricService.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Получить данные о тренировке
+        /// </summary>
+        /// <param name="workoutId">Идентификатор тренировки</param>
+        /// <returns></returns>
         [HttpGet(nameof(GetWorkoutById))]
-        public async Task<IActionResult> GetWorkoutById(int workoutid)
+        public async Task<IActionResult> GetWorkoutById(int workoutId)
         {
-            return Ok(await _workoutService.GetWorkoutByIdAsync(workoutid));
+            return Ok(await _workoutService.GetWorkoutByIdAsync(workoutId));
         }
     }
 }

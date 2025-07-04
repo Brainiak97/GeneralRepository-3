@@ -4,7 +4,7 @@ using MetricService.Domain.Models;
 
 namespace MetricService.DAL.Repositories
 {
-    class DosageFormRepository : BaseRepository<DosageForm>, IDosageFormRepository
+    public class DosageFormRepository : BaseRepository<DosageForm>, IDosageFormRepository
     {
         public DosageFormRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {

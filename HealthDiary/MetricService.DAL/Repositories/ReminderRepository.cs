@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
-    class ReminderRepository : BaseRepository<Reminder>, IReminderRepository
+   public class ReminderRepository : BaseRepository<Reminder>, IReminderRepository
     {
         public ReminderRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
