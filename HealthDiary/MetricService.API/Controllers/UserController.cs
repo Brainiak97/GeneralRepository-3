@@ -34,9 +34,9 @@ namespace MetricService.Api.Controllers
         }
 
         [HttpGet(nameof(GetAllUsers))]
-        public async Task<IActionResult> GetAllUsers(int pagenum, int pagesize)
+        public async Task<IActionResult> GetAllUsers()
         {
-            var result = await _userService.GetAllUsersAsync(pagenum, pagesize);
+            var result = await _userService.GetAllUsersAsync();
 
             if (!result.Any())
             {

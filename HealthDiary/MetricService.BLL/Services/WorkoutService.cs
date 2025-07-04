@@ -50,11 +50,9 @@ namespace MetricService.BLL.Services
             }
 
             var workouts = (await _repository.GetAllAsync())
-                .Where(w => w.UserId == requestListWithPeriodByIdDTO.UserId &&
+                            .Where(w => w.UserId == requestListWithPeriodByIdDTO.UserId &&
                                     w.StartTime >= requestListWithPeriodByIdDTO.BegDate &&
-                                    w.EndTime <= requestListWithPeriodByIdDTO.EndDate)
-                .Skip((requestListWithPeriodByIdDTO.NumPage - 1) * requestListWithPeriodByIdDTO.PageSize)
-                .Take(requestListWithPeriodByIdDTO.PageSize);
+                                    w.EndTime <= requestListWithPeriodByIdDTO.EndDate);                
 
             return _mapper.Map<IEnumerable<WorkoutDTO>>(workouts);
         }

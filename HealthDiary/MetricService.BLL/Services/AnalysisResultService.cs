@@ -71,11 +71,10 @@ namespace MetricService.BLL.Services
                                                     _repository.Name);
             }
 
-            var analysisResults = (await _repository.GetAllAsync()).Where(a => a.UserId == requestListWithPeriodByIdDTO.UserId &&
-                                                                            a.TestedAt >= requestListWithPeriodByIdDTO.BegDate &&
-                                                                            a.TestedAt <= requestListWithPeriodByIdDTO.EndDate)
-                .Skip((requestListWithPeriodByIdDTO.NumPage - 1) * requestListWithPeriodByIdDTO.PageSize)
-                .Take(requestListWithPeriodByIdDTO.PageSize);
+            var analysisResults = (await _repository.GetAllAsync())
+                                    .Where(a => a.UserId == requestListWithPeriodByIdDTO.UserId &&
+                                            a.TestedAt >= requestListWithPeriodByIdDTO.BegDate &&
+                                            a.TestedAt <= requestListWithPeriodByIdDTO.EndDate);
 
             return _mapper.Map<IEnumerable<AnalysisResultDTO>>(analysisResults);
         }
@@ -119,8 +118,8 @@ namespace MetricService.BLL.Services
                                                     _repository.Name);
             }
 
-            var analysisResult=_mapper.Map<AnalysisResult>(analysisResultUpdateDTO);
-            analysisResult.UserId=analysisResultFind.UserId;            
+            var analysisResult = _mapper.Map<AnalysisResult>(analysisResultUpdateDTO);
+            analysisResult.UserId = analysisResultFind.UserId;
 
             if (!_validator.Validate(analysisResult, out Dictionary<string, string> errorList))
             {

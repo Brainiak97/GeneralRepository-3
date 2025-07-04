@@ -16,13 +16,9 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
-        public async Task<IEnumerable<AnalysisCategoryDTO>> GetAllAnalysisCategoriesAsync(int pageNum, int pageSize)
+        public async Task<IEnumerable<AnalysisCategoryDTO>> GetAllAnalysisCategoriesAsync()
         {
-            var analysisCategories = (await _repository.GetAllAsync())
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize);
-
-            return _mapper.Map<IEnumerable<AnalysisCategoryDTO>>(analysisCategories);
+            return _mapper.Map<IEnumerable<AnalysisCategoryDTO>>(await _repository.GetAllAsync());
         }
 
 

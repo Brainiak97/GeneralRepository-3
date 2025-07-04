@@ -40,9 +40,9 @@ namespace MetricService.API.Controllers
 
 
         [HttpGet(nameof(GetAllAnalysisTypes))]
-        public async Task<IActionResult> GetAllAnalysisTypes(int pagenum, int pagesize)
+        public async Task<IActionResult> GetAllAnalysisTypes()
         {
-            var result = await _analysisTypeService.GetAllAnalysisTypeAsync(pagenum, pagesize);
+            var result = await _analysisTypeService.GetAllAnalysisTypeAsync();
 
             if (!result.Any())
             {

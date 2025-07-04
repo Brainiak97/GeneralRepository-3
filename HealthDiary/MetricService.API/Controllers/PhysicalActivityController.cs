@@ -37,9 +37,9 @@ namespace MetricService.API.Controllers
         }
 
         [HttpGet(nameof(GetAllPhysicalActivities))]
-        public async Task<IActionResult> GetAllPhysicalActivities(int pagenum, int pagesize)
+        public async Task<IActionResult> GetAllPhysicalActivities()
         {
-            var result = await _physicalActivityService.GetAllPhysicalActivitiesAsync(pagenum, pagesize);
+            var result = await _physicalActivityService.GetAllPhysicalActivitiesAsync();
 
             if (!result.Any())
             {

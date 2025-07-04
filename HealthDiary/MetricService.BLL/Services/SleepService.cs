@@ -50,13 +50,10 @@ namespace MetricService.BLL.Services
             }
 
             var sleeps = (await _repository.GetAllAsync())
-                .Where(s => s.UserId == requestListWithPeriodByIdDTO.UserId &&
-                            s.StartSleep >= requestListWithPeriodByIdDTO.BegDate &&
-                            s.StartSleep <= requestListWithPeriodByIdDTO.EndDate)
-                .Skip((requestListWithPeriodByIdDTO.NumPage - 1) * requestListWithPeriodByIdDTO.PageSize)
-                .Take(requestListWithPeriodByIdDTO.PageSize);
-
-            return _mapper.Map<IEnumerable<SleepDTO>>(sleeps);
+                            .Where(s => s.UserId == requestListWithPeriodByIdDTO.UserId &&
+                                    s.StartSleep >= requestListWithPeriodByIdDTO.BegDate &&
+                                    s.StartSleep <= requestListWithPeriodByIdDTO.EndDate);
+                return _mapper.Map<IEnumerable<SleepDTO>>(sleeps);
         }
 
 

@@ -49,12 +49,10 @@ namespace MetricService.BLL.Services
                                                 _repository.Name);
             }
 
-            var recordsOfHealthMetricsBase = (await _repository.GetAllAsync()).Where(h => h.UserId == requestListWithPeriodByIdDTO.UserId &&
-                                                                                    h.MetricDate >= requestListWithPeriodByIdDTO.BegDate &&
-                                                                                    h.MetricDate <= requestListWithPeriodByIdDTO.EndDate)
-                .Skip((requestListWithPeriodByIdDTO.NumPage - 1) * requestListWithPeriodByIdDTO.PageSize)
-                .Take(requestListWithPeriodByIdDTO.PageSize);
-
+            var recordsOfHealthMetricsBase = (await _repository.GetAllAsync())
+                                        .Where(h => h.UserId == requestListWithPeriodByIdDTO.UserId &&
+                                                h.MetricDate >= requestListWithPeriodByIdDTO.BegDate &&
+                                                h.MetricDate <= requestListWithPeriodByIdDTO.EndDate);
 
             return _mapper.Map<IEnumerable<HealthMetricsBaseDTO>>(recordsOfHealthMetricsBase);
         }

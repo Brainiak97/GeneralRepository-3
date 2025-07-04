@@ -44,11 +44,9 @@ namespace MetricService.BLL.Interfaces
 
         /// <summary>
         /// Получить все записи о физической активности
-        /// </summary>
-        /// <param name="pageNum">Номер страницы для пагинации</param>
-        /// <param name="pageSize">Кол-во строк на странице для пагинации</param>
+        /// </summary>       
         /// <returns></returns>
-        public Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync(int pageNum, int pageSize);
+        public Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync();
 
 
         /// <summary>
