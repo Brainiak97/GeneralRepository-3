@@ -6,9 +6,8 @@
     /// </summary>
     public class AnalysisType : BaseModel 
     {
-
         /// <summary>
-        /// Ссылка на категорию анализа
+        /// Идентификатор категории анализа
         /// </summary>
         public int AnalysisCategoryId { get; set; }
 

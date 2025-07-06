@@ -8,6 +8,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Формы выпуска препарата"
+    /// </summary>
+    /// <seealso cref="IDosageFormService" />
     public class DosageFormService(IDosageFormRepository dosageFormRepository, ClaimsPrincipal authorizationService, IMapper mapper) : IDosageFormService
     {
         private readonly IDosageFormRepository _repository = dosageFormRepository;        
@@ -15,6 +19,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
+        /// <inheritdoc/>
         public async Task CreateDosageFormAsync(DosageFormCreateDTO dosageFormCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin"))
@@ -31,6 +36,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task DeleteDosageFormAsync(int dosageFormId)
         {
             _ = await _repository.GetByIdAsync(dosageFormId) ??
@@ -52,12 +58,14 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<DosageFormDTO>> GetAllDosageFormsAsync()
         {
             return _mapper.Map<IEnumerable<DosageFormDTO>>(await _repository.GetAllAsync());
         }
 
 
+        /// <inheritdoc/>        
         public async Task<DosageFormDTO> GetDosageFormByIdAsync(int dosageFormId)
         {
             var dosageForm = (await _repository.GetByIdAsync(dosageFormId) ??
@@ -70,6 +78,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateDosageFormAsync(DosageFormUpdateDTO dosageFormUpdateDTO)
         {
             _ = await _repository.GetByIdAsync(dosageFormUpdateDTO.Id) ??

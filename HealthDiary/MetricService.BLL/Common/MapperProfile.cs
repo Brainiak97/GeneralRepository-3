@@ -16,8 +16,14 @@ using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Common
 {
+    /// <summary>
+    /// Профиль автомаппера
+    /// </summary>
     public class MapperProfile : Profile
     {
+        /// <summary>
+        /// Создает объект профиля автомаппера
+        /// </summary>
         public MapperProfile()
         {
             CreateMap<Workout, WorkoutCreateDTO>().ReverseMap();

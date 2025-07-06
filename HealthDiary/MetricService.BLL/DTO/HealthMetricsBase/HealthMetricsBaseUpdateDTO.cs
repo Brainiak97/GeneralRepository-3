@@ -1,10 +1,13 @@
 ﻿namespace MetricService.BLL.DTO.HealthMetricsBase
 {
-    public class HealthMetricsBaseUpdateDTO: HealthMetricsBaseBaseDTO
+    /// <summary>
+    /// Объект данных для изменения базовых медицинских показателей пользователя
+    /// </summary>
+    public class HealthMetricsBaseUpdateDTO : HealthMetricsBaseBaseDTO
     {
         /// <summary>
-        /// идентификатор       
+        /// Идентификатор данных базовых медицинских показателей пользователя  
         /// </summary>    
-        public int Id { get; set; }      
+        public int Id { get; set; }
     }
 }

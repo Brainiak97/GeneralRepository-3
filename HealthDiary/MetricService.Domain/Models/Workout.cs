@@ -1,12 +1,12 @@
 ﻿namespace MetricService.Domain.Models
 {
     /// <summary>
-    /// тренировка
+    /// Тренировка
     /// </summary>
     public class Workout : BaseModel
     {
         /// <summary>
-        /// пользователя
+        /// Идентификатор пользователя
         /// </summary>        
         public int UserId { get; set; }
 
@@ -16,7 +16,7 @@
         public User User { get; set; } = null!;
 
         /// <summary>
-        /// Физическая активность
+        /// Идентификатор физической активности
         /// </summary>
         public int PhysicalActivityId { get; set; }
 
@@ -26,21 +26,24 @@
         public PhysicalActivity PhysicalActivity { get; set; } = null!;
 
         /// <summary>
-        /// время начала тренировки
+        /// Время начала тренировки
         /// </summary>        
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// время окончания тренировки
+        /// Время окончания тренировки
         /// </summary>       
         public DateTime EndTime { get; set; }
 
         /// <summary>
-        /// описание
+        /// Описание
         /// </summary>
         public string? Description { get; set; }
 
-        public float CaloriesBurned => 
-            (float) (PhysicalActivity.EnergyEquivalent* User.Weight* (EndTime - StartTime).Hours);
+        /// <summary>
+        /// Потраченные калории за тренировку
+        /// </summary>
+        public float CaloriesBurned =>
+            (float)(PhysicalActivity.EnergyEquivalent * User.Weight * (EndTime - StartTime).Hours);
     }
 }

@@ -1,9 +1,12 @@
 ﻿namespace MetricService.BLL.DTO.PhysicalActivity
 {
-    public class PhysicalActivityUpdateDTO: PhysicalActivityBaseDTO
+    /// <summary>
+    /// Объект для изменения данных в справочнике "Физическая активность"
+    /// </summary>
+    public class PhysicalActivityUpdateDTO : PhysicalActivityBaseDTO
     {
         /// <summary>
-        /// идентификатор
+        /// Идентификатор данных в справочнике
         /// </summary>
         public int Id { get; set; }
     }

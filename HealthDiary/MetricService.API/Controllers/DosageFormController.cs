@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MetricService.API.Controllers
 {
     /// <summary>
-    /// Предоставляет API-методы для работы с данные формы выпуска препарата
+    /// Предоставляет API-методы для работы с данными справочника "Формы выпуска препарата"
     /// </summary>
     /// <seealso cref="Controller" />
     [ApiController]
@@ -16,7 +16,7 @@ namespace MetricService.API.Controllers
         readonly IDosageFormService _dosageFormService = dosageFormService;
 
         /// <summary>
-        /// Зарегистрировать новую форму препарата
+        /// Зарегистрировать новую форму препарата в справочнике "Формы выпуска препарата"
         /// </summary>
         /// <param name="dosageFormCreateDTO">Данные для регистрации формы препарата</param>
         /// <returns></returns>
@@ -29,9 +29,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Изменить данные о форме препарата
+        /// Изменить данные о форме препарата в справочнике "Формы выпуска препарата"
         /// </summary>
-        /// <param name="dosageFormUpdateDTO">Измененные данные формы препарата</param>
+        /// <param name="dosageFormUpdateDTO">Данные для изменения формы препарата</param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateDosageForm))]
         [Authorize]
@@ -42,7 +42,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Удалить данные формы препарата
+        /// Удалить данные формы препарата из справочника "Формы выпуска препарата"
         /// </summary>
         /// <param name="dosageFormId">Идентификатор формы препарата</param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить список форм препаратов
+        /// Получить список форм препаратов из справочника "Формы выпуска препарата"
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllDosageForms))]
@@ -72,7 +72,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить форму препарата
+        /// Получить форму препарата из справочника "Формы выпуска препарата"
         /// </summary>
         /// <param name="dosageFormId">Идентификатор формы препарата</param>
         /// <returns></returns>

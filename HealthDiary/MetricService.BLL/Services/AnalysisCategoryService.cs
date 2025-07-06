@@ -8,6 +8,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Категории анализов"
+    /// </summary>
+    /// <seealso cref="IAnalysisCategoryService" />
     public class AnalysisCategoryService(IAnalysisCategoryRepository repository, IValidator<AnalysisCategory> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisCategoryService
     {
         private readonly IAnalysisCategoryRepository _repository = repository;
@@ -15,13 +19,13 @@ namespace MetricService.BLL.Services
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
         private readonly IMapper _mapper = mapper;
 
-
+        /// <inheritdoc/>
         public async Task<IEnumerable<AnalysisCategoryDTO>> GetAllAnalysisCategoriesAsync()
         {
             return _mapper.Map<IEnumerable<AnalysisCategoryDTO>>(await _repository.GetAllAsync());
         }
 
-
+        /// <inheritdoc/>
         public async Task<AnalysisCategoryDTO?> GetAnalysisCategoryByIdAsync(int categoryId)
         {
             var analysisCategory = await _repository.GetByIdAsync(categoryId);
@@ -37,23 +41,13 @@ namespace MetricService.BLL.Services
             return _mapper.Map<AnalysisCategoryDTO>(analysisCategory);
         }
 
-
+        /// <inheritdoc/>
         public async Task<IEnumerable<AnalysisCategoryDTO>> GetListAnalysisCategoriesBySearchAsync(string search)
-        {
-            var stringsSearch = search.Split(',');
-            var workRecords = await _repository.GetAllAsync();
-            var filterRecords = new List<AnalysisCategoryDTO>();
-            IEnumerable<AnalysisCategory> tempRecords;
-            foreach (var item in stringsSearch)
-            {
-                tempRecords = workRecords.Where(s => s.Name.Contains(item.Trim(), StringComparison.CurrentCultureIgnoreCase));
-                filterRecords.AddRange(_mapper.Map<IEnumerable<AnalysisCategoryDTO>>(tempRecords));
-            }
-
-            return filterRecords;
+        {  
+            return _mapper.Map<IEnumerable<AnalysisCategoryDTO>>(await _repository.GetListAnalysisCategoriesBySearchAsync(search));
         }
 
-
+        /// <inheritdoc/>
         public async Task CreateAnalysisCategoryAsync(AnalysisCategoryCreateDTO analysisCategoryCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin"))
@@ -74,7 +68,7 @@ namespace MetricService.BLL.Services
             await _repository.CreateAsync(analysisCategory);
         }
 
-
+        /// <inheritdoc/>
         public async Task UpdateAnalysisCategoryAsync(AnalysisCategoryUpdateDTO analysisCategoryUpdateDTO)
         {
             _ = await _repository.GetByIdAsync(analysisCategoryUpdateDTO.Id) ??
@@ -102,7 +96,7 @@ namespace MetricService.BLL.Services
             await _repository.UpdateAsync(analysisCategory);
         }
 
-
+        /// <inheritdoc/>
         public async Task DeleteAnalysisCategoryAsync(int analysisCategoryId)
         {
             _ = await _repository.GetByIdAsync(analysisCategoryId) ??

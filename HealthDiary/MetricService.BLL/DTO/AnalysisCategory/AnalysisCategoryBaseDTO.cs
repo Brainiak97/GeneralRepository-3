@@ -1,7 +1,7 @@
 ﻿namespace MetricService.BLL.DTO.AnalysisCategory
 {
     /// <summary>
-    /// Общие данные для справочника категории анализов
+    /// Базовый объект данных для справочника "Категории анализов"
     /// </summary>
     public abstract class AnalysisCategoryBaseDTO
     {

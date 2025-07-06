@@ -2,8 +2,11 @@
 
 namespace MetricService.BLL.DTO.Intake
 {
-    public class IntakeBaseDTO
-    {       
+    /// <summary>
+    /// Объект базовых данных о приеме лекарств пользователем
+    /// </summary>
+    public abstract class IntakeBaseDTO
+    {
         /// <summary>
         /// Дата и время приема
         /// </summary>        
@@ -15,7 +18,7 @@ namespace MetricService.BLL.DTO.Intake
         public IntakeStatus IntakeStatus { get; set; }
 
         /// <summary>
-        /// дополнительные заметки (например, причины пропуска)
+        /// Дополнительные заметки (например, причины пропуска)
         /// </summary>        
         public string? Comment { get; set; }
     }

@@ -3,48 +3,50 @@ using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
-   public  interface IUserService
+    /// <summary>
+    /// Определяет контракт для сервиса, работающего с данными о профиле пользователя
+    /// </summary>
+    public interface IUserService
     {
         /// <summary>
-        /// Создание профиля пользователя
+        /// Создать запись профиля пользователя
         /// </summary>        
-        /// <param name="userDTO"></param>        
+        /// <param name="userDTO">Данные для создания записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
         ///  <exception cref="IncorrectOrEmptyResultException">Возникает когда пользователь уже зарегистрирован</exception>
         public Task CreateProfileAsync(UserDTO userDTO);
 
         /// <summary>
-        /// Обновление профиля пользователя
+        /// Обновить запись профиля пользователя
         /// </summary>       
-        /// <param name="userDTO"></param>
-        /// <returns>true - в случае успеха</returns>
+        /// <param name="userDTO">Данные для изменения записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
         public Task UpdateProfileAsync(UserDTO userDTO);
 
         /// <summary>
-        /// Удаление профиля пользователя
+        /// Удалить запись профиля пользователя
         /// </summary>
-        /// <param name="userId"></param>       
+        /// <param name="userId">Идентификатор записи</param>       
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>    
         /// <exception cref="IncorrectOrEmptyResultException">Возникает если указанный пользователь не существует</exception>   
         public Task DeleteProfileAsync(int userId);
 
 
         /// <summary>
-        /// получение пользователя по идентификатору
+        /// Получить запись профиля пользователя
         /// </summary>
-        /// <param name="userId">идентификатор пользователя</param>
-        /// <returns>Модель DTO</returns>
+        /// <param name="userId">Идентификатор записи</param>
+        /// <returns>Данные профиля пользователя</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>  
         /// <exception cref="IncorrectOrEmptyResultException">Возникает когда пользователь с заданным ИД не найден</exception> 
         public Task<UserDTO> GetUserByIdAsync(int userId);
 
         /// <summary>
-        /// Вывести список пользователей с пагинацией
+        /// Получить список записей профилей пользователей
         /// </summary>        
-        /// <returns>Список моделей DTO</returns>,
+        /// <returns>Список записей профилей пользователей</returns>,
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>         
         public Task<IEnumerable<UserDTO>> GetAllUsersAsync();
     }

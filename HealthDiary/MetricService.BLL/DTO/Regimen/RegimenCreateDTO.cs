@@ -1,14 +1,17 @@
 ﻿namespace MetricService.BLL.DTO.Regimen
 {
+    /// <summary>
+    /// Объект для регистрации данных о схеме приема медикаментов пользователем
+    /// </summary>
     public class RegimenCreateDTO: RegimenBaseDTO
     {
         /// <summary>
-        /// Пользователь
+        /// Идентификатор пользователя
         /// </summary>       
-        public int UserId { get; set; }        
+        public int UserId { get; set; }
 
         /// <summary>
-        /// медицинский препарат
+        /// Идентификатор данных из справочника "Медикаменты"
         /// </summary>       
         public int MedicationId { get; set; }
     }

@@ -1,9 +1,12 @@
 ﻿namespace MetricService.BLL.DTO.AnalysisType
 {
-    public class AnalysisTypeBaseDTO
+    /// <summary>
+    /// Объект базовых данных в справочнике "Типы анализов"
+    /// </summary>
+    public abstract class AnalysisTypeBaseDTO
     {
         /// <summary>
-        /// Ссылка на категорию анализа
+        /// Идентификатор данных из справочника "Категории анализов"
         /// </summary>
         public int AnalysisCategoryId { get; set; }
 

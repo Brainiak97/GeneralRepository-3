@@ -4,12 +4,7 @@
     /// Физическая активность
     /// </summary>
     public class PhysicalActivity: BaseModel
-    {
-        /// <summary>
-        /// идентификатор
-        /// </summary>
-        public new int Id { get; set; }
-
+    {   
         /// <summary>
         /// Наименование физической активности
         /// </summary>

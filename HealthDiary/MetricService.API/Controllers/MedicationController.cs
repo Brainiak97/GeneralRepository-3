@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MetricService.API.Controllers
 {
     /// <summary>
-    /// Предоставляет API-методы для работы с медикаментами
+    /// Предоставляет API-методы для работы со справочником "Медикаменты"
     /// </summary>
     /// <seealso cref="Controller" />
     [ApiController]
@@ -17,9 +17,9 @@ namespace MetricService.API.Controllers
         readonly IMedicationService _medicationService = medicationService;
 
         /// <summary>
-        /// Зарегистрировать медикамент
+        /// Зарегистрировать медикамент в справочнике "Медикаменты"
         /// </summary>
-        /// <param name="medicationCreateDTO">Данные для регистрации медикамента</param>
+        /// <param name="medicationCreateDTO">Данные для регистрации медикамента в справочнике</param>
         /// <returns></returns>
         [HttpPost(nameof(CreateMedication))]
         [Authorize]
@@ -30,7 +30,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Изменить данные регистрации медикамента
+        /// Изменить данные регистрации медикамента в справочнике "Медикаменты"
         /// </summary>
         /// <param name="medicationUpdateDTO">Измененные данные медикамента</param>
         /// <returns></returns>
@@ -43,9 +43,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Удалить медикамент
+        /// Удалить медикамент из справочника "Медикаменты"
         /// </summary>
-        /// <param name="medicationid">Идентификатор медикамента</param>
+        /// <param name="medicationid">Идентификатор данных медикамента</param>
         /// <returns></returns>
         [HttpDelete(nameof(DeleteMedication))]
         [Authorize]
@@ -56,7 +56,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить список медикаментов
+        /// Получить список медикаментов из справочника "Медикаменты"
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllMedications))]
@@ -73,9 +73,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить медикамент
+        /// Получить медикамент из справочника
         /// </summary>
-        /// <param name="medicationid">Идентификатор медикамента</param>
+        /// <param name="medicationid">Идентификатор данных медикамента</param>
         /// <returns></returns>
         [HttpGet(nameof(GetMedicationById))]
         public async Task<IActionResult> GetMedicationById(int medicationid)

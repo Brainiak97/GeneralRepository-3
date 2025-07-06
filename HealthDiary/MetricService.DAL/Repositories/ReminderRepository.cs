@@ -5,12 +5,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
-   public class ReminderRepository : BaseRepository<Reminder>, IReminderRepository
+    /// <summary>
+    /// Предоставляет реализацию репозитория для работы с данными о напоминании примема медикаментов пользователем
+    /// </summary>
+    /// <seealso cref="BaseRepository&lt;Reminder&gt;" />
+    /// <seealso cref="IReminderRepository" />
+    public class ReminderRepository : BaseRepository<Reminder>, IReminderRepository
     {
+        /// <summary>
+        /// Cоздать новый объект репозитория <see cref="ReminderRepository"/> class.
+        /// </summary>
+        /// <param name="metricServiceDb">Контекст базы данных MetricService</param>
         public ReminderRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
         }
 
+        /// <inheritdoc/>
         public override async Task<bool> UpdateAsync(Reminder item)
         {
             Reminder? reminder = await GetByIdAsync(item.Id);
@@ -22,6 +32,7 @@ namespace MetricService.DAL.Repositories
             return await _contextDb.SaveChangesAsync() == 1;
         }
 
+        /// <inheritdoc/>
         public async override Task<Reminder?> GetByIdAsync(int id)
         {
             return await _contextDb.Reminders
@@ -29,6 +40,7 @@ namespace MetricService.DAL.Repositories
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
+        /// <inheritdoc/>
         public async override Task<IEnumerable<Reminder>> GetAllAsync()
         {
             return await _contextDb.Reminders

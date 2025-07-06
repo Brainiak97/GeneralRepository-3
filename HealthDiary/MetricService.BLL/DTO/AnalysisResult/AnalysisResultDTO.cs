@@ -1,15 +1,18 @@
 ﻿namespace MetricService.BLL.DTO.AnalysisResult
 {
+    /// <summary>
+    /// Объект данных результата анализа пользователя
+    /// </summary>
     public class AnalysisResultDTO : AnalysisResultBaseDTO
     {
 
         /// <summary>
-        /// идентификатор
+        /// Идентификатор анализа пользователя
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// идентификатор пользователя
+        /// Идентификатор пользователя
         /// </summary>
         public int UserId { get; set; }
     }

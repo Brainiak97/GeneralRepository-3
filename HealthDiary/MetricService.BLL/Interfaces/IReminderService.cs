@@ -4,55 +4,58 @@ using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
+    /// <summary>
+    /// Определяет контракт для сервиса, работающего с данными о напоминании приема медикаментов пользователем
+    /// </summary>
     public interface IReminderService
     {
         /// <summary>
-        /// Создать напоминание
+        /// Создать запись напоминания приема медикаментов пользователем
         /// </summary>
-        /// <param name="reminderCreateDTO">Напоминание</param>
-        /// <exception cref="ViolationAccessException">Вы не можете создавать данные - 0</exception>
+        /// <param name="reminderCreateDTO">Данные для создания записи</param>
+        /// <exception cref="ViolationAccessException">Вы не можете создавать данные</exception>
         /// <exception cref="ValidateModelException">Некорректные данные о напоминании</exception>
         public Task CreateReminderAsync(ReminderCreateDTO reminderCreateDTO);
 
         /// <summary>
-        /// Обновить напоимнание
+        /// Обновить запись напоминания приема медикаментов пользователем
         /// </summary>
-        /// <param name="reminderUpdateDTO">напоминание</param>
+        /// <param name="reminderUpdateDTO">Данные для изменения записи</param>
         /// <exception cref="IncorrectOrEmptyResultException">Напоминание не зарегистрировано</exception>        
         /// <exception cref="ViolationAccessException">Вы не можете изменять данные о тренировке для других пользователей</exception>
         /// <exception cref="ValidateModelException">Некорректные данные о напоминании</exception>
         public Task UpdateReminderAsync(ReminderUpdateDTO reminderUpdateDTO);
 
         /// <summary>
-        /// удалить напоминание
+        /// Удалить запись напоминания приема медикаментов пользователем
         /// </summary>
-        /// <param name="reminderId">ИД напоминания</param>
+        /// <param name="reminderId">Идентификатор записи</param>
         /// <exception cref="IncorrectOrEmptyResultException">Напоминание не зарегистрировано</exception>        
         /// <exception cref="ViolationAccessException">Вам не разрешено удалить данные - 0</exception>
         public Task DeleteReminderAsync(int reminderId);
 
         /// <summary>
-        /// Просмотреть напоминание
+        /// Получить запись напоминания приема медикаментов пользователем
         /// </summary>
-        /// <param name="reminderId">ИД напоминания</param>
-        /// <returns></returns>
+        /// <param name="reminderId">Идентификатор записи</param>
+        /// <returns>Данные о напоминании приема медикаментов пользователем</returns>
         /// <exception cref="IncorrectOrEmptyResultException">Указанное напоминание не существует</exception>        
         /// <exception cref="ViolationAccessException">Вам разрешено просматривать только свою тренировку</exception>
         public Task<ReminderDTO> GetReminderByIdAsync(int reminderId);
 
         /// <summary>
-        /// Просмотреть все напоминания по пользователю за период
+        /// Получить список записей напоминаний приема медикаментов пользователем за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">запрос</param>
-        /// <returns></returns>
+        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <returns>Список записей напоминаний приема медикаментов пользователем за периодм</returns>
         /// <exception cref="ViolationAccessException">Вам разрешено просматривать только свои напоминания</exception>
         public Task<IEnumerable<ReminderDTO>> GetAllReminderByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
 
         /// <summary>
-        /// Просмотреть все напоминания по схеме приема за период
+        /// Получить список записей напоминаний по схеме приема за период
         /// </summary>
-        /// <param name="requestListWithPeriodByRegimenIdDTO">запрос</param>
-        /// <returns></returns>
+        /// <param name="requestListWithPeriodByRegimenIdDTO">Данные схемы приема медикаментов и период</param>
+        /// <returns>Список данных о напоминаниях приема медикаментов пользователем по схеме приема медаментов за период</returns>
         /// <exception cref="ViolationAccessException">Вам разрешено просматривать только свои напоминания</exception>
         public Task<IEnumerable<ReminderDTO>> GetAllReminderByRegimenIdAsync(RequestListWithPeriodByRegimenIdDTO requestListWithPeriodByRegimenIdDTO);
     }

@@ -6,7 +6,7 @@
     public class Reminder : BaseModel
     {
         /// <summary>
-        /// Схема приема лекарств
+        /// Идентификатор схемы приема лекарств
         /// </summary>        
         public int RegimenId { get; set; }
 
@@ -21,7 +21,7 @@
         public DateTime RemindAt { get; set; }
 
         /// <summary>
-        /// признак, было ли отправлено напоминание
+        /// Признак, было ли отправлено напоминание
         /// </summary>        
         public bool IsSend { get; set; }
     }

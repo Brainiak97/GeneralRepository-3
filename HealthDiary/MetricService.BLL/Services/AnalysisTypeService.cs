@@ -8,6 +8,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Типы анализов"
+    /// </summary>
+    /// <seealso cref="IAnalysisTypeService" />
     public class AnalysisTypeService(IAnalysisTypeRepository repository, IValidator<AnalysisType> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisTypeService
     {
         private readonly IAnalysisTypeRepository _repository = repository;
@@ -15,11 +19,15 @@ namespace MetricService.BLL.Services
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
         private readonly IMapper _mapper = mapper;
 
+
+        /// <inheritdoc/>
         public async Task<IEnumerable<AnalysisTypeDTO>> GetAllAnalysisTypeAsync()
         {
             return _mapper.Map<IEnumerable<AnalysisTypeDTO>>(await _repository.GetAllAsync());           
         }
 
+
+        /// <inheritdoc/>
         public async Task<AnalysisTypeDTO?> GetAnalysisTypeByIdAsync(int typeId)
         {
             var analysisType = await _repository.GetByIdAsync(typeId) ??
@@ -33,22 +41,14 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<AnalysisTypeDTO>> GetListAnalysisTypeBySearchAsync(string search)
         {
-            var stringsSearch = search.Split(',');
-            var workRecords = await _repository.GetAllAsync();
-            var filterRecords = new List<AnalysisTypeDTO>();
-            IEnumerable<AnalysisType> tempRecords;
-            foreach (var item in stringsSearch)
-            {
-                tempRecords = workRecords.Where(s => s.Name.Contains(item.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
-                filterRecords.AddRange(_mapper.Map<IEnumerable<AnalysisTypeDTO>>(tempRecords));
-            }
-
-            return filterRecords;
+           return _mapper.Map<IEnumerable<AnalysisTypeDTO>>(await _repository.GetListAnalysisTypeBySearchAsync(search));
         }
 
 
+        /// <inheritdoc/>
         public async Task CreateAnalysisTypeAsync(AnalysisTypeCreateDTO analysisTypeCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin"))
@@ -70,6 +70,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateAnalysisTypeAsync(AnalysisTypeUpdateDTO analysisTypeUpdateDTO)
         {
             _ = await _repository.GetByIdAsync(analysisTypeUpdateDTO.Id) ??
@@ -98,6 +99,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task DeleteAnalysisTypeAsync(int analysisTypeId)
         {
             _ = await _repository.GetByIdAsync(analysisTypeId) ??

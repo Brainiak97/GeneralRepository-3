@@ -9,8 +9,16 @@ using System.Security.Claims;
 
 namespace MetricService.Api
 {
+    /// <summary>
+    /// Основной класс программы
+    /// </summary>
     public class Program
-    {       
+    {   
+        /// <summary>
+        /// точка входа в приложение
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

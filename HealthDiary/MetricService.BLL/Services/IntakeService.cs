@@ -9,6 +9,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными о приеме медикаментов пользователем
+    /// </summary>
+    /// <seealso cref="IIntakeService" />
     public class IntakeService(IIntakeRepository intakeRepository, IValidator<Intake> validator, ClaimsPrincipal authorizationService, IRegimenService regimenService, IMapper mapper
         ) : IIntakeService
     {
@@ -19,6 +23,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
+        /// <inheritdoc/>
         public async Task CreateIntakeAsync(IntakeCreateDTO intakeCreateDTO)
         {
             var regimen = await _regimenService.GetRegimenByIdAsync(intakeCreateDTO.RegimenId);
@@ -41,6 +46,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task DeleteIntakeAsync(int intakeId)
         {
             var intakeFind = await _repository.GetByIdAsync(intakeId) ??
@@ -62,6 +68,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<IntakeDTO>> GetAllIntakeByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -81,6 +88,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IntakeDTO> GetIntakeByIdAsync(int intakeId)
         {
             var intakeFind = await _repository.GetByIdAsync(intakeId) ??
@@ -102,6 +110,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateIntakeAsync(IntakeUpdateDTO intakeUpdateDTO)
         {
             var intakeFind = await _repository.GetByIdAsync(intakeUpdateDTO.Id) ??

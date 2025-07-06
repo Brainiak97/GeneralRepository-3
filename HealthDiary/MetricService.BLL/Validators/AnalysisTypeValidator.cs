@@ -3,12 +3,17 @@ using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Validators
 {
-    public  class AnalysisTypeValidator : IValidator<AnalysisType>
+    /// <summary>
+    /// Предоставляет реализацию валидации данных о типе анализа
+    /// </summary>
+    /// <seealso cref="AnalysisType" />
+    public class AnalysisTypeValidator : IValidator<AnalysisType>
     {
         const short NameMax= 150;
         const short ReferenceValueMale = 150;
         const short ReferenceValueFemale = 150;
 
+        /// <inheritdoc/>       
         public bool Validate(AnalysisType entity, out Dictionary<string, string> errorList)
         {
             errorList = new Dictionary<string, string>();

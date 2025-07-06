@@ -2,6 +2,9 @@
 
 namespace MetricService.BLL.DTO.MedicationDTO
 {
+    /// <summary>
+    /// Объект базовых данных для справочника "Медикаменты"
+    /// </summary>
     public class MedicationBaseDTO
     {        
         /// <summary>

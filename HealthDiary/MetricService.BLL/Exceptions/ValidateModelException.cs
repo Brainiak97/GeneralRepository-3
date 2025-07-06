@@ -1,5 +1,8 @@
 ﻿namespace MetricService.BLL.Exceptions
 {
+    /// <summary>
+    /// Возникает если валидация модели не прошла
+    /// </summary>
     public class ValidateModelException : BaseException
     {
         /// <summary>

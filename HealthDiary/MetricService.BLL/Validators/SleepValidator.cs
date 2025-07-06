@@ -3,11 +3,16 @@ using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Validators
 {
+    /// <summary>
+    /// Предоставляет реализацию валидации данных о сне пользователя
+    /// </summary>
+    /// <seealso cref="Sleep" />
     public class SleepValidator: IValidator<Sleep>
     {
         const short QualityRatingMin = 1;
         const short QualityRatingMax = 5;
-       
+
+        /// <inheritdoc/>  
         public bool Validate(Sleep entity, out Dictionary<string, string> errorList)
         {
 

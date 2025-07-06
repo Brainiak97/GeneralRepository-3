@@ -3,43 +3,46 @@ using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
-    public  interface IDosageFormService
+    /// <summary>
+    /// Определяет контракт для сервиса, работающего с данными справочника "Форма выпуска препарата"
+    /// </summary>
+    public interface IDosageFormService
     {
         /// <summary>
-        /// создает форму выпуска препарата
+        /// Создать запись в справочнике
         /// </summary>
-        /// <param name="dosageFormCreateDTO">Форма выпуска</param>
+        /// <param name="dosageFormCreateDTO">Данные для создания записи</param>
         /// <exception cref="ViolationAccessException">Вы не можете создавать данные</exception>        
         public Task CreateDosageFormAsync(DosageFormCreateDTO dosageFormCreateDTO);
 
         /// <summary>
-        /// Обновить данные формы выпуска
+        /// Изменить запись в справочнике
         /// </summary>
-        /// <param name="dosageFormUpdateDTO">Форма выпуска</param>
+        /// <param name="dosageFormUpdateDTO">Данные для изменения записи</param>
         /// <exception cref="IncorrectOrEmptyResultException">Форма выпуска не зарегистрирована</exception>        
         /// <exception cref="ViolationAccessException">Вы не можете изменять данные</exception>        
         public Task UpdateDosageFormAsync(DosageFormUpdateDTO dosageFormUpdateDTO);
 
         /// <summary>
-        /// удаляет форму выпуска препарата
+        /// Удалить запись в справочнике
         /// </summary>
-        /// <param name="dosageFormId">ИД формы выпуска препарата</param>
+        /// <param name="dosageFormId">Идентификатор записи</param>
         /// <exception cref="IncorrectOrEmptyResultException">Форма выпуска не зарегистрирована</exception>        
         /// <exception cref="ViolationAccessException">Вам не разрешено удалить данные</exception>
         public Task DeleteDosageFormAsync(int dosageFormId);
 
         /// <summary>
-        /// Получить форму выпуска
+        /// Получить запись из справочника
         /// </summary>
-        /// <param name="dosageFormId">ИД формы выпуска</param>
-        /// <returns></returns>
+        /// <param name="dosageFormId">Идентификатор записи</param>
+        /// <returns>Запись из справочника</returns>
         /// <exception cref="IncorrectOrEmptyResultException">Форма выпуска не существует</exception>   
         public Task<DosageFormDTO> GetDosageFormByIdAsync(int dosageFormId);
 
         /// <summary>
-        /// Получить список форм выпуска
+        /// Получить список записей из справочника
         /// </summary>        
-        /// <returns></returns>
+        /// <returns>Список записей из справочника</returns>
         public Task<IEnumerable<DosageFormDTO>> GetAllDosageFormsAsync();
     }
 }

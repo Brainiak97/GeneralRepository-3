@@ -1,18 +1,21 @@
 ﻿namespace MetricService.BLL.DTO
 {
+    /// <summary>
+    /// Объект данных о профиле пользователя
+    /// </summary>
     public  class UserDTO
     {
         /// <summary>
-        /// идентификатор
+        /// Идентификатор пользователя
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// дата рождения
+        /// Дата рождения
         /// </summary>
         public DateTime DateOfBirth { get; set; }
 
         /// <summary>
-        /// рост в сантиметрах
+        /// Рост в сантиметрах
         /// </summary>
         public short Height { get; set; }
 

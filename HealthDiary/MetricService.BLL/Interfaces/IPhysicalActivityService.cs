@@ -4,57 +4,57 @@ using MetricService.BLL.DTO.PhysicalActivity;
 
 namespace MetricService.BLL.Interfaces
 {
+    /// <summary>
+    /// Определяет контракт для сервиса, работающего с данными справочника "Физическая активность"
+    /// </summary>
     public interface IPhysicalActivityService 
     {
         /// <summary>
-        /// Создание данных о физической активности
+        /// Создать запись в справочнике
         /// </summary>
-        /// <param name="physicalActivityCreateDTO"></param>
-        /// <returns></returns>        
+        /// <param name="physicalActivityCreateDTO">Данные для создания записи</param>              
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
         public Task CreatePhysicalActivityAsync(PhysicalActivityCreateDTO physicalActivityCreateDTO);
 
         /// <summary>
-        /// Обновление данных о физической активности
+        /// Обновить запись в справочнике
         /// </summary>
-        /// <param name="physicalActivityUpdateDTO"></param>
-        /// <returns></returns>
+        /// <param name="physicalActivityUpdateDTO">Данные для изменения</param>        
         /// <exception cref="IncorrectOrEmptyResultException"></exception>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
         public Task UpdatePhysicalActivityAsync(PhysicalActivityUpdateDTO physicalActivityUpdateDTO);
 
         /// <summary>
-        /// Удаление данных о физической активности
+        /// Удалить запись в справочнике
         /// </summary>
-        /// <param name="physicalActivityId"></param>
-        /// <returns></returns>
+        /// <param name="physicalActivityId">Идентификатор записи</param>        
         /// <exception cref="IncorrectOrEmptyResultException">Физическая активность не зарегистрирована</exception>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа</exception>
         public Task DeletePhysicalActivityAsync(int physicalActivityId);
 
         /// <summary>
-        /// Получить запись о физической автивности по ИД
+        /// Получить запись из справочника
         /// </summary>
-        /// <param name="activityId">ИД физ. активности</param>
-        /// <returns>Модель DTO</returns>
+        /// <param name="activityId">Идентификатор записи</param>
+        /// <returns>Данные записи из справочника</returns>
         /// <exception cref="IncorrectOrEmptyResultException">Указанная физическая активность не существует</exception>
         public Task<PhysicalActivityDTO> GetPhysicalActivityByIdAsync(int activityId);
 
         /// <summary>
-        /// Получить все записи о физической активности
+        /// Получить список записей из справочника
         /// </summary>       
-        /// <returns></returns>
+        /// <returns>Список записей из справочника</returns>
         public Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync();
 
 
         /// <summary>
-        /// Получить список физической акстивности по строке поиска.
+        /// Получить список записей из справочника по строке поиска.
         /// Разные фразы для поиска разделяются ","
         /// </summary>
         /// <param name="search">строка поиска. Для разделения фраз использовать ","</param>
-        /// <returns>Список</returns>
+        /// <returns>Список записей из справочника</returns>
         public Task<IEnumerable<PhysicalActivityDTO>> GetListPhysicalActivitiesBySearchAsync(string search);
     }
 }

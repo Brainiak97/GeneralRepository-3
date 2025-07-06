@@ -1,7 +1,7 @@
 ﻿namespace MetricService.Domain.Models
 {
     /// <summary>
-    /// форма выпуска препарата
+    /// Форма выпуска препарата
     /// </summary>
     public class DosageForm: BaseModel
     {

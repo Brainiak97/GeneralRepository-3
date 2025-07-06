@@ -1,40 +1,44 @@
 ﻿namespace MetricService.DAL.Interfaces
 {
+    /// <summary>
+    /// Определяет контракт для репозитория, определяющий основные операции взаимодействия с базой данных
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRepository<T>
     {
         /// <summary>
-        /// создание объекта
+        /// Создать объект
         /// </summary>
         /// <param name="item"></param>
         public Task<bool> CreateAsync(T item);
 
         /// <summary>
-        ///  обновление объекта
+        ///  Обновить объект
         /// </summary>
         /// <param name="item"></param>
         public Task<bool> UpdateAsync(T item);
 
         /// <summary>
-        /// удаление объекта по id
+        /// Удалить объект
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Идентификатор объекта в БД</param>
         public Task<bool> DeleteAsync(int id);
 
         /// <summary>
-        /// Получение списка объектов
+        /// Получить список объектов
         /// </summary>
         /// <returns>Список объектов</returns>
         public Task<IEnumerable<T>> GetAllAsync();
 
         /// <summary>
-        /// Получить объект по Id
+        /// Получить объект
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Возвращает объект</returns>
+        /// <param name="id">Идентификатор объекта в БД</param>
+        /// <returns>Объект</returns>
         public Task<T?> GetByIdAsync(int id);
 
         /// <summary>
-        /// Имя набора данных
+        /// Возвращает имя набора данных
         /// </summary>
         public string Name { get; }
     }

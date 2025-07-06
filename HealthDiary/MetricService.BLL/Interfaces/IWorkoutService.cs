@@ -4,47 +4,50 @@ using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
-    public  interface IWorkoutService
+    /// <summary>
+    /// Определяет контракт для сервиса, работающего с данными о тренировках пользователя
+    /// </summary>
+    public interface IWorkoutService
     {
         /// <summary>
-        /// Создание тренировки
+        /// Создать запись о тренировке пользователя
         /// </summary>
-        /// <param name="workoutDTO">тренировка</param>       
+        /// <param name="workoutDTO">Данные для создания записи о тренировке</param>       
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим тренировкам</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>      
         public Task CreateWorkoutAsync(WorkoutCreateDTO workoutDTO);
 
         /// <summary>
-        /// Обновить данные о тренировке
+        /// Обновить данные о тренировке пользователя
         /// </summary>
-        /// <param name="workoutDTO">тренировка</param>        
+        /// <param name="workoutDTO">Данные для изменения записи о тренировке пользователя</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим тренировкам</exception>
         /// <exception cref="ValidateModelException">Возникает когда данные содержат не корректные данные</exception>
         /// <exception cref="ValidateModelException">Тренировка не зарегистрирована</exception>
         public Task UpdateWorkoutAsync(WorkoutUpdateDTO workoutDTO);
 
         /// <summary>
-        /// Удалить тренировку
+        /// Удалить данные о тренировке пользователя
         /// </summary>
-        /// <param name="workoutId">ИД тренировки</param>        
+        /// <param name="workoutId">Идентификатор записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="IncorrectOrEmptyResultException">Указанная тренировка не существует</exception>
         public Task DeleteWorkoutAsync(int workoutId);
 
         /// <summary>
-        /// Получить тренировку по ИД
+        /// Получить запись о тренировке пользователя
         /// </summary>
-        /// <param name="workoutId">ИД тренировки</param>
-        /// <returns></returns>
+        /// <param name="workoutId">Идентификатор записи</param>
+        /// <returns>Запись о тренировке пользователя</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="IncorrectOrEmptyResultException">Указанная тренировка не существует</exception>
         public Task<WorkoutDTO> GetWorkoutByIdAsync(int workoutId);
 
         /// <summary>
-        /// Получить все тренировки для пользователя
+        /// Получить список тренировок пользователя за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">запрос</param>        
-        /// <returns></returns>
+        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>        
+        /// <returns>Список тренировок пользователя за период</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         public Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);       
     }

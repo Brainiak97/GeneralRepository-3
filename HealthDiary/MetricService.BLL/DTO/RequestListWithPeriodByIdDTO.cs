@@ -1,19 +1,22 @@
 ﻿namespace MetricService.BLL.DTO
 {
+    /// <summary>
+    /// Объект для получения данных по пользователю за период
+    /// </summary>
     public  class RequestListWithPeriodByIdDTO
     {
         /// <summary>
-        /// идентификатор пользователя
+        /// Идентификатор пользователя
         /// </summary>
         public int UserId {  get; set; }
 
         /// <summary>
-        /// начало периода для выборки
+        /// Начало периода для выборки
         /// </summary>
         public DateTime BegDate { get; set; }
 
         /// <summary>
-        /// конец периода для выборки
+        /// Конец периода для выборки
         /// </summary>
         public DateTime EndDate { get; set; }       
     }

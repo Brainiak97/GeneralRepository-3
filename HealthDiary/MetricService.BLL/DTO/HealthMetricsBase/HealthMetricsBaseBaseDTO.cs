@@ -1,15 +1,18 @@
 ﻿namespace MetricService.BLL.DTO.HealthMetricsBase
 {
+    /// <summary>
+    /// Базовый объект данных базовых медицинских показателей пользователя
+    /// </summary>
     public abstract class HealthMetricsBaseBaseDTO
     {     
 
         /// <summary>
-        /// дата замера показателя
+        /// Дата замера показателя
         /// </summary>        
         public DateTime MetricDate { get; set; }
 
         /// <summary>
-        /// частота сердечных сокращений (ударов/мин)
+        /// Частота сердечных сокращений (ударов/мин)
         /// </summary>        
         public short HeartRate { get; set; }
 

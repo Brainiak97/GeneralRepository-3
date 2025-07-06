@@ -1,26 +1,32 @@
 ﻿namespace MetricService.BLL.DTO.Sleep
 {
+    /// <summary>
+    /// Объект базовых данных о сне пользователя
+    /// </summary>
     public abstract class SleepBaseDTO
-    {        
+    {
+        /// <summary>
+        /// Время начала сна
+        /// </summary>
         public DateTime StartSleep { get; set; }
 
         /// <summary>
-        /// время окончания сна
+        /// Время окончания сна
         /// </summary>        
         public DateTime EndSleep { get; set; }
 
         /// <summary>
-        /// качество сна по 5-ой системе
+        /// Качество сна по 5-ой системе
         /// </summary>
         public short QualityRating { get; set; }
 
         /// <summary>
-        /// примечания о качестве сна
+        /// Примечания о качестве сна
         /// </summary>
         public string? Comment { get; set; }
 
         /// <summary>
-        /// длительность сна
+        /// Длительность сна
         /// </summary>
         public TimeSpan SleepDuration { get; internal set; }
     }
