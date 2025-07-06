@@ -9,6 +9,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными о результате анализа пользователя
+    /// </summary>
+    /// <seealso cref="IAnalysisResultService" />
     public class AnalysisResultService(IAnalysisResultRepository analysisResultRepository, IValidator<AnalysisResult> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisResultService
     {
         private readonly IAnalysisResultRepository _repository = analysisResultRepository;
@@ -17,7 +21,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
-
+        /// <inheritdoc/>
         public async Task CreateAnalysisResultAsync(AnalysisResultCreateDTO analysisResultCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && (analysisResultCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService)))
@@ -39,6 +43,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>        
         public async Task DeleteAnalysisResultAsync(int analysisResultId)
         {
             var analysisFind = await _repository.GetByIdAsync(analysisResultId) ??
@@ -60,6 +65,7 @@ namespace MetricService.BLL.Services
             await _repository.DeleteAsync(analysisResultId);
         }
 
+        /// <inheritdoc/>
 
         public async Task<IEnumerable<AnalysisResultDTO>> GetAllAnalysisResultsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
@@ -80,6 +86,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>    
         public async Task<AnalysisResultDTO?> GetAnalysisResultByIdAsync(int analysisResultId)
         {
             var analysisResultFind = await _repository.GetByIdAsync(analysisResultId) ??
@@ -101,6 +108,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateAnalysisResultAsync(AnalysisResultUpdateDTO analysisResultUpdateDTO)
         {
             var analysisResultFind = await _repository.GetByIdAsync(analysisResultUpdateDTO.Id) ??

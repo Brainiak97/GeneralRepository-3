@@ -9,6 +9,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными о сне пользователя
+    /// </summary>
+    /// <seealso cref="ISleepService" />
     public class SleepService(ISleepRepository sleepRepository, IValidator<Sleep> validator, ClaimsPrincipal authorizationService, IMapper mapper) : ISleepService
     {
         private readonly ISleepRepository _repository = sleepRepository;
@@ -17,7 +21,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
-
+        /// <inheritdoc/>
         public async Task DeleteRecordOfSleepAsync(int sleepId)
         {
             var sleepFind = await _repository.GetByIdAsync(sleepId) ??
@@ -39,6 +43,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<SleepDTO>> GetAllRecordsOfSleepByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -57,7 +62,7 @@ namespace MetricService.BLL.Services
         }
 
 
-
+        /// <inheritdoc/>
         public async Task<SleepDTO> GetRecordOfSleepByIdAsync(int sleepId)
         {
             var sleepFind = await _repository.GetByIdAsync(sleepId) ??
@@ -79,6 +84,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task CreateRecordOfSleepAsync(SleepCreateDTO sleepCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && (sleepCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService)))
@@ -100,6 +106,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateRecordOfSleepAsync(SleepUpdateDTO sleepUpdateDTO)
         {
             var findSleep = await _repository.GetByIdAsync(sleepUpdateDTO.Id) ??

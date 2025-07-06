@@ -1,19 +1,22 @@
 ﻿namespace MetricService.BLL.DTO
 {
+    /// <summary>
+    /// Объект для получения данных о напоминаниях по схеме приема медикаментов за период
+    /// </summary>
     public class RequestListWithPeriodByRegimenIdDTO
     {
         /// <summary>
-        /// Схема приема лекарств
+        /// Идентификатор данных схема приема лекарств
         /// </summary>
         public int RegimenId { get; set; }
 
         /// <summary>
-        /// начало периода для выборки
+        /// Начало периода для выборки
         /// </summary>
         public DateTime BegDate { get; set; }
 
         /// <summary>
-        /// конец периода для выборки
+        /// Конец периода для выборки
         /// </summary>
         public DateTime EndDate { get; set; }       
     }

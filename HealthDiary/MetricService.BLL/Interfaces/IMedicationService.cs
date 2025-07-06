@@ -3,44 +3,47 @@ using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces
 {
+    /// <summary>
+    /// Определяет контракт для сервиса, работающего с данными справочника "Медикаменты"
+    /// </summary>
     public interface IMedicationService
     {
 
         /// <summary>
-        /// Создать лекарство
+        /// Создать запись в справочнике
         /// </summary>
-        /// <param name="medicationCreateDTO">лекарство</param>
+        /// <param name="medicationCreateDTO">Данные для создания записи</param>
         /// <exception cref="ViolationAccessException">Вы не можете создавать данные</exception>        
         public Task CreateMedicationAsync(MedicationCreateDTO medicationCreateDTO);
 
         /// <summary>
-        /// Обновление данных о лекарстве
+        /// Обновить запись в справочнике
         /// </summary>
-        /// <param name="medicationUpdateDTO">данные о лекарстве</param>
+        /// <param name="medicationUpdateDTO">Данные об изменении записи</param>
         /// <exception cref="IncorrectOrEmptyResultException">Лекарство не зарегистрировано</exception>        
         /// <exception cref="ViolationAccessException">Вы не можете изменять данные</exception>        
         public Task UpdateMedicationAsync(MedicationUpdateDTO medicationUpdateDTO);
 
         /// <summary>
-        /// Удалить лекарство
+        /// Удалить запись в справочнике
         /// </summary>
-        /// <param name="medicationId">ИД лекарства</param>
+        /// <param name="medicationId">Идентификатор записи</param>
         /// <exception cref="IncorrectOrEmptyResultException">Лекарство не зарегистрировано</exception>        
         /// <exception cref="ViolationAccessException">Вам не разрешено удалить данные</exception>
         public Task DeleteMedicationAsync(int medicationId);
 
         /// <summary>
-        /// Получить информацию о лекарстве
+        /// Получить запись из справочника
         /// </summary>
-        /// <param name="medicationId">ИД лекарства</param>
-        /// <returns></returns>
+        /// <param name="medicationId">Идентификатор записи</param>
+        /// <returns>Данные о медикаменте</returns>
         /// <exception cref="IncorrectOrEmptyResultException">Указанное лекарство не существует</exception> 
         public Task<MedicationDTO> GetMedicationByIdAsync(int medicationId);
 
         /// <summary>
-        ///Получить список лекарств
+        ///Получение списка записей из справочника
         /// </summary>        
-        /// <returns></returns>
+        /// <returns>Список записей из справочника</returns>
         public Task<IEnumerable<MedicationDTO>> GetAllMedicationAsync();
     }
 }

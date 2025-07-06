@@ -3,8 +3,13 @@ using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Validators
 {
-    public  class WorkoutValidator : IValidator<Workout>
+    /// <summary>
+    ///  Предоставляет реализацию валидации данных о тренировке пользователя
+    /// </summary>
+    /// <seealso cref="Workout" />
+    public class WorkoutValidator : IValidator<Workout>
     {
+        /// <inheritdoc/>        
         public bool Validate(Workout entity, out Dictionary<string, string> errorList)
         {
 

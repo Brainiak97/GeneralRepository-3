@@ -1,6 +1,9 @@
 ﻿namespace MetricService.BLL.DTO.PhysicalActivity
 {
-    public class PhysicalActivityBaseDTO
+    /// <summary>
+    /// Объект баховыъ данных для справочника "Физическая активность"
+    /// </summary>
+    public abstract class PhysicalActivityBaseDTO
     {
 
         /// <summary>

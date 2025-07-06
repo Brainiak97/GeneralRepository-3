@@ -3,6 +3,10 @@ using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Validators
 {
+    /// <summary>
+    /// Предоставляет реализацию валидации данных о профиле пользователя
+    /// </summary>
+    /// <seealso cref="User" />
     public class UserValidator : IValidator<User>
     {
         const short HeightMin = 50;
@@ -12,6 +16,7 @@ namespace MetricService.BLL.Validators
         const short AgeMax = 130;
         const short AgeMin = 5;
 
+        /// <inheritdoc/>  
         public bool Validate(User entity, out Dictionary<string, string> errorList)
         {
             errorList = new Dictionary<string, string>();

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MetricService.API.Controllers
 {
     /// <summary>
-    /// Предоставляет API-методы для работы с данными справочника типов анализов
+    /// Предоставляет API-методы для работы с данными справочника "Типы анализов"
     /// </summary>
     /// <seealso cref="Controller" />
     [ApiController]
@@ -17,7 +17,7 @@ namespace MetricService.API.Controllers
         readonly IAnalysisTypeService _analysisTypeService = analysisTypeService;
 
         /// <summary>
-        /// Зарегистрировать новый тип анализов в справочнике
+        /// Зарегистрировать новый тип анализов в справочнике "Типы анализов"
         /// </summary>
         /// <param name="analysisTypeCreateDTO">Данные о новом типе анализов для регистрации</param>
         /// <returns></returns>
@@ -30,9 +30,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Изменить данные о типе анализов в справочнике
+        /// Изменить данные о типе анализов в справочнике "Типы анализов"
         /// </summary>
-        /// <param name="analysisTypeUpdateDTO">Измененные данные о типе анализов</param>
+        /// <param name="analysisTypeUpdateDTO">Данные об изменении типа анализов</param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateAnalysisType))]
         [Authorize]
@@ -43,7 +43,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Удалить данные о типе анализов из справочника
+        /// Удалить данные о типе анализов из справочника "Типы анализов"
         /// </summary>
         /// <param name="analysisTypeId">Идентификатор типа анализов</param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить список типов анализов из справочника
+        /// Получить список типов анализов из справочника "Типы анализов"
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllAnalysisTypes))]
@@ -73,7 +73,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить тип анализа из справочника 
+        /// Получить тип анализа из справочника "Типы анализов"
         /// </summary>
         /// <param name="analysisTypeId">Идентификатор типа анализа</param>
         /// <returns></returns>
@@ -91,7 +91,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Поучить из справочника типов анализов все подходящие строки, заданные критерием
+        /// Поучить из справочника "Типы анализов" все подходящие строки, заданные критерием
         /// </summary>
         /// <param name="search">Строка поиска. Для множественного поиска фразы разделять запятой</param>
         /// <returns></returns>

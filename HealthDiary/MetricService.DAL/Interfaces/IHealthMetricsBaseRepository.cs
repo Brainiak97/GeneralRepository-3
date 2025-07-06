@@ -2,5 +2,9 @@
 
 namespace MetricService.DAL.Interfaces
 {
-   public interface IHealthMetricsBaseRepository : IRepository<HealthMetricsBase> { }
+    /// <summary>
+    /// Определяет контракт для репозитория, взаимодействующего с данными о базовых медицинских показателях пользователя
+    /// </summary>
+    /// <seealso cref="HealthMetricsBase" />
+    public interface IHealthMetricsBaseRepository : IRepository<HealthMetricsBase> { }
 }

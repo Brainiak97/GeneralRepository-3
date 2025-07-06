@@ -6,7 +6,7 @@
     public abstract class BaseModel
     {
         /// <summary>
-        /// идентификатор
+        /// Идентификатор сущности
         /// </summary>
         public int Id { get; set; }
     }

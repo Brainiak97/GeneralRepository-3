@@ -8,6 +8,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными профиля пользователя
+    /// </summary>
+    /// <seealso cref="IUserService" />
     public class UserService(IUserRepository userRepository, IValidator<Domain.Models.User> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IUserService
     {
         private readonly IUserRepository _repository = userRepository;
@@ -16,6 +20,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
+        /// <inheritdoc/>
         public async Task DeleteProfileAsync(int userId)
         {
             if (await _repository.GetByIdAsync(userId) == null)
@@ -38,6 +43,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
             if (!_authorizationService.IsInRole("Admin"))
@@ -53,6 +59,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
             var findUser = await _repository.GetByIdAsync(userId) ??
@@ -74,6 +81,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task CreateProfileAsync(UserDTO userDTO)
         {
             if (await _repository.GetByIdAsync(userDTO.Id) != null)
@@ -102,6 +110,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateProfileAsync(UserDTO userDTO)
         {
             var findUser = await _repository.GetByIdAsync(userDTO.Id) ??

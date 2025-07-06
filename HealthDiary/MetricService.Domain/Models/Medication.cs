@@ -11,12 +11,12 @@
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// форма выпуска (таблетка, капсул, раствор и т.д.)
+        /// Идентификатор формы выпуска (таблетка, капсул, раствор и т.д.)
         /// </summary>        
         public int DosageFormId { get; set; }
 
         /// <summary>
-        /// форма выпуска (таблетка, капсул, раствор и т.д.)
+        /// Форма выпуска (таблетка, капсул, раствор и т.д.)
         /// </summary>        
         public DosageForm DosageForm { get; set; } = null!;
 

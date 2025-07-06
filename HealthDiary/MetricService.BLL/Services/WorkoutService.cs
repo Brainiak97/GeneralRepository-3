@@ -9,8 +9,12 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
-    public class WorkoutService(
-        IWorkoutRepository workoutRepository, IValidator<Workout> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IWorkoutService
+
+    /// <summary>
+    ///  Предоставляет реализацию бизнес-логики для работы с данными о тренировках пользователя
+    /// </summary>
+    /// <seealso cref="IWorkoutService" />
+    public class WorkoutService(IWorkoutRepository workoutRepository, IValidator<Workout> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IWorkoutService
     {
         private readonly IWorkoutRepository _repository = workoutRepository;
         private readonly IValidator<Workout> _validator = validator;
@@ -18,6 +22,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
+        /// <inheritdoc/>
         public async Task DeleteWorkoutAsync(int workoutId)
         {
             var workoutFind = await _repository.GetByIdAsync(workoutId) ??
@@ -39,6 +44,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -58,6 +64,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<WorkoutDTO> GetWorkoutByIdAsync(int workoutId)
         {
             var workoutFind = await _repository.GetByIdAsync(workoutId) ??
@@ -78,6 +85,8 @@ namespace MetricService.BLL.Services
             return _mapper.Map<WorkoutDTO>(workoutFind);
         }
 
+
+        /// <inheritdoc/>
         public async Task CreateWorkoutAsync(WorkoutCreateDTO workoutDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && workoutDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -99,6 +108,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateWorkoutAsync(WorkoutUpdateDTO workoutUpdateDTO)
         {
             var findWorkout = await _repository.GetByIdAsync(workoutUpdateDTO.Id) ??

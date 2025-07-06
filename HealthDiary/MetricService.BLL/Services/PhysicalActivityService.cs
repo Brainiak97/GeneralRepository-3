@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
+using MetricService.BLL.DTO.AnalysisType;
 using MetricService.BLL.DTO.PhysicalActivity;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using MetricService.DAL.Interfaces;
 using MetricService.Domain.Models;
-using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Физическая активность"
+    /// </summary>
+    /// <seealso cref="IPhysicalActivityService" />
     public class PhysicalActivityService(IPhysicalActivityRepository physicalActivityRepository, IValidator<PhysicalActivity> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IPhysicalActivityService
     {
         private readonly IPhysicalActivityRepository _repository = physicalActivityRepository;
@@ -17,12 +21,14 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<PhysicalActivityDTO>> GetAllPhysicalActivitiesAsync()
         {
             return _mapper.Map<IEnumerable<PhysicalActivityDTO>>(await _repository.GetAllAsync());
         }
 
 
+        /// <inheritdoc/>
         public async Task<PhysicalActivityDTO> GetPhysicalActivityByIdAsync(int activityId)
         {
             var physicalActivity = await _repository.GetByIdAsync(activityId) ??
@@ -35,24 +41,14 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<PhysicalActivityDTO>> GetListPhysicalActivitiesBySearchAsync(string search)
         {
-            var stringsSearch = search.Split(',');
-
-            var workRecords = await _repository.GetAllAsync();
-            var filterRecords = new List<PhysicalActivityDTO>();
-            IEnumerable<PhysicalActivity> tempRecords;
-            foreach (var item in stringsSearch)
-            {
-                tempRecords = workRecords.Where(s => s.Name.Contains(item.Trim(), StringComparison.CurrentCultureIgnoreCase));
-
-                filterRecords.AddRange(_mapper.Map<IEnumerable<PhysicalActivityDTO>>(tempRecords));
-            }
-
-            return filterRecords;
+            return _mapper.Map<IEnumerable<PhysicalActivityDTO>>(await _repository.GetListPhysicalActivitiesBySearchAsync(search));
         }
 
 
+        /// <inheritdoc/>
         public async Task CreatePhysicalActivityAsync(PhysicalActivityCreateDTO physicalActivityCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin"))
@@ -74,6 +70,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdatePhysicalActivityAsync(PhysicalActivityUpdateDTO physicalActivityUpdateDTO)
         {
             _ = await _repository.GetByIdAsync(physicalActivityUpdateDTO.Id) ??
@@ -102,6 +99,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task DeletePhysicalActivityAsync(int physicalActivityId)
         {
             _ = await _repository.GetByIdAsync(physicalActivityId) ??

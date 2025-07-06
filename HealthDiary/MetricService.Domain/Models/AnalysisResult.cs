@@ -7,17 +7,17 @@
     public class AnalysisResult : BaseModel
     {
         /// <summary>
-        /// идентификатор пользователя
+        /// Идентификатор пользователя
         /// </summary>
         public int UserId { get; set; }
 
         /// <summary>
-        /// идентификатор пользователя
+        /// Пользователь
         /// </summary>        
         public User User { get; set; } = null!;
 
         /// <summary>
-        /// Тип анализа
+        /// Идентификатор типа анализа
         /// </summary>       
         public int AnalysisTypeId { get; set; }
 

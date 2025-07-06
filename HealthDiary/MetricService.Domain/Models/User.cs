@@ -1,14 +1,18 @@
 ﻿namespace MetricService.Domain.Models
 {
+    /// <summary>
+    /// Профиль пользователя
+    /// </summary>
+    /// <seealso cref="BaseModel" />
     public class User:BaseModel
     {
         /// <summary>
-        /// дата рождения
+        /// Дата рождения
         /// </summary>
         public DateTime DateOfBirth { get; set; }
 
         /// <summary>
-        /// рост в сантиметрах
+        /// Рост в сантиметрах
         /// </summary>
         public short Height { get; set; }
 
@@ -18,7 +22,7 @@
         public float Weight { get; set; }
 
         /// <summary>
-        /// возраст
+        /// Возраст
         /// </summary>
         /// <returns>Значение возраста (лет)</returns>
         public short Age

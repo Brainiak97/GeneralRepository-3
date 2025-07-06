@@ -9,6 +9,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными о базовых медицинских показателях пользователя
+    /// </summary>
+    /// <seealso cref="IHealthMetricsBaseService" />
     public class HealthMetricsBaseService(IHealthMetricsBaseRepository healthMetricsBaseRepository,
         IValidator<HealthMetricsBase> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IHealthMetricsBaseService
     {
@@ -18,6 +22,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
+        /// <inheritdoc/>
         public async Task DeleteRecordOfHealthMetricsBaseAsync(int healthMetricsBaseId)
         {
             var healthMetricsBaseFind = await _repository.GetByIdAsync(healthMetricsBaseId) ??
@@ -39,6 +44,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<HealthMetricsBaseDTO>> GetAllRecordsOfHealthMetricsBaseByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -58,6 +64,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<HealthMetricsBaseDTO> GetRecordOfHealthMetricsBaseByIdAsync(int healthMetricsBaseId)
         {
             var healthMetricsBaseFind = await _repository.GetByIdAsync(healthMetricsBaseId) ??
@@ -79,6 +86,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseUpdateDTO healthMetricsBaseUpdateDTO)
         {
             var findHealthMetricsBase = await _repository.GetByIdAsync(healthMetricsBaseUpdateDTO.Id) ??
@@ -108,6 +116,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseCreateDTO healthMetricsBaseCreateDTO)
         {
 

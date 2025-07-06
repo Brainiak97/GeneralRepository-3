@@ -1,10 +1,13 @@
 ﻿namespace MetricService.BLL.Exceptions
 {
-    internal class ViolationAccessException : ApplicationException
+    /// <summary>
+    /// Возникает при попытки изменения данных без соответствующих прав
+    /// </summary>
+    public class ViolationAccessException : ApplicationException
     {        
 
         /// <summary>
-        /// возникает при попытки изменения данных без соответствующих прав
+        /// Возникает при попытки изменения данных без соответствующих прав
         /// </summary>
         /// <param name="message">Сообщение об ошибке</param>
         /// <param name="authorid">Пользователь, от имени которого происходит действие</param>

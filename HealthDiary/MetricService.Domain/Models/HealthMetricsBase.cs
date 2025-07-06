@@ -1,27 +1,27 @@
 ﻿namespace MetricService.Domain.Models
 {
     /// <summary>
-    /// базовые медицинские показатели
+    /// Базовые медицинские показатели
     /// </summary>
     public class HealthMetricsBase: BaseModel
     {
          /// <summary>
-        /// идентификатор пользователя
+        /// Идентификатор пользователя
         /// </summary>        
         public int UserId { get; set; }
 
         /// <summary>
-        /// идентификатор пользователя
+        /// Пользователь
         /// </summary>        
         public User User { get; set; } = null!; 
 
         /// <summary>
-        /// дата замера показателя
+        /// Дата замера показателя
         /// </summary>        
         public DateTime MetricDate { get; set; }
 
         /// <summary>
-        /// частота сердечных сокращений (ударов/мин)
+        /// Частота сердечных сокращений (ударов/мин)
         /// </summary>        
         public short HeartRate { get; set; }
 

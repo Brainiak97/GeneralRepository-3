@@ -9,6 +9,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными о напоминании о приеме медикаментов пользователем
+    /// </summary>
+    /// <seealso cref="IReminderService" />
     public class ReminderService(IReminderRepository remionderRepository, IValidator<Reminder> validator, ClaimsPrincipal authorizationService, IRegimenService regimenService, IMapper mapper) : IReminderService
     {
         private readonly IReminderRepository _repository = remionderRepository;
@@ -18,6 +22,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
+        /// <inheritdoc/>
         public async Task CreateReminderAsync(ReminderCreateDTO reminderCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin"))
@@ -39,6 +44,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task DeleteReminderAsync(int reminderId)
         {
             _ = await _repository.GetByIdAsync(reminderId) ??
@@ -60,6 +66,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<ReminderDTO>> GetAllReminderByRegimenIdAsync(RequestListWithPeriodByRegimenIdDTO requestListWithPeriodByRegimenIdDTO)
         {
             var regimen = await _regimenService.GetRegimenByIdAsync(requestListWithPeriodByRegimenIdDTO.RegimenId);
@@ -81,6 +88,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<ReminderDTO>> GetAllReminderByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") &&
@@ -99,6 +107,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<ReminderDTO> GetReminderByIdAsync(int reminderId)
         {
             var reminderFind = await _repository.GetByIdAsync(reminderId) ??
@@ -120,6 +129,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateReminderAsync(ReminderUpdateDTO reminderUpdateDTO)
         {
             var reminderFind = await _repository.GetByIdAsync(reminderUpdateDTO.Id) ??

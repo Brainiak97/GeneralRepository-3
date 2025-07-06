@@ -3,8 +3,13 @@ using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Validators
 {
+    /// <summary>
+    /// Предоставляет реализацию валидации данных о приеме медикаментов пользователем
+    /// </summary>
+    /// <seealso cref="Intake" />
     public class IntakeValidator : IValidator<Intake>
     {
+        /// <inheritdoc/>        
         public bool Validate(Intake entity, out Dictionary<string, string> errorList)
         {
 

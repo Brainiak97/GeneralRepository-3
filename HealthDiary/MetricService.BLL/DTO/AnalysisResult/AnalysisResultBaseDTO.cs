@@ -1,6 +1,9 @@
 ﻿namespace MetricService.BLL.DTO.AnalysisResult
 {
-    public class AnalysisResultBaseDTO
+    /// <summary>
+    /// Объект базовых данных результата анализа пользователя
+    /// </summary>
+    public abstract class AnalysisResultBaseDTO
     {
         /// <summary>
         /// Тип анализа

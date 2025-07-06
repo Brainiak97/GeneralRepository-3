@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MetricService.API.Controllers
 {
     /// <summary>
-    /// Предоставляет API-методы для работы с данными справочника категории анализов
+    /// Предоставляет API-методы для работы с данными справочника "Категории анализов"
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [ApiController]
@@ -17,7 +17,7 @@ namespace MetricService.API.Controllers
         readonly IAnalysisCategoryService _analysisCategoryService = analysisCategoryService;
 
         /// <summary>
-        /// Зарегистрировать новую категорию анализов в справочнике
+        /// Зарегистрировать новую категорию анализов в справочнике "Категории анализов"
         /// </summary>
         /// <param name="analysisCategoryCreateDTO">Данные для регистрации новой категории анализов</param>
         /// <returns></returns>
@@ -30,9 +30,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Изменить данные категории анализов в справочнике
+        /// Изменить данные категории анализов в справочнике "Категории анализов"
         /// </summary>
-        /// <param name="analysisCategoryUpdateDTO">Измененные данные категории анализов</param>
+        /// <param name="analysisCategoryUpdateDTO">Данные для изменения категории анализов</param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateAnalysisCategory))]
         [Authorize]
@@ -43,7 +43,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Удалить категорию анализов из справочника
+        /// Удалить категорию анализов из справочника "Категории анализов"
         /// </summary>
         /// <param name="analysisCategoryId">Идентификатор категории анализов</param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить список категорий анализов из справочника
+        /// Получить список категорий анализов из справочника "Категории анализов"
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllAnalysisCategories))]
@@ -73,7 +73,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить категорию анализов из справочника
+        /// Получить категорию анализов из справочника "Категории анализов"
         /// </summary>
         /// <param name="analysisCategoryId">Идентификатор категории анализов</param>
         /// <returns></returns>
@@ -91,7 +91,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Поучить из справочника категорий анализов все подходящие строки, заданные критерием
+        /// Поучить из справочника "Категории анализов" все подходящие строки, заданные критерием
         /// </summary>
         /// <param name="search">Строка поиска. Для множественного поиска фразы разделять запятой</param>
         /// <returns></returns>

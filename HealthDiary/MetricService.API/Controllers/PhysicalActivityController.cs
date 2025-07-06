@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MetricService.API.Controllers
 {
     /// <summary>
-    /// Предоставляет API-методы для работы со справочником физических активностей
+    /// Предоставляет API-методы для работы со справочником "Физическая активность"
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [ApiController]
@@ -16,9 +16,9 @@ namespace MetricService.API.Controllers
         readonly IPhysicalActivityService _physicalActivityService = physicalActivityService;
 
         /// <summary>
-        /// Зарегисрировать новую физичекую активность в справочнике
+        /// Зарегисрировать новую физичекую активность в справочнике "Физическая активность"
         /// </summary>
-        /// <param name="physicalActivityCreateDTO">Данные для физической активности</param>
+        /// <param name="physicalActivityCreateDTO">Данные для регистрации физической активности</param>
         /// <returns></returns>
         [HttpPost(nameof(CreatePhysicalActivity))]
         [Authorize]
@@ -29,9 +29,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Изменить данные физической активности в справочнике
+        /// Изменить данные физической активности в справочнике "Физическая активность"
         /// </summary>
-        /// <param name="physicalActivityUpdateDTO">Измененные данные физической активности</param>
+        /// <param name="physicalActivityUpdateDTO">Данные для изменения физической активности</param>
         /// <returns></returns>
         [HttpPut(nameof(UpdatePhysicalActivity))]
         [Authorize]
@@ -42,9 +42,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Удалить физическую активность из справочника
+        /// Удалить физическую активность из справочника "Физическая активность"
         /// </summary>
-        /// <param name="physicalActivityId">Идентификатор физической активности</param>
+        /// <param name="physicalActivityId">Идентификатор данных физической активности</param>
         /// <returns></returns>
         [HttpDelete(nameof(DeletePhysicalActivity))]
         [Authorize]
@@ -55,7 +55,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить список физических активностей из справочника
+        /// Получить список физических активностей из справочника "Физическая активность"
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllPhysicalActivities))]
@@ -72,9 +72,9 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Поучить физическую активность из справочника
+        /// Поучить физическую активность из справочника "Физическая активность"
         /// </summary>
-        /// <param name="physicalActivityId">Идентификатор физической активности</param>
+        /// <param name="physicalActivityId">Идентификатор данных физической активности</param>
         /// <returns></returns>
         [HttpGet(nameof(GetPhysicalActivityById))]
         public async Task<IActionResult> GetPhysicalActivityById(int physicalActivityId)
@@ -90,7 +90,7 @@ namespace MetricService.API.Controllers
         }
 
         /// <summary>
-        /// Получить все подходящие физические активности по строке поиска
+        /// Получить из справочника "Физическая активность" все подходящие физические активности по строке поиска
         /// </summary>
         /// <param name="search">Строка поиска. Для множественного поиска, фразы в строке разделяйте запятой</param>
         /// <returns></returns>

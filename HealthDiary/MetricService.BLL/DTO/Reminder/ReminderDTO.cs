@@ -1,13 +1,16 @@
 ﻿namespace MetricService.BLL.DTO.Reminder
 {
+    /// <summary>
+    /// Объект данных о напоминании приема медикаментов пользователем
+    /// </summary>
     public class ReminderDTO: ReminderBaseDTO
     {
         /// <summary>
-        /// Идентификатор
+        /// Идентификатор данных о напоминании приема медикаментов пользователем
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// Схема приема лекарств
+        /// Идентификатор данных схемы приема лекарств
         /// </summary>        
         public int RegimenId { get; set; }       
     }

@@ -9,6 +9,10 @@ using System.Security.Claims;
 
 namespace MetricService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для работы с данными о схеме приема медикаментов пользователем
+    /// </summary>
+    /// <seealso cref="IRegimenService" />
     public class RegimenService(IRegimenRepository regimenRepository, IValidator<Regimen> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IRegimenService
     {
         private readonly IRegimenRepository _repository = regimenRepository;
@@ -17,7 +21,7 @@ namespace MetricService.BLL.Services
         private readonly IMapper _mapper = mapper;
 
 
-
+        /// <inheritdoc/>
         public async Task CreateRegimenAsync(RegimenCreateDTO regimenCreateDTO)
         {
             if (!_authorizationService.IsInRole("Admin") && regimenCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
@@ -39,6 +43,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task DeleteRegimenAsync(int regimenId)
         {
             var regimenFind = await _repository.GetByIdAsync(regimenId) ??
@@ -60,6 +65,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<RegimenDTO>> GetAllRegimenByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
             if (!_authorizationService.IsInRole("Admin") &&
@@ -80,6 +86,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task<RegimenDTO> GetRegimenByIdAsync(int regimenId)
         {
             var regimenFind = await _repository.GetByIdAsync(regimenId) ??
@@ -101,6 +108,7 @@ namespace MetricService.BLL.Services
         }
 
 
+        /// <inheritdoc/>
         public async Task UpdateRegimenAsync(RegimenUpdateDTO regimenUpdateDTO)
         {
             var regimenFind = await _repository.GetByIdAsync(regimenUpdateDTO.Id) ??

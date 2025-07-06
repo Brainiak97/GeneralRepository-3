@@ -5,12 +5,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetricService.DAL.Repositories
 {
+    /// <summary>
+    /// Предоставляет реализацию репозитория для работы с данными о тренировке пользователя
+    /// </summary>
+    /// <seealso cref="BaseRepository&lt;Workout&gt;" />
+    /// <seealso cref="IWorkoutRepository" />
     public class WorkoutRepository : BaseRepository<Workout>, IWorkoutRepository
     {
+        /// <summary>
+        /// Cоздать новый объект репозитория<see cref="WorkoutRepository"/> class.
+        /// </summary>
+        /// <param name="metricServiceDb">Контекст базы данных MetricService</param>
         public WorkoutRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)
         {
-        }       
-
+        }
+        /// <inheritdoc/>
         public override async Task<bool> UpdateAsync(Workout item)
         {
             Workout? workout = await GetByIdAsync(item.Id);
@@ -24,6 +33,7 @@ namespace MetricService.DAL.Repositories
             return await _contextDb.SaveChangesAsync() == 1;
         }
 
+        /// <inheritdoc/>
         public async override Task<Workout?> GetByIdAsync(int id)
         {
             return await _contextDb.Workouts
@@ -32,6 +42,7 @@ namespace MetricService.DAL.Repositories
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
+        /// <inheritdoc/>
         public async override Task<IEnumerable<Workout>> GetAllAsync()
         {
             return await _contextDb.Workouts

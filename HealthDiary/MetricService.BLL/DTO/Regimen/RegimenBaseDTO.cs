@@ -1,14 +1,17 @@
 ﻿namespace MetricService.BLL.DTO.Regimen
 {
-    public  class RegimenBaseDTO
-    {       
+    /// <summary>
+    /// Объект базовых данных о схеме приема меликаментов пользователем
+    /// </summary>
+    public abstract class RegimenBaseDTO
+    {
         /// <summary>
-        /// прописанная дозировка (например, "1 табл." или "5 мл")
+        /// Прописанная дозировка (например, "1 табл." или "5 мл")
         /// </summary>       
         public string Dosage { get; set; } = string.Empty;
 
         /// <summary>
-        /// график приема (например, "Утро, обед, вечер")
+        /// График приема (например, "Утро, обед, вечер")
         /// </summary>        
         public string Shedule { get; set; } = string.Empty;
 

@@ -3,9 +3,15 @@ using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Validators
 {
+    /// <summary>
+    /// Предоставляет реализацию валидации данных о физической активности
+    /// </summary>
+    /// <seealso cref="PhysicalActivity" />
     public class PhysicalActivityValidator : IValidator<PhysicalActivity>
     {
-        const short NameMax = 150;        
+        const short NameMax = 150;
+
+        /// <inheritdoc/>       
         public bool Validate(PhysicalActivity entity, out Dictionary<string, string> errorList)
         {
             errorList = new Dictionary<string, string>();

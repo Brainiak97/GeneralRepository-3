@@ -8,7 +8,7 @@ namespace MetricService.Domain.Models
     public class Intake : BaseModel
     {
         /// <summary>
-        /// Схема приема лекарств
+        /// Идентификатор схемы приема лекарств
         /// </summary>        
         public int RegimenId { get; set; }
 
@@ -28,7 +28,7 @@ namespace MetricService.Domain.Models
         public IntakeStatus IntakeStatus { get; set; }
 
         /// <summary>
-        /// дополнительные заметки (например, причины пропуска)
+        /// Дополнительные заметки (например, причины пропуска)
         /// </summary>        
         public string? Comment { get; set; }
     }

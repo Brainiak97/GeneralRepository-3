@@ -7,8 +7,15 @@ using MetricService.Domain.Models;
 
 namespace MetricService.API
 {
+    /// <summary>
+    /// Пкетная регистрация зависимостей сущностей
+    /// </summary>
     public static class EntitiesServices
     {
+        /// <summary>
+        /// Регистрирует зависимости
+        /// </summary>
+        /// <param name="builder"></param>
         public static void Register(WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IUserRepository, UserRepository>();
