@@ -13,7 +13,7 @@ internal class ServiceModelValidator(IValidatorFactory validatorFactory) : IServ
     {
         ArgumentNullException.ThrowIfNull(model);
 
-        var validator = validatorFactory.GetRequiredValidator(model);
+        var validator = validatorFactory.CreateRequiredValidator(model);
         await validator.ValidateAndThrowAsync(model);
     }
 
@@ -22,7 +22,7 @@ internal class ServiceModelValidator(IValidatorFactory validatorFactory) : IServ
     {
         ArgumentNullException.ThrowIfNull(model);
 
-        var validator = validatorFactory.GetRequiredValidator(model);
+        var validator = validatorFactory.CreateRequiredValidator(model);
         var validationResult = await validator.ValidateAsync(model);
 
         return new ValidationResult

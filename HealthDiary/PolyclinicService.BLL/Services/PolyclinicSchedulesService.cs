@@ -99,8 +99,8 @@ internal class PolyclinicSchedulesService
 
         await appointmentSlotsRepository.DeleteByFilterAsync(
             s =>
-                request.DoctorId == null || s.DoctorId == request.DoctorId &&
-                request.PolyclinicId == null || s.PolyclinicId == request.PolyclinicId &&
+                (request.DoctorId == null || s.DoctorId == request.DoctorId) &&
+                (request.PolyclinicId == null || s.PolyclinicId == request.PolyclinicId) &&
                 ((request.PeriodStartDate == null && request.PeriodEndDate == null) || s.Date >= request.PeriodStartDate && s.Date <= request.PeriodEndDate));
     }
 
