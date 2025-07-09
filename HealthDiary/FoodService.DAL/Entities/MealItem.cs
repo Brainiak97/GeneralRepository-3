@@ -5,9 +5,9 @@ namespace FoodService.DAL.Entities
 	/// <summary>
 	/// Элемент приёма пищи
 	/// </summary>
-	/// <param name="Id"></param>
-	/// <param name="MealId"></param>
-	/// <param name="ProductId"></param>
+	/// <param name="Id">Id</param>
+	/// <param name="MealId">MealId</param>
+	/// <param name="ProductId">ProductId</param>
 	public record MealItem(
 		int Id,
 		int MealId,

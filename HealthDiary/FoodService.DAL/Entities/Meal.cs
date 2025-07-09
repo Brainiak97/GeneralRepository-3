@@ -5,10 +5,10 @@ namespace FoodService.DAL.Entities
 	/// <summary>
 	/// Приём пищи
 	/// </summary>
-	/// <param name="Id"></param>
-	/// <param name="UserId"></param>
-	/// <param name="Date"></param>
-	/// <param name="Name"></param>
+	/// <param name="Id">Id</param>
+	/// <param name="UserId">UserId</param>
+	/// <param name="Date">Дата</param>
+	/// <param name="Name">Название</param>
 	public record Meal(
 		int Id,
 		int UserId,
