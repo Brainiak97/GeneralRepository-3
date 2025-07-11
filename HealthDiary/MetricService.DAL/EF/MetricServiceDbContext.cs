@@ -75,6 +75,11 @@ namespace MetricService.DAL.EF
         /// </summary>      
         public DbSet<Reminder> Reminders { get; set; }
 
+        /// <summary>
+        /// Набор данных о доступе к личным метрикам пользователя
+        /// </summary>       
+        public DbSet<AccessToMetrics> AccessToMetrics { get; set; }
+
 
         /// <summary>
         /// Настройка контекста для моделей данных

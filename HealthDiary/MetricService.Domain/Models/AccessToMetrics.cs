@@ -28,7 +28,7 @@
         /// <summary>
         /// Дата, до которой включительно действует доступ личным метрикам
         /// </summary>        
-        public DateOnly AccessExpirationDate { get; set; }
+        public DateOnly? AccessExpirationDate { get; set; }
 
         /// <summary>
         /// Доступ к метрикам без ограничения по скрокам
