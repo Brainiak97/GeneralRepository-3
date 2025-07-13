@@ -40,5 +40,5 @@ public class Polyclinic : IEntityModel<int>
     /// <summary>
     /// Доктора работающие в поликлинике.
     /// </summary>
-    public ICollection<Doctor> PolyclinicDoctors { get; set; } = null!;
+    public ICollection<Doctor> Doctors { get; set; } = null!;
 }

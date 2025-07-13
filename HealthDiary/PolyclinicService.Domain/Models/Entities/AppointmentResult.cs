@@ -15,7 +15,7 @@ public class AppointmentResult : IEntityModel<int>
     /// <summary>
     /// Содержание отчёта приёма пациента.
     /// </summary>
-    public byte[] ReportContent { get; set; } = [];
+    public required string ReportContent { get; set; }
     
     /// <summary>
     /// Идентификатор слота на приём к врачу.

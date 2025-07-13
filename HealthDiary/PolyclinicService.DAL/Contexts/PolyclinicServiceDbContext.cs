@@ -44,7 +44,7 @@ internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbCo
             .ApplyConfiguration(new AppointmentResultEntityTypeConfiguration());
 
         modelBuilder.Entity<Polyclinic>()
-            .HasMany(p => p.PolyclinicDoctors)
+            .HasMany(p => p.Doctors)
             .WithMany(d => d.Polyclinics)
             .UsingEntity<Dictionary<string, object>>(
                 "polyclinic_doctors",

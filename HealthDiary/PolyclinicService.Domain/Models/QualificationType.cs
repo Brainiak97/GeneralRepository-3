@@ -5,7 +5,7 @@ namespace PolyclinicService.Domain.Models;
 /// <summary>
 /// Типы квалификаций врачей.
 /// </summary>
-public enum QualificationType : short
+public enum QualificationType : byte
 {
     /// <summary>
     /// Первая квалификационная категория.

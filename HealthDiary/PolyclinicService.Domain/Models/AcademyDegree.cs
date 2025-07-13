@@ -5,7 +5,7 @@ namespace PolyclinicService.Domain.Models;
 /// <summary>
 /// Ученая степень врача.
 /// </summary>
-public enum AcademyDegree : short
+public enum AcademyDegree : byte
 {
     /// <summary>
     /// Кандидат медицинских наук.

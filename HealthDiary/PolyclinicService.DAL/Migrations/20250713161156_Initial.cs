@@ -22,12 +22,12 @@ namespace PolyclinicService.DAL.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор врача")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    seniority = table.Column<short>(type: "smallint", nullable: false, comment: "Стаж врача"),
-                    qualification_type = table.Column<short>(type: "smallint", nullable: false, comment: "Квалификация врача"),
-                    academy_degree = table.Column<short>(type: "smallint", nullable: true, comment: "Научная степень врача"),
+                    seniority = table.Column<byte>(type: "smallint", nullable: false, comment: "Стаж врача"),
+                    qualification_type = table.Column<byte>(type: "smallint", nullable: false, comment: "Квалификация врача"),
+                    academy_degree = table.Column<byte>(type: "smallint", nullable: true, comment: "Научная степень врача"),
                     is_confirmed_education = table.Column<bool>(type: "boolean", nullable: false, comment: "Признак, что у врача подтвержден документ об образовании"),
                     is_confirmed_qualification = table.Column<bool>(type: "boolean", nullable: false, comment: "Признак, что у врача подтвержден документ о квалификации"),
-                    specialization_type = table.Column<short>(type: "smallint", nullable: false, comment: "Специализация врача")
+                    specialization_type = table.Column<byte>(type: "smallint", nullable: false, comment: "Специализация врача")
                 },
                 constraints: table =>
                 {
@@ -123,7 +123,7 @@ namespace PolyclinicService.DAL.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор результата приёма к врачу")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
-                    report_content = table.Column<byte[]>(type: "bytea", nullable: false, comment: "Содержание отчёта приёма пациента"),
+                    report_content = table.Column<string>(type: "text", nullable: false, comment: "Содержание отчёта приёма пациента"),
                     appointment_slot_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор слота на приём к врачу из графика"),
                     report_template_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор шаблона отчёта")
                 },

@@ -13,9 +13,9 @@ public class UpdateDoctorRequest
     public required int DoctorId { get; set; }
 
     /// <summary>
-    /// Стаж врача.
+    /// Стаж врача (лет).
     /// </summary>
-    public short? Seniority { get; set; }
+    public byte? Seniority { get; set; }
 
     /// <summary>
     /// Квалификация врача.

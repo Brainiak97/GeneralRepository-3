@@ -38,9 +38,9 @@ namespace PolyclinicService.DAL.Migrations
                         .HasColumnName("appointment_slot_id")
                         .HasComment("Идентификатор слота на приём к врачу из графика");
 
-                    b.Property<byte[]>("ReportContent")
+                    b.Property<string>("ReportContent")
                         .IsRequired()
-                        .HasColumnType("bytea")
+                        .HasColumnType("text")
                         .HasColumnName("report_content")
                         .HasComment("Содержание отчёта приёма пациента");
 
@@ -127,7 +127,7 @@ namespace PolyclinicService.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<short?>("AcademyDegree")
+                    b.Property<byte?>("AcademyDegree")
                         .HasColumnType("smallint")
                         .HasColumnName("academy_degree")
                         .HasComment("Научная степень врача");
@@ -142,17 +142,17 @@ namespace PolyclinicService.DAL.Migrations
                         .HasColumnName("is_confirmed_qualification")
                         .HasComment("Признак, что у врача подтвержден документ о квалификации");
 
-                    b.Property<short>("QualificationType")
+                    b.Property<byte>("QualificationType")
                         .HasColumnType("smallint")
                         .HasColumnName("qualification_type")
                         .HasComment("Квалификация врача");
 
-                    b.Property<short>("Seniority")
+                    b.Property<byte>("Seniority")
                         .HasColumnType("smallint")
                         .HasColumnName("seniority")
                         .HasComment("Стаж врача");
 
-                    b.Property<short>("SpecializationType")
+                    b.Property<byte>("SpecializationType")
                         .HasColumnType("smallint")
                         .HasColumnName("specialization_type")
                         .HasComment("Специализация врача");

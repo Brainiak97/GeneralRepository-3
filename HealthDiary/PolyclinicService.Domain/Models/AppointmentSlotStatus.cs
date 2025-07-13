@@ -3,7 +3,7 @@ namespace PolyclinicService.Domain.Models;
 /// <summary>
 /// Статусы приемов к врачу.
 /// </summary>
-public enum AppointmentSlotStatus : short
+public enum AppointmentSlotStatus : byte
 {
     /// <summary>
     /// Создан.

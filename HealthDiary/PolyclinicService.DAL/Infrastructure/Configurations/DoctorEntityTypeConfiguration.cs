@@ -28,12 +28,12 @@ internal class DoctorEntityTypeConfiguration : IEntityTypeConfiguration<Doctor>
         builder.Property(p => p.QualificationType)
             .HasComment("Квалификация врача")
             .HasColumnName("qualification_type")
-            .HasConversion<short>();
+            .HasConversion<byte>();
         
         builder.Property(p => p.AcademyDegree)
             .HasComment("Научная степень врача")
             .HasColumnName("academy_degree")
-            .HasConversion<short>();
+            .HasConversion<byte>();
         
         builder.Property(p => p.SpecializationType)
             .HasComment("Специализация врача")
