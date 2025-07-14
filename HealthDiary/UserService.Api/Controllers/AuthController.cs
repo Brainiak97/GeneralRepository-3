@@ -16,24 +16,26 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Регистрирует нового пользователя.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="request">Данные для регистрации пользователя.</param>
         /// <returns>Результат операции регистрации.</returns>
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto request, CancellationToken cancellationToken)
         {
-            var response = await _userService.Register(request);
+            var response = await _userService.Register(request, cancellationToken);
             return Ok(response);
         }
 
         /// <summary>
         /// Выполняет вход пользователя по логину и паролю.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="request">Данные для входа (логин/пароль).</param>
         /// <returns>Токен аутентификации или ошибку.</returns>
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request, CancellationToken cancellationToken)
         {
-            var response = await _userService.Login(request);
+            var response = await _userService.Login(request, cancellationToken);
             return Ok(response);
         }
     }
