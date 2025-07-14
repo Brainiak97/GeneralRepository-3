@@ -35,6 +35,12 @@ namespace UserService.DAL.EF
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>()
+                .Property(p => p.DateOfBirth)
+                .HasConversion(
+                    v => v.ToUniversalTime(),
+                    v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+
+            modelBuilder.Entity<User>()
                 .HasMany(u => u.Roles)
                 .WithMany(r => r.Users)
                 .UsingEntity<Dictionary<string, object>>(
