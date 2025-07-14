@@ -4,6 +4,7 @@ using Shared.Auth;
 using Shared.EmailClient;
 using Shared.EmailClient.Dto;
 using System.Security.Claims;
+using System.Threading;
 using UserService.BLL.Dto;
 using UserService.BLL.Interfaces;
 
@@ -23,24 +24,26 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Получает список всех пользователей.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <returns>Сообщение о доступе (пример ответа).</returns>
         [HttpGet("GetAllUsers")]
         [Authorize]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(CancellationToken cancellationToken)
         {
-            var users = await _userService.GetAll();
+            var users = await _userService.GetAll(cancellationToken);
             return Ok(users);
         }
 
         /// <summary>
         /// Возвращает информацию о пользователе.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <returns>Информация о пользователе.</returns>
         [HttpGet("GetUserInfo")]
         [Authorize]
-        public async Task<IActionResult> GetUserInfoAsync([FromBody] int userId)
+        public async Task<IActionResult> GetUserInfoAsync([FromBody] int userId, CancellationToken cancellationToken)
         {
-            var user = await _userService.FindById(userId);
+            var user = await _userService.FindById(userId, cancellationToken);
 
             return Ok(user);
         }
@@ -48,12 +51,13 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Отправляет письмо с подтверждением email на указанный адрес.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="email">Email пользователя для проверки.</param>
         /// <returns>Статус отправки письма.</returns>
         [HttpPost("SendVerificationEmail")]
-        public async Task<IActionResult> SendVerificationEmail([FromBody] string email)
+        public async Task<IActionResult> SendVerificationEmail([FromBody] string email, CancellationToken cancellationToken)
         {
-            var user = await _userService.FindByEmail(email);
+            var user = await _userService.FindByEmail(email, cancellationToken);
             if (user == null || user.IsEmailConfirmed)
                 return Ok(new { message = "Email подтвержден" });
 
@@ -75,10 +79,11 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Подтверждает email пользователя по токену.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="token">JWT-токен подтверждения email.</param>
         /// <returns>Результат подтверждения email.</returns>
         [HttpGet("VerifyEmail")]
-        public async Task<IActionResult> VerifyEmail([FromQuery] string token)
+        public async Task<IActionResult> VerifyEmail([FromQuery] string token, CancellationToken cancellationToken)
         {
             var principal = jwtService.ValidateToken(token, "email_verification");
             if (principal == null)
@@ -88,7 +93,7 @@ namespace UserService.Api.Controllers
             if (emailClaim == null)
                 return BadRequest("Email не найден");
 
-            await _userService.ConfirmEmailAsync(emailClaim.Value);
+            await _userService.ConfirmEmailAsync(emailClaim.Value, cancellationToken);
 
             return Ok(new { message = "Email подтвержден" });
         }
@@ -96,12 +101,13 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Запрашивает сброс пароля и отправляет ссылку на email.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="email">Email пользователя, для которого нужно сбросить пароль.</param>
         /// <returns>Статус отправки письма со ссылкой для сброса.</returns>
         [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword([FromBody] string email)
+        public async Task<IActionResult> ForgotPassword([FromBody] string email, CancellationToken cancellationToken)
         {
-            var user = await _userService.FindByEmail(email);
+            var user = await _userService.FindByEmail(email, cancellationToken);
             if (user == null)
                 return Ok();
 
@@ -127,10 +133,11 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Сбрасывает пароль пользователя по токену.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="dto">Объект, содержащий токен и новый пароль.</param>
         /// <returns>Результат изменения пароля.</returns>
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto, CancellationToken cancellationToken)
         {
             var principal = jwtService.ValidateToken(dto.Token, "password_reset");
             if (principal == null)
@@ -140,7 +147,7 @@ namespace UserService.Api.Controllers
             if (emailClaim == null)
                 return BadRequest("Email не найден");
 
-            await _userService.ResetPassword(emailClaim.Value, dto.NewPassword);
+            await _userService.ResetPassword(emailClaim.Value, dto.NewPassword, cancellationToken);
 
             return Ok(new { message = "Пароль успешно изменён" });
         }
@@ -149,15 +156,16 @@ namespace UserService.Api.Controllers
         /// Обновляет данные пользователя по его ID.
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="dto">Dto модель обновленных данных пользователя.</param>
         [HttpPut("UpdateUser/{id}")]
         [Authorize(Policy = "SelfOrAdmin")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDto dto)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDto dto, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _userService.UpdateUserAsync(id, dto);
+            var success = await _userService.UpdateUserAsync(id, dto, cancellationToken);
 
             if (!success)
                 return NotFound("Пользователь не найден.");
@@ -168,15 +176,16 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Блокирует пользователя по его ID.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="id">Идентификатор пользователя.</param>
         [HttpPut("BlockUser/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> BlockUser(int id)
+        public async Task<IActionResult> BlockUser(int id, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _userService.BlockUserAsync(id, isBlocked: true);
+            var success = await _userService.BlockUserAsync(id, isBlocked: true, cancellationToken);
 
             if (!success)
                 return NotFound("Пользователь не найден.");
@@ -187,15 +196,16 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Разблокирует пользователя по его ID.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="id">Идентификатор пользователя.</param>
         [HttpPut("UnblockUser/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UnblockUser(int id)
+        public async Task<IActionResult> UnblockUser(int id, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var success = await _userService.BlockUserAsync(id, isBlocked: false);
+            var success = await _userService.BlockUserAsync(id, isBlocked: false, cancellationToken);
 
             if (!success)
                 return NotFound("Пользователь не найден.");
@@ -206,12 +216,13 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Удаляет пользователя по его ID.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="id">Идентификатор пользователя.</param>
         [HttpDelete("DeleteUser/{id}")]
         [Authorize(Policy = "SelfOrAdmin")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
         {
-            var success = await _userService.DeleteUserAsync(id);
+            var success = await _userService.DeleteUserAsync(id, cancellationToken);
 
             if (!success)
                 return NotFound("Пользователь не найден.");
@@ -222,12 +233,13 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Восстанавливает пользователя по его ID.
         /// </summary>
+        /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="id">Идентификатор пользователя.</param>
         [HttpDelete("RestoreUser/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RestoreUser(int id)
+        public async Task<IActionResult> RestoreUser(int id, CancellationToken cancellationToken)
         {
-            var success = await _userService.RestoreUserAsync(id);
+            var success = await _userService.RestoreUserAsync(id, cancellationToken);
 
             if (!success)
                 return NotFound("Пользователь не найден.");
