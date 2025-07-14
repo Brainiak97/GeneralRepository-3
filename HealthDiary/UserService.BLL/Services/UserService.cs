@@ -28,15 +28,6 @@ namespace UserService.BLL.Services
         /// <exception cref="Exception">Выбрасывается, если логин или email уже заняты.</exception>
         public async Task<AuthResponseDto> Register(RegisterRequestDto request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await Task.Delay(5000, cancellationToken);
-            }
-            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-            {
-                Console.WriteLine("Запрос был отменён пользователем.");
-            }
-
             // Проверка на существование пользователя
             if (await _userRepository.GetUserByUsernameAsync(request.Username, cancellationToken) != null)
                 throw new Exception("Такой логин уже используется");
