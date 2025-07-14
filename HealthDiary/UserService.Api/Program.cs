@@ -44,7 +44,11 @@ builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
 // Остальные сервисы
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new UserServiceDateTimeConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 
 // Настройка свагера

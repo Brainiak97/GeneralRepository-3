@@ -42,7 +42,7 @@ namespace UserService.BLL.Services
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 Gender = request.Gender,
                 DateOfBirth = request.DateOfBirth,
                 Status = UserStatus.Active,

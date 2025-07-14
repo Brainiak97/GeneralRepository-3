@@ -34,7 +34,7 @@ namespace UserService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("UserService.Domain.Models.Role", b =>
@@ -51,7 +51,7 @@ namespace UserService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("UserService.Domain.Models.User", b =>
@@ -106,7 +106,7 @@ namespace UserService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("UserRole", b =>
