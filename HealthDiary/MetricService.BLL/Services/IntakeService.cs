@@ -13,14 +13,15 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными о приеме медикаментов пользователем
     /// </summary>
     /// <seealso cref="IIntakeService" />
-    public class IntakeService(IIntakeRepository intakeRepository, IValidator<Intake> validator, ClaimsPrincipal authorizationService, IRegimenService regimenService, IMapper mapper
-        ) : IIntakeService
+    public class IntakeService(IIntakeRepository intakeRepository, IValidator<Intake> validator, 
+        ClaimsPrincipal authorizationService, IRegimenService regimenService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IIntakeService
     {
         private readonly IIntakeRepository _repository = intakeRepository;
         private readonly IValidator<Intake> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
         private readonly IRegimenService _regimenService = regimenService;
         private readonly IMapper _mapper = mapper;
+        private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
 
         /// <inheritdoc/>
@@ -70,11 +71,14 @@ namespace MetricService.BLL.Services
 
         /// <inheritdoc/>
         public async Task<IEnumerable<IntakeDTO>> GetAllIntakeByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
-        {
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+        {            
+            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+                                    await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId)==false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи приема лекарств",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     requestListWithPeriodByIdDTO.UserId,
                                                     _repository.Name);
             }
@@ -98,10 +102,13 @@ namespace MetricService.BLL.Services
                                                             { nameof(intakeId), intakeId }
                                                        });
 
-            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            var grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(intakeFind.Regimen.UserId, grantedUserId)==false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи приема лекарств",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     intakeFind.Regimen.UserId,
                                                     _repository.Name);
             }

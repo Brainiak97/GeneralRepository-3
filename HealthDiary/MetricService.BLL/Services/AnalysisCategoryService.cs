@@ -12,7 +12,8 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Категории анализов"
     /// </summary>
     /// <seealso cref="IAnalysisCategoryService" />
-    public class AnalysisCategoryService(IAnalysisCategoryRepository repository, IValidator<AnalysisCategory> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisCategoryService
+    public class AnalysisCategoryService(IAnalysisCategoryRepository repository, IValidator<AnalysisCategory> validator, 
+        ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisCategoryService
     {
         private readonly IAnalysisCategoryRepository _repository = repository;
         private readonly IValidator<AnalysisCategory> _validator = validator;
