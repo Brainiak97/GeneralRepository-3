@@ -13,12 +13,14 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными о результате анализа пользователя
     /// </summary>
     /// <seealso cref="IAnalysisResultService" />
-    public class AnalysisResultService(IAnalysisResultRepository analysisResultRepository, IValidator<AnalysisResult> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisResultService
+    public class AnalysisResultService(IAnalysisResultRepository analysisResultRepository, IValidator<AnalysisResult> validator, 
+        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IAnalysisResultService
     {
         private readonly IAnalysisResultRepository _repository = analysisResultRepository;
         private readonly IValidator<AnalysisResult> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
         private readonly IMapper _mapper = mapper;
+        private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
 
         /// <inheritdoc/>
@@ -68,11 +70,15 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
 
         public async Task<IEnumerable<AnalysisResultDTO>> GetAllAnalysisResultsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
-        {
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+        {            
+            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") &&
+                                    requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+                                    await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId)==false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои анализы",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     requestListWithPeriodByIdDTO.UserId,
                                                     _repository.Name);
             }
@@ -95,11 +101,12 @@ namespace MetricService.BLL.Services
                                                             {
                                                                 { nameof(analysisResultId), analysisResultId }
                                                             });
-
-            if (!_authorizationService.IsInRole("Admin") && analysisResultFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            var grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            if (!_authorizationService.IsInRole("Admin") && analysisResultFind.UserId != grantedUserId &&
+                                await _accessToMetricsService.CheckAccessToMetricsAsync(analysisResultFind.UserId, grantedUserId)==false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     analysisResultFind.UserId,
                                                     _repository.Name);
             }

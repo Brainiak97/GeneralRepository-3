@@ -1,7 +1,7 @@
 ﻿namespace MetricService.Domain.Models
 {
     /// <summary>
-    /// Базовая сущность, характеризующаяся идентификатром
+    /// Базовая сущность, характеризующаяся идентификатором
     /// </summary>
     public abstract class BaseModel
     {

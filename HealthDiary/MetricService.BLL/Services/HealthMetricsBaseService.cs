@@ -14,12 +14,14 @@ namespace MetricService.BLL.Services
     /// </summary>
     /// <seealso cref="IHealthMetricsBaseService" />
     public class HealthMetricsBaseService(IHealthMetricsBaseRepository healthMetricsBaseRepository,
-        IValidator<HealthMetricsBase> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IHealthMetricsBaseService
+        IValidator<HealthMetricsBase> validator, ClaimsPrincipal authorizationService, IMapper mapper, 
+        IAccessToMetricsService accessToMetricsService) : IHealthMetricsBaseService
     {
         private readonly IHealthMetricsBaseRepository _repository = healthMetricsBaseRepository;
         private readonly IValidator<HealthMetricsBase> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
         private readonly IMapper _mapper = mapper;
+        private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
 
         /// <inheritdoc/>
@@ -46,11 +48,14 @@ namespace MetricService.BLL.Services
 
         /// <inheritdoc/>
         public async Task<IEnumerable<HealthMetricsBaseDTO>> GetAllRecordsOfHealthMetricsBaseByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
-        {
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+        {            
+            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId)==false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи о базовых показателях здоровья",
-                                                Common.Common.GetAuthorId(_authorizationService),
+                                                grantedUserId,
                                                 requestListWithPeriodByIdDTO.UserId,
                                                 _repository.Name);
             }
@@ -74,10 +79,13 @@ namespace MetricService.BLL.Services
                                                             { nameof(healthMetricsBaseId), healthMetricsBaseId }
                                                         });
 
-            if (!_authorizationService.IsInRole("Admin") && healthMetricsBaseFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            var grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") && healthMetricsBaseFind.UserId != grantedUserId &&
+                                    await _accessToMetricsService.CheckAccessToMetricsAsync(healthMetricsBaseFind.UserId, grantedUserId) ==false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи о базовых показателях здоровья",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     healthMetricsBaseFind.UserId,
                                                     _repository.Name);
             }
@@ -136,7 +144,6 @@ namespace MetricService.BLL.Services
             }
 
             await _repository.CreateAsync(healthMetricsBase);
-
         }
     }
 }
