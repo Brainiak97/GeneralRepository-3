@@ -1,6 +1,7 @@
 ﻿using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.AccessToMetrics;
 using MetricService.BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetricService.API.Controllers
@@ -11,6 +12,7 @@ namespace MetricService.API.Controllers
     /// <seealso cref="Controller" />
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class AccessToMetricsController(IAccessToMetricsService accessToMetricsService) : Controller
     {
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
