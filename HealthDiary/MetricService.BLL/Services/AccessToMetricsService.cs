@@ -13,20 +13,19 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными доступа к личным метрикам пользователя
     /// </summary>    
     /// <seealso cref="IAccessToMetricsService" />
-    public class AccessToMetricsService(IAccessToMetricsRepository accessToMetricsRepository, ClaimsPrincipal authorizationService, IMapper mapper) : IAccessToMetricsService
+    public class AccessToMetricsService(IAccessToMetricsRepository accessToMetricsRepository, ClaimsPrincipal authorization, IMapper mapper) : IAccessToMetricsService
     {
         private readonly IAccessToMetricsRepository _repository = accessToMetricsRepository;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
-
 
         /// <inheritdoc/>
         public async Task CreateAccessToMetricsAsync(AccessToMetricsCreateDTO accessToMetricsCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && accessToMetricsCreateDTO.ProviderUserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && accessToMetricsCreateDTO.ProviderUserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     accessToMetricsCreateDTO.ProviderUserId,
                                                     _repository.Name);
             }
@@ -36,7 +35,6 @@ namespace MetricService.BLL.Services
 
             await _repository.CreateAsync(accessToMetrics);
         }
-
 
         /// <inheritdoc/>
         public async Task DeleteAccessToMetricsAsync(int accessToMetricsId)
@@ -48,19 +46,18 @@ namespace MetricService.BLL.Services
                                                                 { nameof(accessToMetricsId), accessToMetricsId }
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") &&
-                    accessToMetricsFind.ProviderUserId != Common.Common.GetAuthorId(_authorizationService) &&
-                    accessToMetricsFind.GrantedUserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") &&
+                    accessToMetricsFind.ProviderUserId != Common.Common.GetAuthorId(_authorization) &&
+                    accessToMetricsFind.GrantedUserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только записи о доступе к личным метрикам, в которых вы поставщик ли получатель",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     accessToMetricsFind.ProviderUserId,
                                                     _repository.Name);
             }
 
             await _repository.DeleteAsync(accessToMetricsId);
         }
-
 
         /// <inheritdoc/>
         public async Task<AccessToMetricsDTO?> GetAccessToMetricsByIdAsync(int accessToMetricsId)
@@ -72,19 +69,18 @@ namespace MetricService.BLL.Services
                                                                 { nameof(accessToMetricsId), accessToMetricsId }
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") &&
-                accessToMetricsFind.ProviderUserId != Common.Common.GetAuthorId(_authorizationService) &&
-                accessToMetricsFind.GrantedUserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") &&
+                accessToMetricsFind.ProviderUserId != Common.Common.GetAuthorId(_authorization) &&
+                accessToMetricsFind.GrantedUserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только записи о доступе к личным метрикам, в которых вы поставщик ли получатель",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     accessToMetricsFind.ProviderUserId,
                                                     _repository.Name);
             }
 
             return _mapper.Map<AccessToMetricsDTO>(accessToMetricsFind);
         }
-
 
         /// <inheritdoc/>
         public async Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByGrantedUserIdAsync(RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO)
@@ -95,7 +91,6 @@ namespace MetricService.BLL.Services
 
             return _mapper.Map<IEnumerable<AccessToMetricsDTO>>(accessToMetricsList);
         }
-
 
         /// <inheritdoc/>
         public async Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByProviderUserIdAsync(RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO)
@@ -108,10 +103,10 @@ namespace MetricService.BLL.Services
 
         private async Task<IEnumerable<AccessToMetrics>> GetAllAccessToMetricsAsync(RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && requestAccessListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && requestAccessListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только записи о доступе к личным метрикам, в которых вы поставщик ли получатель",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     requestAccessListWithPeriodByIdDTO.UserId,
                                                     _repository.Name);
             }
@@ -129,7 +124,6 @@ namespace MetricService.BLL.Services
             return accessToMetricsList;
         }
 
-
         /// <inheritdoc/>
         public async Task UpdateAccessToMetricsAsync(AccessToMetricsUpdateDTO accessToMetricsUpdateDTO)
         {
@@ -140,10 +134,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(accessToMetricsUpdateDTO), accessToMetricsUpdateDTO}
                                                              });
 
-            if (!_authorizationService.IsInRole("Admin") && accessToMetricsFind.ProviderUserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && accessToMetricsFind.ProviderUserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные о доступе к личным метрикам другим пользователям",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     accessToMetricsFind.ProviderUserId,
                                                     _repository.Name);
             }

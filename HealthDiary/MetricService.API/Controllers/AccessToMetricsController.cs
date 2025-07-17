@@ -29,7 +29,6 @@ namespace MetricService.API.Controllers
             return Ok();
         }
 
-
         /// <summary>
         /// Изменить доступ к личным метрикам
         /// </summary>
@@ -71,7 +70,6 @@ namespace MetricService.API.Controllers
 
             return Ok(result);
         }
-
 
         /// <summary>
         /// Получить список доступа к личным метрикам для пользователя, получившего доступ

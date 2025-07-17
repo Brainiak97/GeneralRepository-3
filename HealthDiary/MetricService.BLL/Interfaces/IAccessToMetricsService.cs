@@ -16,7 +16,6 @@ namespace MetricService.BLL.Interfaces
         /// <exception cref="ViolationAccessException">Вы не можете создавать данные</exception>        
         public Task CreateAccessToMetricsAsync(AccessToMetricsCreateDTO accessToMetricsCreateDTO);
 
-
         /// <summary>
         /// Обновить запись о доступе к личным метрикам пользователя 
         /// </summary>
@@ -25,7 +24,6 @@ namespace MetricService.BLL.Interfaces
         /// <exception cref="ViolationAccessException">Вы не можете изменять данные</exception>        
         public Task UpdateAccessToMetricsAsync(AccessToMetricsUpdateDTO accessToMetricsUpdateDTO);
 
-
         /// <summary>
         /// Удалить запись о доступе к личным метрикам пользователя
         /// </summary>
@@ -33,7 +31,6 @@ namespace MetricService.BLL.Interfaces
         /// <exception cref="IncorrectOrEmptyResultException">Запись доступа к метрикам не зарегистрирована</exception>       
         /// <exception cref="ViolationAccessException">Вам не разрешено удалить данные</exception>
         public Task DeleteAccessToMetricsAsync(int accessToMetricsId);
-
 
         /// <summary>
         /// Получить запись о доступе к личным метрикам пользователя
@@ -52,7 +49,6 @@ namespace MetricService.BLL.Interfaces
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         public Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByProviderUserIdAsync(RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO);
 
-
         /// <summary>
         /// Получить список доступа к личным метрикам для пользователя, получившего доступ
         /// </summary>
@@ -60,7 +56,6 @@ namespace MetricService.BLL.Interfaces
         /// <returns>Список доступа к личным метрикам для пользователя, получившего доступ</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         public Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByGrantedUserIdAsync(RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO);
-
 
         /// <summary>
         /// Проверка наличия доступа к личным метрикам
