@@ -20,7 +20,7 @@ namespace MetricService.DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProviderUserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя, который предоставляет доступ"),
                     GrantedUserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя, которому предоставляется доступ"),
-                    AccessExpirationDate = table.Column<DateOnly>(type: "date", nullable: true, comment: "Дата, до которой действует доступ"),
+                    AccessExpirationDate = table.Column<DateOnly>(type: "DATE", nullable: true, comment: "Дата, до которой действует доступ"),
                     IsPermanentAccess = table.Column<bool>(type: "boolean", nullable: false, comment: "Доступ без ограничения по срокам")
                 },
                 constraints: table =>

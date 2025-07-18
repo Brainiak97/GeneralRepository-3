@@ -16,7 +16,7 @@ namespace MetricService.API
         /// Регистрирует зависимости
         /// </summary>
         /// <param name="builder"></param>
-        public static void Register(WebApplicationBuilder builder)
+        public static void Register(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, BLL.Services.UserService>();
