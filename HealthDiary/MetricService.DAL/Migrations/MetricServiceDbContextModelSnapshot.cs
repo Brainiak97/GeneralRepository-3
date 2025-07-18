@@ -32,7 +32,7 @@ namespace MetricService.DAL.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly?>("AccessExpirationDate")
-                        .HasColumnType("date")
+                        .HasColumnType("DATE")
                         .HasComment("Дата, до которой действует доступ");
 
                     b.Property<int>("GrantedUserId")

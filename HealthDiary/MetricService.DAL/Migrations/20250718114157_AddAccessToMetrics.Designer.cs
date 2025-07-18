@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    [Migration("20250711192458_AddAccessToMetrics")]
+    [Migration("20250718114157_AddAccessToMetrics")]
     partial class AddAccessToMetrics
     {
         /// <inheritdoc />
@@ -35,7 +35,7 @@ namespace MetricService.DAL.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly?>("AccessExpirationDate")
-                        .HasColumnType("date")
+                        .HasColumnType("DATE")
                         .HasComment("Дата, до которой действует доступ");
 
                     b.Property<int>("GrantedUserId")

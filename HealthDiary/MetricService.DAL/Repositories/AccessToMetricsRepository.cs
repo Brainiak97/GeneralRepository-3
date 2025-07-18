@@ -37,5 +37,23 @@ namespace MetricService.DAL.Repositories
             a.GrantedUserId == grantedUserId &&
             (a.IsPermanentAccess == true || a.AccessExpirationDate >= DateOnly.FromDateTime(DateTime.Now))).AnyAsync();
         }
+
+        /// <inheritdoc/>
+        public async override Task<AccessToMetrics?> GetByIdAsync(int id)
+        {
+            return await _contextDb.AccessToMetrics
+                .Include(a => a.ProviderUser)
+                .Include(a => a.GrantedUser)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        /// <inheritdoc/>
+        public async override Task<IEnumerable<AccessToMetrics>> GetAllAsync()
+        {
+            return await _contextDb.AccessToMetrics
+                .Include(a => a.ProviderUser)
+                .Include(a => a.GrantedUser)
+                .ToListAsync();
+        }
     }
 }
