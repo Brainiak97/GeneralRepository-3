@@ -16,7 +16,7 @@ namespace MetricService.API
         /// Регистрирует зависимости
         /// </summary>
         /// <param name="builder"></param>
-        public static void Register(WebApplicationBuilder builder)
+        public static void Register(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, BLL.Services.UserService>();
@@ -67,6 +67,9 @@ namespace MetricService.API
             builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
             builder.Services.AddScoped<IReminderService, ReminderService>();
             builder.Services.AddScoped<IValidator<Reminder>, ReminderValidator>();
+
+            builder.Services.AddScoped<IAccessToMetricsRepository, AccessToMetricsRepository>();
+            builder.Services.AddScoped<IAccessToMetricsService, AccessToMetricsService>();            
         }
     }
 }

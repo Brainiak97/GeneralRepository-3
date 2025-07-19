@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.AccessToMetrics;
 using MetricService.BLL.DTO.AnalysisCategory;
 using MetricService.BLL.DTO.AnalysisResult;
 using MetricService.BLL.DTO.AnalysisType;
@@ -75,6 +76,10 @@ namespace MetricService.BLL.Common
             CreateMap<Reminder, ReminderDTO >().ReverseMap();
             CreateMap<Reminder, ReminderCreateDTO>().ReverseMap();
             CreateMap<Reminder, ReminderUpdateDTO>().ReverseMap();
+
+            CreateMap<AccessToMetrics, AccessToMetricsDTO>().ReverseMap();
+            CreateMap<AccessToMetrics, AccessToMetricsCreateDTO>().ReverseMap();
+            CreateMap<AccessToMetrics, AccessToMetricsUpdateDTO>().ReverseMap();
         }
     }
 }

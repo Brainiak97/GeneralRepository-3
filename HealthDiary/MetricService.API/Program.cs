@@ -27,14 +27,14 @@ namespace MetricService.Api
         builder.Services.AddDbContext<MetricServiceDbContext>(options =>
             {                
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-                options.EnableSensitiveDataLogging(false);
+                options.EnableSensitiveDataLogging(false);                
             });
 
             // Загрузка общей конфигурации JWT
             builder.Services.AddJwtAuthentication();
 
             // Регистрация сервисов и репозиториев
-            EntitiesServices.Register(builder);
+            builder.Register();
 
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
