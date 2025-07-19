@@ -29,5 +29,13 @@ namespace FoodService.Api.Controllers
 				return NotFound();
 			}
 		}
+
+		// to test
+		[HttpGet( nameof( GetTestError ) )]
+		public async Task<string> GetTestError()
+		{
+			throw new Exception( "test exc" );
+			return "test str";
+		}
 	}
 }
