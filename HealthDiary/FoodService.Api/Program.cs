@@ -1,4 +1,5 @@
 
+using FoodService.Api.Middlewares;
 using FoodService.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -42,6 +43,8 @@ namespace FoodService.Api
 			app.Services.ApplyDbMigration();
 
 			app.MapControllers();
+
+			app.UseMiddleware<ErrorHandlerMiddleware>();
 
 			app.Run();
 		}
