@@ -8,8 +8,9 @@ internal class PolyclinicAppointmentSlotsByDateRequestValidator : AbstractValida
     public PolyclinicAppointmentSlotsByDateRequestValidator()
     {
         RuleFor(r => r.Date)
-            .GreaterThan(DateOnly.MinValue)
-            .WithMessage("Не задана дата, на которую необходимо получить слоты приёма");
+            .GreaterThan(DateTime.MinValue)
+            .Equal(r => r.Date.Date)
+            .WithMessage("Задана некорректная дата, на которую необходимо получить слоты приёма");
         RuleFor(r => r.PolyclinicId)
             .GreaterThan(0)
             .WithMessage("Не задан идентификатор поликлиники");

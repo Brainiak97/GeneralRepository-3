@@ -18,7 +18,7 @@ internal record AppointmentSlotsCalculationContext(
     DateOnly PeriodStartDate,
     DateOnly PeriodEndDate,
     TimeSpan AppointmentDuration,
-    TimeSpan WorkDayStartTime,
-    TimeSpan WorkDayEndTime,
+    TimeOnly WorkDayStartTime,
+    TimeOnly WorkDayEndTime,
     TimeSpan? LunchDuration,
     DayOfWeek[] IncludedWeekendDays);

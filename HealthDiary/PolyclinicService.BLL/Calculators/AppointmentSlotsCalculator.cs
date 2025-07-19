@@ -40,15 +40,15 @@ internal class AppointmentSlotsCalculator : IAppointmentSlotsCalculator
         return slots;
     }
 
-    private (TimeSpan StartTime, TimeSpan EndTime)[] GetDayWorkPeriods(
-        TimeSpan workStartTime,
-        TimeSpan workEndTime,
+    private (TimeOnly StartTime, TimeOnly EndTime)[] GetDayWorkPeriods(
+        TimeOnly workStartTime,
+        TimeOnly workEndTime,
         TimeSpan? lunchDuration,
         TimeSpan appointmentDuration)
     {
         if (!lunchDuration.HasValue)
         {
-            return [new ValueTuple<TimeSpan, TimeSpan>(workStartTime, workEndTime)];
+            return [new ValueTuple<TimeOnly, TimeOnly>(workStartTime, workEndTime)];
         }
 
         var startLunchTime = CalculateLunchStartTime(
@@ -58,8 +58,8 @@ internal class AppointmentSlotsCalculator : IAppointmentSlotsCalculator
             appointmentDuration);
 
         return [
-            new ValueTuple<TimeSpan, TimeSpan>(workStartTime, startLunchTime),
-            new ValueTuple<TimeSpan, TimeSpan>(startLunchTime + lunchDuration.Value, workEndTime)
+            new ValueTuple<TimeOnly, TimeOnly>(workStartTime, startLunchTime),
+            new ValueTuple<TimeOnly, TimeOnly>(startLunchTime.Add(lunchDuration.Value), workEndTime)
         ];
     }
 
@@ -67,16 +67,15 @@ internal class AppointmentSlotsCalculator : IAppointmentSlotsCalculator
         int polyclinicId,
         int[] doctorIds,
         DateOnly date,
-        (TimeSpan StartTime, TimeSpan EndTime)[] workDayPeriods,
+        (TimeOnly StartTime, TimeOnly EndTime)[] workDayPeriods,
         TimeSpan appointmentDuration)
     {
         var daySlots = new List<AppointmentSlotDto>();
         foreach (var workPeriod in workDayPeriods)
         {
             var slotStartTime = workPeriod.StartTime;
-            var slotEndTime = slotStartTime.Add(appointmentDuration);
 
-            while (slotStartTime != workPeriod.EndTime)
+            while (slotStartTime < workPeriod.EndTime)
             {
                 daySlots.AddRange(
                     doctorIds.Select(doctorId =>
@@ -85,38 +84,35 @@ internal class AppointmentSlotsCalculator : IAppointmentSlotsCalculator
                             PolyclinicId = polyclinicId,
                             DoctorId = doctorId,
                             Status = AppointmentSlotStatus.Created,
-                            StartTime = slotStartTime,
-                            EndTime = slotEndTime,
-                            Date = date
+                            Date = new DateTime(date, slotStartTime, DateTimeKind.Local),
+                            Duration = appointmentDuration,
                         }));
 
-                slotStartTime = slotEndTime;
+                slotStartTime = slotStartTime.Add(appointmentDuration);
             }
         }
 
         return daySlots;
     }
 
-    private TimeSpan CalculateLunchStartTime(
-        TimeSpan workStartTime,
-        TimeSpan workEndTime,
+    private TimeOnly CalculateLunchStartTime(
+        TimeOnly workStartTime,
+        TimeOnly workEndTime,
         TimeSpan lunchDuration,
         TimeSpan appointmentDuration)
     {
-        var allowedWorkTime = workEndTime - lunchDuration - workStartTime;
+        var allowedWorkTime = new TimeSpan(workEndTime.Ticks - workStartTime.Ticks - lunchDuration.Ticks);
         if (allowedWorkTime.Minutes % appointmentDuration.Minutes != 0)
         {
-            throw new InvalidOperationException("Общая продолжительность рабочего времени в день должны быть кратно продолжительности приёма");
+            throw new InvalidOperationException("Общая продолжительность рабочего времени в день должна быть кратна продолжительности приёма");
         }
 
-        var slotsCount = allowedWorkTime.Minutes / appointmentDuration.Minutes;
-        var slotsBeforeLunch = slotsCount / 2.0;
+        var approximateSlotsBeforeLunch = (allowedWorkTime / appointmentDuration) / 2.0;
+        var slotsBeforeLunch = (int)(approximateSlotsBeforeLunch - Math.Floor(approximateSlotsBeforeLunch) > 0.5
+            ? Math.Ceiling(approximateSlotsBeforeLunch)
+            : Math.Floor(approximateSlotsBeforeLunch));
 
-        slotsBeforeLunch = (int)(slotsBeforeLunch - Math.Floor(slotsBeforeLunch) > 0.5
-            ? Math.Ceiling(slotsBeforeLunch)
-            : Math.Floor(slotsBeforeLunch));
-
-        return TimeSpan.FromMinutes(workStartTime.Minutes + slotsBeforeLunch * appointmentDuration.Minutes);
+        return workStartTime.Add(TimeSpan.FromTicks(slotsBeforeLunch * appointmentDuration.Ticks));
     }
 
     private static bool IsWeekend(DateOnly date) =>

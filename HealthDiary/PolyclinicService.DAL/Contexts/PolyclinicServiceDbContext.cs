@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using PolyclinicService.DAL.Infrastructure.Configurations;
 using PolyclinicService.Domain.Models.Entities;
 
 namespace PolyclinicService.DAL.Contexts;
@@ -37,24 +36,25 @@ internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbCo
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasDefaultSchema("polyclinics")
-            .ApplyConfiguration(new PolyclinicEntityTypeConfiguration())
-            .ApplyConfiguration(new DoctorEntityTypeConfiguration())
-            .ApplyConfiguration(new AppointmentSlotEntityTypeConfiguration())
-            .ApplyConfiguration(new AppointmentResultEntityTypeConfiguration());
+        modelBuilder.Entity<Polyclinic>(entity =>
+        {
+            entity.Property(t => t.Id).UseIdentityAlwaysColumn();
+                
+            entity.HasMany(p => p.Doctors)
+                .WithMany(d => d.Polyclinics)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PolyclinicDoctors",
+                    j => j
+                        .HasOne<Doctor>()
+                        .WithMany()
+                        .HasForeignKey("DoctorId"),
+                    j => j
+                        .HasOne<Polyclinic>()
+                        .WithMany()
+                        .HasForeignKey("PolyclinicId"));
+        });
 
-        modelBuilder.Entity<Polyclinic>()
-            .HasMany(p => p.Doctors)
-            .WithMany(d => d.Polyclinics)
-            .UsingEntity<Dictionary<string, object>>(
-                "polyclinic_doctors",
-                j => j
-                    .HasOne<Doctor>()
-                    .WithMany()
-                    .HasForeignKey("doctor_id"),
-                j => j
-                    .HasOne<Polyclinic>()
-                    .WithMany()
-                    .HasForeignKey("polyclinic_id"));
+        modelBuilder.Entity<AppointmentSlot>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
+        modelBuilder.Entity<AppointmentResult>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
     }
 }

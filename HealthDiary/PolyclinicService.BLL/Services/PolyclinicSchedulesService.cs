@@ -65,8 +65,7 @@ internal class PolyclinicSchedulesService
         insertedSlot.DoctorId = request.DoctorId ?? insertedSlot.DoctorId;
         insertedSlot.UserId = request.UserId ?? insertedSlot.UserId;
         insertedSlot.Date = request.Date ?? insertedSlot.Date;
-        insertedSlot.StartTime = request.StartTime ?? insertedSlot.StartTime;
-        insertedSlot.EndTime = request.EndTime ?? insertedSlot.EndTime;
+        insertedSlot.Duration = request.Duration ?? insertedSlot.Duration;
 
         await appointmentSlotsRepository.UpdateAsync(insertedSlot);
     }
@@ -122,7 +121,8 @@ internal class PolyclinicSchedulesService
 
         var result = await appointmentSlotsRepository.GetByFilterAsync(s =>
             s.PolyclinicId == request.PolyclinicId &&
-            s.Date == request.Date) ?? [];
+            s.Date >= request.Date.Date &&
+            s.Date <= request.Date.Date.AddDays(1)) ?? [];
 
         return result.Select(mapper.Map<AppointmentSlotDto>).ToArray();
     }
@@ -136,10 +136,11 @@ internal class PolyclinicSchedulesService
         {
             return [];
         }
-        
+
         var result = await appointmentSlotsRepository.GetByFilterAsync(s =>
             s.DoctorId == request.DoctorId &&
             (request.PolyclinicId == null || s.PolyclinicId == request.PolyclinicId) &&
+            (request.Date == null || (s.Date >= request.Date.Value.Date && s.Date <= request.Date.Value.Date.AddDays(1))) &&
             s.Status != AppointmentSlotStatus.Closed) ?? [];
 
         return result.Select(mapper.Map<AppointmentSlotDto>).ToArray();

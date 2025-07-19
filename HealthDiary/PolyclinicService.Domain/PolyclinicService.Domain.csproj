@@ -10,5 +10,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.5" />
+    </ItemGroup>
 
 </Project>

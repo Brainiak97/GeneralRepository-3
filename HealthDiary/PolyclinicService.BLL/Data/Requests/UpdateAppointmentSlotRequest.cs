@@ -28,15 +28,10 @@ public class UpdateAppointmentSlotRequest
     /// <summary>
     /// Дата приёма.
     /// </summary>
-    public DateOnly? Date { get; set; }
+    public DateTime? Date { get; set; }
 
     /// <summary>
-    /// Время начала приёма.
+    /// Продолжительность приёма.
     /// </summary>
-    public TimeSpan? StartTime { get; set; }
-
-    /// <summary>
-    /// Время окончания приёма.
-    /// </summary>
-    public TimeSpan? EndTime { get; set; }
+    public TimeSpan? Duration { get; set; }
 }

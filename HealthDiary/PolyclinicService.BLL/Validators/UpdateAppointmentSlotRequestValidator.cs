@@ -23,22 +23,12 @@ internal class UpdateAppointmentSlotRequestValidator : AbstractValidator<UpdateA
             .WithMessage("Задан некорректный новый идентификатор пациента для изменения слота приёма")
             .When(x => x.UserId is not null);
         RuleFor(x => x.Date)
-            .NotEqual((DateOnly)default)
+            .NotEqual(default(DateTime))
             .WithMessage("Задана некорректная новая дата приёма в слоте приёма графика")
             .When(x => x.Date is not null);
-        RuleFor(x => x.StartTime)
+        RuleFor(x => x.Duration)
             .GreaterThan(TimeSpan.Zero)
             .WithMessage("Задано некорректное новое время начала приёма в слоте графика")
-            .When(x => x.StartTime is not null)
-            .LessThan(x => x.EndTime)
-            .WithMessage("Новое время начала приёма не должно быть позднее новой даты окончания приёма")
-            .When(x => x.StartTime is not null && x.EndTime is not null);
-        RuleFor(x => x.EndTime)
-            .GreaterThan(TimeSpan.Zero)
-            .WithMessage("Задано некорректное новое время окончания приёма в слоте графика")
-            .When(x => x.EndTime is not null)
-            .GreaterThan(x => x.StartTime)
-            .WithMessage("Новое время окончания приёма не должно быть раньше новой даты начала приёма")
-            .When(x => x.EndTime is not null && x.StartTime is not null);
+            .When(x => x.Duration is not null);
     }
 }

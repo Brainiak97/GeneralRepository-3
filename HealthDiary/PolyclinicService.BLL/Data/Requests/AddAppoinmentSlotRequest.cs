@@ -23,15 +23,10 @@ public class AddAppoinmentSlotRequest
     /// <summary>
     /// Дата приёма.
     /// </summary>
-    public required DateOnly Date { get; set; }
+    public required DateTime Date { get; set; }
 
     /// <summary>
-    /// Время начала приёма.
+    /// Продолжительность приёма.
     /// </summary>
-    public required TimeSpan StartTime { get; set; }
-
-    /// <summary>
-    /// Время окончания приёма.
-    /// </summary>
-    public required TimeSpan EndTime { get; set; }
+    public TimeSpan Duration { get; set; }
 }

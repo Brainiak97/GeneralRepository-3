@@ -18,13 +18,10 @@ internal class AddAppointmentSlotRequestValidator : AbstractValidator<AddAppoinm
             .WithMessage("Задан некорректный идентификатор пациента для слота приёма в графике")
             .When(r => r.UserId is not null);
         RuleFor(r => r.Date)
-            .GreaterThan(DateOnly.MinValue)
+            .GreaterThan(DateTime.MinValue)
             .WithMessage("Не задана дата приёма слота в графике");
-        RuleFor(r => r.StartTime)
+        RuleFor(r => r.Duration)
             .GreaterThan(TimeSpan.Zero)
-            .WithMessage("Не задано время начала приёма для слота в графике");
-        RuleFor(r => r.EndTime)
-            .GreaterThan(TimeSpan.Zero)
-            .WithMessage("Не задано время окончания приёма для слота в графике");
+            .WithMessage("Не задана продолжительность приёма врача");
     }
 }

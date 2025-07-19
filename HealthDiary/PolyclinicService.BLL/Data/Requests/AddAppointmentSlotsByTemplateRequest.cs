@@ -33,12 +33,12 @@ public class AddAppointmentSlotsByTemplateRequest
     /// <summary>
     /// Время начала рабочего дня врача.
     /// </summary>
-    public TimeSpan WorkDayStartTime { get; set; }
+    public TimeOnly WorkDayStartTime { get; set; }
     
     /// <summary>
     /// Время окончания рабочего дня врача.
     /// </summary>
-    public TimeSpan WorkDayEndTime { get; set; }
+    public TimeOnly WorkDayEndTime { get; set; }
     
     /// <summary>
     /// Продолжительность обеда.

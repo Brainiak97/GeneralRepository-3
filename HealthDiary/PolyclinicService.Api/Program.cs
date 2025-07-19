@@ -13,7 +13,10 @@ builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
-builder.Services.AddSwagger(builder.Configuration);
+
+var swaggerOptions = builder.Configuration.GetSection(nameof(SwaggerOptions)).Get<SwaggerOptions>();
+var serviceName = builder.Configuration.GetValue<string>("ServiceName");
+builder.Services.AddSwagger(swaggerOptions, serviceName);
 
 var app = builder.Build();
 

@@ -16,14 +16,14 @@ internal class DeletePolyclinicAppointmentSlotsByFilterRequestValidator : Abstra
             .WithMessage("Задан некорректный идентификатор поликлиники")
             .When(r => r.PolyclinicId is not null);
         RuleFor(r => r.PeriodStartDate)
-            .GreaterThan(DateOnly.MinValue)
+            .GreaterThan(default(DateTime))
             .WithMessage("Задана некорректная дата начала временного интервала для удаления")
             .When(r => r.PeriodStartDate is not null)
             .LessThanOrEqualTo(r => r.PeriodEndDate)
             .WithMessage("Дата начала временного интервала для удаления должна быть меньше или равна дате окончания этого периода")
             .When(r => r.PeriodStartDate is not null && r.PeriodEndDate is not null);
         RuleFor(r => r.PeriodEndDate)
-            .GreaterThan(DateOnly.MinValue)
+            .GreaterThan(default(DateTime))
             .WithMessage("Задана некорректная дата окончания временного интервала для удаления")
             .When(r => r.PeriodStartDate is not null)
             .GreaterThanOrEqualTo(r => r.PeriodStartDate)

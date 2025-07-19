@@ -38,12 +38,12 @@ internal class AddAppointmentSlotsByTemplateRequestValidator : AbstractValidator
             .GreaterThan(r => r.PeriodStartDate)
             .WithMessage("Дата окончания должна быть больше даты начала периода для формирования слотов");
         RuleFor(r => r.WorkDayStartTime)
-            .GreaterThan(TimeSpan.Zero)
+            .GreaterThan((TimeOnly)default)
             .WithMessage("Не задано время начала рабочего дня")
             .LessThan(r => r.WorkDayEndTime)
             .WithMessage("Время начала рабочего дня должно быть раньше окончания рабочего дня");
         RuleFor(r => r.WorkDayEndTime)
-            .GreaterThan(TimeSpan.Zero)
+            .GreaterThan((TimeOnly)default)
             .WithMessage("Не задано время окончания рабочего дня")
             .GreaterThan(r => r.WorkDayStartTime)
             .WithMessage("Время окончания рабочего дня должно быть позднее начала рабочего дня");

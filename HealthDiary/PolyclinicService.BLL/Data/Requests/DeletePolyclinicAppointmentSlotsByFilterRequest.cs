@@ -18,10 +18,10 @@ public class DeletePolyclinicAppointmentSlotsByFilterRequest
     /// <summary>
     /// Дата начала временного интервала для удаления.
     /// </summary>
-    public DateOnly? PeriodStartDate { get; set; }
+    public DateTime? PeriodStartDate { get; set; }
     
     /// <summary>
     /// Дата окончания временного интервала для удаления.
     /// </summary>
-    public DateOnly? PeriodEndDate { get; set; }
+    public DateTime? PeriodEndDate { get; set; }
 }

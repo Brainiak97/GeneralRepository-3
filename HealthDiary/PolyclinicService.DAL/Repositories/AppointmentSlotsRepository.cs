@@ -76,9 +76,7 @@ internal class AppointmentSlotsRepository(PolyclinicServiceDbContext context) : 
         targetEntity.DoctorId = sourceEntity.DoctorId;
         targetEntity.UserId = sourceEntity.UserId;
         targetEntity.Date = sourceEntity.Date;
-        targetEntity.StartTime = sourceEntity.StartTime;
-        targetEntity.EndTime = sourceEntity.EndTime;
-        targetEntity.EndTime = sourceEntity.EndTime;
+        targetEntity.Duration = sourceEntity.Duration;
         targetEntity.Status = sourceEntity.Status;
         return targetEntity;
     }

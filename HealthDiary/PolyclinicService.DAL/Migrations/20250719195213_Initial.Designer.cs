@@ -12,7 +12,7 @@ using PolyclinicService.DAL.Contexts;
 namespace PolyclinicService.DAL.Migrations
 {
     [DbContext(typeof(PolyclinicServiceDbContext))]
-    [Migration("20250713161156_Initial")]
+    [Migration("20250719195213_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,46 +20,55 @@ namespace PolyclinicService.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("polyclinics")
                 .HasAnnotation("ProductVersion", "9.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("PolyclinicDoctors", b =>
+                {
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PolyclinicId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("DoctorId", "PolyclinicId");
+
+                    b.HasIndex("PolyclinicId");
+
+                    b.ToTable("PolyclinicDoctors");
+                });
 
             modelBuilder.Entity("PolyclinicService.Domain.Models.Entities.AppointmentResult", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
-                        .HasComment("Идентификатор результата приёма к врачу");
+                        .HasComment("Идентификатор результата приёма");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AppointmentSlotId")
                         .HasColumnType("integer")
-                        .HasColumnName("appointment_slot_id")
                         .HasComment("Идентификатор слота на приём к врачу из графика");
 
                     b.Property<string>("ReportContent")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("report_content")
-                        .HasComment("Содержание отчёта приёма пациента");
+                        .HasComment("Содержание отчёта по приёму пациента");
 
                     b.Property<int>("ReportTemplateId")
                         .HasColumnType("integer")
-                        .HasColumnName("report_template_id")
                         .HasComment("Идентификатор шаблона отчёта");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentSlotId")
-                        .IsUnique();
+                    b.HasIndex("AppointmentSlotId");
 
-                    b.ToTable("appointment_results", "polyclinics", t =>
+                    b.ToTable("AppointmentResults", t =>
                         {
-                            t.HasComment("Результаты приёмов к врачам");
+                            t.HasComment("Результаты приёмов пациентов");
                         });
                 });
 
@@ -68,45 +77,33 @@ namespace PolyclinicService.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
-                        .HasComment("Идентификатор приёма в графике");
+                        .HasComment("Идентификатор слота приёма в графике");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date")
-                        .HasColumnName("date")
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone")
                         .HasComment("Дата приёма");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer")
-                        .HasColumnName("doctor_id")
                         .HasComment("Идентификатор врача");
 
-                    b.Property<TimeSpan>("EndTime")
+                    b.Property<TimeSpan>("Duration")
                         .HasColumnType("interval")
-                        .HasColumnName("end_time")
-                        .HasComment("Время окончания приёма");
+                        .HasComment("Продолжительность приёма");
 
                     b.Property<int>("PolyclinicId")
                         .HasColumnType("integer")
-                        .HasColumnName("polyclinic_id")
-                        .HasComment("Идентификатор поликлиники");
+                        .HasComment("Идентификатор поликлинники");
 
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("interval")
-                        .HasColumnName("start_time")
-                        .HasComment("Время начала приёма");
-
-                    b.Property<short>("Status")
+                    b.Property<byte>("Status")
                         .HasColumnType("smallint")
-                        .HasColumnName("status")
                         .HasComment("Статус приёма в графике");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer")
-                        .HasColumnName("user_id")
-                        .HasComment("Идентификатор записанного пациента");
+                        .HasComment("Идентификатор пользователя (пациента)");
 
                     b.HasKey("Id");
 
@@ -114,9 +111,9 @@ namespace PolyclinicService.DAL.Migrations
 
                     b.HasIndex("PolyclinicId");
 
-                    b.ToTable("appointment_slots", "polyclinics", t =>
+                    b.ToTable("AppointmentSlots", t =>
                         {
-                            t.HasComment("Данные о приёмах к врачу в графиках поликлиники");
+                            t.HasComment("Слоты приёма к врачу в графике поликлиники");
                         });
                 });
 
@@ -125,44 +122,37 @@ namespace PolyclinicService.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
                         .HasComment("Идентификатор врача");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<byte?>("AcademyDegree")
                         .HasColumnType("smallint")
-                        .HasColumnName("academy_degree")
                         .HasComment("Научная степень врача");
 
                     b.Property<bool>("IsConfirmedEducation")
                         .HasColumnType("boolean")
-                        .HasColumnName("is_confirmed_education")
                         .HasComment("Признак, что у врача подтвержден документ об образовании");
 
                     b.Property<bool>("IsConfirmedQualification")
                         .HasColumnType("boolean")
-                        .HasColumnName("is_confirmed_qualification")
                         .HasComment("Признак, что у врача подтвержден документ о квалификации");
 
                     b.Property<byte>("QualificationType")
                         .HasColumnType("smallint")
-                        .HasColumnName("qualification_type")
                         .HasComment("Квалификация врача");
 
                     b.Property<byte>("Seniority")
                         .HasColumnType("smallint")
-                        .HasColumnName("seniority")
                         .HasComment("Стаж врача");
 
-                    b.Property<byte>("SpecializationType")
+                    b.Property<short>("SpecializationType")
                         .HasColumnType("smallint")
-                        .HasColumnName("specialization_type")
                         .HasComment("Специализация врача");
 
                     b.HasKey("Id");
 
-                    b.ToTable("doctors", "polyclinics", t =>
+                    b.ToTable("Doctors", t =>
                         {
                             t.HasComment("Врачи поликлиник");
                         });
@@ -173,7 +163,6 @@ namespace PolyclinicService.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
                         .HasComment("Идентификатор поликлиники");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
@@ -182,70 +171,39 @@ namespace PolyclinicService.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
-                        .HasColumnName("address")
                         .HasComment("Адрес");
 
                     b.Property<string>("Email")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
-                        .HasColumnName("email")
                         .HasComment("Адрес электронной почты");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
-                        .HasColumnName("name")
                         .HasComment("Наименование поликлиники");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("character varying(15)")
-                        .HasColumnName("phone_number")
                         .HasComment("Номер телефона");
 
                     b.Property<string>("Url")
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)")
-                        .HasColumnName("url")
                         .HasComment("Ссылка на сайт");
 
                     b.HasKey("Id");
 
-                    b.ToTable("polyclinics", "polyclinics", t =>
+                    b.ToTable("Polyclinics", t =>
                         {
                             t.HasComment("Поликлиники");
                         });
                 });
 
-            modelBuilder.Entity("polyclinic_doctors", b =>
-                {
-                    b.Property<int>("doctor_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("polyclinic_id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("doctor_id", "polyclinic_id");
-
-                    b.HasIndex("polyclinic_id");
-
-                    b.ToTable("polyclinic_doctors", "polyclinics");
-                });
-
-            modelBuilder.Entity("PolyclinicService.Domain.Models.Entities.AppointmentResult", b =>
-                {
-                    b.HasOne("PolyclinicService.Domain.Models.Entities.AppointmentSlot", "AppointmentSlot")
-                        .WithOne()
-                        .HasForeignKey("PolyclinicService.Domain.Models.Entities.AppointmentResult", "AppointmentSlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppointmentSlot");
-                });
-
-            modelBuilder.Entity("PolyclinicService.Domain.Models.Entities.AppointmentSlot", b =>
+            modelBuilder.Entity("PolyclinicDoctors", b =>
                 {
                     b.HasOne("PolyclinicService.Domain.Models.Entities.Doctor", null)
                         .WithMany()
@@ -260,19 +218,34 @@ namespace PolyclinicService.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("polyclinic_doctors", b =>
+            modelBuilder.Entity("PolyclinicService.Domain.Models.Entities.AppointmentResult", b =>
                 {
-                    b.HasOne("PolyclinicService.Domain.Models.Entities.Doctor", null)
+                    b.HasOne("PolyclinicService.Domain.Models.Entities.AppointmentSlot", "AppointmentSlot")
                         .WithMany()
-                        .HasForeignKey("doctor_id")
+                        .HasForeignKey("AppointmentSlotId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PolyclinicService.Domain.Models.Entities.Polyclinic", null)
+                    b.Navigation("AppointmentSlot");
+                });
+
+            modelBuilder.Entity("PolyclinicService.Domain.Models.Entities.AppointmentSlot", b =>
+                {
+                    b.HasOne("PolyclinicService.Domain.Models.Entities.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("polyclinic_id")
+                        .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PolyclinicService.Domain.Models.Entities.Polyclinic", "Polyclinic")
+                        .WithMany()
+                        .HasForeignKey("PolyclinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Polyclinic");
                 });
 #pragma warning restore 612, 618
         }
