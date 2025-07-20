@@ -1,6 +1,6 @@
 @FoodService.Api_HostAddress = http://localhost:5045
 
-GET {{FoodService.Api_HostAddress}}/weatherforecast/
+GET {{FoodService.Api_HostAddress}}/food/getproduct?productid=5
 Accept: application/json
 
 ###
