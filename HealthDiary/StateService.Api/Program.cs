@@ -8,13 +8,12 @@ using StateService.DAL.Providers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
-// Загрузка общей конфигурации JWT
+// Р—Р°РіСЂСѓР·РєР° РѕР±С‰РµР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё JWT
 builder.Services.AddJwtAuthentication();
 
 builder.Services.AddScoped<IStateService, StateService.BLL.Services.StateService>();
@@ -40,8 +39,8 @@ if (serviceUrlsFromConfig != null)
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService API", Version = "v1" });
-    // Добавляем схему JWT в Swagger
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "StateService API", Version = "v1" });
+    // Р”РѕР±Р°РІР»СЏРµРј СЃС…РµРјСѓ JWT РІ Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",

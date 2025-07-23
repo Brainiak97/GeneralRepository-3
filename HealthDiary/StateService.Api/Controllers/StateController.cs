@@ -15,16 +15,14 @@ namespace StateService.Api.Controllers
         [HttpGet("GetDailySummary")]
         public async Task<IActionResult> GetDailySummary([FromBody] int userId)
         {
-            try
+            if (userId == 0)
             {
-                var summary = await _stateService.GetDailySummaryAsync(userId);
+                return BadRequest();
+            }
 
-                return Ok(summary);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var summary = await _stateService.GetDailySummaryAsync(userId);
+
+            return Ok(summary);
         }
     }
 }

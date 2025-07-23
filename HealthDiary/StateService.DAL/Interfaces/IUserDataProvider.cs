@@ -4,6 +4,6 @@ namespace StateService.DAL.Interfaces
 {
     public interface IUserDataProvider
     {
-        Task<User> GetUserAsync(string userId);
+        Task<User?> GetUserAsync(string userId);
     }
 }
