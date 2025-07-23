@@ -1,10 +1,9 @@
-
-using FoodService.Api.Middlewares;
-using FoodService.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Team3.HealthDiary.FoodService.Api.Middlewares;
+using Team3.HealthDiary.FoodService.DAL;
 
-namespace FoodService.Api
+namespace Team3.HealthDiary.FoodService.Api
 {
 	public class Program
 	{
