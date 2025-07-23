@@ -1,4 +1,4 @@
-﻿namespace FoodService.Api.Middlewares
+﻿namespace Team3.HealthDiary.FoodService.Api.Middlewares
 {
 	/// <summary>
 	/// Middleware для обработки ошибок API методов

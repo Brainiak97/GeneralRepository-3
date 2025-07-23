@@ -1,7 +1,7 @@
-﻿using FoodService.DAL.Entities;
+﻿using Team3.HealthDiary.FoodService.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodService.DAL
+namespace Team3.HealthDiary.FoodService.DAL
 {
 	public class FoodServiceDbContext : DbContext
 	{

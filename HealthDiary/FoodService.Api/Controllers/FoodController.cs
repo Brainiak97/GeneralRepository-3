@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodService.Api.Controllers
+namespace Team3.HealthDiary.FoodService.Api.Controllers
 {
 	[ApiController]
 	[Route( "[controller]" )]
