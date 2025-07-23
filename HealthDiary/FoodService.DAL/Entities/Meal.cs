@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CS8618
 
-namespace FoodService.DAL.Entities
+namespace Team3.HealthDiary.FoodService.DAL.Entities
 {
 	/// <summary>
 	/// Приём пищи
