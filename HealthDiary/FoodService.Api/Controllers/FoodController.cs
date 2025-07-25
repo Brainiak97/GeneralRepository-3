@@ -1,4 +1,4 @@
-﻿using FoodService.DAL;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +9,13 @@ namespace Team3.HealthDiary.FoodService.Api.Controllers
 	public class FoodController : ControllerBase
 	{
 		private FoodServiceDbContext _dbContext;
+		private readonly IMapper _modelMapper;
 
 		public FoodController( FoodServiceDbContext dbContext )
+		public FoodController( FoodServiceDbContext dbContext, IMapper modelMapper )
 		{
 			_dbContext = dbContext;
+			_modelMapper = modelMapper;
 		}
 
 		// to test

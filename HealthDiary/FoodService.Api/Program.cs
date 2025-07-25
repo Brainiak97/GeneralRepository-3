@@ -25,6 +25,8 @@ namespace Team3.HealthDiary.FoodService.Api
 				options.SwaggerDoc( "v1", new OpenApiInfo() { Title = "FoodService.Api", Version = "v1" } );
 			} );
 
+			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperProfile>() );
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
