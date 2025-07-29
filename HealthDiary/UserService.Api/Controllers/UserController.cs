@@ -37,11 +37,12 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Возвращает информацию о пользователе.
         /// </summary>
+        /// <param name="userId">ИД пользователя</param>
         /// <param name="cancellationToken">Токен отмены.</param>
         /// <returns>Информация о пользователе.</returns>
         [HttpGet("GetUserInfo")]
         [Authorize]
-        public async Task<IActionResult> GetUserInfoAsync([FromBody] int userId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUserInfoAsync(int userId, CancellationToken cancellationToken)
         {
             var user = await _userService.FindById(userId, cancellationToken);
 

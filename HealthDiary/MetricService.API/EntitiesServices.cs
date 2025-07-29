@@ -67,6 +67,9 @@ namespace MetricService.API
             builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
             builder.Services.AddScoped<IReminderService, ReminderService>();
             builder.Services.AddScoped<IValidator<Reminder>, ReminderValidator>();
+
+            builder.Services.AddScoped<IAccessToMetricsRepository, AccessToMetricsRepository>();
+            builder.Services.AddScoped<IAccessToMetricsService, AccessToMetricsService>();            
         }
     }
 }
