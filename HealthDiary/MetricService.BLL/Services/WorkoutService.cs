@@ -15,11 +15,11 @@ namespace MetricService.BLL.Services
     /// </summary>
     /// <seealso cref="IWorkoutService" />
     public class WorkoutService(IWorkoutRepository workoutRepository, IValidator<Workout> validator,
-        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IWorkoutService
+        ClaimsPrincipal authorization, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IWorkoutService
     {
         private readonly IWorkoutRepository _repository = workoutRepository;
         private readonly IValidator<Workout> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
@@ -34,10 +34,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(workoutId), workoutId }
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && workoutFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && workoutFind.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено удалить только свою тренировку",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     workoutFind.UserId,
                                                     _repository.Name);
             }
@@ -49,9 +49,9 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+            if (!_authorization.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
                             await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои тренировки",
@@ -79,9 +79,9 @@ namespace MetricService.BLL.Services
                                                                 { nameof(workoutId), workoutId }
                                                             });
 
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && workoutFind.UserId != grantedUserId &&
+            if (!_authorization.IsInRole("Admin") && workoutFind.UserId != grantedUserId &&
                             await _accessToMetricsService.CheckAccessToMetricsAsync(workoutFind.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свою тренировку",
@@ -97,10 +97,10 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task CreateWorkoutAsync(WorkoutCreateDTO workoutDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && workoutDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && workoutDTO.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     workoutDTO.UserId,
                                                     _repository.Name);
             }
@@ -126,10 +126,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(workoutUpdateDTO), workoutUpdateDTO}
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && findWorkout.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && findWorkout.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные о тренировке для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     findWorkout.UserId,
                                                     _repository.Name);
             }

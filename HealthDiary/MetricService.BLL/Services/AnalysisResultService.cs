@@ -13,12 +13,12 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными о результате анализа пользователя
     /// </summary>
     /// <seealso cref="IAnalysisResultService" />
-    public class AnalysisResultService(IAnalysisResultRepository analysisResultRepository, IValidator<AnalysisResult> validator, 
-        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IAnalysisResultService
+    public class AnalysisResultService(IAnalysisResultRepository analysisResultRepository, IValidator<AnalysisResult> validator,
+        ClaimsPrincipal authorization, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IAnalysisResultService
     {
         private readonly IAnalysisResultRepository _repository = analysisResultRepository;
         private readonly IValidator<AnalysisResult> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
@@ -26,10 +26,10 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task CreateAnalysisResultAsync(AnalysisResultCreateDTO analysisResultCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && (analysisResultCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService)))
+            if (!_authorization.IsInRole("Admin") && (analysisResultCreateDTO.UserId != Common.Common.GetAuthorId(_authorization)))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     analysisResultCreateDTO.UserId,
                                                     _repository.Name);
             }
@@ -56,10 +56,10 @@ namespace MetricService.BLL.Services
                                                            });
 
 
-            if (!_authorizationService.IsInRole("Admin") && analysisFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && analysisFind.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено удалять только свои записи",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     analysisFind.UserId,
                                                     _repository.Name);
             }
@@ -70,12 +70,12 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
 
         public async Task<IEnumerable<AnalysisResultDTO>> GetAllAnalysisResultsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
-        {            
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+        {
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") &&
+            if (!_authorization.IsInRole("Admin") &&
                                     requestListWithPeriodByIdDTO.UserId != grantedUserId &&
-                                    await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId)==false)
+                                    await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои анализы",
                                                     grantedUserId,
@@ -101,9 +101,9 @@ namespace MetricService.BLL.Services
                                                             {
                                                                 { nameof(analysisResultId), analysisResultId }
                                                             });
-            var grantedUserId = Common.Common.GetAuthorId(_authorizationService);
-            if (!_authorizationService.IsInRole("Admin") && analysisResultFind.UserId != grantedUserId &&
-                                await _accessToMetricsService.CheckAccessToMetricsAsync(analysisResultFind.UserId, grantedUserId)==false)
+            var grantedUserId = Common.Common.GetAuthorId(_authorization);
+            if (!_authorization.IsInRole("Admin") && analysisResultFind.UserId != grantedUserId &&
+                                await _accessToMetricsService.CheckAccessToMetricsAsync(analysisResultFind.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои данные",
                                                     grantedUserId,
@@ -125,10 +125,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(analysisResultUpdateDTO), analysisResultUpdateDTO}
                                                            });
 
-            if (!_authorizationService.IsInRole("Admin") && analysisResultFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && analysisResultFind.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     analysisResultFind.UserId,
                                                     _repository.Name);
             }

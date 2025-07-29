@@ -13,11 +13,11 @@ namespace MetricService.BLL.Services
     /// </summary>
     /// <seealso cref="IUserService" />
     public class UserService(IUserRepository userRepository, IValidator<Domain.Models.User> validator,
-        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IUserService
+        ClaimsPrincipal authorization, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IUserService
     {
         private readonly IUserRepository _repository = userRepository;
         private readonly IValidator<Domain.Models.User> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
@@ -32,10 +32,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(userId), userId }
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && userId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && userId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено удалить только свой профиль",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     userId,
                                                     _repository.Name);
             }
@@ -49,10 +49,10 @@ namespace MetricService.BLL.Services
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Только администраторам разрешено просматривать список пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -72,9 +72,9 @@ namespace MetricService.BLL.Services
                                                                 {nameof(userId), userId},
                                                             });
 
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && userId != grantedUserId &&
+            if (!_authorization.IsInRole("Admin") && userId != grantedUserId &&
                             await _accessToMetricsService.CheckAccessToMetricsAsync(userId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вы не можете просматривать профиль другого пользователя",
@@ -97,10 +97,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(userDTO), userDTO}
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && userDTO.Id != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && userDTO.Id != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете создать данные другого пользователя",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     userDTO.Id,
                                                     _repository.Name);
             }
@@ -126,10 +126,10 @@ namespace MetricService.BLL.Services
                                                             {nameof(userDTO), userDTO },
                                                         });
 
-            if (!_authorizationService.IsInRole("Admin") && findUser.Id != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && findUser.Id != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные другого пользователя",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     findUser.Id,
                                                     _repository.Name);
             }

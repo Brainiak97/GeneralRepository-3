@@ -14,11 +14,11 @@ namespace MetricService.BLL.Services
     /// </summary>
     /// <seealso cref="IRegimenService" />
     public class RegimenService(IRegimenRepository regimenRepository, IValidator<Regimen> validator,
-        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IRegimenService
+        ClaimsPrincipal authorization, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IRegimenService
     {
         private readonly IRegimenRepository _repository = regimenRepository;
         private readonly IValidator<Regimen> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
@@ -26,10 +26,10 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task CreateRegimenAsync(RegimenCreateDTO regimenCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && regimenCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && regimenCreateDTO.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     regimenCreateDTO.UserId,
                                                     _repository.Name);
             }
@@ -55,10 +55,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(regimenId), regimenId }
                                                              });
 
-            if (!_authorizationService.IsInRole("Admin") && regimenFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && regimenFind.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено удалить только свою схему приема",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     regimenFind.UserId,
                                                     _repository.Name);
             }
@@ -70,9 +70,9 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<RegimenDTO>> GetAllRegimenByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") &&
+            if (!_authorization.IsInRole("Admin") &&
                 requestListWithPeriodByIdDTO.UserId != grantedUserId &&
                 await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
             {
@@ -101,9 +101,9 @@ namespace MetricService.BLL.Services
                                                             {nameof(regimenId), regimenId }
                                                         });
 
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && regimenFind.UserId != grantedUserId &&
+            if (!_authorization.IsInRole("Admin") && regimenFind.UserId != grantedUserId &&
                         await _accessToMetricsService.CheckAccessToMetricsAsync(regimenFind.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свою тренировку",
@@ -126,10 +126,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(regimenUpdateDTO), regimenUpdateDTO}
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && regimenFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && regimenFind.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные о тренировке для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     regimenFind.UserId,
                                                     _repository.Name);
             }

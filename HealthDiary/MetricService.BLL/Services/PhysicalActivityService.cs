@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MetricService.BLL.DTO.AnalysisType;
 using MetricService.BLL.DTO.PhysicalActivity;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
@@ -13,11 +12,11 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Физическая активность"
     /// </summary>
     /// <seealso cref="IPhysicalActivityService" />
-    public class PhysicalActivityService(IPhysicalActivityRepository physicalActivityRepository, IValidator<PhysicalActivity> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IPhysicalActivityService
+    public class PhysicalActivityService(IPhysicalActivityRepository physicalActivityRepository, IValidator<PhysicalActivity> validator, ClaimsPrincipal authorization, IMapper mapper) : IPhysicalActivityService
     {
         private readonly IPhysicalActivityRepository _repository = physicalActivityRepository;
         private readonly IValidator<PhysicalActivity> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
 
 
@@ -51,10 +50,10 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task CreatePhysicalActivityAsync(PhysicalActivityCreateDTO physicalActivityCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -80,10 +79,10 @@ namespace MetricService.BLL.Services
                                                             {nameof(physicalActivityUpdateDTO), physicalActivityUpdateDTO}
                                                         });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -109,10 +108,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(physicalActivityId), physicalActivityId }
                                                            });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вам не разрешено удалить данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }

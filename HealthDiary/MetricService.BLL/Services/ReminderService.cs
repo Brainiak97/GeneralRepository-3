@@ -13,11 +13,11 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными о напоминании о приеме медикаментов пользователем
     /// </summary>
     /// <seealso cref="IReminderService" />
-    public class ReminderService(IReminderRepository remionderRepository, IValidator<Reminder> validator, ClaimsPrincipal authorizationService, IRegimenService regimenService, IMapper mapper) : IReminderService
+    public class ReminderService(IReminderRepository remionderRepository, IValidator<Reminder> validator, ClaimsPrincipal authorization, IRegimenService regimenService, IMapper mapper) : IReminderService
     {
         private readonly IReminderRepository _repository = remionderRepository;
         private readonly IValidator<Reminder> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IRegimenService _regimenService = regimenService;
         private readonly IMapper _mapper = mapper;
 
@@ -25,10 +25,10 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task CreateReminderAsync(ReminderCreateDTO reminderCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -54,10 +54,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(reminderId), reminderId }
                                                           });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вам не разрешено удалить данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -71,11 +71,11 @@ namespace MetricService.BLL.Services
         {
             var regimen = await _regimenService.GetRegimenByIdAsync(requestListWithPeriodByRegimenIdDTO.RegimenId);
 
-            if (!_authorizationService.IsInRole("Admin") &&
-                regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") &&
+                regimen.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои напоминания",
-                    Common.Common.GetAuthorId(_authorizationService), regimen.UserId, _repository.Name);
+                    Common.Common.GetAuthorId(_authorization), regimen.UserId, _repository.Name);
             }
 
             var reminders = (await _repository.GetAllAsync())
@@ -91,11 +91,11 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<ReminderDTO>> GetAllReminderByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") &&
-                requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") &&
+                requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои напоминания",
-                    Common.Common.GetAuthorId(_authorizationService), requestListWithPeriodByIdDTO.UserId, _repository.Name);
+                    Common.Common.GetAuthorId(_authorization), requestListWithPeriodByIdDTO.UserId, _repository.Name);
             }
 
             var reminders = (await _repository.GetAllAsync())
@@ -117,10 +117,10 @@ namespace MetricService.BLL.Services
                                                             { nameof(reminderId), reminderId }
                                                         });
 
-            if (!_authorizationService.IsInRole("Admin") && reminderFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && reminderFind.Regimen.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свою тренировку",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     reminderFind.Regimen.UserId,
                                                     _repository.Name);
             }
@@ -139,10 +139,10 @@ namespace MetricService.BLL.Services
                                                             {nameof(reminderUpdateDTO), reminderUpdateDTO}
                                                         });
 
-            if (!_authorizationService.IsInRole("Admin") && reminderFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && reminderFind.Regimen.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные о тренировке для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     reminderFind.Regimen.UserId,
                                                     _repository.Name);
             }

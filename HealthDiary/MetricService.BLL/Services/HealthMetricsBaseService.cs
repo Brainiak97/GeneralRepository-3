@@ -14,12 +14,12 @@ namespace MetricService.BLL.Services
     /// </summary>
     /// <seealso cref="IHealthMetricsBaseService" />
     public class HealthMetricsBaseService(IHealthMetricsBaseRepository healthMetricsBaseRepository,
-        IValidator<HealthMetricsBase> validator, ClaimsPrincipal authorizationService, IMapper mapper, 
+        IValidator<HealthMetricsBase> validator, ClaimsPrincipal authorization, IMapper mapper,
         IAccessToMetricsService accessToMetricsService) : IHealthMetricsBaseService
     {
         private readonly IHealthMetricsBaseRepository _repository = healthMetricsBaseRepository;
         private readonly IValidator<HealthMetricsBase> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
@@ -34,10 +34,10 @@ namespace MetricService.BLL.Services
                                                             { nameof(healthMetricsBaseId), healthMetricsBaseId }
                                                        });
 
-            if (!_authorizationService.IsInRole("Admin") && healthMetricsBaseFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && healthMetricsBaseFind.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено удалить только свою запись о базовых показателях здоровья",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     healthMetricsBaseFind.UserId,
                                                     _repository.Name);
             }
@@ -48,11 +48,11 @@ namespace MetricService.BLL.Services
 
         /// <inheritdoc/>
         public async Task<IEnumerable<HealthMetricsBaseDTO>> GetAllRecordsOfHealthMetricsBaseByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
-        {            
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+        {
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
-                            await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId)==false)
+            if (!_authorization.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи о базовых показателях здоровья",
                                                 grantedUserId,
@@ -79,10 +79,10 @@ namespace MetricService.BLL.Services
                                                             { nameof(healthMetricsBaseId), healthMetricsBaseId }
                                                         });
 
-            var grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            var grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && healthMetricsBaseFind.UserId != grantedUserId &&
-                                    await _accessToMetricsService.CheckAccessToMetricsAsync(healthMetricsBaseFind.UserId, grantedUserId) ==false)
+            if (!_authorization.IsInRole("Admin") && healthMetricsBaseFind.UserId != grantedUserId &&
+                                    await _accessToMetricsService.CheckAccessToMetricsAsync(healthMetricsBaseFind.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи о базовых показателях здоровья",
                                                     grantedUserId,
@@ -104,16 +104,16 @@ namespace MetricService.BLL.Services
                                                                 {nameof(healthMetricsBaseUpdateDTO), healthMetricsBaseUpdateDTO}
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && findHealthMetricsBase.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && findHealthMetricsBase.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные о базовых показателях здоровья для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService), 
-                                                    findHealthMetricsBase.UserId, 
+                                                    Common.Common.GetAuthorId(_authorization),
+                                                    findHealthMetricsBase.UserId,
                                                     _repository.Name);
             }
 
             var healthMetricsBase = _mapper.Map<HealthMetricsBase>(healthMetricsBaseUpdateDTO);
-            healthMetricsBase.UserId=findHealthMetricsBase.UserId;
+            healthMetricsBase.UserId = findHealthMetricsBase.UserId;
 
             if (!_validator.Validate(healthMetricsBase, out Dictionary<string, string> errorList))
             {
@@ -128,15 +128,15 @@ namespace MetricService.BLL.Services
         public async Task CreateRecordOfHealthMetricsBaseAsync(HealthMetricsBaseCreateDTO healthMetricsBaseCreateDTO)
         {
 
-            if (!_authorizationService.IsInRole("Admin") && healthMetricsBaseCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && healthMetricsBaseCreateDTO.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные о базовых показателях здоровья для других пользователей",
-                                                Common.Common.GetAuthorId(_authorizationService), 
-                                                healthMetricsBaseCreateDTO.UserId, 
+                                                Common.Common.GetAuthorId(_authorization),
+                                                healthMetricsBaseCreateDTO.UserId,
                                                 _repository.Name);
             }
 
-            var healthMetricsBase = _mapper.Map<HealthMetricsBase>( healthMetricsBaseCreateDTO);
+            var healthMetricsBase = _mapper.Map<HealthMetricsBase>(healthMetricsBaseCreateDTO);
 
             if (!_validator.Validate(healthMetricsBase, out Dictionary<string, string> errorList))
             {
