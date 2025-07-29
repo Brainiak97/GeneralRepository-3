@@ -13,7 +13,7 @@ namespace StateService.Api.Controllers
         private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
 
         [HttpGet("GetDailySummary")]
-        public async Task<IActionResult> GetDailySummary([FromBody] int userId)
+        public async Task<IActionResult> GetDailySummary(int userId)
         {
             if (userId == 0)
             {
