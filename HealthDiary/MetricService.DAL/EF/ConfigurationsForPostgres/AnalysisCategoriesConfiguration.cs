@@ -10,7 +10,8 @@ using System.Text;
 namespace MetricService.DAL.EF.ConfigurationsForPostgres
 {
     class AnalysisCategoriesConfiguration : IEntityTypeConfiguration<AnalysisCategory>
-    {        public void Configure(EntityTypeBuilder<AnalysisCategory> builder)
+    {
+        public void Configure(EntityTypeBuilder<AnalysisCategory> builder)
         {
             builder.ToTable(t => t.HasComment("Категории анализов"));
 
@@ -64,7 +65,8 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                     }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex);
                 Environment.Exit(0);
             }

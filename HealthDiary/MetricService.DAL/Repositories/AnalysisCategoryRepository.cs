@@ -13,7 +13,7 @@ namespace MetricService.DAL.Repositories
     public class AnalysisCategoryRepository : BaseRepository<AnalysisCategory>, IAnalysisCategoryRepository
     {
         /// <summary>
-        /// Cоздать новый объект репозитория<see cref="AnalysisCategoryRepository"/> class.
+        /// Cоздать новый объект репозитория<see cref="AnalysisCategoryRepository"/>.
         /// </summary>
         /// <param name="metricServiceDb">Контекст базы данных MetricService</param>
         public AnalysisCategoryRepository(MetricServiceDbContext metricServiceDb) : base(metricServiceDb)

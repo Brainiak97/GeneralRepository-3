@@ -12,12 +12,14 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными профиля пользователя
     /// </summary>
     /// <seealso cref="IUserService" />
-    public class UserService(IUserRepository userRepository, IValidator<Domain.Models.User> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IUserService
+    public class UserService(IUserRepository userRepository, IValidator<Domain.Models.User> validator,
+        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IUserService
     {
         private readonly IUserRepository _repository = userRepository;
         private readonly IValidator<Domain.Models.User> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
         private readonly IMapper _mapper = mapper;
+        private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
 
         /// <inheritdoc/>
@@ -46,6 +48,7 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
+
             if (!_authorizationService.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Только администраторам разрешено просматривать список пользователей",
@@ -54,7 +57,7 @@ namespace MetricService.BLL.Services
                                                     _repository.Name);
             }
 
-            return _mapper.Map<IEnumerable<UserDTO>>(await _repository.GetAllAsync());               
+            return _mapper.Map<IEnumerable<UserDTO>>(await _repository.GetAllAsync());
 
         }
 
@@ -69,10 +72,13 @@ namespace MetricService.BLL.Services
                                                                 {nameof(userId), userId},
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && userId != Common.Common.GetAuthorId(_authorizationService))
+            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") && userId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(userId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вы не можете просматривать профиль другого пользователя",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     userId,
                                                     _repository.Name);
             }
@@ -94,12 +100,12 @@ namespace MetricService.BLL.Services
             if (!_authorizationService.IsInRole("Admin") && userDTO.Id != Common.Common.GetAuthorId(_authorizationService))
             {
                 throw new ViolationAccessException("Вы не можете создать данные другого пользователя",
-                                                    Common.Common.GetAuthorId(_authorizationService), 
-                                                    userDTO.Id, 
+                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    userDTO.Id,
                                                     _repository.Name);
             }
 
-            var user=_mapper.Map<User>(userDTO);            
+            var user = _mapper.Map<User>(userDTO);
 
             if (!_validator.Validate(user, out Dictionary<string, string> errorList))
             {
@@ -123,8 +129,8 @@ namespace MetricService.BLL.Services
             if (!_authorizationService.IsInRole("Admin") && findUser.Id != Common.Common.GetAuthorId(_authorizationService))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные другого пользователя",
-                                                    Common.Common.GetAuthorId(_authorizationService), 
-                                                    findUser.Id, 
+                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    findUser.Id,
                                                     _repository.Name);
             }
 

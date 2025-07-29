@@ -14,12 +14,14 @@ namespace MetricService.BLL.Services
     ///  Предоставляет реализацию бизнес-логики для работы с данными о тренировках пользователя
     /// </summary>
     /// <seealso cref="IWorkoutService" />
-    public class WorkoutService(IWorkoutRepository workoutRepository, IValidator<Workout> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IWorkoutService
+    public class WorkoutService(IWorkoutRepository workoutRepository, IValidator<Workout> validator,
+        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IWorkoutService
     {
         private readonly IWorkoutRepository _repository = workoutRepository;
         private readonly IValidator<Workout> _validator = validator;
         private readonly ClaimsPrincipal _authorizationService = authorizationService;
         private readonly IMapper _mapper = mapper;
+        private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
 
         /// <inheritdoc/>
@@ -47,10 +49,13 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<WorkoutDTO>> GetAllWorkoutsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorizationService))
+            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои тренировки",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     requestListWithPeriodByIdDTO.UserId,
                                                     _repository.Name);
             }
@@ -58,7 +63,7 @@ namespace MetricService.BLL.Services
             var workouts = (await _repository.GetAllAsync())
                             .Where(w => w.UserId == requestListWithPeriodByIdDTO.UserId &&
                                     w.StartTime >= requestListWithPeriodByIdDTO.BegDate &&
-                                    w.EndTime <= requestListWithPeriodByIdDTO.EndDate);                
+                                    w.EndTime <= requestListWithPeriodByIdDTO.EndDate);
 
             return _mapper.Map<IEnumerable<WorkoutDTO>>(workouts);
         }
@@ -74,10 +79,13 @@ namespace MetricService.BLL.Services
                                                                 { nameof(workoutId), workoutId }
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && workoutFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+
+            if (!_authorizationService.IsInRole("Admin") && workoutFind.UserId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(workoutFind.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свою тренировку",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    grantedUserId,
                                                     workoutFind.UserId,
                                                     _repository.Name);
             }
@@ -127,7 +135,7 @@ namespace MetricService.BLL.Services
             }
 
             var updateWorkout = _mapper.Map<Workout>(workoutUpdateDTO);
-            updateWorkout.UserId = findWorkout.UserId;            
+            updateWorkout.UserId = findWorkout.UserId;
 
             if (!_validator.Validate(updateWorkout, out Dictionary<string, string> errorList))
             {
