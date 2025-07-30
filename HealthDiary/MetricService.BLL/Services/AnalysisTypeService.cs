@@ -12,18 +12,18 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Типы анализов"
     /// </summary>
     /// <seealso cref="IAnalysisTypeService" />
-    public class AnalysisTypeService(IAnalysisTypeRepository repository, IValidator<AnalysisType> validator, ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisTypeService
+    public class AnalysisTypeService(IAnalysisTypeRepository repository, IValidator<AnalysisType> validator, ClaimsPrincipal authorization, IMapper mapper) : IAnalysisTypeService
     {
         private readonly IAnalysisTypeRepository _repository = repository;
         private readonly IValidator<AnalysisType> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
 
 
         /// <inheritdoc/>
         public async Task<IEnumerable<AnalysisTypeDTO>> GetAllAnalysisTypeAsync()
         {
-            return _mapper.Map<IEnumerable<AnalysisTypeDTO>>(await _repository.GetAllAsync());           
+            return _mapper.Map<IEnumerable<AnalysisTypeDTO>>(await _repository.GetAllAsync());
         }
 
 
@@ -44,17 +44,17 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<AnalysisTypeDTO>> GetListAnalysisTypeBySearchAsync(string search)
         {
-           return _mapper.Map<IEnumerable<AnalysisTypeDTO>>(await _repository.GetListAnalysisTypeBySearchAsync(search));
+            return _mapper.Map<IEnumerable<AnalysisTypeDTO>>(await _repository.GetListAnalysisTypeBySearchAsync(search));
         }
 
 
         /// <inheritdoc/>
         public async Task CreateAnalysisTypeAsync(AnalysisTypeCreateDTO analysisTypeCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -80,10 +80,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(analysisTypeUpdateDTO), analysisTypeUpdateDTO}
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -103,17 +103,17 @@ namespace MetricService.BLL.Services
         public async Task DeleteAnalysisTypeAsync(int analysisTypeId)
         {
             _ = await _repository.GetByIdAsync(analysisTypeId) ??
-               throw new IncorrectOrEmptyResultException("Тип анализов не зарегистрирован", 
+               throw new IncorrectOrEmptyResultException("Тип анализов не зарегистрирован",
                                                            new Dictionary<object, object>()
                                                            {
                                                                 { nameof(analysisTypeId), analysisTypeId }
                                                            });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
-                throw new ViolationAccessException("Вам не разрешено удалить данные", 
-                                                    Common.Common.GetAuthorId(_authorizationService), 
-                                                    0, 
+                throw new ViolationAccessException("Вам не разрешено удалить данные",
+                                                    Common.Common.GetAuthorId(_authorization),
+                                                    0,
                                                     _repository.Name);
             }
 

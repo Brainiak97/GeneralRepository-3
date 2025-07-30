@@ -12,20 +12,20 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Медикаменты"
     /// </summary>
     /// <seealso cref="IMedicationService" />
-    public class MedicationService(IMedicationRepository medicationRepository, ClaimsPrincipal authorizationService, IMapper mapper) : IMedicationService
+    public class MedicationService(IMedicationRepository medicationRepository, ClaimsPrincipal authorization, IMapper mapper) : IMedicationService
     {
         private readonly IMedicationRepository _repository = medicationRepository;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
 
 
         /// <inheritdoc/>
         public async Task CreateMedicationAsync(MedicationCreateDTO medicationCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные",
-                    Common.Common.GetAuthorId(_authorizationService),
+                    Common.Common.GetAuthorId(_authorization),
                     0,
                     _repository.Name);
             }
@@ -46,10 +46,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(medicationId), medicationId }
                                                           });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вам не разрешено удалить данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -89,10 +89,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(medicationUpdateDTO), medicationUpdateDTO}
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }

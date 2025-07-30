@@ -13,12 +13,12 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными о приеме медикаментов пользователем
     /// </summary>
     /// <seealso cref="IIntakeService" />
-    public class IntakeService(IIntakeRepository intakeRepository, IValidator<Intake> validator, 
-        ClaimsPrincipal authorizationService, IRegimenService regimenService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IIntakeService
+    public class IntakeService(IIntakeRepository intakeRepository, IValidator<Intake> validator,
+        ClaimsPrincipal authorization, IRegimenService regimenService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : IIntakeService
     {
         private readonly IIntakeRepository _repository = intakeRepository;
         private readonly IValidator<Intake> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IRegimenService _regimenService = regimenService;
         private readonly IMapper _mapper = mapper;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
@@ -28,10 +28,10 @@ namespace MetricService.BLL.Services
         public async Task CreateIntakeAsync(IntakeCreateDTO intakeCreateDTO)
         {
             var regimen = await _regimenService.GetRegimenByIdAsync(intakeCreateDTO.RegimenId);
-            if (!_authorizationService.IsInRole("Admin") && regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && regimen.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     regimen.UserId,
                                                     _repository.Name);
             }
@@ -57,10 +57,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(intakeId), intakeId }
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено удалить только свою запись приема лекарств",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     intakeFind.Regimen.UserId,
                                                     _repository.Name);
             }
@@ -71,11 +71,11 @@ namespace MetricService.BLL.Services
 
         /// <inheritdoc/>
         public async Task<IEnumerable<IntakeDTO>> GetAllIntakeByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
-        {            
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+        {
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
-                                    await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId)==false)
+            if (!_authorization.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+                                    await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи приема лекарств",
                                                     grantedUserId,
@@ -102,10 +102,10 @@ namespace MetricService.BLL.Services
                                                             { nameof(intakeId), intakeId }
                                                        });
 
-            var grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            var grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != grantedUserId &&
-                            await _accessToMetricsService.CheckAccessToMetricsAsync(intakeFind.Regimen.UserId, grantedUserId)==false)
+            if (!_authorization.IsInRole("Admin") && intakeFind.Regimen.UserId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(intakeFind.Regimen.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи приема лекарств",
                                                     grantedUserId,
@@ -127,10 +127,10 @@ namespace MetricService.BLL.Services
                                                                 {nameof(intakeUpdateDTO), intakeUpdateDTO}
                                                            });
 
-            if (!_authorizationService.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && intakeFind.Regimen.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     intakeFind.Regimen.UserId,
                                                     _repository.Name);
             }

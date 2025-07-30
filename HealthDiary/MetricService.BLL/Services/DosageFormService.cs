@@ -12,25 +12,25 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Формы выпуска препарата"
     /// </summary>
     /// <seealso cref="IDosageFormService" />
-    public class DosageFormService(IDosageFormRepository dosageFormRepository, ClaimsPrincipal authorizationService, IMapper mapper) : IDosageFormService
+    public class DosageFormService(IDosageFormRepository dosageFormRepository, ClaimsPrincipal authorization, IMapper mapper) : IDosageFormService
     {
-        private readonly IDosageFormRepository _repository = dosageFormRepository;        
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly IDosageFormRepository _repository = dosageFormRepository;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
 
 
         /// <inheritdoc/>
         public async Task CreateDosageFormAsync(DosageFormCreateDTO dosageFormCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
 
-            var dosageForm = _mapper.Map<DosageForm>(dosageFormCreateDTO);            
+            var dosageForm = _mapper.Map<DosageForm>(dosageFormCreateDTO);
 
             await _repository.CreateAsync(dosageForm);
         }
@@ -46,10 +46,10 @@ namespace MetricService.BLL.Services
                                                             {nameof(dosageFormId), dosageFormId }
                                                        });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вам не разрешено удалить данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -88,15 +88,15 @@ namespace MetricService.BLL.Services
                                                                 {nameof(dosageFormUpdateDTO), dosageFormUpdateDTO}
                                                             });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
 
-            var dosageForm = _mapper.Map<DosageForm>(dosageFormUpdateDTO);           
+            var dosageForm = _mapper.Map<DosageForm>(dosageFormUpdateDTO);
 
             await _repository.UpdateAsync(dosageForm);
         }

@@ -12,12 +12,12 @@ namespace MetricService.BLL.Services
     /// Предоставляет реализацию бизнес-логики для работы с данными справочника "Категории анализов"
     /// </summary>
     /// <seealso cref="IAnalysisCategoryService" />
-    public class AnalysisCategoryService(IAnalysisCategoryRepository repository, IValidator<AnalysisCategory> validator, 
-        ClaimsPrincipal authorizationService, IMapper mapper) : IAnalysisCategoryService
+    public class AnalysisCategoryService(IAnalysisCategoryRepository repository, IValidator<AnalysisCategory> validator,
+        ClaimsPrincipal authorization, IMapper mapper) : IAnalysisCategoryService
     {
         private readonly IAnalysisCategoryRepository _repository = repository;
         private readonly IValidator<AnalysisCategory> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
 
         /// <inheritdoc/>
@@ -44,17 +44,17 @@ namespace MetricService.BLL.Services
 
         /// <inheritdoc/>
         public async Task<IEnumerable<AnalysisCategoryDTO>> GetListAnalysisCategoriesBySearchAsync(string search)
-        {  
+        {
             return _mapper.Map<IEnumerable<AnalysisCategoryDTO>>(await _repository.GetListAnalysisCategoriesBySearchAsync(search));
         }
 
         /// <inheritdoc/>
         public async Task CreateAnalysisCategoryAsync(AnalysisCategoryCreateDTO analysisCategoryCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -79,10 +79,10 @@ namespace MetricService.BLL.Services
                                                             {nameof(analysisCategoryUpdateDTO), analysisCategoryUpdateDTO}
                                                         });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }
@@ -107,10 +107,10 @@ namespace MetricService.BLL.Services
                                                                 { nameof(analysisCategoryId), analysisCategoryId }
                                                            });
 
-            if (!_authorizationService.IsInRole("Admin"))
+            if (!_authorization.IsInRole("Admin"))
             {
                 throw new ViolationAccessException("Вам не разрешено удалить данные",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     0,
                                                     _repository.Name);
             }

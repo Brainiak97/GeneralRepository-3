@@ -14,11 +14,11 @@ namespace MetricService.BLL.Services
     /// </summary>
     /// <seealso cref="ISleepService" />
     public class SleepService(ISleepRepository sleepRepository, IValidator<Sleep> validator,
-        ClaimsPrincipal authorizationService, IMapper mapper, IAccessToMetricsService accessToMetricsService) : ISleepService
+        ClaimsPrincipal authorization, IMapper mapper, IAccessToMetricsService accessToMetricsService) : ISleepService
     {
         private readonly ISleepRepository _repository = sleepRepository;
         private readonly IValidator<Sleep> _validator = validator;
-        private readonly ClaimsPrincipal _authorizationService = authorizationService;
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IMapper _mapper = mapper;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
@@ -33,10 +33,10 @@ namespace MetricService.BLL.Services
                                                             { nameof(sleepId), sleepId }
                                                         });
 
-            if (!_authorizationService.IsInRole("Admin") && sleepFind.UserId != Common.Common.GetAuthorId(_authorizationService))
+            if (!_authorization.IsInRole("Admin") && sleepFind.UserId != Common.Common.GetAuthorId(_authorization))
             {
                 throw new ViolationAccessException("Вам разрешено удалить только свою запись о сне",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     sleepFind.UserId,
                                                     _repository.Name);
             }
@@ -48,9 +48,9 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<SleepDTO>> GetAllRecordsOfSleepByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
+            if (!_authorization.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
                             await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи о сне",
@@ -77,9 +77,9 @@ namespace MetricService.BLL.Services
                                                         { "sleepId", sleepId }
                                                     });
 
-            int grantedUserId = Common.Common.GetAuthorId(_authorizationService);
+            int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorizationService.IsInRole("Admin") && sleepFind.UserId != grantedUserId &&
+            if (!_authorization.IsInRole("Admin") && sleepFind.UserId != grantedUserId &&
                                 await _accessToMetricsService.CheckAccessToMetricsAsync(sleepFind.UserId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи о сне",
@@ -95,10 +95,10 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task CreateRecordOfSleepAsync(SleepCreateDTO sleepCreateDTO)
         {
-            if (!_authorizationService.IsInRole("Admin") && (sleepCreateDTO.UserId != Common.Common.GetAuthorId(_authorizationService)))
+            if (!_authorization.IsInRole("Admin") && (sleepCreateDTO.UserId != Common.Common.GetAuthorId(_authorization)))
             {
                 throw new ViolationAccessException("Вы не можете создавать данные о сне для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     sleepCreateDTO.UserId,
                                                     _repository.Name);
             }
@@ -125,10 +125,10 @@ namespace MetricService.BLL.Services
                                                                        });
 
 
-            if (!_authorizationService.IsInRole("Admin") && (findSleep.UserId != Common.Common.GetAuthorId(_authorizationService)))
+            if (!_authorization.IsInRole("Admin") && (findSleep.UserId != Common.Common.GetAuthorId(_authorization)))
             {
                 throw new ViolationAccessException("Вы не можете изменять данные о сне для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorizationService),
+                                                    Common.Common.GetAuthorId(_authorization),
                                                     findSleep.UserId,
                                                     _repository.Name);
             }
