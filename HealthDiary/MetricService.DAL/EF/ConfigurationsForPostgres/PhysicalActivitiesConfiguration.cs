@@ -12,19 +12,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
     internal class PhysicalActivitiesConfiguration : IEntityTypeConfiguration<PhysicalActivity>
     {        
         public void Configure(EntityTypeBuilder<PhysicalActivity> builder)
-        {
-            builder.ToTable(t => t.HasComment("Тренировки"));
-
-            builder.Property(p => p.Id)
-                .HasComment("Идентификатор");
-
-            builder.Property(p => p.Name)
-               .HasComment("Наименование физической активности")
-               .HasMaxLength(150);
-
-            builder.Property(p => p.EnergyEquivalent)
-               .HasComment("Метаболический эквивалент");
-
+        {  
             builder.HasData(InitData());
         }
 
