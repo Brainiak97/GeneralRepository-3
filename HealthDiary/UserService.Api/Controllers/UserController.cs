@@ -37,7 +37,7 @@ namespace UserService.Api.Controllers
         /// <summary>
         /// Возвращает информацию о пользователе.
         /// </summary>
-        /// <param name="userId">ИД пользователя</param>
+        /// <param name="userId">Идентификатор пользователя.</param>
         /// <param name="cancellationToken">Токен отмены.</param>
         /// <returns>Информация о пользователе.</returns>
         [HttpGet("GetUserInfo")]
