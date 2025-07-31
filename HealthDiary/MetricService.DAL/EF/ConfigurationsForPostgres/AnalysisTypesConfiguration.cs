@@ -13,31 +13,6 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
     {
         public void Configure(EntityTypeBuilder<AnalysisType> builder)
         {
-            builder.ToTable(t => t.HasComment("Типы анализов"));
-
-            builder.Property(a => a.Id)
-                .HasComment("Идентификатор");
-
-            builder.Property(a => a.AnalysisCategoryId)
-               .HasComment("Ссылка на категорию анализа");
-
-            builder.Property(a => a.Name)
-               .HasComment("Название конкретного анализа(например, «Лейкоциты», «Холестерин»)")
-               .HasMaxLength(150); ;
-
-            builder.Property(a => a.ReferenceValueMale)
-               .HasComment("Эталонное значение мужской")
-               .HasMaxLength(150); ;
-
-            builder.Property(a => a.ReferenceValueFemale)
-               .HasComment("Эталонное значение женский")
-               .HasMaxLength(150); ;
-
-            builder.HasOne<AnalysisCategory>(a => a.AnalysisCategory)
-                .WithMany()
-                .HasForeignKey(a => a.AnalysisCategoryId)
-                .OnDelete(DeleteBehavior.ClientNoAction);
-
             builder.HasData(InitData());
         }
 
