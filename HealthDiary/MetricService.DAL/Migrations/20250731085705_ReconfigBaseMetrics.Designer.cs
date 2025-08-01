@@ -3,6 +3,7 @@ using System;
 using MetricService.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    partial class MetricServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250731085705_ReconfigBaseMetrics")]
+    partial class ReconfigBaseMetrics
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2266,13 +2269,13 @@ namespace MetricService.DAL.Migrations
                     b.HasOne("MetricService.Domain.Models.AnalysisType", "AnalysisType")
                         .WithMany()
                         .HasForeignKey("AnalysisTypeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("MetricService.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("AnalysisType");
@@ -2285,7 +2288,7 @@ namespace MetricService.DAL.Migrations
                     b.HasOne("MetricService.Domain.Models.AnalysisCategory", "AnalysisCategory")
                         .WithMany()
                         .HasForeignKey("AnalysisCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.Navigation("AnalysisCategory");

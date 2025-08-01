@@ -1,13 +1,18 @@
-﻿namespace MetricService.Domain.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MetricService.Domain.Models
 {
     /// <summary>
     /// Схема приема медикаментов
     /// </summary>
-    public class Regimen: BaseModel
+    [Comment("Схема приема медикаментов")]
+    public class Regimen : BaseModel
     {
         /// <summary>
         /// Идентификатор пользователя
-        /// </summary>       
+        /// </summary> 
+        [Comment("Пользователь")]
         public int UserId { get; set; }
 
         /// <summary>
@@ -17,37 +22,46 @@
 
         /// <summary>
         /// Медицинский препарат
-        /// </summary>       
+        /// </summary>
+        [Comment("Медицинский препарат")]
         public int MedicationId { get; set; }
 
         /// <summary>
         /// Медицинский препарат
-        /// </summary>       
+        /// </summary> 
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public Medication Medication { get; set; } = null!;
 
         /// <summary>
         /// Прописанная дозировка (например, "1 табл." или "5 мл")
-        /// </summary>       
+        /// </summary>  
+        [Comment("Прописанная дозировка (например, \"1 табл.\" или \"5 мл\")")]
         public string Dosage { get; set; } = string.Empty;
 
         /// <summary>
         /// График приема (например, "Утро, обед, вечер")
-        /// </summary>        
+        /// </summary> 
+        [Comment("График приема (например, \"Утро, обед, вечер\")")]
         public string Shedule { get; set; } = string.Empty;
 
         /// <summary>
         /// Дата начала приема
-        /// </summary>        
+        /// </summary> 
+        [Comment("Дата начала приема")]
+        [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
 
         /// <summary>
         /// Предполагаемая дата окончания приема
-        /// </summary>        
+        /// </summary> 
+        [Comment("Предполагаемая дата окончания приема")]
+        [Column(TypeName = "date")]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Заметки или дополнения
-        /// </summary>        
+        /// </summary>  
+        [Comment("Заметки или дополнения")]
         public string? Comment { get; set; }
     }
 }
