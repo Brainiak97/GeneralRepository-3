@@ -1,5 +1,5 @@
-﻿using CsvHelper.Configuration;
-using CsvHelper;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
 using MetricService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,26 +13,6 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
     {
         public void Configure(EntityTypeBuilder<Medication> builder)
         {
-            builder.ToTable(t => t.HasComment("Медикаменты"));
-
-            builder.Property(m => m.Id)
-                .HasComment("Идентификатор");
-
-            builder.Property(m => m.Name)
-               .HasComment("Наименование препарата")
-               .HasMaxLength(150);
-
-            builder.Property(m => m.DosageFormId)
-               .HasComment("Форма выпуска (таблетка, капсул, раствор и т.д.)");
-
-            builder.Property(m => m.Instruction)
-               .HasComment("Инструкции по применению");
-
-            builder.HasOne<DosageForm>(m => m.DosageForm)
-                .WithMany()
-                .HasForeignKey(m => m.DosageFormId)
-                .OnDelete(DeleteBehavior.NoAction);
-
             builder.HasData(InitData());
         }
 
@@ -69,11 +49,11 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                             Name = csv.GetField(1)!.Trim(),
                             DosageFormId = csv.GetField<int>(2),
                             Instruction = csv.GetField(3)!.Trim(),
-                    }
+                        }
                     ;
-                    records.Add(record);
+                        records.Add(record);
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
