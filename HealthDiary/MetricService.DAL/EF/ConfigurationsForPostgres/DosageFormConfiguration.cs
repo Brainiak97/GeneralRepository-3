@@ -1,5 +1,5 @@
-﻿using CsvHelper.Configuration;
-using CsvHelper;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
 using MetricService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,15 +13,6 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
     {
         public void Configure(EntityTypeBuilder<DosageForm> builder)
         {
-            builder.ToTable(t => t.HasComment("Форма выпуска препарата"));
-
-            builder.Property(d => d.Id)
-                .HasComment("Идентификатор");
-
-            builder.Property(d => d.Name)
-               .HasComment("Наименование формы выпуска (таблетка, капсул, раствор и т.д.)")
-               .HasMaxLength(150);
-           
             builder.HasData(InitData());
         }
 
@@ -55,7 +46,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                         var record = new
                         {
                             Id = csv.GetField<int>(0),
-                            Name = csv.GetField(1)!.Trim()                            
+                            Name = csv.GetField(1)!.Trim()
                         };
                         records.Add(record);
                     }
