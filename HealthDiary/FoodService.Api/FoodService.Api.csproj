@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FoodService.BLL\FoodService.BLL.csproj" />
     <ProjectReference Include="..\FoodService.DAL\FoodService.DAL.csproj" />
   </ItemGroup>
 
