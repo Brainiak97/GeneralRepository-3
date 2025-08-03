@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MetricService.Domain.Models
 {
-
     /// <summary>
     /// Типы анализов
     /// </summary>
@@ -29,7 +28,6 @@ namespace MetricService.Domain.Models
         [MaxLength(150)]
         public string Name { get; set; } = string.Empty;
 
-
         /// <summary>
         ///Эталонное значение мужской
         /// </summary> 
@@ -43,7 +41,6 @@ namespace MetricService.Domain.Models
         [Comment("Эталонное значение женский")]
         [MaxLength(150)]
         public string? ReferenceValueFemale { get; set; }
-
 
         /// <summary>
         /// Единица измерения(например, г/л, ммоль/л)
