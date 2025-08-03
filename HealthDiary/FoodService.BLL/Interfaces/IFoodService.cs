@@ -9,7 +9,7 @@ namespace Team3.HealthDiary.FoodService.BLL.Interfaces
 		/// </summary>
 		/// <param name="productId">Id искомого продукта</param>
 		/// <returns>Продукт, найденный в справочнике</returns>
-		Task<Product> GetProduct( int productId );
+		Task<Product?> GetProduct( int productId );
 
 		/// <summary>
 		/// Возвращает продукты
