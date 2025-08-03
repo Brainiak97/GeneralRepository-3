@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Team3.HealthDiary.FoodService.Api.Middlewares;
+using Team3.HealthDiary.FoodService.BLL.Interfaces;
 using Team3.HealthDiary.FoodService.DAL;
 
 namespace Team3.HealthDiary.FoodService.Api
@@ -26,6 +27,9 @@ namespace Team3.HealthDiary.FoodService.Api
 			} );
 
 			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperProfile>() );
+
+			// Add services
+			builder.Services.AddScoped<IFoodService, BLL.Services.FoodService>();
 
 			var app = builder.Build();
 
