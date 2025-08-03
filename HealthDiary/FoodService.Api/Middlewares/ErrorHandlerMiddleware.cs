@@ -1,4 +1,6 @@
-﻿namespace Team3.HealthDiary.FoodService.Api.Middlewares
+﻿using Team3.HealthDiary.FoodService.BLL.Exceptions;
+
+namespace Team3.HealthDiary.FoodService.Api.Middlewares
 {
 	/// <summary>
 	/// Middleware для обработки ошибок API методов
@@ -20,6 +22,14 @@
 			try
 			{
 				await _next( context );
+			}
+			catch ( EntryNotFoundException exc )
+			{
+				//TODO log
+				Console.WriteLine( $"Возникла ошибка: {exc}" );
+				context.Response.StatusCode = StatusCodes.Status400BadRequest;
+				context.Response.ContentType = "application/json";
+				await context.Response.WriteAsJsonAsync( new { Message = exc.Message } );
 			}
 			catch ( Exception exc )
 			{

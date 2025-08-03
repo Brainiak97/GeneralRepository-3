@@ -8,7 +8,9 @@ namespace Team3.HealthDiary.FoodService.DAL
 	{
 		public AutoMapperProfile()
 		{
-			CreateMap<ProductDto, Product>().ReverseMap();
+			CreateMap<ProductDto, Product>()
+				.ConstructUsing( x => new Product( x.Name, x.Calories, x.Proteins, x.Fats, x.Carbs, x.InfoSourceType ) )
+				.ReverseMap();
 		}
 	}
 }
