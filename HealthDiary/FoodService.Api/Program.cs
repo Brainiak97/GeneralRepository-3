@@ -32,6 +32,9 @@ namespace FoodService.Api
 			// Add services
 			builder.Services.AddScoped<IFoodService, BLL.Services.FoodService>();
 
+			// Add services
+			builder.Services.AddScoped<IFoodService, BLL.Services.FoodService>();
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
