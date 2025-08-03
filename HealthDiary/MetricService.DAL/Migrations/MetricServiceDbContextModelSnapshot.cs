@@ -53,7 +53,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("ProviderUserId");
 
-                    b.ToTable("AccessToMetrics", t =>
+                    b.ToTable("AccessToMetrics", null, t =>
                         {
                             t.HasComment("Доступ к личным метрикам");
                         });
@@ -80,7 +80,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AnalysisCategories", t =>
+                    b.ToTable("AnalysisCategories", null, t =>
                         {
                             t.HasComment("Категории анализов");
                         });
@@ -409,7 +409,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AnalysisResults", t =>
+                    b.ToTable("AnalysisResults", null, t =>
                         {
                             t.HasComment("Результаты анализов");
                         });
@@ -451,7 +451,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("AnalysisCategoryId");
 
-                    b.ToTable("AnalysisTypes", t =>
+                    b.ToTable("AnalysisTypes", null, t =>
                         {
                             t.HasComment("Типы анализов");
                         });
@@ -1223,7 +1223,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DosageForms", t =>
+                    b.ToTable("DosageForms", null, t =>
                         {
                             t.HasComment("Форма выпуска препарата");
                         });
@@ -1307,7 +1307,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthMetricsBase", t =>
+                    b.ToTable("HealthMetricsBase", null, t =>
                         {
                             t.HasComment("Базовые медицинские показатели");
                         });
@@ -1342,7 +1342,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("RegimenId");
 
-                    b.ToTable("Intakes", t =>
+                    b.ToTable("Intakes", null, t =>
                         {
                             t.HasComment("Прием лекарств");
                         });
@@ -1376,7 +1376,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("DosageFormId");
 
-                    b.ToTable("Medications", t =>
+                    b.ToTable("Medications", null, t =>
                         {
                             t.HasComment("Медикаменты");
                         });
@@ -1545,7 +1545,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhysicalActivities", t =>
+                    b.ToTable("PhysicalActivities", null, t =>
                         {
                             t.HasComment("Физическая активность");
                         });
@@ -2096,7 +2096,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Regimens", t =>
+                    b.ToTable("Regimens", null, t =>
                         {
                             t.HasComment("Схема приема медикаментов");
                         });
@@ -2127,7 +2127,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("RegimenId");
 
-                    b.ToTable("Reminders", t =>
+                    b.ToTable("Reminders", null, t =>
                         {
                             t.HasComment("Напоминание о приеме лекарств");
                         });
@@ -2166,7 +2166,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sleeps", t =>
+                    b.ToTable("Sleeps", null, t =>
                         {
                             t.HasComment("Сон");
                         });
@@ -2195,7 +2195,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", t =>
+                    b.ToTable("Users", null, t =>
                         {
                             t.HasComment("Пользователь");
                         });
@@ -2236,7 +2236,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Workouts", t =>
+                    b.ToTable("Workouts", null, t =>
                         {
                             t.HasComment("Тренировки");
                         });
