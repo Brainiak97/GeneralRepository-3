@@ -1,0 +1,16 @@
+﻿using AutoMapper;
+using Team3.HealthDiary.FoodService.DAL.Dtos;
+using Team3.HealthDiary.FoodService.DAL.Entities;
+
+namespace Team3.HealthDiary.FoodService.DAL
+{
+	public class AutoMapperProfile : Profile
+	{
+		public AutoMapperProfile()
+		{
+			CreateMap<ProductDto, Product>()
+				.ConstructUsing( x => new Product( x.Name, x.Calories, x.Proteins, x.Fats, x.Carbs, x.InfoSourceType ) )
+				.ReverseMap();
+		}
+	}
+}

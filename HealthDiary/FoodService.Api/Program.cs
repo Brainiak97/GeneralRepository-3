@@ -1,10 +1,10 @@
-
-using FoodService.Api.Middlewares;
-using FoodService.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Team3.HealthDiary.FoodService.Api.Middlewares;
+using Team3.HealthDiary.FoodService.BLL.Interfaces;
+using Team3.HealthDiary.FoodService.DAL;
 
-namespace FoodService.Api
+namespace Team3.HealthDiary.FoodService.Api
 {
 	public class Program
 	{
@@ -25,6 +25,11 @@ namespace FoodService.Api
 			{
 				options.SwaggerDoc( "v1", new OpenApiInfo() { Title = "FoodService.Api", Version = "v1" } );
 			} );
+
+			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperProfile>() );
+
+			// Add services
+			builder.Services.AddScoped<IFoodService, BLL.Services.FoodService>();
 
 			var app = builder.Build();
 
