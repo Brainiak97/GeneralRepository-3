@@ -1,5 +1,5 @@
-﻿using CsvHelper.Configuration;
-using CsvHelper;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
 using MetricService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,18 +13,6 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
     {
         public void Configure(EntityTypeBuilder<AnalysisCategory> builder)
         {
-            builder.ToTable(t => t.HasComment("Категории анализов"));
-
-            builder.Property(a => a.Id)
-                .HasComment("Идентификатор");
-
-            builder.Property(a => a.Name)
-               .HasComment("Наименование категории анализа")
-               .HasMaxLength(150); ;
-
-            builder.Property(a => a.Description)
-               .HasComment("Описание категории анализа");
-
             builder.HasData(InitData());
         }
 
@@ -39,7 +27,6 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                 .Append(Path.DirectorySeparatorChar)
                 .Append(typeof(AnalysisCategory).Name)
                 .Append(".csv");
-
 
             var records = new List<object>();
 
