@@ -25,8 +25,8 @@ namespace MetricService.Domain.Models
         /// Наименование показателя (например, "Уровень стресса")
         /// </summary> 
         [Comment("Наименование показателя (например, \"Уровень стресса\")")]
-        [MaxLength(150)]
-        public string Name { get; set; } = string.Empty;
+        [MaxLength(150)]       
+        public string Name { get; set; }=null!;
 
         /// <summary>
         /// Описание показателя (например, "Оценивайте стресс от 1 до 10")
