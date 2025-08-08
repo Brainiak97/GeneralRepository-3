@@ -1,13 +1,18 @@
-﻿namespace MetricService.Domain.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MetricService.Domain.Models
 {
     /// <summary>
     /// Тренировка
     /// </summary>
+    [Comment("Тренировки")]
     public class Workout : BaseModel
     {
         /// <summary>
         /// Идентификатор пользователя
-        /// </summary>        
+        /// </summary> 
+        [Comment("Идентификатор пользователя")]
         public int UserId { get; set; }
 
         /// <summary>
@@ -18,26 +23,33 @@
         /// <summary>
         /// Идентификатор физической активности
         /// </summary>
+        [Comment("Физ. активность")]
         public int PhysicalActivityId { get; set; }
 
         /// <summary>
         /// Физическая активность
         /// </summary>
+        [DeleteBehavior(DeleteBehavior.NoAction)]
         public PhysicalActivity PhysicalActivity { get; set; } = null!;
 
         /// <summary>
         /// Время начала тренировки
-        /// </summary>        
+        /// </summary>    
+        [Comment("Время начала тренировки")]
+        [Column(TypeName = "timestamp with time zone")]
         public DateTime StartTime { get; set; }
 
         /// <summary>
         /// Время окончания тренировки
-        /// </summary>       
+        /// </summary>  
+        [Comment("Время окончания тренировки")]
+        [Column(TypeName = "timestamp with time zone")]
         public DateTime EndTime { get; set; }
 
         /// <summary>
         /// Описание
         /// </summary>
+        [Comment("Описание")]
         public string? Description { get; set; }
 
         /// <summary>
