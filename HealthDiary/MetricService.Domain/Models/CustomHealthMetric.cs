@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 namespace MetricService.Domain.Models
 {
     /// <summary>
-    /// Справочник пользовательских показателей здоровья
+    /// Пользовательский показатель здоровья
     /// </summary>
-    [Comment("Справочник пользовательских показателей здоровья")]
+    [Comment("Пользовательский показатель здоровья")]
     public class CustomHealthMetric : BaseModel
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace MetricService.Domain.Models
         /// Описание показателя (например, "Оценивайте стресс от 1 до 10")
         /// </summary> 
         [Comment("Описание показателя (например, \"Оценивайте стресс от 1 до 10\")")]
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; } = null!;
 
         /// <summary>
         /// Единица измерения (шкала, проценты, абсолютные значения)
