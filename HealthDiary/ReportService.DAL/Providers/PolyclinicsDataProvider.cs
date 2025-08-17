@@ -10,6 +10,6 @@ internal class PolyclinicsDataProvider(HttpClient httpClient) : IPolyclinicsData
     /// <inheritdoc />
     public Task<object> GetAppointmentResultById(int appResultId)
     {
-        throw new NotImplementedException();
+        return null;
     }
 }

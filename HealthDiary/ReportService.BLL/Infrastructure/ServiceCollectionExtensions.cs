@@ -22,8 +22,8 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddCommon(this IServiceCollection services) =>
         services
-            .AddSingleton<IReportGeneratorFactory, ReportGeneratorFactory>()
-            .AddSingleton<IPdfReportGenerator, QuestPdfReportGenerator>();
+            .AddSingleton<IPdfReportGenerator, QuestPdfReportGenerator>()
+            .AddSingleton<IReportGeneratorFactory, ReportGeneratorFactory>();
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>
         services.AddScoped<IReportService, Services.ReportService>();

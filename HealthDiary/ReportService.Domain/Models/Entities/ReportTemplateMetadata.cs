@@ -13,5 +13,5 @@ public class ReportTemplateMetadata
     /// <summary>
     /// Наименование типа источника данных для шаблона отчёта.
     /// </summary>
-    public required Type DataSourceType { get; set; }
+    public required string ReportTemplateTypeName { get; set; }
 }

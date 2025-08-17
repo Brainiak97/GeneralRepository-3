@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReportService.Api.Contracts.Enums;
 using ReportService.Api.WebRoutes;
+using ReportService.BLL.Interfaces;
 
 namespace ReportService.Api.Controllers;
 
@@ -10,19 +10,21 @@ namespace ReportService.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
-public class ReportsController : ControllerBase
+public class ReportsController(IReportService reportService) : ControllerBase
 {
     /// <summary>
     /// Вернуть отчёт по идентификатору результата приёма врача.
     /// </summary>
-    /// <param name="appointmentResultId">Идентификатор результата приёма врача.</param>
+    /// <param name="id">Идентификатор результата приёма врача.</param>
     /// <param name="reportFormat">Формат отчёта.</param>
     /// <returns>Отчёт.</returns>
-    [HttpGet("{appointmentResultId:int}")]
-    public Task<IActionResult> GetReportByAppointmentResultId(int appointmentResultId, ReportFormat reportFormat)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetReportByAppointmentResultId(int id, ReportFormat reportFormat)
     {
-        throw new NotImplementedException();
+        var response = await reportService.GenerateReportAsync(id, reportFormat);
+        return response?.ReportContent is not { Length: > 0 }
+            ? BadRequest()
+            : File(response.ReportContent, GetContentTypeByFormat(reportFormat) ,response.FileName);
     }
 
     /// <summary>
@@ -32,6 +34,13 @@ public class ReportsController : ControllerBase
     [HttpGet(ReportsControllerWebRoutes.GetReportTemplateTypes)]
     public Task<IActionResult> GetReportTemplateTypes()
     {
-        throw new NotImplementedException();    
+        throw new NotImplementedException();
     }
+
+    private static string GetContentTypeByFormat(ReportFormat reportFormat) =>
+        reportFormat switch
+        {
+            ReportFormat.Pdf => "application/pdf",
+            _ => throw new ArgumentOutOfRangeException(nameof(reportFormat), reportFormat, $"Content Type не найден для отчёта с типом {reportFormat}")
+        };
 }
