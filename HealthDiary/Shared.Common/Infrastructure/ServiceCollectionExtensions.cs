@@ -25,9 +25,11 @@ public static class ServiceCollectionExtensions
                     Contact = swaggerOptions.Contact,
                 });
 
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{serviceName}.Api.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{serviceName}.BLL.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{serviceName}.Domain.xml"));
+            var xmlDocPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"{serviceName}.*.xml");
+            foreach (var xmlDocPath in xmlDocPaths)
+            {
+                options.IncludeXmlComments(xmlDocPath);
+            }
 
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {

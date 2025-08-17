@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReportService.Api.Contracts.Enums;
+using ReportService.Api.WebRoutes;
 
 namespace ReportService.Api.Controllers;
 
@@ -13,7 +14,7 @@ namespace ReportService.Api.Controllers;
 public class ReportsController : ControllerBase
 {
     /// <summary>
-    /// Вернуть отчёта по идентификатору результата приёма врача.
+    /// Вернуть отчёт по идентификатору результата приёма врача.
     /// </summary>
     /// <param name="appointmentResultId">Идентификатор результата приёма врача.</param>
     /// <param name="reportFormat">Формат отчёта.</param>
@@ -28,7 +29,7 @@ public class ReportsController : ControllerBase
     /// Вернуть все шаблоны отчётов зарегистрированные в сервисе.
     /// </summary>
     /// <returns></returns>
-    [HttpGet("template-types")]
+    [HttpGet(ReportsControllerWebRoutes.GetReportTemplateTypes)]
     public Task<IActionResult> GetReportTemplateTypes()
     {
         throw new NotImplementedException();    

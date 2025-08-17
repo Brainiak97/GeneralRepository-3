@@ -1,6 +1,6 @@
 using QuestPDF.Infrastructure;
+using ReportService.Api.Contracts.Data;
 using ReportService.BLL.Common.Interfaces;
-using ReportService.BLL.Data.Dtos;
 
 namespace ReportService.BLL.Reports.Pdf.QuestPdfReports;
 
@@ -9,9 +9,9 @@ namespace ReportService.BLL.Reports.Pdf.QuestPdfReports;
 /// </summary>
 internal class CardiologistReport : IReport
 {
-    private readonly CardiologistReportData _reportData;
+    private readonly CardiologistReportDataDto _reportData;
 
-    public CardiologistReport(CardiologistReportData reportDataDto)
+    public CardiologistReport(CardiologistReportDataDto reportDataDto)
     {
         ArgumentNullException.ThrowIfNull(reportDataDto);
         _reportData = reportDataDto;
