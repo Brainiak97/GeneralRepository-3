@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Team3.HealthDiary.FoodService.Api.Middlewares;
 using Team3.HealthDiary.FoodService.BLL.Interfaces;
 using Team3.HealthDiary.FoodService.DAL;
+using Team3.HealthDiary.Shared.Common.Middlewares;
 
 namespace Team3.HealthDiary.FoodService.Api
 {
