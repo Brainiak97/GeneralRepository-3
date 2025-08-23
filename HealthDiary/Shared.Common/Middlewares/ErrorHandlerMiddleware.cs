@@ -1,6 +1,7 @@
-﻿using Team3.HealthDiary.FoodService.BLL.Exceptions;
+﻿using Microsoft.AspNetCore.Http;
+using Team3.HealthDiary.Shared.Common.Exceptions;
 
-namespace Team3.HealthDiary.FoodService.Api.Middlewares
+namespace Team3.HealthDiary.Shared.Common.Middlewares
 {
 	/// <summary>
 	/// Middleware для обработки ошибок API методов

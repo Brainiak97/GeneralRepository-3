@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodService.DAL\FoodService.DAL.csproj" />
+    <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Team3.HealthDiary.FoodService.BLL.Exceptions;
 using Team3.HealthDiary.FoodService.BLL.Interfaces;
 using Team3.HealthDiary.FoodService.DAL;
 using Team3.HealthDiary.FoodService.DAL.Entities;
+using Team3.HealthDiary.Shared.Common.Exceptions;
 
 namespace Team3.HealthDiary.FoodService.BLL.Services
 {
