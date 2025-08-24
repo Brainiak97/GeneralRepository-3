@@ -23,7 +23,7 @@ namespace Team3.HealthDiary.FoodService.BLL.Interfaces
 		/// </summary>
 		/// <param name="productDto">Добавляемый продукт</param>
 		/// <returns>Добавленный продукт</returns>
-		Task<Product> AddProduct( byte infoSourceType, string name, float calories, float? proteins = null, float? fats = null, float? carbs = null );
+		Task<Product> AddProduct( InfoSourceTypeEf infoSourceType, string name, float calories, float? proteins = null, float? fats = null, float? carbs = null );
 
 		/// <summary>
 		/// Обновляет поля продукта в справочнике

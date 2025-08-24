@@ -26,7 +26,7 @@ namespace Team3.HealthDiary.FoodService.BLL.Services
 		}
 
 		public async Task<Product> AddProduct(
-			byte infoSourceType,
+			InfoSourceTypeEf infoSourceType,
 			string name,
 			float calories,
 			float? proteins = null,
