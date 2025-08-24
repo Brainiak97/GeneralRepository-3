@@ -33,16 +33,7 @@ namespace Team3.HealthDiary.FoodService.BLL.Services
 			float? fats = null,
 			float? carbs = null )
 		{
-			var productNew = new Product( name,
-				 calories, proteins, fats, carbs, infoSourceType )
-			{
-				InfoSourceType = infoSourceType,
-				Name = name,
-				Calories = calories,
-				Proteins = proteins,
-				Fats = fats,
-				Carbs = carbs,
-			};
+			var productNew = new Product( name, calories, proteins, fats, carbs, infoSourceType );
 			var product = await _foodRepository.AddAsync( productNew );
 
 			return product;
