@@ -1,5 +1,5 @@
-﻿using Team3.HealthDiary.FoodService.DAL.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Team3.HealthDiary.FoodService.DAL.Entities;
 
 namespace Team3.HealthDiary.FoodService.DAL
 {
@@ -22,57 +22,57 @@ namespace Team3.HealthDiary.FoodService.DAL
 			var initProducts = new List<Product>()
 			{
 				// Овощи и зелень
-				new Product("Картофель", 83, 2, 0.1f, 19.7f, 1),
-				new Product("Морковь", 33, 1.3f, 0.1f, 7, 1),
-				new Product("Свекла", 48, 1.7f, 0f, 10.8f, 1),
-				new Product("Огурцы", 15, 0.8f, 0f, 3, 1),
-				new Product("Помидоры", 19, 0.6f, 0f, 4.2f, 1),
-				new Product("Капуста белокочанная", 28, 1.8f, 0f, 5.4f, 1),
-				new Product("Тыква", 29, 1, 0f, 6.5f, 1),
-				new Product("Зеленый горошек", 72, 5, 0.2f, 13.3f, 1),
+				new Product("Картофель", 83, 2, 0.1f, 19.7f, InfoSourceTypeEf.Default),
+				new Product("Морковь", 33, 1.3f, 0.1f, 7, InfoSourceTypeEf.Default),
+				new Product("Свекла", 48, 1.7f, 0f, 10.8f, InfoSourceTypeEf.Default),
+				new Product("Огурцы", 15, 0.8f, 0f, 3, InfoSourceTypeEf.Default),
+				new Product("Помидоры", 19, 0.6f, 0f, 4.2f, InfoSourceTypeEf.Default),
+				new Product("Капуста белокочанная", 28, 1.8f, 0f, 5.4f, InfoSourceTypeEf.Default),
+				new Product("Тыква", 29, 1, 0f, 6.5f, InfoSourceTypeEf.Default),
+				new Product("Зеленый горошек", 72, 5, 0.2f, 13.3f, InfoSourceTypeEf.Default),
 
 				// Фрукты
-				new Product("Яблоки", 46, 0.4f, 0f, 11.3f, 1),
-				new Product("Груши", 42, 0.4f, 0f, 10.7f, 1),
-				new Product("Апельсины", 38, 0.9f, 0f, 8.4f, 1),
-				new Product("Бананы", 89, 1.5f, 0.2f, 21, 1),
-				new Product("Виноград", 69, 0.4f, 0f, 17.5f, 1),
+				new Product("Яблоки", 46, 0.4f, 0f, 11.3f, InfoSourceTypeEf.Default),
+				new Product("Груши", 42, 0.4f, 0f, 10.7f, InfoSourceTypeEf.Default),
+				new Product("Апельсины", 38, 0.9f, 0f, 8.4f, InfoSourceTypeEf.Default),
+				new Product("Бананы", 89, 1.5f, 0.2f, 21, InfoSourceTypeEf.Default),
+				new Product("Виноград", 69, 0.4f, 0f, 17.5f, InfoSourceTypeEf.Default),
 
 				// Крупы и злаки
-				new Product("Гречневая крупа", 329, 12.6f, 2.6f, 65.7f, 1),
-				new Product("Овсяная крупа", 345, 11.9f, 5.9f, 57.6f, 1),
-				new Product("Рисовая крупа", 323, 7, 0.6f, 74.8f, 1),
-				new Product("Манная крупа", 326, 11.3f, 0.7f, 71.6f, 1),
+				new Product("Гречневая крупа", 329, 12.6f, 2.6f, 65.7f, InfoSourceTypeEf.Default),
+				new Product("Овсяная крупа", 345, 11.9f, 5.9f, 57.6f, InfoSourceTypeEf.Default),
+				new Product("Рисовая крупа", 323, 7, 0.6f, 74.8f, InfoSourceTypeEf.Default),
+				new Product("Манная крупа", 326, 11.3f, 0.7f, 71.6f, InfoSourceTypeEf.Default),
 
 				// Бобовые
-				new Product("Горох", 72, 5, 0.2f, 13.3f, 1),
-				new Product("Фасоль", 307, 22, 1.7f, 49, 1),
+				new Product("Горох", 72, 5, 0.2f, 13.3f, InfoSourceTypeEf.Default),
+				new Product("Фасоль", 307, 22, 1.7f, 49, InfoSourceTypeEf.Default),
 
 				// Молочные продукты
-				new Product("Молоко 2.5%", 58, 2.8f, 3.2f, 4.7f, 1),
-				new Product("Кефир нежирный", 30, 3, 0.05f, 3.8f, 1),
-				new Product("Творог жирный", 226, 14, 18, 1.3f, 1),
-				new Product("Сметана 10%", 116, 3, 10, 2.9f, 1),
+				new Product("Молоко 2.5%", 58, 2.8f, 3.2f, 4.7f, InfoSourceTypeEf.Default),
+				new Product("Кефир нежирный", 30, 3, 0.05f, 3.8f, InfoSourceTypeEf.Default),
+				new Product("Творог жирный", 226, 14, 18, 1.3f, InfoSourceTypeEf.Default),
+				new Product("Сметана 10%", 116, 3, 10, 2.9f, InfoSourceTypeEf.Default),
 
 				// Мясо и птица
-				new Product("Говядина", 187, 18.9f, 12.4f, 0, 1),
-				new Product("Телятина", 90, 19.7f, 1.2f, 0, 1),
-				new Product("Курица", 203, 18.2f, 18.4f, 0.7f, 1),
-				new Product("Индейка", 276, 19.5f, 22, 0, 1),
+				new Product("Говядина", 187, 18.9f, 12.4f, 0, InfoSourceTypeEf.Default),
+				new Product("Телятина", 90, 19.7f, 1.2f, 0, InfoSourceTypeEf.Default),
+				new Product("Курица", 203, 18.2f, 18.4f, 0.7f, InfoSourceTypeEf.Default),
+				new Product("Индейка", 276, 19.5f, 22, 0, InfoSourceTypeEf.Default),
 
 				// Рыба
-				new Product("Треска", 75, 17.5f, 0.6f, 0, 1),
-				new Product("Лосось", 142, 20, 8.1f, 0, 1),
-				new Product("Камбала", 70, 15.7f, 3, 0, 1),
+				new Product("Треска", 75, 17.5f, 0.6f, 0, InfoSourceTypeEf.Default),
+				new Product("Лосось", 142, 20, 8.1f, 0, InfoSourceTypeEf.Default),
+				new Product("Камбала", 70, 15.7f, 3, 0, InfoSourceTypeEf.Default),
 
 				// Орехи и семена
-				new Product("Грецкие орехи", 654, 15.2f, 60.7f, 11.1f, 1),
-				new Product("Миндаль", 575, 18.6f, 49.4f, 21.6f, 1),
-				new Product("Кешью", 553, 18.2f, 43.9f, 30.2f, 1),
+				new Product("Грецкие орехи", 654, 15.2f, 60.7f, 11.1f, InfoSourceTypeEf.Default),
+				new Product("Миндаль", 575, 18.6f, 49.4f, 21.6f, InfoSourceTypeEf.Default),
+				new Product("Кешью", 553, 18.2f, 43.9f, 30.2f, InfoSourceTypeEf.Default),
 
 				// Масла
-				new Product("Оливковое масло", 898, 0f, 99.8f, 0f, 1),
-				new Product("Подсолнечное масло", 899, 0f, 99.9f, 0f, 1),
+				new Product("Оливковое масло", 898, 0f, 99.8f, 0f, InfoSourceTypeEf.Default),
+				new Product("Подсолнечное масло", 899, 0f, 99.9f, 0f, InfoSourceTypeEf.Default),
 			};
 
 			// to debug
