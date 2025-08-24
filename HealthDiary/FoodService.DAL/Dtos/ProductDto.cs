@@ -10,7 +10,7 @@
 	/// <param name="Fats">Жиры на 100г</param>
 	/// <param name="Carbs">Углеводы на 100г</param>
 	public record ProductDto(
-		byte InfoSourceType,
+		InfoSourceTypeDto InfoSourceType,
 		string Name,
 		float Calories,
 		float? Proteins,

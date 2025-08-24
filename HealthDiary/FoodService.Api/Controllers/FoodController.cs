@@ -11,11 +11,6 @@ namespace Team3.HealthDiary.FoodService.Api.Controllers
 	[Route( "[controller]" )]
 	public class FoodController : ControllerBase
 	{
-		/// <summary>
-		/// Источником информации является пользователь (TypeId = 2)
-		/// </summary>
-		private const byte UserInfoSourceType = 2;
-
 		private readonly IMapper _modelMapper;
 		private readonly IFoodService _foodService;
 
@@ -65,7 +60,7 @@ namespace Team3.HealthDiary.FoodService.Api.Controllers
 			float? carbs = null )
 		{
 			var product = await _foodService.AddProduct(
-				UserInfoSourceType,
+				InfoSourceTypeEf.FromUser,
 				name,
 				calories,
 				proteins,
