@@ -1,31 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Team3.HealthDiary.FoodService.BLL.Interfaces;
-using Team3.HealthDiary.FoodService.DAL;
+﻿using Team3.HealthDiary.FoodService.BLL.Interfaces;
 using Team3.HealthDiary.FoodService.DAL.Entities;
-using Team3.HealthDiary.Shared.Common.Exceptions;
+using Team3.HealthDiary.FoodService.DAL.Repository;
 
 namespace Team3.HealthDiary.FoodService.BLL.Services
 {
 	public class FoodService : IFoodService
 	{
-		private readonly FoodServiceDbContext _dbContext;
+		private readonly IFoodRepository _foodRepository;
 
-		public FoodService( FoodServiceDbContext dbContext )
+		public FoodService( IFoodRepository foodRepository )
 		{
-			_dbContext = dbContext;
+			_foodRepository = foodRepository;
 		}
 
 		public async Task<Product?> GetProduct( int productId )
 		{
-			var product = await _dbContext.Products.SingleOrDefaultAsync( x => x.Id == productId );
+			var product = await _foodRepository.GetByIdAsync<Product, int>( productId );
 			return product;
 		}
 
 		public async Task<List<Product>> GetProducts( string productName )
 		{
-			var products = await _dbContext.Products
-				.Where( x => x.Name == productName )
-				.ToListAsync();
+			var products = await _foodRepository.GetAll<Product>( x => x.Name == productName );
 			return products;
 		}
 
@@ -47,30 +43,14 @@ namespace Team3.HealthDiary.FoodService.BLL.Services
 				Fats = fats,
 				Carbs = carbs,
 			};
-			var entry = await _dbContext.AddAsync( productNew );
-			var product = entry.Entity;
-			await _dbContext.SaveChangesAsync();
+			var product = await _foodRepository.AddAsync( productNew );
 
 			return product;
 		}
 
 		public async Task UpdateProduct( Product inputProduct )
 		{
-			var product = await GetProduct( inputProduct.Id );
-			if ( product is null )
-			{
-				throw new EntryNotFoundException( $"Продукт {inputProduct} не найден" );
-			}
-
-			product.Name = inputProduct.Name;
-			product.Calories = inputProduct.Calories;
-			product.Proteins = inputProduct.Proteins;
-			product.Fats = inputProduct.Fats;
-			product.Carbs = inputProduct.Carbs;
-			product.InfoSourceType = inputProduct.InfoSourceType;
-
-			_dbContext.Update( product );
-			await _dbContext.SaveChangesAsync();
+			await _foodRepository.UpdateAsync<Product, int>( inputProduct );
 		}
 	}
 }

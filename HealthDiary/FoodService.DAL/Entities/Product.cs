@@ -1,4 +1,6 @@
-﻿namespace Team3.HealthDiary.FoodService.DAL.Entities
+﻿using Shared.Common.Interfaces;
+
+namespace Team3.HealthDiary.FoodService.DAL.Entities
 {
 	/// <summary>
 	/// Продукт питания
@@ -10,7 +12,7 @@
 	/// <param name="Proteins">Белки на 100г</param>
 	/// <param name="Fats">Жиры на 100г</param>
 	/// <param name="Carbs">Углеводы на 100г</param>
-	public record Product
+	public record Product : IEntityModel<int>
 	{
 		public Product( string name, float calories, float? proteins, float? fats, float? carbs, byte infoSourceType )
 		{

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Team3.HealthDiary.FoodService.BLL.Interfaces;
 using Team3.HealthDiary.FoodService.DAL;
+using Team3.HealthDiary.FoodService.DAL.Repository;
 using Team3.HealthDiary.Shared.Common.Middlewares;
 
 namespace Team3.HealthDiary.FoodService.Api
@@ -16,6 +17,8 @@ namespace Team3.HealthDiary.FoodService.Api
 
 			// Add services to the container.
 			builder.Services.AddPgFoodServiceDbContext( foodServiceDbConnectionString! );
+			builder.Services.AddTransient<IFoodRepository, FoodRepository>();
+			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperProfile>() );
 
 			builder.Services.AddControllers();
 			// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -25,8 +28,6 @@ namespace Team3.HealthDiary.FoodService.Api
 			{
 				options.SwaggerDoc( "v1", new OpenApiInfo() { Title = "FoodService.Api", Version = "v1" } );
 			} );
-
-			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperProfile>() );
 
 			// Add services
 			builder.Services.AddScoped<IFoodService, BLL.Services.FoodService>();
