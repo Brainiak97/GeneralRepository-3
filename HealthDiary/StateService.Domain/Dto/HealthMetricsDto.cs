@@ -7,12 +7,12 @@
     {
         /// <summary>
         /// Дата измерения (без времени, если группируем по дням)
-        /// </summary>
+        /// </summary>        
         public DateTime MetricDate { get; set; }
 
         /// <summary>
         /// Название метрики (например, "Пульс", "Давление", "Уровень стресса")
-        /// </summary>
+        /// </summary>        
         public string MetricName { get; set; } = null!;
 
         /// <summary>
