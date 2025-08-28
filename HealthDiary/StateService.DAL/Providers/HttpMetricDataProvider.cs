@@ -1,5 +1,6 @@
-﻿using MetricService.Domain.Models;
-using StateService.DAL.Interfaces;
+﻿using StateService.DAL.Interfaces;
+using StateService.Domain.Dto;
+using System.Net.Http.Json;
 
 namespace StateService.DAL.Providers
 {
@@ -7,24 +8,37 @@ namespace StateService.DAL.Providers
     {
         private readonly HttpClient _httpClient = httpClient;
 
-        public Task<HealthMetricsBase> GetHealthMetricsBaseDataAsync(string userId)
+        public async Task<List<HealthMetricsDto>> GetHealthMetricsBaseDataAsync(string userId, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var url = $"/api/HealthMetricsBase/GetAllRecordsOfHealthMetricsBase" +
+                      $"?UserId={userId}" +
+                      $"&BegDate={startDate:yyyy-MM-dd}" +
+                      $"&EndDate={endDate:yyyy-MM-dd}";
+
+            var response = await _httpClient.GetFromJsonAsync<List<HealthMetricsDto>>(url);
+            return response ?? [];
         }
 
-        public Task<PhysicalActivity> GetPhysicalActivityDataAsync(string userId)
+        public async Task<List<WorkoutDto>> GetWorkoutDataAsync(string userId, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var url = $"/api/workout/GetAllWorkouts" +
+                      $"?UserId={userId}" +
+                      $"&BegDate={startDate:yyyy-MM-dd}" +
+                      $"&EndDate={endDate:yyyy-MM-dd}";
+
+            var response = await _httpClient.GetFromJsonAsync<List<WorkoutDto>>(url);
+            return response ?? [];
         }
 
-        public Task<Sleep> GetSleepDataAsync(string userId)
+        public async Task<List<SleepDto>> GetSleepDataAsync(string userId, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
-        }
+            var url = $"/api/sleep/GetAllSleeps" +
+                      $"?UserId={userId}" +
+                      $"&BegDate={startDate:yyyy-MM-dd}" +
+                      $"&EndDate={endDate:yyyy-MM-dd}";
 
-        public Task<Workout> GetWorkoutDataAsync(string userId)
-        {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetFromJsonAsync<List<SleepDto>>(url);
+            return response ?? [];
         }
     }
 }
