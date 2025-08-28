@@ -1,9 +1,7 @@
-﻿using UserService.Domain.Models;
-
-namespace StateService.DAL.Interfaces
+﻿namespace StateService.DAL.Interfaces
 {
     public interface IUserDataProvider
     {
-        Task<User?> GetUserAsync(string userId);
+        //Task<User?> GetUserAsync(string userId);
     }
 }
