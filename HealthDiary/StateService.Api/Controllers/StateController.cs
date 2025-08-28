@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StateService.Api.Infrastructure;
-using StateService.Api.ViewModels;
 using StateService.BLL.Interfaces;
 using StateService.DAL.Interfaces;
 using StateService.Domain.Models;
@@ -10,12 +8,12 @@ namespace StateService.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StateController(IStateService stateService, IFoodDataProvider foodDataProvider, IMetricDataProvider metricDataProvider, IGroqProvider yandexCloudProvider) : ControllerBase
+    public class StateController(IStateService stateProvider, IFoodDataProvider foodDataProvider, IMetricDataProvider metricDataProvider, IGroqProvider yandexCloudProvider) : ControllerBase
     {
-        private readonly IStateService _stateService = stateService;
+        private readonly IStateService _stateProvider = stateProvider;
         private readonly IFoodDataProvider _foodDataProvider = foodDataProvider;
         private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
-        private readonly IGroqProvider _yandexCloudProvider = yandexCloudProvider;
+        private readonly IGroqProvider _groqProvider = yandexCloudProvider;
 
         [HttpGet("GetDailySummary")]
         public async Task<IActionResult> GetDailySummary(int userId)
@@ -25,7 +23,7 @@ namespace StateService.Api.Controllers
                 return BadRequest();
             }
 
-            var summary = await _stateService.GetDailySummaryAsync(userId);
+            var summary = await _stateProvider.GetDailySummaryAsync(userId);
 
             return Ok(summary);
         }
@@ -36,7 +34,7 @@ namespace StateService.Api.Controllers
             try
             {
                 var summary = MetricAggregator.AggregateHealthData(reports);
-                var recommendations = await _yandexCloudProvider.GetHealthRecommendationsAsync(summary);
+                var recommendations = await _groqProvider.GetHealthRecommendationsAsync(summary);
 
                 return Ok(new
                 {
