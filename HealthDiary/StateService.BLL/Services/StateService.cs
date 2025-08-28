@@ -1,5 +1,6 @@
 ﻿using StateService.BLL.Interfaces;
 using StateService.DAL.Interfaces;
+using StateService.Domain.Dto;
 using StateService.Domain.Models;
 
 namespace StateService.BLL.Services
