@@ -1,6 +1,5 @@
 ﻿using StateService.Domain.Dto;
 using StateService.Domain.Models;
-using System.Linq;
 
 namespace StateService.Api.Infrastructure
 {

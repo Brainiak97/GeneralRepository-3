@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MetricService.Domain\MetricService.Domain.csproj" />
     <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />
+    <ProjectReference Include="..\UserService.Domain\UserService.Domain.csproj" />
   </ItemGroup>
 
 </Project>
