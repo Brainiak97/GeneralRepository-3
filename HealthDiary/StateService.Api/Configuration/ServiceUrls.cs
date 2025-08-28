@@ -5,5 +5,6 @@
         public string UserServiceUrl { get; set; } = string.Empty;
         public string FoodServiceUrl { get; set; } = string.Empty;
         public string MetricServiceUrl { get; set; } = string.Empty;
+        public string GroqUrl { get; set; } = string.Empty;
     }
 }

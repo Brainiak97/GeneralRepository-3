@@ -35,6 +35,10 @@ if (serviceUrlsFromConfig != null)
     {
         client.BaseAddress = new Uri(serviceUrlsFromConfig.MetricServiceUrl);
     });
+    builder.Services.AddHttpClient<IGroqProvider, HttpGroqProvider>(client =>
+    {
+        client.BaseAddress = new Uri(serviceUrlsFromConfig.GroqUrl);
+    });
 }
 
 builder.Services.AddSwaggerGen(options =>
