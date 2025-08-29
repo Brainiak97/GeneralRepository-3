@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Team3.HealthDiary.FoodService.BLL.Interfaces;
 using Team3.HealthDiary.FoodService.DAL.Dtos;
 using Team3.HealthDiary.FoodService.DAL.Entities;
+using Team3.HealthDiary.FoodService.DAL.Enums;
 
 namespace Team3.HealthDiary.FoodService.Api.Controllers
 {
@@ -60,7 +61,7 @@ namespace Team3.HealthDiary.FoodService.Api.Controllers
 			float? carbs = null )
 		{
 			var product = await _foodService.AddProduct(
-				InfoSourceTypeEf.FromUser,
+				InfoSourceType.FromUser,
 				name,
 				calories,
 				proteins,
