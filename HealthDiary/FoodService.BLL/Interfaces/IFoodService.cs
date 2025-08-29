@@ -1,4 +1,5 @@
 ﻿using Team3.HealthDiary.FoodService.DAL.Entities;
+using Team3.HealthDiary.FoodService.DAL.Enums;
 
 namespace Team3.HealthDiary.FoodService.BLL.Interfaces
 {
@@ -23,7 +24,7 @@ namespace Team3.HealthDiary.FoodService.BLL.Interfaces
 		/// </summary>
 		/// <param name="productDto">Добавляемый продукт</param>
 		/// <returns>Добавленный продукт</returns>
-		Task<Product> AddProduct( InfoSourceTypeEf infoSourceType, string name, float calories, float? proteins = null, float? fats = null, float? carbs = null );
+		Task<Product> AddProduct( InfoSourceType infoSourceType, string name, float calories, float? proteins = null, float? fats = null, float? carbs = null );
 
 		/// <summary>
 		/// Обновляет поля продукта в справочнике
