@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
+    <ProjectReference Include="..\Shared.Logging\Shared.Logging.csproj" />
     <ProjectReference Include="..\StateService.BLL\StateService.BLL.csproj" />
     <ProjectReference Include="..\StateService.DAL\StateService.DAL.csproj" />
     <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />
