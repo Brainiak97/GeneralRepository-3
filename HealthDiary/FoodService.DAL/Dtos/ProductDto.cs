@@ -1,4 +1,6 @@
-﻿namespace Team3.HealthDiary.FoodService.DAL.Dtos
+﻿using Team3.HealthDiary.FoodService.DAL.Enums;
+
+namespace Team3.HealthDiary.FoodService.DAL.Dtos
 {
 	/// <summary>
 	/// Продукт питания
@@ -10,7 +12,7 @@
 	/// <param name="Fats">Жиры на 100г</param>
 	/// <param name="Carbs">Углеводы на 100г</param>
 	public record ProductDto(
-		InfoSourceTypeDto InfoSourceType,
+		InfoSourceType InfoSourceType,
 		string Name,
 		float Calories,
 		float? Proteins,

@@ -1,5 +1,6 @@
 ﻿using Team3.HealthDiary.FoodService.BLL.Interfaces;
 using Team3.HealthDiary.FoodService.DAL.Entities;
+using Team3.HealthDiary.FoodService.DAL.Enums;
 using Team3.HealthDiary.FoodService.DAL.Repository;
 
 namespace Team3.HealthDiary.FoodService.BLL.Services
@@ -26,7 +27,7 @@ namespace Team3.HealthDiary.FoodService.BLL.Services
 		}
 
 		public async Task<Product> AddProduct(
-			InfoSourceTypeEf infoSourceType,
+			InfoSourceType infoSourceType,
 			string name,
 			float calories,
 			float? proteins = null,

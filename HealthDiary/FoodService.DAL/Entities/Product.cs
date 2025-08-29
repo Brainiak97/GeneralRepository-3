@@ -1,4 +1,5 @@
 ﻿using Shared.Common.Interfaces;
+using Team3.HealthDiary.FoodService.DAL.Enums;
 
 namespace Team3.HealthDiary.FoodService.DAL.Entities
 {
@@ -14,7 +15,7 @@ namespace Team3.HealthDiary.FoodService.DAL.Entities
 	/// <param name="Carbs">Углеводы на 100г</param>
 	public record Product : IEntityModel<int>
 	{
-		public Product( string name, float calories, float? proteins, float? fats, float? carbs, InfoSourceTypeEf infoSourceType )
+		public Product( string name, float calories, float? proteins, float? fats, float? carbs, InfoSourceType infoSourceType )
 		{
 			InfoSourceType = infoSourceType;
 			Name = name;
@@ -25,7 +26,7 @@ namespace Team3.HealthDiary.FoodService.DAL.Entities
 		}
 
 		public int Id { get; set; }
-		public InfoSourceTypeEf InfoSourceType { get; set; }
+		public InfoSourceType InfoSourceType { get; set; }
 		public string Name { get; set; }
 		public float Calories { get; set; }
 		public float? Proteins { get; set; }
