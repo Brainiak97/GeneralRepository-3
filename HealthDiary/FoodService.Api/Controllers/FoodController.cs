@@ -1,6 +1,10 @@
-﻿using FoodService.DAL;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using FoodService.BLL.Interfaces;
+using FoodService.DAL.Dtos;
+using FoodService.DAL.Entities;
+using FoodService.DAL.Enums;
 
 namespace FoodService.Api.Controllers
 {
@@ -8,21 +12,24 @@ namespace FoodService.Api.Controllers
 	[Route( "[controller]" )]
 	public class FoodController : ControllerBase
 	{
-		private FoodServiceDbContext _dbContext;
+		private readonly IMapper _modelMapper;
+		private readonly IFoodService _foodService;
 
-		public FoodController( FoodServiceDbContext dbContext )
+		public FoodController( IMapper modelMapper, IFoodService foodService )
 		{
-			_dbContext = dbContext;
+			_modelMapper = modelMapper;
+			_foodService = foodService;
 		}
 
-		// to test
 		[HttpGet( nameof( GetProduct ) )]
 		public async Task<IActionResult> GetProduct( int productId )
 		{
-			var product = await _dbContext.Products.FirstOrDefaultAsync( x => x.Id == productId );
+			var product = await _foodService.GetProduct( productId );
+
 			if ( product != null )
 			{
-				return Ok( product );
+				var productDto = _modelMapper.Map<Product, ProductDto>( product );
+				return Ok( productDto );
 			}
 			else
 			{
@@ -30,12 +37,48 @@ namespace FoodService.Api.Controllers
 			}
 		}
 
-		// to test
-		[HttpGet( nameof( GetTestError ) )]
-		public async Task<string> GetTestError()
+		[HttpGet( nameof( GetProducts ) )]
+		public async Task<IActionResult> GetProducts( string productName )
 		{
-			throw new Exception( "test exc" );
-			return "test str";
+			var products = await _foodService.GetProducts( productName );
+			if ( products.Any() )
+			{
+				var productDtos = _modelMapper.Map<List<ProductDto>>( products );
+				return Ok( productDtos );
+			}
+			else
+			{
+				return NotFound();
+			}
+		}
+
+		[HttpPost( nameof( AddProduct ) )]
+		public async Task<IActionResult> AddProduct(
+			string name,
+			[Required] float calories,
+			float? proteins = null,
+			float? fats = null,
+			float? carbs = null )
+		{
+			var product = await _foodService.AddProduct(
+				InfoSourceType.FromUser,
+				name,
+				calories,
+				proteins,
+				fats,
+				carbs );
+
+			var productDto = _modelMapper.Map<ProductDto>( product );
+			return Ok( productDto );
+		}
+
+		[HttpPost( nameof( UpdateProduct ) )]
+		public async Task<IActionResult> UpdateProduct( int productId, ProductDto productDto )
+		{
+			var product = _modelMapper.Map<Product>( productDto );
+			product.Id = productId;
+			await _foodService.UpdateProduct( product );
+			return Ok();
 		}
 	}
 }
