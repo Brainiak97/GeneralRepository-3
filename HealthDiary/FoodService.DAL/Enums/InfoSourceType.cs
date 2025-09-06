@@ -1,4 +1,4 @@
-﻿namespace Team3.HealthDiary.FoodService.DAL.Enums
+﻿namespace FoodService.DAL.Enums
 {
 	public enum InfoSourceType : byte
 	{

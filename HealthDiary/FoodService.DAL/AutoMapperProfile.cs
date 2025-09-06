@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Team3.HealthDiary.FoodService.DAL.Dtos;
-using Team3.HealthDiary.FoodService.DAL.Entities;
+using FoodService.DAL.Dtos;
+using FoodService.DAL.Entities;
 
-namespace Team3.HealthDiary.FoodService.DAL
+namespace FoodService.DAL
 {
 	public class AutoMapperProfile : Profile
 	{

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Team3.HealthDiary.FoodService.DAL;
+using FoodService.DAL;
 
 #nullable disable
 
-namespace Team3.HealthDiary.FoodService.DAL.Migrations
+namespace FoodService.DAL.Migrations
 {
     [DbContext(typeof(FoodServiceDbContext))]
     partial class FoodServiceDbContextModelSnapshot : ModelSnapshot

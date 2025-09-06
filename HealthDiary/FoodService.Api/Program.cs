@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Team3.HealthDiary.FoodService.BLL.Interfaces;
-using Team3.HealthDiary.FoodService.DAL;
-using Team3.HealthDiary.FoodService.DAL.Repository;
-using Team3.HealthDiary.Shared.Common.Middlewares;
+using FoodService.BLL.Interfaces;
+using FoodService.DAL;
+using FoodService.DAL.Repository;
+using Shared.Common.Middlewares;
 
-namespace Team3.HealthDiary.FoodService.Api
+namespace FoodService.Api
 {
 	public class Program
 	{

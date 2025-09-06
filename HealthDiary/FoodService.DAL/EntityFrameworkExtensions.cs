@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Team3.HealthDiary.FoodService.DAL
+namespace FoodService.DAL
 {
 	public static class EntityFrameworkExtensions
 	{
