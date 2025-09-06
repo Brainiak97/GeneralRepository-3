@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Team3.HealthDiary.Shared.Common.Exceptions;
+using Shared.Common.Exceptions;
 
-namespace Team3.HealthDiary.Shared.Common.Middlewares
+namespace Shared.Common.Middlewares
 {
 	/// <summary>
 	/// Middleware для обработки ошибок API методов

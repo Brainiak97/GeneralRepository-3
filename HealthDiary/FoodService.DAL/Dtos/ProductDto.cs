@@ -1,6 +1,6 @@
-﻿using Team3.HealthDiary.FoodService.DAL.Enums;
+﻿using FoodService.DAL.Enums;
 
-namespace Team3.HealthDiary.FoodService.DAL.Dtos
+namespace FoodService.DAL.Dtos
 {
 	/// <summary>
 	/// Продукт питания

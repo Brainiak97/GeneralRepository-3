@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Team3.HealthDiary.CentralService.Api.Controllers
+namespace CentralService.Api.Controllers
 {
 	[ApiController]
 	[Route( "[controller]" )]

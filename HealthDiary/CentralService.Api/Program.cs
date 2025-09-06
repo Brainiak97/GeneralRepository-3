@@ -4,7 +4,7 @@ using Ocelot.Middleware;
 
 #pragma warning disable ASP0014
 
-namespace Team3.HealthDiary.CentralService.Api
+namespace CentralService.Api
 {
 	public class Program
 	{

@@ -1,7 +1,7 @@
-﻿using Team3.HealthDiary.FoodService.DAL.Entities;
-using Team3.HealthDiary.FoodService.DAL.Enums;
+﻿using FoodService.DAL.Entities;
+using FoodService.DAL.Enums;
 
-namespace Team3.HealthDiary.FoodService.BLL.Interfaces
+namespace FoodService.BLL.Interfaces
 {
 	public interface IFoodService
 	{

@@ -2,9 +2,9 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Shared.Common.Interfaces;
-using Team3.HealthDiary.Shared.Common.Exceptions;
+using Shared.Common.Exceptions;
 
-namespace Team3.HealthDiary.FoodService.DAL.Repository
+namespace FoodService.DAL.Repository
 {
 	public class FoodRepository : IFoodRepository
 	{

@@ -1,7 +1,7 @@
 ﻿using Shared.Common.Interfaces;
-using Team3.HealthDiary.FoodService.DAL.Enums;
+using FoodService.DAL.Enums;
 
-namespace Team3.HealthDiary.FoodService.DAL.Entities
+namespace FoodService.DAL.Entities
 {
 	/// <summary>
 	/// Продукт питания

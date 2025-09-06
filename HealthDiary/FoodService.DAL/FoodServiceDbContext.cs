@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Team3.HealthDiary.FoodService.DAL.Entities;
-using Team3.HealthDiary.FoodService.DAL.Enums;
+using FoodService.DAL.Entities;
+using FoodService.DAL.Enums;
 
-namespace Team3.HealthDiary.FoodService.DAL
+namespace FoodService.DAL
 {
 	public class FoodServiceDbContext : DbContext
 	{
