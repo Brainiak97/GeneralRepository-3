@@ -1,9 +1,9 @@
-﻿using Team3.HealthDiary.FoodService.BLL.Interfaces;
-using Team3.HealthDiary.FoodService.DAL.Entities;
-using Team3.HealthDiary.FoodService.DAL.Enums;
-using Team3.HealthDiary.FoodService.DAL.Repository;
+﻿using FoodService.BLL.Interfaces;
+using FoodService.DAL.Entities;
+using FoodService.DAL.Enums;
+using FoodService.DAL.Repository;
 
-namespace Team3.HealthDiary.FoodService.BLL.Services
+namespace FoodService.BLL.Services
 {
 	public class FoodService : IFoodService
 	{

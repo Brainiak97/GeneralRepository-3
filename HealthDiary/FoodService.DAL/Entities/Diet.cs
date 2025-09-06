@@ -1,4 +1,4 @@
-﻿namespace Team3.HealthDiary.FoodService.DAL.Entities
+﻿namespace FoodService.DAL.Entities
 {
 	/// <summary>
 	/// Суточный план питания

@@ -1,4 +1,4 @@
-﻿namespace Team3.HealthDiary.Shared.Common.Exceptions
+﻿namespace Shared.Common.Exceptions
 {
 	/// <summary>
 	/// Возникает, если не зайдена запись (в БД или другом источнике)

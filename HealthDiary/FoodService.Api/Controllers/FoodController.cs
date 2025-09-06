@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Team3.HealthDiary.FoodService.BLL.Interfaces;
-using Team3.HealthDiary.FoodService.DAL.Dtos;
-using Team3.HealthDiary.FoodService.DAL.Entities;
-using Team3.HealthDiary.FoodService.DAL.Enums;
+using FoodService.BLL.Interfaces;
+using FoodService.DAL.Dtos;
+using FoodService.DAL.Entities;
+using FoodService.DAL.Enums;
 
-namespace Team3.HealthDiary.FoodService.Api.Controllers
+namespace FoodService.Api.Controllers
 {
 	[ApiController]
 	[Route( "[controller]" )]

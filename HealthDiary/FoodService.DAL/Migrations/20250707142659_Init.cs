@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Team3.HealthDiary.FoodService.DAL.Migrations
+namespace FoodService.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
