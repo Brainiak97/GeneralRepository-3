@@ -13,7 +13,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
     {
         public void Configure(EntityTypeBuilder<HealthMetric> builder)
         {
-            builder.HasData();
+            builder.HasData(InitData());
         }
 
         private IEnumerable<object> InitData()
