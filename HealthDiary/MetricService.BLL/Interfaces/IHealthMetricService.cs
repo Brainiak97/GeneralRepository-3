@@ -1,5 +1,4 @@
-﻿using MetricService.BLL.DTO.DosageForm;
-using MetricService.BLL.DTO.HealthMetric;
+﻿using MetricService.BLL.DTO.HealthMetric;
 using MetricService.BLL.Exceptions;
 
 namespace MetricService.BLL.Interfaces

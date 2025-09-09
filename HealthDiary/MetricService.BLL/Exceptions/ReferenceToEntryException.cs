@@ -14,7 +14,7 @@
         public ReferenceToEntryException(string message, int entryId, int referenceCount) : base(message)
         {
             Data.Add("entryId", entryId);
-            Data.Add("referenceCount", referenceCount);            
+            Data.Add("referenceCount", referenceCount);
         }
     }
 }

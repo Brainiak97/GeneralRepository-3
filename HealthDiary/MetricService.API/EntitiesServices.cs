@@ -32,7 +32,7 @@ namespace MetricService.API
 
             builder.Services.AddScoped<IPhysicalActivityRepository, PhysicalActivityRepository>();
             builder.Services.AddScoped<IPhysicalActivityService, PhysicalActivityService>();
-            builder.Services.AddScoped<IValidator<PhysicalActivity>, PhysicalActivityValidator>();            
+            builder.Services.AddScoped<IValidator<PhysicalActivity>, PhysicalActivityValidator>();
 
             builder.Services.AddScoped<IHealthMetricRepository, HealthMetricRepository>();
             builder.Services.AddScoped<IHealthMetricService, HealthMetricService>();
@@ -71,7 +71,7 @@ namespace MetricService.API
             builder.Services.AddScoped<IValidator<Reminder>, ReminderValidator>();
 
             builder.Services.AddScoped<IAccessToMetricsRepository, AccessToMetricsRepository>();
-            builder.Services.AddScoped<IAccessToMetricsService, AccessToMetricsService>();            
+            builder.Services.AddScoped<IAccessToMetricsService, AccessToMetricsService>();
         }
     }
 }

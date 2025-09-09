@@ -1,7 +1,5 @@
-﻿using MetricService.BLL.DTO.DosageForm;
-using MetricService.BLL.DTO.HealthMetric;
+﻿using MetricService.BLL.DTO.HealthMetric;
 using MetricService.BLL.Interfaces;
-using MetricService.BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
