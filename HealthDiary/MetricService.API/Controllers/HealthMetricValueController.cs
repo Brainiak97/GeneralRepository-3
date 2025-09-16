@@ -1,6 +1,8 @@
-﻿using MetricService.BLL.DTO;
+﻿using AutoMapper;
+using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.HealthMetric;
 using MetricService.BLL.Interfaces;
+using MetricService.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +14,10 @@ namespace MetricService.API.Controllers
     /// <seealso cref="Controller" />
     [ApiController]
     [Route("api/[controller]")]
-    public class HealthMetricValue(IHealthMetricValueService healthMetricValueService) : Controller
+    public class HealthMetricValueController(IHealthMetricValueService healthMetricValueService, IMapper mapper) : Controller
     {
-        readonly IHealthMetricValueService _healthMetricValueService = healthMetricValueService;
+        private readonly IHealthMetricValueService _healthMetricValueService = healthMetricValueService;
+        private readonly IMapper _mapper = mapper;
 
         /// <summary>
         /// Зарегистрировать новое значение показателя здоровья пользователя
@@ -25,7 +28,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> CreateHealthMetricValue([FromBody] HealthMetricValueCreateDTO healthMetricValueCreateDTO)
         {
-            await _healthMetricValueService.CreateHealthMetricValueAsync(healthMetricValueCreateDTO);
+            await _healthMetricValueService.CreateHealthMetricValueAsync(_mapper.Map<HealthMetricValue>(healthMetricValueCreateDTO));
             return Ok();
         }
 
@@ -38,7 +41,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateHealthMetricValue([FromBody] HealthMetricValueUpdateDTO healthMetricValueUpdateDTO)
         {
-            await _healthMetricValueService.UpdateHealthMetricValueAsync(healthMetricValueUpdateDTO);
+            await _healthMetricValueService.UpdateHealthMetricValueAsync(_mapper.Map<HealthMetricValue>(healthMetricValueUpdateDTO));
             return Ok();
         }
 
@@ -64,14 +67,17 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> GetAllHealthMetricsValue([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            var result = await _healthMetricValueService.GetAllHealthMetricsValueByUserIdAsync(requestListWithPeriodByIdDTO);
+            var result = await _healthMetricValueService.GetAllHealthMetricsValueByUserIdAsync(
+                requestListWithPeriodByIdDTO.UserId,
+                requestListWithPeriodByIdDTO.BegDate,
+                requestListWithPeriodByIdDTO.EndDate);
 
             if (!result.Any())
             {
                 return Ok("Список пуст");
             }
 
-            return Ok(result);
+            return Ok(_mapper.Map<List<HealthMetricValueDTO>>(result));
         }
 
         /// <summary>
@@ -90,7 +96,7 @@ namespace MetricService.API.Controllers
                 return NotFound();
             }
 
-            return Ok(result);
+            return Ok(_mapper.Map<HealthMetricValueDTO>(result));
         }
     }
 }

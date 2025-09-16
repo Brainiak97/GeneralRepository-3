@@ -13,6 +13,6 @@ namespace MetricService.DAL.Interfaces
         /// </summary>
         /// <param name="healthMetricId">Идентификатор медицинского показателя пользователя</param>
         /// <returns>Список записей из справочника</returns>
-        public Task<IEnumerable<HealthMetricValue>> GetListHealthMetricValueByHealthMetricIdAsync(int healthMetricId);
+        public Task<IEnumerable<HealthMetricValue>> GetByHealthMetricIdAsync(int healthMetricId);
     }
 }

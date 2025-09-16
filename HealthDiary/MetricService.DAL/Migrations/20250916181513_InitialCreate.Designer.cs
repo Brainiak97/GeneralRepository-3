@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    [Migration("20250811164935_RefactorHealthMetric")]
-    partial class RefactorHealthMetric
+    [Migration("20250916181513_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1336,7 +1336,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthMetricsValue", t =>
+                    b.ToTable("HealthMetricValues", t =>
                         {
                             t.HasComment("Значение показателя здоровья пользователя");
                         });

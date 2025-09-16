@@ -30,6 +30,36 @@ namespace MetricService.DAL.Migrations
                 comment: "Категории анализов");
 
             migrationBuilder.CreateTable(
+                name: "DosageForms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false, comment: "Наименование формы выпуска (таблетка, капсул, раствор и т.д.)")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DosageForms", x => x.Id);
+                },
+                comment: "Форма выпуска препарата");
+
+            migrationBuilder.CreateTable(
+                name: "HealthMetrics",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false, comment: "Наименование показателя (например, \"Уровень стресса\")"),
+                    Description = table.Column<string>(type: "text", nullable: true, comment: "Описание показателя (например, \"Оценивайте стресс от 1 до 10\")"),
+                    Unit = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true, comment: "Единица измерения (кг., мм.рт.ст., % и т.д.)")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HealthMetrics", x => x.Id);
+                },
+                comment: "Показатель здоровья пользователя");
+
+            migrationBuilder.CreateTable(
                 name: "PhysicalActivities",
                 columns: table => new
                 {
@@ -42,13 +72,14 @@ namespace MetricService.DAL.Migrations
                 {
                     table.PrimaryKey("PK_PhysicalActivities", x => x.Id);
                 },
-                comment: "Тренировки");
+                comment: "Физическая активность");
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор"),
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DateOfBirth = table.Column<DateTime>(type: "date", nullable: false, comment: "дата рождения"),
                     Height = table.Column<short>(type: "smallint", nullable: false, comment: "рост в сантиметрах"),
                     Weight = table.Column<float>(type: "real", nullable: false, comment: "Вес в килограммах")
@@ -83,30 +114,83 @@ namespace MetricService.DAL.Migrations
                 comment: "Типы анализов");
 
             migrationBuilder.CreateTable(
-                name: "HealthMetricsBase",
+                name: "Medications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false, comment: "Наименование препарата"),
+                    DosageFormId = table.Column<int>(type: "integer", nullable: false, comment: "Форма выпуска (таблетка, капсул, раствор и т.д.)"),
+                    Instruction = table.Column<string>(type: "text", nullable: false, comment: "Инструкции по применению")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Medications_DosageForms_DosageFormId",
+                        column: x => x.DosageFormId,
+                        principalTable: "DosageForms",
+                        principalColumn: "Id");
+                },
+                comment: "Медикаменты");
+
+            migrationBuilder.CreateTable(
+                name: "AccessToMetrics",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProviderUserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя, который предоставляет доступ"),
+                    GrantedUserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя, которому предоставляется доступ"),
+                    AccessExpirationDate = table.Column<DateOnly>(type: "DATE", nullable: true, comment: "Дата, до которой действует доступ"),
+                    IsPermanentAccess = table.Column<bool>(type: "boolean", nullable: false, comment: "Доступ без ограничения по срокам")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AccessToMetrics", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AccessToMetrics_Users_GrantedUserId",
+                        column: x => x.GrantedUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AccessToMetrics_Users_ProviderUserId",
+                        column: x => x.ProviderUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "Доступ к личным метрикам");
+
+            migrationBuilder.CreateTable(
+                name: "HealthMetricValues",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор пользователя"),
-                    MetricDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата замера показателя"),
-                    HeartRate = table.Column<short>(type: "smallint", nullable: false, comment: "Частота сердечных сокращений (ударов/мин)"),
-                    BloodPressureSys = table.Column<short>(type: "smallint", nullable: true, comment: "Верхнее артериальное давление (мм рт. ст.)"),
-                    BloodPressureDia = table.Column<short>(type: "smallint", nullable: true, comment: "Нижнее артериальное давление (мм рт. ст.)"),
-                    BodyFatPercentage = table.Column<float>(type: "real", nullable: true, comment: "Процент жира в организме"),
-                    WaterIntake = table.Column<short>(type: "smallint", nullable: true, comment: "Потребление воды (мл)")
+                    HealthMetricId = table.Column<int>(type: "integer", nullable: false, comment: "Ссылка на созданный пользователем показатель"),
+                    Value = table.Column<float>(type: "real", nullable: false, comment: "Значение показателя"),
+                    RecordedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата и время записи"),
+                    Comment = table.Column<string>(type: "text", nullable: true, comment: "Комментарий к записи")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HealthMetricsBase", x => x.Id);
+                    table.PrimaryKey("PK_HealthMetricValues", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_HealthMetricsBase_Users_UserId",
+                        name: "FK_HealthMetricValues_HealthMetrics_HealthMetricId",
+                        column: x => x.HealthMetricId,
+                        principalTable: "HealthMetrics",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_HealthMetricValues_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 },
-                comment: "Базовые медицинские показатели");
+                comment: "Значение показателя здоровья пользователя");
 
             migrationBuilder.CreateTable(
                 name: "Sleeps",
@@ -186,9 +270,84 @@ namespace MetricService.DAL.Migrations
                         name: "FK_AnalysisResults_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 },
                 comment: "Результаты анализов");
+
+            migrationBuilder.CreateTable(
+                name: "Regimens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false, comment: "Пользователь"),
+                    MedicationId = table.Column<int>(type: "integer", nullable: false, comment: "Медицинский препарат"),
+                    Dosage = table.Column<string>(type: "text", nullable: false, comment: "Прописанная дозировка (например, \"1 табл.\" или \"5 мл\")"),
+                    Shedule = table.Column<string>(type: "text", nullable: false, comment: "График приема (например, \"Утро, обед, вечер\")"),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false, comment: "Дата начала приема"),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: true, comment: "Предполагаемая дата окончания приема"),
+                    Comment = table.Column<string>(type: "text", nullable: true, comment: "Заметки или дополнения")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Regimens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Regimens_Medications_MedicationId",
+                        column: x => x.MedicationId,
+                        principalTable: "Medications",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Regimens_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "Схема приема медикаментов");
+
+            migrationBuilder.CreateTable(
+                name: "Intakes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RegimenId = table.Column<int>(type: "integer", nullable: false, comment: "Схема приема лекарств"),
+                    TakenAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата и время приема"),
+                    IntakeStatus = table.Column<short>(type: "smallint", nullable: false, comment: "Статусы приема (например, \"принято\", \"пропущено\", \"перенесено\")"),
+                    Comment = table.Column<string>(type: "text", nullable: true, comment: "Дополнительные заметки (например, причины пропуска)")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Intakes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Intakes_Regimens_RegimenId",
+                        column: x => x.RegimenId,
+                        principalTable: "Regimens",
+                        principalColumn: "Id");
+                },
+                comment: "Прием лекарств");
+
+            migrationBuilder.CreateTable(
+                name: "Reminders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RegimenId = table.Column<int>(type: "integer", nullable: false, comment: "Схема приема лекарств"),
+                    RemindAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Время напоминания"),
+                    IsSend = table.Column<bool>(type: "boolean", nullable: false, comment: "Признак, было ли отправлено напоминание")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reminders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reminders_Regimens_RegimenId",
+                        column: x => x.RegimenId,
+                        principalTable: "Regimens",
+                        principalColumn: "Id");
+                },
+                comment: "Напоминание о приеме лекарств");
 
             migrationBuilder.InsertData(
                 table: "AnalysisCategories",
@@ -242,6 +401,20 @@ namespace MetricService.DAL.Migrations
                     { 45, "Анализ неврологической природы приступов", "Эпилепсия и судорожные расстройства" },
                     { 46, "Томографические исследования организма", "Магнитно-резонансная томография" },
                     { 47, "Анализ мозговых волн и нервных импульсов", "Функциональная нервная деятельность" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DosageForms",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "таблетки" },
+                    { 2, "капсулы" },
+                    { 3, "сироп" },
+                    { 4, "раствор" },
+                    { 5, "капли" },
+                    { 6, "мазь" },
+                    { 7, "ампулы" }
                 });
 
             migrationBuilder.InsertData(
@@ -424,6 +597,43 @@ namespace MetricService.DAL.Migrations
                     { 83, 4, "RW (сифилис)", "Нет", "Нет", "Да/Нет" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Medications",
+                columns: new[] { "Id", "DosageFormId", "Instruction", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "Взрослым и детям старше 12 лет по 1 таблетке каждые 4-6 часов, максимум 4 грамма в сутки.", "Парацетамол" },
+                    { 2, 2, "Взрослым по 1 капсуле 3-4 раза в день, максимальная доза 2400 мг/сутки.", "Ибупрофен" },
+                    { 3, 2, "Одна капсула утром перед едой, 1 раз в сутки. Курс длится от 1 месяца до полугода.", "Омепразол" },
+                    { 4, 1, "По 1 таблетке 3 раза в день, максимальный курс приема — месяц.", "Фенибут" },
+                    { 5, 3, "Взрослым — 15-45 мл сиропа однократно вечером, до достижения регулярного эффекта.", "Дюфалак" },
+                    { 6, 4, "Раствор внутримышечно по 2-4 мл ежедневно в течение двух недель.", "Актовегин" },
+                    { 7, 1, "По 1-2 таблетки рассасывать трижды в день, курс — неделя.", "Лизобакт" },
+                    { 8, 1, "Одну таблетку 1-3 раза в сутки взрослым и подросткам старше 14 лет.", "Супрастин" },
+                    { 9, 2, "Один раз в сутки, начиная с дозы 150 мг. Лечение кандидоза продолжается до исчезновения симптомов.", "Флуконазол" },
+                    { 10, 1, "Начальная доза составляет 2 таблетки в день, постепенно увеличиваясь до 4 таблеток.", "Гептрал" },
+                    { 11, 5, "Развести 30 капель в небольшом количестве воды, пить 3 раза в день.", "Новопассит" },
+                    { 12, 5, "15-20 капель внутрь до еды, разводят водой, принимают 3 раза в день.", "Валокордин" },
+                    { 13, 1, "По 1-2 таблетки во время еды, в зависимости от тяжести пищеварения.", "Мезим форте" },
+                    { 14, 1, "Обычно принимается по 1 таблетке 3 раза в день в течение 2-4 недель.", "Афобазол" },
+                    { 15, 2, "Капсулы принимаются внутрь во время еды, от 1 до 3 штук за раз.", "Креон" },
+                    { 16, 6, "Наносить тонким слоем на поражённое место 2-3 раза в день.", "Диклофенак" },
+                    { 17, 1, "Начинают с минимальной дозы 1 таблетка в день, повышая дозу до максимальной в течение месяца.", "Артра" },
+                    { 18, 1, "По 1 таблетке под язык 2-3 раза в день. Максимальный курс приема — месяц.", "Глицин" },
+                    { 19, 1, "Детям старше 12 лет и взрослым назначают по 1 таблетке 3-4 раза в сутки.", "Левомицетин" },
+                    { 20, 7, "Раствор вводят внутривенно медленно, один раз в сутки, на протяжении 10-14 дней.", "Милдронат" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccessToMetrics_GrantedUserId",
+                table: "AccessToMetrics",
+                column: "GrantedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccessToMetrics_ProviderUserId",
+                table: "AccessToMetrics",
+                column: "ProviderUserId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AnalysisResults_AnalysisTypeId",
                 table: "AnalysisResults",
@@ -440,9 +650,39 @@ namespace MetricService.DAL.Migrations
                 column: "AnalysisCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HealthMetricsBase_UserId",
-                table: "HealthMetricsBase",
+                name: "IX_HealthMetricValues_HealthMetricId",
+                table: "HealthMetricValues",
+                column: "HealthMetricId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HealthMetricValues_UserId",
+                table: "HealthMetricValues",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Intakes_RegimenId",
+                table: "Intakes",
+                column: "RegimenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Medications_DosageFormId",
+                table: "Medications",
+                column: "DosageFormId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Regimens_MedicationId",
+                table: "Regimens",
+                column: "MedicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Regimens_UserId",
+                table: "Regimens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reminders_RegimenId",
+                table: "Reminders",
+                column: "RegimenId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sleeps_UserId",
@@ -464,10 +704,19 @@ namespace MetricService.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AccessToMetrics");
+
+            migrationBuilder.DropTable(
                 name: "AnalysisResults");
 
             migrationBuilder.DropTable(
-                name: "HealthMetricsBase");
+                name: "HealthMetricValues");
+
+            migrationBuilder.DropTable(
+                name: "Intakes");
+
+            migrationBuilder.DropTable(
+                name: "Reminders");
 
             migrationBuilder.DropTable(
                 name: "Sleeps");
@@ -479,13 +728,25 @@ namespace MetricService.DAL.Migrations
                 name: "AnalysisTypes");
 
             migrationBuilder.DropTable(
+                name: "HealthMetrics");
+
+            migrationBuilder.DropTable(
+                name: "Regimens");
+
+            migrationBuilder.DropTable(
                 name: "PhysicalActivities");
+
+            migrationBuilder.DropTable(
+                name: "AnalysisCategories");
+
+            migrationBuilder.DropTable(
+                name: "Medications");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "AnalysisCategories");
+                name: "DosageForms");
         }
     }
 }

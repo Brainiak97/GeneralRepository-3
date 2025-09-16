@@ -1296,43 +1296,6 @@ namespace MetricService.DAL.Migrations
                         {
                             t.HasComment("Показатель здоровья пользователя");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Пульс",
-                            Name = "Частота сердечных сокращений",
-                            Unit = "ударов/мин"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Верхнее давление",
-                            Name = "Верхнее артериальное давление",
-                            Unit = "мм рт. ст."
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Нижнее давление",
-                            Name = "Нижнее артериальное давление",
-                            Unit = "мм рт. ст."
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Процент жира в организме",
-                            Name = "Процент жира в организме",
-                            Unit = "%"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Суточное потребление воды",
-                            Name = "Потребление воды",
-                            Unit = "мл"
-                        });
                 });
 
             modelBuilder.Entity("MetricService.Domain.Models.HealthMetricValue", b =>
@@ -1370,7 +1333,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthMetricsValue", t =>
+                    b.ToTable("HealthMetricValues", t =>
                         {
                             t.HasComment("Значение показателя здоровья пользователя");
                         });

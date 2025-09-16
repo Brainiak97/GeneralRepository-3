@@ -1,5 +1,7 @@
-﻿using MetricService.BLL.DTO.HealthMetric;
+﻿using AutoMapper;
+using MetricService.BLL.DTO.HealthMetric;
 using MetricService.BLL.Interfaces;
+using MetricService.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +13,10 @@ namespace MetricService.API.Controllers
     /// <seealso cref="Controller" />
     [ApiController]
     [Route("api/[controller]")]
-    public class HealthMetric(IHealthMetricService healthMetricService) : Controller
+    public class HealthMetricController(IHealthMetricService healthMetricService, IMapper mapper) : Controller
     {
-        readonly IHealthMetricService _healthMetricService = healthMetricService;
+        private readonly IHealthMetricService _healthMetricService = healthMetricService;
+        private readonly IMapper _mapper = mapper;
 
         /// <summary>
         /// Зарегистрировать новый показатель здоровья пользователя
@@ -24,7 +27,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> CreateHealthMetric([FromBody] HealthMetricCreateDTO healthMetricCreateDTO)
         {
-            await _healthMetricService.CreateHealthMetricAsync(healthMetricCreateDTO);
+            await _healthMetricService.CreateHealthMetricAsync(_mapper.Map<HealthMetric>(healthMetricCreateDTO));
             return Ok();
         }
 
@@ -37,7 +40,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateHealthMetric([FromBody] HealthMetricUpdateDTO healthMetricUpdateDTO)
         {
-            await _healthMetricService.UpdateHealthMetricAsync(healthMetricUpdateDTO);
+            await _healthMetricService.UpdateHealthMetricAsync(_mapper.Map<HealthMetric>(healthMetricUpdateDTO));
             return Ok();
         }
 
@@ -69,7 +72,7 @@ namespace MetricService.API.Controllers
                 return Ok("Список пуст");
             }
 
-            return Ok(result);
+            return Ok(_mapper.Map<List<HealthMetricDTO>>(result));
         }
 
         /// <summary>
@@ -88,7 +91,7 @@ namespace MetricService.API.Controllers
                 return NotFound();
             }
 
-            return Ok(result);
+            return Ok(_mapper.Map<HealthMetricDTO>(result));
         }
     }
 }

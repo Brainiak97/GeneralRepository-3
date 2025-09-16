@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MetricService.BLL.DTO.HealthMetric;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using MetricService.DAL.Interfaces;
@@ -43,7 +42,7 @@ namespace MetricService.BLL.Services
         }
 
         /// <inheritdoc/>
-        public async Task<HealthMetricDTO> GetHealthMetricByIdAsync(int healthMetricId)
+        public async Task<HealthMetric> GetHealthMetricByIdAsync(int healthMetricId)
         {
             var healthMetricFind = await _healthMetricRepository.GetByIdAsync(healthMetricId) ??
                 throw new IncorrectOrEmptyResultException("Указанная запись о показателях здоровья пользователя не существует",
@@ -52,39 +51,38 @@ namespace MetricService.BLL.Services
                                                             { nameof(healthMetricId), healthMetricId }
                                                         });
 
-            return _mapper.Map<HealthMetricDTO>(healthMetricFind);
+            return healthMetricFind;
         }
 
 
         /// <inheritdoc/>
-        public async Task UpdateHealthMetricAsync(HealthMetricUpdateDTO healthMetricUpdateDTO)
+        public async Task UpdateHealthMetricAsync(HealthMetric healthMetric)
         {
-            var healthMetricFind = await _healthMetricRepository.GetByIdAsync(healthMetricUpdateDTO.Id) ??
+            var healthMetricFind = await _healthMetricRepository.GetByIdAsync(healthMetric.Id) ??
                 throw new IncorrectOrEmptyResultException("Запись о показателях здоровья пользователя не зарегистрирована",
                                                             new Dictionary<object, object>()
                                                             {
-                                                                {nameof(healthMetricUpdateDTO), healthMetricUpdateDTO}
+                                                                {nameof(healthMetric), healthMetric}
                                                             });
-            var countLinks = (await _healthMetricValueRepository.GetListHealthMetricValueByHealthMetricIdAsync(healthMetricFind.Id)).Count();
-            if (countLinks > 0)
+            var existsLinks = (await _healthMetricValueRepository.GetByHealthMetricIdAsync(healthMetricFind.Id)).Any();
+            if (existsLinks)
             {
-                throw new ReferenceToEntryException("Показатель здоровья пользователя редактировать нельзя, есть ссылки", healthMetricFind.Id, countLinks);
+                throw new InvalidOperationException("Показатель здоровья пользователя редактировать нельзя, есть ссылки");
             }
-            var healthMetric = _mapper.Map<HealthMetric>(healthMetricUpdateDTO);
 
             await _healthMetricRepository.UpdateAsync(healthMetric);
         }
 
         /// <inheritdoc/>
-        public async Task CreateHealthMetricAsync(HealthMetricCreateDTO healthMetricCreateDTO)
+        public async Task CreateHealthMetricAsync(HealthMetric healthMetric)
         {
-            await _healthMetricRepository.CreateAsync(_mapper.Map<HealthMetric>(healthMetricCreateDTO));
+            await _healthMetricRepository.CreateAsync(healthMetric);
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<HealthMetricDTO>> GetAllHealthMetricsAsync()
+        public async Task<IEnumerable<HealthMetric>> GetAllHealthMetricsAsync()
         {
-            return _mapper.Map<IEnumerable<HealthMetricDTO>>(await _healthMetricRepository.GetAllAsync());
+            return await _healthMetricRepository.GetAllAsync();
         }
     }
 }

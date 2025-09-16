@@ -36,7 +36,7 @@ namespace MetricService.DAL.Repositories
         /// <inheritdoc/>
         public async override Task<HealthMetricValue?> GetByIdAsync(int id)
         {
-            return await _contextDb.HealthMetricsValue
+            return await _contextDb.HealthMetricValues
                 .Include(h => h.User)
                 .Include(h => h.HealthMetric)
                 .FirstOrDefaultAsync(h => h.Id == id);
@@ -45,16 +45,16 @@ namespace MetricService.DAL.Repositories
         /// <inheritdoc/>
         public async override Task<IEnumerable<HealthMetricValue>> GetAllAsync()
         {
-            return await _contextDb.HealthMetricsValue
+            return await _contextDb.HealthMetricValues
                 .Include(h => h.User)
                 .Include(h => h.HealthMetric)
                 .ToListAsync();
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<HealthMetricValue>> GetListHealthMetricValueByHealthMetricIdAsync(int healthMetricId)
+        public async Task<IEnumerable<HealthMetricValue>> GetByHealthMetricIdAsync(int healthMetricId)
         {
-            return await _contextDb.HealthMetricsValue
+            return await _contextDb.HealthMetricValues
                 .Where(h => h.HealthMetricId == healthMetricId)
                .Include(h => h.User)
                .Include(h => h.HealthMetric)

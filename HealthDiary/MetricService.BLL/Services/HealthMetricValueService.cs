@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using MetricService.BLL.DTO;
-using MetricService.BLL.DTO.HealthMetric;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using MetricService.DAL.Interfaces;
@@ -23,9 +21,9 @@ namespace MetricService.BLL.Services
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
         /// <inheritdoc/>       
-        public async Task CreateHealthMetricValueAsync(HealthMetricValueCreateDTO healthMetricValueCreateDTO)
+        public async Task CreateHealthMetricValueAsync(HealthMetricValue healthMetricValue)
         {
-            await _repository.CreateAsync(_mapper.Map<HealthMetricValue>(healthMetricValueCreateDTO));
+            await _repository.CreateAsync(healthMetricValue);
         }
 
         /// <inheritdoc/>     
@@ -49,29 +47,29 @@ namespace MetricService.BLL.Services
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<HealthMetricValueDTO>> GetAllHealthMetricsValueByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IEnumerable<HealthMetricValue>> GetAllHealthMetricsValueByUserIdAsync(int userId, DateTime begDate, DateTime endDate)
         {
             int grantedUserId = Common.Common.GetAuthorId(_authorization);
 
-            if (!_authorization.IsInRole("Admin") && requestListWithPeriodByIdDTO.UserId != grantedUserId &&
-                            await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
+            if (!_authorization.IsInRole("Admin") && userId != grantedUserId &&
+                            await _accessToMetricsService.CheckAccessToMetricsAsync(userId, grantedUserId) == false)
             {
                 throw new ViolationAccessException("Вам разрешено просматривать только свои записи о базовых показателях здоровья",
                                                 grantedUserId,
-                                                requestListWithPeriodByIdDTO.UserId,
+                                                userId,
                                                 _repository.Name);
             }
 
             var recordsOfHealthMetricValue = (await _repository.GetAllAsync())
-                                        .Where(h => h.UserId == requestListWithPeriodByIdDTO.UserId &&
-                                                h.RecordedAt >= requestListWithPeriodByIdDTO.BegDate &&
-                                                h.RecordedAt <= requestListWithPeriodByIdDTO.EndDate);
+                                        .Where(h => h.UserId == userId &&
+                                                h.RecordedAt >= begDate &&
+                                                h.RecordedAt <= endDate);
 
-            return _mapper.Map<IEnumerable<HealthMetricValueDTO>>(recordsOfHealthMetricValue);
+            return recordsOfHealthMetricValue;
         }
 
         /// <inheritdoc/>     
-        public async Task<HealthMetricValueDTO> GetHealthMetricValueByIdAsync(int healthMetricId)
+        public async Task<HealthMetricValue> GetHealthMetricValueByIdAsync(int healthMetricId)
         {
             var healthMetricValueFind = await _repository.GetByIdAsync(healthMetricId) ??
                throw new IncorrectOrEmptyResultException("Значение показателей здоровья пользователя не зарегистрировано",
@@ -91,17 +89,17 @@ namespace MetricService.BLL.Services
                                                 _repository.Name);
             }
 
-            return _mapper.Map<HealthMetricValueDTO>(healthMetricValueFind);
+            return _mapper.Map<HealthMetricValue>(healthMetricValueFind);
         }
 
         /// <inheritdoc/>     
-        public async Task UpdateHealthMetricValueAsync(HealthMetricValueUpdateDTO healthMetricValueUpdateDTO)
+        public async Task UpdateHealthMetricValueAsync(HealthMetricValue healthMetricValue)
         {
-            var healthMetricValueFind = await _repository.GetByIdAsync(healthMetricValueUpdateDTO.Id) ??
+            var healthMetricValueFind = await _repository.GetByIdAsync(healthMetricValue.Id) ??
                throw new IncorrectOrEmptyResultException("Значение показателей здоровья пользователя не зарегистрировано",
                                                            new Dictionary<object, object>()
                                                            {
-                                                                {nameof(healthMetricValueUpdateDTO), healthMetricValueUpdateDTO}
+                                                                {nameof(healthMetricValue), healthMetricValue}
                                                            });
 
             if (!_authorization.IsInRole("Admin") && healthMetricValueFind.UserId != Common.Common.GetAuthorId(_authorization))
@@ -112,10 +110,7 @@ namespace MetricService.BLL.Services
                                                     _repository.Name);
             }
 
-            var updateHealthMetricValue = _mapper.Map<HealthMetricValue>(healthMetricValueUpdateDTO);
-            updateHealthMetricValue.UserId = healthMetricValueFind.UserId;
-
-            await _repository.UpdateAsync(updateHealthMetricValue);
+            await _repository.UpdateAsync(healthMetricValue);
         }
     }
 }

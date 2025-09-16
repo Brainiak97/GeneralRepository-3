@@ -2,21 +2,15 @@
 using CsvHelper.Configuration;
 using MetricService.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
 
-namespace MetricService.DAL.EF.ConfigurationsForPostgres
+namespace MetricService.DAL.EF.SeedingData
 {
-    class HealthMetricConfiguration : IEntityTypeConfiguration<HealthMetric>
+    internal class HealthMetricSeedingData
     {
-        public void Configure(EntityTypeBuilder<HealthMetric> builder)
-        {
-            builder.HasData(InitData());
-        }
-
-        private IEnumerable<object> InitData()
+        private static IEnumerable<HealthMetric> InitData()
         {
             var sb = new StringBuilder();
             sb.Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
@@ -28,7 +22,7 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                 .Append(typeof(HealthMetric).Name)
                 .Append(".csv");
 
-            var records = new List<object>();
+            var records = new List<HealthMetric>();
 
             try
             {
@@ -37,14 +31,13 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                 using (var reader = new StreamReader(sb.ToString()))
                 using (var csv = new CsvReader(reader, readerConfiguration))
                 {
-
                     csv.Read();
                     csv.ReadHeader();
                     while (csv.Read())
                     {
-                        var record = new
+                        var record = new HealthMetric
                         {
-                            Id = csv.GetField<int>(0),
+                            Id = 0,
                             Name = csv.GetField(1)!.Trim(),
                             Description = csv.GetField(2)!.Trim(),
                             Unit = csv.GetField(3)!.Trim()
@@ -59,6 +52,26 @@ namespace MetricService.DAL.EF.ConfigurationsForPostgres
                 Environment.Exit(0);
             }
             return records;
+        }
+        static internal void SeedingData(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSeeding((dbContext, _) =>
+            {
+                if (!dbContext.Set<HealthMetric>().Any())
+                {
+                    dbContext.Set<HealthMetric>().AddRange(InitData());
+                    dbContext.SaveChanges();
+                }
+            });
+
+            optionsBuilder.UseAsyncSeeding(async (dbContext, _, cancellationToken) =>
+            {
+                if (!dbContext.Set<HealthMetric>().Any())
+                {
+                    await dbContext.Set<HealthMetric>().AddRangeAsync(InitData(), cancellationToken);
+                    await dbContext.SaveChangesAsync(cancellationToken);
+                }
+            });
         }
     }
 }
