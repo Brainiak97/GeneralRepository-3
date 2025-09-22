@@ -53,7 +53,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("ProviderUserId");
 
-                    b.ToTable("AccessToMetrics", null, t =>
+                    b.ToTable("AccessToMetrics", t =>
                         {
                             t.HasComment("Доступ к личным метрикам");
                         });
@@ -80,7 +80,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AnalysisCategories", null, t =>
+                    b.ToTable("AnalysisCategories", t =>
                         {
                             t.HasComment("Категории анализов");
                         });
@@ -409,7 +409,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AnalysisResults", null, t =>
+                    b.ToTable("AnalysisResults", t =>
                         {
                             t.HasComment("Результаты анализов");
                         });
@@ -451,7 +451,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("AnalysisCategoryId");
 
-                    b.ToTable("AnalysisTypes", null, t =>
+                    b.ToTable("AnalysisTypes", t =>
                         {
                             t.HasComment("Типы анализов");
                         });
@@ -1223,7 +1223,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DosageForms", null, t =>
+                    b.ToTable("DosageForms", t =>
                         {
                             t.HasComment("Форма выпуска препарата");
                         });
@@ -1266,7 +1266,7 @@ namespace MetricService.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricsBase", b =>
+            modelBuilder.Entity("MetricService.Domain.Models.HealthMetric", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1275,41 +1275,67 @@ namespace MetricService.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<short?>("BloodPressureDia")
-                        .HasColumnType("smallint")
-                        .HasComment("Нижнее артериальное давление (мм рт. ст.)");
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasComment("Описание показателя (например, \"Оценивайте стресс от 1 до 10\")");
 
-                    b.Property<short?>("BloodPressureSys")
-                        .HasColumnType("smallint")
-                        .HasComment("Верхнее артериальное давление (мм рт. ст.)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasComment("Наименование показателя (например, \"Уровень стресса\")");
 
-                    b.Property<float?>("BodyFatPercentage")
-                        .HasColumnType("real")
-                        .HasComment("Процент жира в организме");
+                    b.Property<string>("Unit")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasComment("Единица измерения (кг., мм.рт.ст., % и т.д.)");
 
-                    b.Property<short>("HeartRate")
-                        .HasColumnType("smallint")
-                        .HasComment("Частота сердечных сокращений (ударов/мин)");
+                    b.HasKey("Id");
 
-                    b.Property<DateTime>("MetricDate")
+                    b.ToTable("HealthMetrics", t =>
+                        {
+                            t.HasComment("Показатель здоровья пользователя");
+                        });
+                });
+
+            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasComment("Идентификатор");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("text")
+                        .HasComment("Комментарий к записи");
+
+                    b.Property<int>("HealthMetricId")
+                        .HasColumnType("integer")
+                        .HasComment("Ссылка на созданный пользователем показатель");
+
+                    b.Property<DateTime>("RecordedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasComment("Дата замера показателя");
+                        .HasComment("Дата и время записи");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasComment("Идентификатор пользователя");
 
-                    b.Property<short?>("WaterIntake")
-                        .HasColumnType("smallint")
-                        .HasComment("Потребление воды (мл)");
+                    b.Property<float>("Value")
+                        .HasColumnType("real")
+                        .HasComment("Значение показателя");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HealthMetricId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthMetricsBase", null, t =>
+                    b.ToTable("HealthMetricValues", t =>
                         {
-                            t.HasComment("Базовые медицинские показатели");
+                            t.HasComment("Значение показателя здоровья пользователя");
                         });
                 });
 
@@ -1342,7 +1368,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("RegimenId");
 
-                    b.ToTable("Intakes", null, t =>
+                    b.ToTable("Intakes", t =>
                         {
                             t.HasComment("Прием лекарств");
                         });
@@ -1376,7 +1402,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("DosageFormId");
 
-                    b.ToTable("Medications", null, t =>
+                    b.ToTable("Medications", t =>
                         {
                             t.HasComment("Медикаменты");
                         });
@@ -1545,7 +1571,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhysicalActivities", null, t =>
+                    b.ToTable("PhysicalActivities", t =>
                         {
                             t.HasComment("Физическая активность");
                         });
@@ -2096,7 +2122,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Regimens", null, t =>
+                    b.ToTable("Regimens", t =>
                         {
                             t.HasComment("Схема приема медикаментов");
                         });
@@ -2127,7 +2153,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("RegimenId");
 
-                    b.ToTable("Reminders", null, t =>
+                    b.ToTable("Reminders", t =>
                         {
                             t.HasComment("Напоминание о приеме лекарств");
                         });
@@ -2166,7 +2192,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sleeps", null, t =>
+                    b.ToTable("Sleeps", t =>
                         {
                             t.HasComment("Сон");
                         });
@@ -2195,7 +2221,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", null, t =>
+                    b.ToTable("Users", t =>
                         {
                             t.HasComment("Пользователь");
                         });
@@ -2236,7 +2262,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Workouts", null, t =>
+                    b.ToTable("Workouts", t =>
                         {
                             t.HasComment("Тренировки");
                         });
@@ -2291,13 +2317,21 @@ namespace MetricService.DAL.Migrations
                     b.Navigation("AnalysisCategory");
                 });
 
-            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricsBase", b =>
+            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricValue", b =>
                 {
+                    b.HasOne("MetricService.Domain.Models.HealthMetric", "HealthMetric")
+                        .WithMany()
+                        .HasForeignKey("HealthMetricId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("MetricService.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("HealthMetric");
 
                     b.Navigation("User");
                 });

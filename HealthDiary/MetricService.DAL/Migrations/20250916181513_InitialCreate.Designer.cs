@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    [Migration("20250803155030_ReconfigAnalysis")]
-    partial class ReconfigAnalysis
+    [Migration("20250916181513_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1269,7 +1269,7 @@ namespace MetricService.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricsBase", b =>
+            modelBuilder.Entity("MetricService.Domain.Models.HealthMetric", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1278,41 +1278,67 @@ namespace MetricService.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<short?>("BloodPressureDia")
-                        .HasColumnType("smallint")
-                        .HasComment("Нижнее артериальное давление (мм рт. ст.)");
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasComment("Описание показателя (например, \"Оценивайте стресс от 1 до 10\")");
 
-                    b.Property<short?>("BloodPressureSys")
-                        .HasColumnType("smallint")
-                        .HasComment("Верхнее артериальное давление (мм рт. ст.)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasComment("Наименование показателя (например, \"Уровень стресса\")");
 
-                    b.Property<float?>("BodyFatPercentage")
-                        .HasColumnType("real")
-                        .HasComment("Процент жира в организме");
+                    b.Property<string>("Unit")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasComment("Единица измерения (кг., мм.рт.ст., % и т.д.)");
 
-                    b.Property<short>("HeartRate")
-                        .HasColumnType("smallint")
-                        .HasComment("Частота сердечных сокращений (ударов/мин)");
+                    b.HasKey("Id");
 
-                    b.Property<DateTime>("MetricDate")
+                    b.ToTable("HealthMetrics", t =>
+                        {
+                            t.HasComment("Показатель здоровья пользователя");
+                        });
+                });
+
+            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasComment("Идентификатор");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("text")
+                        .HasComment("Комментарий к записи");
+
+                    b.Property<int>("HealthMetricId")
+                        .HasColumnType("integer")
+                        .HasComment("Ссылка на созданный пользователем показатель");
+
+                    b.Property<DateTime>("RecordedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasComment("Дата замера показателя");
+                        .HasComment("Дата и время записи");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasComment("Идентификатор пользователя");
 
-                    b.Property<short?>("WaterIntake")
-                        .HasColumnType("smallint")
-                        .HasComment("Потребление воды (мл)");
+                    b.Property<float>("Value")
+                        .HasColumnType("real")
+                        .HasComment("Значение показателя");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HealthMetricId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthMetricsBase", t =>
+                    b.ToTable("HealthMetricValues", t =>
                         {
-                            t.HasComment("Базовые медицинские показатели");
+                            t.HasComment("Значение показателя здоровья пользователя");
                         });
                 });
 
@@ -1550,7 +1576,7 @@ namespace MetricService.DAL.Migrations
 
                     b.ToTable("PhysicalActivities", t =>
                         {
-                            t.HasComment("Тренировки");
+                            t.HasComment("Физическая активность");
                         });
 
                     b.HasData(
@@ -2178,8 +2204,11 @@ namespace MetricService.DAL.Migrations
             modelBuilder.Entity("MetricService.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasComment("Идентификатор");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date")
@@ -2291,13 +2320,21 @@ namespace MetricService.DAL.Migrations
                     b.Navigation("AnalysisCategory");
                 });
 
-            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricsBase", b =>
+            modelBuilder.Entity("MetricService.Domain.Models.HealthMetricValue", b =>
                 {
+                    b.HasOne("MetricService.Domain.Models.HealthMetric", "HealthMetric")
+                        .WithMany()
+                        .HasForeignKey("HealthMetricId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("MetricService.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("HealthMetric");
 
                     b.Navigation("User");
                 });

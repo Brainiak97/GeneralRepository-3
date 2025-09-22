@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MetricService.Domain.Models;
 using System.Reflection;
+using MetricService.DAL.EF.SeedingData;
 
 namespace MetricService.DAL.EF
 {
@@ -11,9 +12,14 @@ namespace MetricService.DAL.EF
     public class MetricServiceDbContext(DbContextOptions<MetricServiceDbContext> options) : DbContext(options)
     {
         /// <summary>
-        /// Набор данных базовых медицинских показателей пользователя
+        /// Набор данных медицинских показателей здоровья пользователя
         /// </summary>       
-        public DbSet<HealthMetricsBase> HealthMetricsBase { get; set; }
+        public DbSet<HealthMetric> HealthMetrics { get; set; }
+
+        /// <summary>
+        /// Набор данных значений медицинских показателей здоровья пользователя
+        /// </summary>       
+        public DbSet<HealthMetricValue> HealthMetricValues { get; set; }
 
         /// <summary>
         /// Набор данных о параметрах сна пользователя
@@ -90,6 +96,13 @@ namespace MetricService.DAL.EF
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            HealthMetricSeedingData.SeedingData(optionsBuilder);            
         }
     }
 }

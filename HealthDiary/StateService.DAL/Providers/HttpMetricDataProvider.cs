@@ -7,7 +7,7 @@ namespace StateService.DAL.Providers
     {
         private readonly HttpClient _httpClient = httpClient;
 
-        public Task<HealthMetricsBase> GetHealthMetricsBaseDataAsync(string userId)
+        public Task<HealthMetricValue> GetHealthMetricsBaseDataAsync(string userId)
         {
             throw new NotImplementedException();
         }
