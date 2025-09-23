@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using StateService.DAL.Interfaces;
+﻿using StateService.DAL.Interfaces;
+using StateService.Domain.Dto;
 using System.Net.Http.Json;
-using UserService.Domain.Models;
 
 namespace StateService.DAL.Providers
 {
@@ -9,13 +8,13 @@ namespace StateService.DAL.Providers
     {
         private readonly HttpClient _httpClient = httpClient;
 
-        public async Task<User?> GetUserAsync(string userId)
+        public async Task<UserDto?> GetUserAsync(string userId)
         {
             var response = await _httpClient.GetAsync($"/api/user/GetUserInfo?userId={userId}");
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Failed to fetch user data");
 
-            return await response.Content.ReadFromJsonAsync<User>();
+            return await response.Content.ReadFromJsonAsync<UserDto>();
         }
     }
 }

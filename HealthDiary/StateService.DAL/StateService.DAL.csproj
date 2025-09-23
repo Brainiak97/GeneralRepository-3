@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetricService.Domain\MetricService.Domain.csproj" />
-    <ProjectReference Include="..\UserService.Domain\UserService.Domain.csproj" />
+    <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />
   </ItemGroup>
 
 </Project>
