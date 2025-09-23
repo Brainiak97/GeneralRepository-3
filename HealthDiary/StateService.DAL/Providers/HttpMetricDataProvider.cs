@@ -10,13 +10,21 @@ namespace StateService.DAL.Providers
 
         public async Task<List<HealthMetricsDto>> GetHealthMetricsBaseDataAsync(string userId, DateTime startDate, DateTime endDate)
         {
-            var url = $"/api/HealthMetricsBase/GetAllRecordsOfHealthMetricsBase" +
+            var url = $"/api/HealthMetricsBase/GetAllHealthMetricsValue" +
                       $"?UserId={userId}" +
                       $"&BegDate={startDate:yyyy-MM-dd}" +
                       $"&EndDate={endDate:yyyy-MM-dd}";
 
-            var response = await _httpClient.GetFromJsonAsync<List<HealthMetricsDto>>(url);
-            return response ?? [];
+            var response = await _httpClient.GetFromJsonAsync<List<TempHealthMetric>>(url) ?? [];
+
+            return [.. response.Select(t => new HealthMetricsDto
+            {
+                MetricDate = t.RecordedAt,
+                MetricName = t.HealthMetric?.Name ?? "Unknown",
+                Value = t.Value,
+                Unit = t.HealthMetric?.Unit,
+                Comment = t.Comment
+            })];
         }
 
         public async Task<List<WorkoutDto>> GetWorkoutDataAsync(string userId, DateTime startDate, DateTime endDate)
