@@ -1,0 +1,16 @@
+{
+  "Seq": {
+    "Host": "http://localhost:5341",
+    "ApiKey": "ZiJbkAaEBgh8clRECXwG",
+    "FilePath": "./logs",
+    "RetainedFileCountLimit": 7
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information",
+      "System": "Warning"
+    }
+  }
+}

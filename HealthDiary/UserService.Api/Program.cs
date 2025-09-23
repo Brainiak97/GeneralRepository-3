@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Shared.Auth;
 using Shared.EmailClient;
+using Shared.Logging;
 using UserService.Api.Data;
 using UserService.Api.Infrastructure;
 using UserService.BLL;
@@ -14,6 +16,15 @@ using UserService.DAL.Repositories;
 using UserService.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Настройка логгера ДО построения хоста
+LoggingConfiguration.ConfigureLogger(
+    serviceName: "UserService",
+    layer: "API",
+    builder.Configuration,
+    environment: builder.Environment.EnvironmentName);
+
+builder.Host.UseSerilog(); // Важно: подключить Serilog как провайдер
 
 // Добавление контекста
 builder.Services.AddDbContext<UserServiceDbContext>(options =>
@@ -115,6 +126,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCommonRequestLogging();
+
+app.UseMiddleware<CorrelationIdMiddleware>();
 
 app.UseHttpsRedirection();
 

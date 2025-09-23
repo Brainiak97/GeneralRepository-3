@@ -1,11 +1,22 @@
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Shared.Auth;
+using Shared.Logging;
 using StateService.Api.Configuration;
 using StateService.BLL.Interfaces;
 using StateService.DAL.Interfaces;
 using StateService.DAL.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Настройка логгера ДО построения хоста
+LoggingConfiguration.ConfigureLogger(
+    serviceName: "StateService",
+    layer: "API",
+    builder.Configuration,
+    environment: builder.Environment.EnvironmentName);
+
+builder.Host.UseSerilog(); // Важно: подключить Serilog как провайдер
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -74,6 +85,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCommonRequestLogging();
+
+app.UseMiddleware<CorrelationIdMiddleware>(); 
 
 app.UseHttpsRedirection();
 
