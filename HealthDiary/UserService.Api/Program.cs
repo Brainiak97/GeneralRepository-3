@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Настройка логгера ДО построения хоста
 LoggingConfiguration.ConfigureLogger(
-    serviceName: "StateService",
+    serviceName: "UserService",
     layer: "API",
     builder.Configuration,
     environment: builder.Environment.EnvironmentName);

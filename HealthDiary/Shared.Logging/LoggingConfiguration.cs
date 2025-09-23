@@ -7,17 +7,28 @@ namespace Shared.Logging
 {
     public static class LoggingConfiguration
     {
-        public static void ConfigureLogger(string serviceName, string layer, IConfiguration configuration, string environment = "Development")
+        public static void ConfigureLogger(string serviceName, string layer, IConfiguration serviceConfiguration, string environment = "Development")
         {
-            var seqApiKey = configuration["Seq:ApiKey"];
-            if (string.IsNullOrEmpty(seqApiKey))
-            {
-                throw new InvalidOperationException("Seq API Key is missing. Set 'Seq:ApiKey' in secrets or environment variables.");
-            }
+            // 1. Загружаем ОБЩИЙ конфиг из shared-проекта
+            var baseConfig = new ConfigurationBuilder()
+                .AddJsonFile("logging.settings.json", optional: false, reloadOnChange: false)
+                .Build();
 
+
+            // 2. Читаем Seq-настройки — сначала из общего, потом переопределяем из текущего
+            var seqHost = serviceConfiguration["Seq:Host"]
+                          ?? baseConfig["Seq:Host"]
+                          ?? throw new InvalidOperationException("Seq:Host is required.");
+
+            var seqApiKey = serviceConfiguration["Seq:ApiKey"] ?? baseConfig["Seq:ApiKey"];
+            var seqFilePath = serviceConfiguration["Seq:FilePath"] ?? baseConfig["Seq:FilePath"] ?? "./logs";
+            var retainedFileCountLimit = int.Parse(serviceConfiguration["Seq:RetainedFileCountLimit"]
+                                                   ?? baseConfig["Seq:RetainedFileCountLimit"]
+                                                   ?? "7");
+
+            // 5. Уровень логирования по среде
             var levelSwitch = new LoggingLevelSwitch
             {
-                // Установи уровень по environment
                 MinimumLevel = environment switch
                 {
                     "Development" => LogEventLevel.Debug,
@@ -27,27 +38,27 @@ namespace Shared.Logging
                 }
             };
 
+            // 6. Создаём логгер
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.ControlledBy(levelSwitch)
-
-                // Переопределения
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.Hosting", LogEventLevel.Information)
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
 
-                // Обогащение
                 .Enrich.FromLogContext()
                 .Enrich.WithProperty("ServiceName", serviceName)
                 .Enrich.WithProperty("Layer", layer)
                 .Enrich.WithProperty("Environment", environment)
 
-                // Выводы
                 .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}")
-                .WriteTo.File($"logs/{serviceName}-{layer}-log-.txt", rollingInterval: RollingInterval.Day)
 
-                // Например, Seq
-                .WriteTo.Seq("http://localhost:5341/", apiKey: "ZiJbkAaEBgh8clRECXwG")
+                .WriteTo.File(
+                    path: Path.Combine(seqFilePath, $"{serviceName}-{layer}-log-.txt"),
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: retainedFileCountLimit)
+
+                .WriteTo.Seq(seqHost, apiKey: seqApiKey)
 
                 .CreateLogger();
         }
