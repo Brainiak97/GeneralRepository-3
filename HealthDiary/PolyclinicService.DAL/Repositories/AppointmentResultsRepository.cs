@@ -12,7 +12,6 @@ internal class AppointmentResultsRepository(PolyclinicServiceDbContext context) 
     public async Task<AppointmentResult?> GetByIdAsync(int id) =>
         await context.AppointmentResults
             .AsNoTracking()
-            .Include(s => s.AppointmentSlot)
             .SingleOrDefaultAsync();
 
     /// <inheritdoc />
@@ -35,4 +34,12 @@ internal class AppointmentResultsRepository(PolyclinicServiceDbContext context) 
         await context.AppointmentResults
             .Where(vr => vr.Id == id)
             .ExecuteDeleteAsync();
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<AppointmentResult>?> GetPatientAppointmentResultsWithSlotInfoAsync(int patientId, DateTime? date) =>
+        await context.AppointmentResults
+            .Include(s => s.AppointmentSlot)
+            .Where(s => s.AppointmentSlot.UserId == patientId && (date == null || s.AppointmentSlot.Date == date))
+            .AsNoTracking()
+            .ToListAsync();
 }

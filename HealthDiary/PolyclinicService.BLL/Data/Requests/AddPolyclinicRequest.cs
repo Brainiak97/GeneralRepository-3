@@ -9,22 +9,22 @@ public class AddPolyclinicRequest
     /// Наименование поликлиники.
     /// </summary>
     public required string Name { get; set; }
-    
+
     /// <summary>
     /// Адрес.
     /// </summary>
     public required string Address { get; set; }
-    
+
     /// <summary>
     /// Номер телефона.
     /// </summary>
     public required string PhoneNumber { get; set; }
-    
+
     /// <summary>
     /// Адрес электронной почты.
     /// </summary>
     public string? Email { get; set; }
-    
+
     /// <summary>
     /// Ссылка на сайт.
     /// </summary>

@@ -10,7 +10,7 @@ namespace PolyclinicService.BLL.Services;
 
 /// <inheritdoc />
 internal class DoctorsService(
-    IDoctorsRepository doctorsRepository, 
+    IDoctorsRepository doctorsRepository,
     IServiceModelValidator serviceModelValidator,
     IMapper mapper)
     : IDoctorsService
@@ -33,7 +33,7 @@ internal class DoctorsService(
         var doctor = await doctorsRepository.GetByIdAsync(request.DoctorId);
         if (doctor is null)
         {
-            throw new InvalidDataException("Доктор не найден");
+            throw new InvalidOperationException("Доктор не найден");
         }
 
         doctor.Seniority = request.Seniority ?? doctor.Seniority;
@@ -51,15 +51,10 @@ internal class DoctorsService(
         await doctorsRepository.DeleteAsync(doctorId);
 
     /// <inheritdoc />
-    public async Task<DoctorDto?> GetById(int doctorId)
-    {
-        if (doctorId <= 0)
-        {
-            return null;
-        }
-
-        return mapper.Map<DoctorDto?>(await doctorsRepository.GetByIdAsync(doctorId));
-    }
+    public async Task<DoctorDto?> GetById(int doctorId) =>
+        doctorId <= 0
+            ? null
+            : mapper.Map<DoctorDto?>(await doctorsRepository.GetByIdAsync(doctorId));
 
     /// <inheritdoc />
     public async Task<DoctorDto[]> GetAll() =>

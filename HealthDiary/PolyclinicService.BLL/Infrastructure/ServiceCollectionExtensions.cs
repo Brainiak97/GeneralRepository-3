@@ -34,7 +34,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IPolyclinicsService, Services.PolyclinicService>()
             .AddScoped<IPolyclinicSchedulesService, PolyclinicSchedulesService>()
             .AddScoped<IDoctorsService, DoctorsService>()
-            .AddScoped<IAppointmentsService, AppointmentsService>();
+            .AddScoped<IAppointmentResultsService, AppointmentResultsService>();
 
     private static IServiceCollection AddValidators(this IServiceCollection services) =>
         services
@@ -50,7 +50,9 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IValidator<UpdateAppointmentSlotStatusRequest>, UpdateAppointmentSlotStatusRequestValidator>()
             .AddSingleton<IValidator<DoctorActiveAppointmentSlotsRequest>, DoctorActiveAppointmentSlotsRequestValidator>()
             .AddSingleton<IValidator<PolyclinicAppointmentSlotsByDateRequest>, PolyclinicAppointmentSlotsByDateRequestValidator>()
-            .AddSingleton<IValidator<DeletePolyclinicAppointmentSlotsByFilterRequest>, DeletePolyclinicAppointmentSlotsByFilterRequestValidator>();
+            .AddSingleton<IValidator<DeletePolyclinicAppointmentSlotsByFilterRequest>, DeletePolyclinicAppointmentSlotsByFilterRequestValidator>()
+            .AddSingleton<IValidator<SaveAppointmentResultRequest>, SaveAppointmentResultRequestValidator>()
+            .AddSingleton<IValidator<UpdateAppointmentResultRequest>, UpdateAppointmentResultRequestValidator>();
 
     private static IServiceCollection AddCalculators(this IServiceCollection services) =>
         services.AddSingleton<IAppointmentSlotsCalculator, AppointmentSlotsCalculator>();

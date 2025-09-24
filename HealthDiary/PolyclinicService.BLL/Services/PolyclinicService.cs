@@ -15,8 +15,6 @@ internal class PolyclinicService(
     IMapper mapper)
     : IPolyclinicsService
 {
-    private const string IsNotValidIdErrorMessage = "Не задан идентификатор поликлиники";
-
     /// <inheritdoc />
     public async Task<int> AddPolyclinicAsync(AddPolyclinicRequest request)
     {
@@ -48,15 +46,8 @@ internal class PolyclinicService(
     }
 
     /// <inheritdoc />
-    public async Task DeletePolyclinicAsync(int polyclinicId)
-    {
-        if (polyclinicId <= 0)
-        {
-            throw new ArgumentException(IsNotValidIdErrorMessage);
-        }
-        
+    public async Task DeletePolyclinicAsync(int polyclinicId) =>
         await polyclinicsRepository.DeleteAsync(polyclinicId);
-    }
 
     /// <inheritdoc />
     public async Task<PolyclinicDto?> GetPolyclinicById(int polyclinicId) =>

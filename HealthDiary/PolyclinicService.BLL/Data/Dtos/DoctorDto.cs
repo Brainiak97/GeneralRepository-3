@@ -40,5 +40,5 @@ public class DoctorDto
     /// <summary>
     /// Специализация врача.
     /// </summary>
-    public SpecializationType SpecializationType { get; set; }    
+    public SpecializationType SpecializationType { get; set; }
 }
