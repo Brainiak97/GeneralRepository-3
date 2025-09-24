@@ -43,7 +43,7 @@ internal class AppointmentSlotsRepository(PolyclinicServiceDbContext context) : 
         {
             return false;
         }
-        
+
         context.AppointmentSlots.Update(FillSlotFieldsForUpdate(contextEntity, entity));
         return await context.SaveChangesAsync() == 1;
     }

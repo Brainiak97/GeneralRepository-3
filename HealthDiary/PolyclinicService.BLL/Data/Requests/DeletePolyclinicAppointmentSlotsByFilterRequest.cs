@@ -9,17 +9,17 @@ public class DeletePolyclinicAppointmentSlotsByFilterRequest
     /// Идентификатор поликлиники.
     /// </summary>
     public int? PolyclinicId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор врача.
     /// </summary>
     public int? DoctorId { get; set; }
-    
+
     /// <summary>
     /// Дата начала временного интервала для удаления.
     /// </summary>
     public DateTime? PeriodStartDate { get; set; }
-    
+
     /// <summary>
     /// Дата окончания временного интервала для удаления.
     /// </summary>

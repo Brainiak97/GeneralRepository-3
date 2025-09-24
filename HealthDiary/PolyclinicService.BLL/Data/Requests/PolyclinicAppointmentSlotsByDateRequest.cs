@@ -9,9 +9,9 @@ public class PolyclinicAppointmentSlotsByDateRequest
     /// Дата, на которую необходимо получить слоты приёма.
     /// </summary>
     public DateTime Date { get; set; }
-    
+
     /// <summary>
     /// Идентификатор поликлиники.
     /// </summary>
-    public required int PolyclinicId { get; set; }    
+    public required int PolyclinicId { get; set; }
 }

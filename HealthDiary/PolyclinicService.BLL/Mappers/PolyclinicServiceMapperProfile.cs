@@ -29,5 +29,9 @@ public class PolyclinicServiceMapperProfile : Profile
         CreateMap<AppointmentSlotDto, AppointmentSlot>().ReverseMap();
         CreateMap<AppointmentSlotDto?, AppointmentSlot?>().ReverseMap()
             .ConvertUsing((source, destination) => source is null ? null : destination);
+        CreateMap<SaveAppointmentResultRequest, AppointmentResult>();
+        CreateMap<AppointmentResultDto, AppointmentResult>().ReverseMap();
+        CreateMap<AppointmentResultDto?, AppointmentResult?>().ReverseMap()
+            .ConvertUsing((source, destination) => source is null ? null : destination);
     }
 }

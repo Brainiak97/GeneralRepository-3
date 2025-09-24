@@ -72,7 +72,7 @@ internal class AddAppointmentSlotsByTemplateRequestValidator : AbstractValidator
                     var weekendDay = new[] { DayOfWeek.Saturday, DayOfWeek.Sunday };
                     if (!weekendDay.Contains(day))
                     {
-                        validationContext.AddFailure($"{day} не является выходным днём");    
+                        validationContext.AddFailure($"{day} не является выходным днём");
                     }
                 }))
             .WithMessage("Заданы некорректные выходные дни, которые нужно включить в график")

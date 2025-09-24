@@ -20,13 +20,13 @@ public class AppointmentResult : IEntityModel<int>
     /// </summary>
     [Comment("Содержание отчёта по приёму пациента")]
     public required string ReportContent { get; set; }
-    
+
     /// <summary>
     /// Идентификатор слота на приём к врачу из графика.
     /// </summary>
     [Comment("Идентификатор слота на приём к врачу из графика")]
     public int AppointmentSlotId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор шаблона отчёта.
     /// </summary>
