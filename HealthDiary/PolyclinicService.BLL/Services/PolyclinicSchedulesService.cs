@@ -23,8 +23,8 @@ internal class PolyclinicSchedulesService
     {
         ArgumentNullException.ThrowIfNull(request);
         await modelValidator.ValidateAndThrowAsync(request);
-        
-        return await appointmentSlotsRepository.AddAsync(mapper.Map<AppointmentSlot>(request)); 
+
+        return await appointmentSlotsRepository.AddAsync(mapper.Map<AppointmentSlot>(request));
     }
 
     /// <inheritdoc />

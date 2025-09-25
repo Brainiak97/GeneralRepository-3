@@ -20,7 +20,7 @@ public class AppointmentSlot : IEntityModel<int>
     /// </summary>
     [Comment("Идентификатор врача")]
     public int DoctorId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор поликлинники.
     /// </summary>
@@ -50,12 +50,12 @@ public class AppointmentSlot : IEntityModel<int>
     /// </summary>
     [Comment("Статус приёма в графике")]
     public AppointmentSlotStatus Status { get; set; }
-    
+
     /// <summary>
     /// Навигационное свойство для связи с врачом.
     /// </summary>
     public Doctor Doctor { get; set; } = null!;
-    
+
     /// <summary>
     /// Навигационное свойство для связи с поликлиникой.
     /// </summary>

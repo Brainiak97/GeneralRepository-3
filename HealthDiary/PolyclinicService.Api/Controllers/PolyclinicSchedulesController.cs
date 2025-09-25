@@ -12,7 +12,7 @@ namespace PolyclinicService.Api.Controllers;
 /// </summary>
 /// <param name="polyclinicSchedulesService">Сервис, предоставляющий методы для работы с графиками приёма поликлиники.</param>
 [ApiController]
-[Route(PolyclinicSchedulesControllerWebRoutes.BasePath)]
+[Route("api/[controller]")]
 public class PolyclinicSchedulesController(IPolyclinicSchedulesService polyclinicSchedulesService) : ControllerBase
 {
     /// <summary>
@@ -108,7 +108,7 @@ public class PolyclinicSchedulesController(IPolyclinicSchedulesService polyclini
             ? Ok(result)
             : NotFound();
     }
-    
+
     /// <summary>
     /// Вернуть все слоты приёмов ко всем врачам поликлиники на дату.
     /// </summary>

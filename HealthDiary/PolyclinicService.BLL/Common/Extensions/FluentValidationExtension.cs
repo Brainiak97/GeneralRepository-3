@@ -13,7 +13,7 @@ internal static class FluentValidationExtension
     public static IRuleBuilderOptions<T, string?> PhoneNumber<T>(this IRuleBuilder<T, string?> ruleBuilder) =>
         ruleBuilder.Matches(@"^\+?[0-9]{10,15}$");
 
-    private static bool ValidateUrl(string? url) => 
+    private static bool ValidateUrl(string? url) =>
         Uri.TryCreate(url, UriKind.Absolute, out var result) &&
         (result.Scheme == Uri.UriSchemeHttp || result.Scheme == Uri.UriSchemeHttps);
 }

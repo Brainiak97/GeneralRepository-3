@@ -16,7 +16,7 @@ public class AppointmentSlotDto
     /// Идентификатор врача.
     /// </summary>
     public int DoctorId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор поликлинники.
     /// </summary>
@@ -40,5 +40,5 @@ public class AppointmentSlotDto
     /// <summary>
     /// Статус приёма в графике.
     /// </summary>
-    public AppointmentSlotStatus Status { get; set; }    
+    public AppointmentSlotStatus Status { get; set; }
 }

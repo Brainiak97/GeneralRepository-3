@@ -40,5 +40,5 @@ public class AddDoctorRequest
     /// <summary>
     /// Специализация врача.
     /// </summary>
-    public SpecializationType SpecializationType { get; set; }   
+    public SpecializationType SpecializationType { get; set; }
 }
