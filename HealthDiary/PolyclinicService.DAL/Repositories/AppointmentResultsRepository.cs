@@ -38,8 +38,14 @@ internal class AppointmentResultsRepository(PolyclinicServiceDbContext context) 
     /// <inheritdoc />
     public async Task<IEnumerable<AppointmentResult>?> GetPatientAppointmentResultsWithSlotInfoAsync(int patientId, DateTime? date) =>
         await context.AppointmentResults
-            .Include(s => s.AppointmentSlot)
             .Where(s => s.AppointmentSlot.UserId == patientId && (date == null || s.AppointmentSlot.Date == date))
+            .Select(r => new AppointmentResult
+            {
+                Id = r.Id,
+                AppointmentSlotId = r.AppointmentSlotId,
+                ReportTemplateId = r.ReportTemplateId,
+                AppointmentSlot = r.AppointmentSlot,
+            })
             .AsNoTracking()
             .ToListAsync();
 }

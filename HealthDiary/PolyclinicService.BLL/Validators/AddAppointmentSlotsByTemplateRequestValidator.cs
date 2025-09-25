@@ -5,6 +5,8 @@ namespace PolyclinicService.BLL.Validators;
 
 internal class AddAppointmentSlotsByTemplateRequestValidator : AbstractValidator<AddAppointmentSlotsByTemplateRequest>
 {
+    private static readonly DayOfWeek[] WeekDays = [DayOfWeek.Saturday, DayOfWeek.Sunday];
+
     public AddAppointmentSlotsByTemplateRequestValidator()
     {
         RuleFor(r => r.PolyclinicId)
@@ -12,7 +14,7 @@ internal class AddAppointmentSlotsByTemplateRequestValidator : AbstractValidator
             .WithMessage("Не задан идентификатор поликлиники для слотов приёма в графике");
         RuleFor(r => r.DoctorIds)
             .NotEmpty()
-            .WithMessage("")
+            .WithMessage("Не задан список врачей для которых составляется график")
             .ForEach(doctorId =>
                 doctorId
                     .GreaterThan(0)
@@ -34,9 +36,7 @@ internal class AddAppointmentSlotsByTemplateRequestValidator : AbstractValidator
             });
         RuleFor(r => r.PeriodEndDate)
             .GreaterThan(DateOnly.MinValue)
-            .WithMessage("Не задана дата окончания периода для формирования слотов")
-            .GreaterThan(r => r.PeriodStartDate)
-            .WithMessage("Дата окончания должна быть больше даты начала периода для формирования слотов");
+            .WithMessage("Не задана дата окончания периода для формирования слотов");
         RuleFor(r => r.WorkDayStartTime)
             .GreaterThan((TimeOnly)default)
             .WithMessage("Не задано время начала рабочего дня")
@@ -69,8 +69,7 @@ internal class AddAppointmentSlotsByTemplateRequestValidator : AbstractValidator
             .ForEach(wd =>
                 wd.Custom((day, validationContext) =>
                 {
-                    var weekendDay = new[] { DayOfWeek.Saturday, DayOfWeek.Sunday };
-                    if (!weekendDay.Contains(day))
+                    if (!WeekDays.Contains(day))
                     {
                         validationContext.AddFailure($"{day} не является выходным днём");
                     }
