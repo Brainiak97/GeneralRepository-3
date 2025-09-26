@@ -40,6 +40,9 @@ namespace MetricService.API
             builder.Services.AddScoped<IHealthMetricValueRepository, HealthMetricValueRepository>();
             builder.Services.AddScoped<IHealthMetricValueService, HealthMetricValueService>();
 
+            builder.Services.AddScoped<IHealthConditionRepository, HealthConditionRepository>();
+            builder.Services.AddScoped<IHealthConditionService, HealthConditionService>();
+
             builder.Services.AddScoped<IAnalysisCategoryRepository, AnalysisCategoryRepository>();
             builder.Services.AddScoped<IAnalysisCategoryService, AnalysisCategoryService>();
             builder.Services.AddScoped<IValidator<AnalysisCategory>, AnalysisCategoryValidator>();
