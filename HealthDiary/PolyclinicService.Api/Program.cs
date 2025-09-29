@@ -3,6 +3,7 @@ using PolyclinicService.BLL.Infrastructure;
 using PolyclinicService.DAL.Infrastructure;
 using Shared.Auth;
 using Shared.Common.Infrastructure;
+using Shared.Common.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

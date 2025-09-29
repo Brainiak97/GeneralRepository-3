@@ -7,9 +7,9 @@ internal class SaveAppointmentResultRequestValidator : AbstractValidator<SaveApp
 {
     public SaveAppointmentResultRequestValidator()
     {
-        RuleFor(r => r.AppointmentSlotId)
+        RuleFor(x => x.AppointmentSlotId)
             .GreaterThan(0)
-            .WithMessage("Задан некорректный идентификатор результата приёма");
+            .WithMessage("Задан некорректный идентификатор слота приёма в графике");
         RuleFor(r => r.ReportTemplateId)
             .GreaterThan(0)
             .WithMessage("Задан некорректный идентификатор шаблона отчёта");

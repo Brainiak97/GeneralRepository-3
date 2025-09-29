@@ -7,6 +7,7 @@ using PolyclinicService.BLL.Interfaces;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.Domain.Models;
 using PolyclinicService.Domain.Models.Entities;
+using Shared.Common.Exceptions;
 
 namespace PolyclinicService.BLL.Services;
 
@@ -21,16 +22,15 @@ internal class PolyclinicSchedulesService
     /// <inheritdoc />
     public async Task<int> AddAppointmentSlotAsync(AddAppoinmentSlotRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await modelValidator.ValidateAndThrowAsync(request);
 
-        return await appointmentSlotsRepository.AddAsync(mapper.Map<AppointmentSlot>(request));
+        var appSlot = mapper.Map<AppointmentSlot>(request);
+        return await appointmentSlotsRepository.AddAsync(appSlot);
     }
 
     /// <inheritdoc />
     public async Task<bool> AddAppointmentSlotsByTemplate(AddAppointmentSlotsByTemplateRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await modelValidator.ValidateAndThrowAsync(request);
 
         var calculatedSlots = appointmentSlotsCalculator.CalculateSlots(
@@ -52,13 +52,12 @@ internal class PolyclinicSchedulesService
     /// <inheritdoc />
     public async Task UpdateAppointmentSlotAsync(UpdateAppointmentSlotRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await modelValidator.ValidateAndThrowAsync(request);
 
         var insertedSlot = await appointmentSlotsRepository.GetByIdAsync(request.Id);
         if (insertedSlot is null)
         {
-            throw new InvalidOperationException("Слот приёма к врачу не найден");
+            throw new EntryNotFoundException("Слот приёма к врачу не найден");
         }
 
         insertedSlot.PolyclinicId = request.PolyclinicId ?? insertedSlot.PolyclinicId;
@@ -73,13 +72,12 @@ internal class PolyclinicSchedulesService
     /// <inheritdoc />
     public async Task UpdateAppointmentSlotStatusAsync(UpdateAppointmentSlotStatusRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await modelValidator.ValidateAndThrowAsync(request);
 
         var insertedSlot = await appointmentSlotsRepository.GetByIdAsync(request.AppointmentSlotId);
         if (insertedSlot is null)
         {
-            throw new InvalidOperationException("Слот приёма к врачу не найден");
+            throw new EntryNotFoundException("Слот приёма к врачу не найден");
         }
 
         insertedSlot.Status = request.Status;
@@ -93,7 +91,6 @@ internal class PolyclinicSchedulesService
     /// <inheritdoc />
     public async Task DeletePolyclinicAppointmentSlotsByFilterAsync(DeletePolyclinicAppointmentSlotsByFilterRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await modelValidator.ValidateAndThrowAsync(request);
 
         await appointmentSlotsRepository.DeleteByFilterAsync(
@@ -105,14 +102,11 @@ internal class PolyclinicSchedulesService
 
     /// <inheritdoc />
     public async Task<AppointmentSlotDto?> GetAppointmentSlotByIdAsync(int id) =>
-        id <= 0
-            ? null
-            : mapper.Map<AppointmentSlotDto?>(await appointmentSlotsRepository.GetByIdAsync(id));
+        mapper.Map<AppointmentSlotDto?>(await appointmentSlotsRepository.GetByIdAsync(id));
 
     /// <inheritdoc />
     public async Task<AppointmentSlotDto[]> GetPolyclinicAppointmentSlotsByDateAsync(PolyclinicAppointmentSlotsByDateRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         var validationResult = await modelValidator.ValidateAsync(request);
         if (!validationResult.IsValid)
         {
@@ -130,7 +124,6 @@ internal class PolyclinicSchedulesService
     /// <inheritdoc />
     public async Task<AppointmentSlotDto[]> GetDoctorActiveAppointmentSlotsAsync(DoctorActiveAppointmentSlotsRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         var validationResult = await modelValidator.ValidateAsync(request);
         if (!validationResult.IsValid)
         {

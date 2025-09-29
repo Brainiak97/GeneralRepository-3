@@ -19,9 +19,4 @@ internal static class AppointmentResultWebRoutes
     /// Маршрут до метода DeleteAppointmentResult.
     /// </summary>
     public const string DeleteAppointmentResult = "{id:int}/delete";
-
-    /// <summary>
-    /// Маршрут до метода GetPatientAppointmentResults.
-    /// </summary>
-    public const string GetPatientAppointments = "/{patientId:int}";
 }

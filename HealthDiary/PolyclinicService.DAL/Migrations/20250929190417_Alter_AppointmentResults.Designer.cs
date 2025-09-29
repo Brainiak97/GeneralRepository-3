@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PolyclinicService.DAL.Contexts;
@@ -11,9 +12,11 @@ using PolyclinicService.DAL.Contexts;
 namespace PolyclinicService.DAL.Migrations
 {
     [DbContext(typeof(PolyclinicServiceDbContext))]
-    partial class PolyclinicServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250929190417_Alter_AppointmentResults")]
+    partial class Alter_AppointmentResults
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

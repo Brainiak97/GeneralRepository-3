@@ -10,10 +10,6 @@ internal class UpdateAppointmentResultRequestValidator : AbstractValidator<Updat
         RuleFor(r => r.Id)
             .GreaterThan(0)
             .WithMessage("Задан некорректный идентификатор результата приёма");
-        RuleFor(r => r.AppointmentSlotId)
-            .GreaterThan(0)
-            .WithMessage("Задан некорректный идентификатор результата приёма")
-            .When(r => r.AppointmentSlotId is not null);
         RuleFor(r => r.ReportTemplateId)
             .GreaterThan(0)
             .WithMessage("Задан некорректный идентификатор шаблона отчёта")

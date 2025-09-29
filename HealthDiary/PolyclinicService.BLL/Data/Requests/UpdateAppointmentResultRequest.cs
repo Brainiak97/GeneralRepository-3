@@ -16,11 +16,6 @@ public class UpdateAppointmentResultRequest
     public string? ReportContent { get; set; }
     
     /// <summary>
-    /// Идентификатор слота на приём к врачу из графика.
-    /// </summary>
-    public int? AppointmentSlotId { get; set; }
-    
-    /// <summary>
     /// Идентификатор шаблона отчёта.
     /// </summary>
     public int? ReportTemplateId { get; set; }

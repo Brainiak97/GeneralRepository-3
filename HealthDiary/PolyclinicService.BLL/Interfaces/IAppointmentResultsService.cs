@@ -35,12 +35,4 @@ public interface IAppointmentResultsService
     /// <param name="id">Идентификатор результата приёма.</param>
     /// <returns>Результат приёма пациента или <see langword="null"/> если нет.</returns>
     Task<AppointmentResultDto?> GetAppointmentResultByIdAsync(int id);
-
-    /// <summary>
-    /// Вернуть результаты приёмов пациента.
-    /// </summary>
-    /// <param name="patientId">Идентификатор пациента.</param>
-    /// <param name="date">Дата, на которую необходимо получить результаты приёма.</param>
-    /// <returns>Результаты приёма пациента с данными слотов из графика поликлиники.</returns>
-    Task<AppointmentResultExtDto[]> GetPatientAppointmentResultsWithSlotInfoAsync(int patientId, DateTime? date);
 }

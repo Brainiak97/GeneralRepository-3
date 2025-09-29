@@ -55,6 +55,5 @@ internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbCo
         });
 
         modelBuilder.Entity<AppointmentSlot>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
-        modelBuilder.Entity<AppointmentResult>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
     }
 }

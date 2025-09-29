@@ -22,12 +22,6 @@ public class AppointmentResult : IEntityModel<int>
     public string ReportContent { get; set; } = null!;
 
     /// <summary>
-    /// Идентификатор слота на приём к врачу из графика.
-    /// </summary>
-    [Comment("Идентификатор слота на приём к врачу из графика")]
-    public int AppointmentSlotId { get; set; }
-
-    /// <summary>
     /// Идентификатор шаблона отчёта.
     /// </summary>
     [Comment("Идентификатор шаблона отчёта")]

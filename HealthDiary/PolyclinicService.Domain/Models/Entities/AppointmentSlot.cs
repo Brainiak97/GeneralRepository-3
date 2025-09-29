@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Shared.Common.Interfaces;
 
@@ -60,4 +61,10 @@ public class AppointmentSlot : IEntityModel<int>
     /// Навигационное свойство для связи с поликлиникой.
     /// </summary>
     public Polyclinic Polyclinic { get; set; } = null!;
+    
+    /// <summary>
+    /// Навигационное свойство для связи с результатом приёма.
+    /// </summary>
+    [ForeignKey(nameof(AppointmentResult.Id))]
+    public AppointmentResult? AppointmentResult { get; set; }
 }

@@ -5,6 +5,7 @@ using PolyclinicService.BLL.Data.Requests;
 using PolyclinicService.BLL.Interfaces;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.Domain.Models.Entities;
+using Shared.Common.Exceptions;
 
 namespace PolyclinicService.BLL.Services;
 
@@ -18,22 +19,21 @@ internal class PolyclinicService(
     /// <inheritdoc />
     public async Task<int> AddPolyclinicAsync(AddPolyclinicRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await serviceModelValidator.ValidateAndThrowAsync(request);
 
-        return await polyclinicsRepository.AddAsync(mapper.Map<Polyclinic>(request));
+        var polyclinic = mapper.Map<Polyclinic>(request);
+        return await polyclinicsRepository.AddAsync(polyclinic);
     }
 
     /// <inheritdoc />
     public async Task UpdatePolyclinicInfoAsync(UpdatePolyclinicRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await serviceModelValidator.ValidateAndThrowAsync(request);
 
         var polyclinic = await polyclinicsRepository.GetByIdAsync(request.PolyclinicId);
         if (polyclinic is null)
         {
-            throw new ArgumentException($"Не найдена поликлиника по идентификатору: {request.PolyclinicId}");
+            throw new EntryNotFoundException($"Не найдена поликлиника по идентификатору: {request.PolyclinicId}");
         }
 
         polyclinic.Name = request.Name ?? polyclinic.Name;
@@ -51,9 +51,7 @@ internal class PolyclinicService(
 
     /// <inheritdoc />
     public async Task<PolyclinicDto?> GetPolyclinicById(int polyclinicId) =>
-        polyclinicId <= 0
-            ? null
-            : mapper.Map<PolyclinicDto?>(await polyclinicsRepository.GetByIdAsync(polyclinicId));
+        mapper.Map<PolyclinicDto?>(await polyclinicsRepository.GetByIdAsync(polyclinicId));
 
     /// <inheritdoc />
     public async Task<PolyclinicDto[]> GetAllPolyclinics() =>

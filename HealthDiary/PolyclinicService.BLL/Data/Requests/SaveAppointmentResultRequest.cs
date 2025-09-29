@@ -6,14 +6,14 @@ namespace PolyclinicService.BLL.Data.Requests;
 public class SaveAppointmentResultRequest
 {
     /// <summary>
+    /// Идентификатор слота приёма в графике.
+    /// </summary>
+    public required int AppointmentSlotId { get; set; }
+    
+    /// <summary>
     /// Содержание отчёта по приёму пациента.
     /// </summary>
     public required string ReportContent { get; set; }
-    
-    /// <summary>
-    /// Идентификатор слота на приём к врачу из графика.
-    /// </summary>
-    public required int AppointmentSlotId { get; set; }
     
     /// <summary>
     /// Идентификатор шаблона отчёта.

@@ -67,20 +67,4 @@ public class AppointmentResultsController(IAppointmentResultsService appointment
             ? NotFound()
             : Ok(result);
     }
-
-    /// <summary>
-    /// Вернуть результаты приёмов пациента.
-    /// </summary>
-    /// <param name="patientId">Идентификатор пациента.</param>
-    /// <param name="date">Дата, на которую необходимо получить результаты приёма.</param>
-    /// <returns>Результаты приёма пациента с данными слотов из графика поликлиники.</returns>
-    [HttpGet(AppointmentResultWebRoutes.GetPatientAppointments)]
-    public async Task<IActionResult> GetPatientAppointments([FromRoute] int patientId, [FromQuery] DateTime? date)
-    {
-        var results = await appointmentResultsService.GetPatientAppointmentResultsWithSlotInfoAsync(
-            patientId,
-            date);
-
-        return Ok(results);
-    }
 }
