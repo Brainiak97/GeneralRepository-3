@@ -2,23 +2,23 @@
 {
     public class AggregatedHealthSummaryDto
     {
-        public string Period { get; set; } = string.Empty;
+        /// <summary>
+        /// Период отчёта (например, "01.04.2025 – 10.04.2025")
+        /// </summary>
+        public string Period { get; set; } = null!;
 
-        // Средние показатели
-        public double AvgHeartRate { get; set; }
-        public double? AvgBloodPressureSys { get; set; }
-        public double? AvgBloodPressureDia { get; set; }
-        public double? AvgBodyFatPercentage { get; set; }
+        /// <summary>
+        /// Усреднённые значения метрик по их имени
+        /// Ключ — MetricName, значение — среднее (или null, если данных нет)
+        /// </summary>
+        public Dictionary<string, double?> AggregatedMetrics { get; set; } = [];
 
-        // Сон
+        // --- Сон ---
         public double AvgSleepDurationHours { get; set; }
         public double AvgSleepQuality { get; set; }
 
-        // Активность
-        public double TotalCaloriesBurned { get; set; }
+        // --- Физическая активность ---
         public int WorkoutCount { get; set; }
-
-        // Вода
-        public double AvgDailyWaterIntake { get; set; }
+        public float TotalCaloriesBurned { get; set; }
     }
 }
