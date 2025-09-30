@@ -16,27 +16,18 @@ namespace StateService.Api.Infrastructure
             var endDate = reportsList.Max(r => r.Date);
             var period = $"{startDate:dd.MM.yyyy} – {endDate:dd.MM.yyyy}";
 
-            // === Агрегация всех метрик по имени ===
+            // Собираем ВСЕ метрики (без группировки, без усреднения на этом этапе)
             var allMetrics = reportsList
                 .Where(r => r.HealthMetrics != null)
                 .SelectMany(r => r.HealthMetrics!)
+                .Where(m => m.Value.HasValue) // опционально: фильтруем только с данными
                 .ToList();
 
-            var aggregatedMetrics = allMetrics
-                .Where(m => m.Value.HasValue)
-                .GroupBy(m => m.MetricName) // Группируем по имени метрики
-                .ToDictionary(
-                    g => g.Key,
-                    g => (double?)g.Average(m => m.Value!.Value)
-                );
-
-            // === Сон ===
             var sleepEntries = reportsList
                 .Where(r => r.Sleep != null)
                 .SelectMany(r => r.Sleep!)
                 .ToList();
 
-            // === Тренировки ===
             var workouts = reportsList
                 .Where(r => r.PhysicalActivity != null)
                 .SelectMany(r => r.PhysicalActivity!)
@@ -45,7 +36,7 @@ namespace StateService.Api.Infrastructure
             return new AggregatedHealthSummaryDto
             {
                 Period = period,
-                AggregatedMetrics = aggregatedMetrics,
+                HealthMetrics = allMetrics, // ← сохраняем исходные объекты
 
                 AvgSleepDurationHours = sleepEntries.Count != 0
                     ? sleepEntries.Average(s => s.SleepDuration.TotalHours)

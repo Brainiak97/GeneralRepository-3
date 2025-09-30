@@ -11,7 +11,7 @@
         /// Усреднённые значения метрик по их имени
         /// Ключ — MetricName, значение — среднее (или null, если данных нет)
         /// </summary>
-        public Dictionary<string, double?> AggregatedMetrics { get; set; } = [];
+        public List<HealthMetricsDto> HealthMetrics { get; set; } = new();
 
         // --- Сон ---
         public double AvgSleepDurationHours { get; set; }

@@ -74,17 +74,35 @@ namespace StateService.DAL.Providers
                 _ => "за выбранный период"
             };
 
+            // === Группируем метрики по имени и считаем среднее ===
+            var groupedMetrics = summary.HealthMetrics
+                .GroupBy(m => m.MetricName)
+                .ToDictionary(
+                    g => g.Key,
+                    g => new
+                    {
+                        AvgValue = g.Average(m => m.Value!.Value),
+                        Unit = g.FirstOrDefault(m => !string.IsNullOrEmpty(m.Unit))?.Unit ?? ""
+                    }
+                );
+
+            // === Формируем строки для промпта ===
+            var metricsLines = groupedMetrics
+                .Select(kvp => $"- {kvp.Key}: {kvp.Value.AvgValue:F1} {kvp.Value.Unit}".Trim())
+                .ToList();
+
+            var metricsBlock = metricsLines.Any()
+                ? string.Join("\n", metricsLines)
+                : "- Нет данных о биометрических показателях";
+
             var prompt = $@"
 Проанализируй данные о здоровье пользователя {periodText}, определи, являются ли эти показатели нормой,
 укажи отклонения и дай до 5 практических, кратких рекомендаций по улучшению самочувствия.
 Не пиши приветствия и не упоминай, что ты ИИ. Только чёткие советы.
 
 **Показатели:**
-- Средний пульс: {summary.AvgHeartRate:F1} уд/мин
-- Среднее давление: {(summary.AvgBloodPressureSys.HasValue ? $"{summary.AvgBloodPressureSys:F0}/{summary.AvgBloodPressureDia:F0} мм рт. ст." : "не указано")}
-- Средний процент жира: {(summary.AvgBodyFatPercentage?.ToString("F1") ?? "неизвестен")}% 
+{metricsBlock}
 - Сон: в среднем {summary.AvgSleepDurationHours:F1} часа в сутки, качество сна: {summary.AvgSleepQuality:F1}/10
-- Вода: в среднем {summary.AvgDailyWaterIntake:F1} литра в день
 - Калории: всего сожжено {summary.TotalCaloriesBurned:F0} ккал
 - Тренировки: {summary.WorkoutCount} сессий
 
