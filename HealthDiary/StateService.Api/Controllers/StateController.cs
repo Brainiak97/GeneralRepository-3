@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StateService.Api.Infrastructure;
+using StateService.Api.ViewModels;
 using StateService.BLL.Interfaces;
 using StateService.DAL.Interfaces;
 using StateService.Domain.Models;
@@ -8,12 +9,10 @@ namespace StateService.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StateController(IStateService stateProvider, IFoodDataProvider foodDataProvider, IMetricDataProvider metricDataProvider, IGroqProvider yandexCloudProvider) : ControllerBase
+    public class StateController(IStateService stateService, IGroqProvider groqProvider) : ControllerBase
     {
-        private readonly IStateService _stateProvider = stateProvider;
-        private readonly IFoodDataProvider _foodDataProvider = foodDataProvider;
-        private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
-        private readonly IGroqProvider _groqProvider = yandexCloudProvider;
+        private readonly IStateService _stateService = stateService;
+        private readonly IGroqProvider _groqProvider = groqProvider;
 
         [HttpGet(nameof(GetDailySummary))]
         public async Task<IActionResult> GetDailySummary(int userId)
@@ -38,12 +37,7 @@ namespace StateService.Api.Controllers
 
             if (request.StartDate > request.EndDate)
             {
-                return BadRequest("Начальная дата не может быть позже конечной.");
-            }
-
-            if (request.UserId <= 0)
-            {
-                return BadRequest("Некорректный идентификатор пользователя.");
+                return BadRequest($"Начальная дата ({request.StartDate}) не может быть позже конечной ({request.EndDate}).");
             }
 
             try
@@ -56,7 +50,7 @@ namespace StateService.Api.Controllers
 
                 if (reports == null || !reports.Any())
                 {
-                    return Ok(new { Message = "Данные за указанный период отсутствуют." });
+                    return Ok(new { Message = $"Данные пользователя ({request.UserId}) за указанный период ({request.StartDate}-{request.EndDate}) отсутствуют." });
                 }
 
                 return Ok(reports);
@@ -71,7 +65,7 @@ namespace StateService.Api.Controllers
             }
         }
 
-        [HttpPost("GetRecommendations")]
+        [HttpPost(nameof(GetRecommendations))]
         public async Task<IActionResult> GetRecommendations([FromBody] IEnumerable<UserHealthReport> reports)
         {
             try
