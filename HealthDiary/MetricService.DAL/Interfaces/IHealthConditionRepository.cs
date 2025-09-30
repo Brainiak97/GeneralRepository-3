@@ -6,7 +6,7 @@ namespace MetricService.DAL.Interfaces
     /// Определяет контракт для репозитория, взаимодействующего с данными о доступе к самочувствию(состоянию здоровья) пользователя
     /// </summary>
     /// <seealso cref="HealthCondition" />
-    public interface IHealthConditionRepository: IRepository<HealthCondition>
+    public interface IHealthConditionRepository : IRepository<HealthCondition>
     {
     }
 }
