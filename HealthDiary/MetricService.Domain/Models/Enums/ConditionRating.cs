@@ -3,36 +3,36 @@
     /// <summary>
     /// Оценка состояния
     /// </summary>
-    public enum ConditionAssessment
+    public enum ConditionRating
     {
         /// <summary>
         /// Оценка состояния НЕ ОПРЕДЕЛЕНО
         /// </summary>
-        НеОпределено,
+        None,
 
         /// <summary>
         /// Оценка состояния УЖАСНО
         /// </summary>
-        Ужасно,
+        Terribly,
 
         /// <summary>
         /// Оценка состояния ПЛОХО
         /// </summary>
-        Плохо,
+        Badly,
 
         /// <summary>
         /// Оценка состояния УДОВЛЕТВОРИТЕЛЬНО
         /// </summary>
-        Удовлетворительно,
+        Satisfactory,
 
         /// <summary>
         /// Оценка состояния ХОРОШО
         /// </summary>
-        Хорошо,
+        Well,
 
         /// <summary>
         /// Оценка состояния ОТЛИЧНО
         /// </summary>
-        Отлично,
+        Great,
     }
 }

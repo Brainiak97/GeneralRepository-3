@@ -32,13 +32,13 @@ namespace MetricService.Domain.Models
         /// Эмоциональное состояние
         /// </summary>        
         [Comment("Эмоциональное состояние")]
-        public ConditionAssessment EmotionalState { get; set; }
+        public ConditionRating EmotionalState { get; set; }
 
         /// <summary>
         /// Физическое состояние
         /// </summary>
         [Comment("Физическое состояние")]
-        public ConditionAssessment PhysicalState { get; set; }
+        public ConditionRating PhysicalState { get; set; }
 
         /// <summary>
         /// Симптомы
