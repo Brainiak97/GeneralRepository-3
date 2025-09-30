@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />
     <ProjectReference Include="..\StateService.DAL\StateService.DAL.csproj" />
     <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />
   </ItemGroup>

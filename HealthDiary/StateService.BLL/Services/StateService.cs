@@ -1,4 +1,5 @@
-﻿using StateService.BLL.Interfaces;
+﻿using Shared.Common.Exceptions;
+using StateService.BLL.Interfaces;
 using StateService.DAL.Interfaces;
 using StateService.Domain.Models;
 
@@ -14,7 +15,7 @@ namespace StateService.BLL.Services
             var today = DateTime.Today;
             var reports = await GetPeriodSummaryAsync(userId, today, today);
             
-            return reports.FirstOrDefault() ?? throw new ArgumentNullException(nameof(userId));
+            return reports.FirstOrDefault() ?? throw new EntryNotFoundException("Не удалось получить данные.");
         }
 
         public async Task<IEnumerable<UserHealthReport>> GetPeriodSummaryAsync(int userId, DateTime startDate, DateTime endDate)
