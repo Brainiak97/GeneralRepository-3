@@ -79,15 +79,11 @@ namespace StateService.Api.Controllers
                     Recommendations = recommendations,
                     Summary = new
                     {
-                        summary.AvgHeartRate,
-                        summary.AvgBloodPressureSys,
-                        summary.AvgBloodPressureDia,
-                        summary.AvgBodyFatPercentage,
+                        summary.HealthMetrics,
                         summary.AvgSleepDurationHours,
                         summary.AvgSleepQuality,
-                        summary.AvgDailyWaterIntake,
                         summary.WorkoutCount,
-                        summary.TotalCaloriesBurned,
+                        summary.TotalCaloriesBurned
                     }
                 });
             }
