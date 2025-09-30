@@ -8,7 +8,7 @@ namespace StateService.DAL.Providers
     {
         private readonly HttpClient _httpClient = httpClient;
 
-        public async Task<List<HealthMetricsDto>> GetHealthMetricsBaseDataAsync(string userId, DateTime startDate, DateTime endDate)
+        public async Task<List<HealthMetricsDto>> GetHealthMetricsBaseDataAsync(int userId, DateTime startDate, DateTime endDate)
         {
             var url = $"/api/HealthMetricsBase/GetAllHealthMetricsValue" +
                       $"?UserId={userId}" +
@@ -27,7 +27,7 @@ namespace StateService.DAL.Providers
             })];
         }
 
-        public async Task<List<WorkoutDto>> GetWorkoutDataAsync(string userId, DateTime startDate, DateTime endDate)
+        public async Task<List<WorkoutDto>> GetWorkoutDataAsync(int userId, DateTime startDate, DateTime endDate)
         {
             var url = $"/api/workout/GetAllWorkouts" +
                       $"?UserId={userId}" +
@@ -38,7 +38,7 @@ namespace StateService.DAL.Providers
             return response ?? [];
         }
 
-        public async Task<List<SleepDto>> GetSleepDataAsync(string userId, DateTime startDate, DateTime endDate)
+        public async Task<List<SleepDto>> GetSleepDataAsync(int userId, DateTime startDate, DateTime endDate)
         {
             var url = $"/api/sleep/GetAllSleeps" +
                       $"?UserId={userId}" +

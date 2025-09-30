@@ -5,13 +5,9 @@ using StateService.Domain.Models;
 namespace StateService.BLL.Services
 {
     public class StateService(
-        IUserDataProvider userDataProvider,
-        IMetricDataProvider metricDataProvider,
-        IFoodDataProvider foodDataProvider) : IStateService
+        IMetricDataProvider metricDataProvider) : IStateService
     {
-        private readonly IUserDataProvider _userDataProvider = userDataProvider;
         private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
-        private readonly IFoodDataProvider _foodDataProvider = foodDataProvider;
 
         public async Task<UserHealthReport> GetDailySummaryAsync(int userId)
         {
@@ -24,11 +20,11 @@ namespace StateService.BLL.Services
         public async Task<IEnumerable<UserHealthReport>> GetPeriodSummaryAsync(int userId, DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
-                throw new ArgumentException("Дата начала периода должна быть раньше даты окончания периода.");
+                throw new ArgumentException($"Дата начала периода ({startDate}) должна быть раньше даты окончания периода ({endDate}).");
 
-            var metricsTask = _metricDataProvider.GetHealthMetricsBaseDataAsync(userId.ToString(), startDate, endDate);
-            var workoutsTask = _metricDataProvider.GetWorkoutDataAsync(userId.ToString(), startDate, endDate);
-            var sleepTask = _metricDataProvider.GetSleepDataAsync(userId.ToString(), startDate, endDate);
+            var metricsTask = _metricDataProvider.GetHealthMetricsBaseDataAsync(userId, startDate, endDate);
+            var workoutsTask = _metricDataProvider.GetWorkoutDataAsync(userId, startDate, endDate);
+            var sleepTask = _metricDataProvider.GetSleepDataAsync(userId, startDate, endDate);
 
             await Task.WhenAll(metricsTask, workoutsTask, sleepTask);
 

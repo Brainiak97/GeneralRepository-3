@@ -13,7 +13,7 @@ namespace StateService.Api.Controllers
         private readonly IFoodDataProvider _foodDataProvider = foodDataProvider;
         private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
 
-        [HttpGet("GetDailySummary")]
+        [HttpGet(nameof(GetDailySummary))]
         public async Task<IActionResult> GetDailySummary(int userId)
         {
             if (userId == 0)
@@ -26,7 +26,7 @@ namespace StateService.Api.Controllers
             return Ok(report);
         }
 
-        [HttpGet("GetPeriodSummary")]
+        [HttpGet(nameof(GetPeriodSummary))]
         public async Task<IActionResult> GetPeriodSummary([FromQuery] RequestListWithPeriodByIdViewModel request)
         {
             if (!ModelState.IsValid)
