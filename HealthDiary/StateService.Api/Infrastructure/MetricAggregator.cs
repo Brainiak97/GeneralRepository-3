@@ -21,17 +21,17 @@ namespace StateService.Api.Infrastructure
                 .Where(r => r.HealthMetrics != null)
                 .SelectMany(r => r.HealthMetrics!)
                 .Where(m => m.Value.HasValue) // опционально: фильтруем только с данными
-                .ToList() ?? [];
+                .ToList();
 
             var sleepEntries = reportsList
                 .Where(r => r.Sleep != null)
                 .SelectMany(r => r.Sleep!)
-                .ToList() ?? [];
+                .ToList();
 
             var workouts = reportsList
                 .Where(r => r.PhysicalActivity != null)
                 .SelectMany(r => r.PhysicalActivity!)
-                .ToList() ?? [];
+                .ToList();
 
             return new AggregatedHealthSummaryDto
             {
