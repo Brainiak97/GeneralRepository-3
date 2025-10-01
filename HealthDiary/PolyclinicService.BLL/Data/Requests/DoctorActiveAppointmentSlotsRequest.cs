@@ -9,12 +9,12 @@ public class DoctorActiveAppointmentSlotsRequest
     /// Идентификатор врача.
     /// </summary>
     public int DoctorId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор поликлиники.
     /// </summary>
     public int? PolyclinicId { get; set; }
-    
+
     /// <summary>
     /// Дата, на которую необходимо получить слоты приёма врача.
     /// </summary>

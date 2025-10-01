@@ -5,12 +5,13 @@ using PolyclinicService.BLL.Data.Requests;
 using PolyclinicService.BLL.Interfaces;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.Domain.Models.Entities;
+using Shared.Common.Exceptions;
 
 namespace PolyclinicService.BLL.Services;
 
 /// <inheritdoc />
 internal class DoctorsService(
-    IDoctorsRepository doctorsRepository, 
+    IDoctorsRepository doctorsRepository,
     IServiceModelValidator serviceModelValidator,
     IMapper mapper)
     : IDoctorsService
@@ -18,22 +19,21 @@ internal class DoctorsService(
     /// <inheritdoc />
     public async Task<int> AddAsync(AddDoctorRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await serviceModelValidator.ValidateAndThrowAsync(request);
 
-        return await doctorsRepository.AddAsync(mapper.Map<Doctor>(request));
+        var doctor = mapper.Map<Doctor>(request);
+        return await doctorsRepository.AddAsync(doctor);
     }
 
     /// <inheritdoc />
     public async Task UpdateDoctorInfoAsync(UpdateDoctorRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request);
         await serviceModelValidator.ValidateAndThrowAsync(request);
 
         var doctor = await doctorsRepository.GetByIdAsync(request.DoctorId);
         if (doctor is null)
         {
-            throw new InvalidDataException("Доктор не найден");
+            throw new EntryNotFoundException("Доктор не найден");
         }
 
         doctor.Seniority = request.Seniority ?? doctor.Seniority;
@@ -51,15 +51,8 @@ internal class DoctorsService(
         await doctorsRepository.DeleteAsync(doctorId);
 
     /// <inheritdoc />
-    public async Task<DoctorDto?> GetById(int doctorId)
-    {
-        if (doctorId <= 0)
-        {
-            return null;
-        }
-
-        return mapper.Map<DoctorDto?>(await doctorsRepository.GetByIdAsync(doctorId));
-    }
+    public async Task<DoctorDto?> GetById(int doctorId) =>
+        mapper.Map<DoctorDto?>(await doctorsRepository.GetByIdAsync(doctorId));
 
     /// <inheritdoc />
     public async Task<DoctorDto[]> GetAll() =>
@@ -67,7 +60,5 @@ internal class DoctorsService(
 
     /// <inheritdoc />
     public async Task<DoctorDto[]> GetPolyclinicDoctors(int polyclinicId) =>
-        polyclinicId <= 0
-            ? []
-            : (await doctorsRepository.GetByPolyclinicId(polyclinicId) ?? []).Select(mapper.Map<DoctorDto>).ToArray();
+        (await doctorsRepository.GetByPolyclinicId(polyclinicId) ?? []).Select(mapper.Map<DoctorDto>).ToArray();
 }

@@ -9,7 +9,7 @@ public class AddAppoinmentSlotRequest
     /// Идентификатор врача.
     /// </summary>
     public required int DoctorId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор поликлинники.
     /// </summary>

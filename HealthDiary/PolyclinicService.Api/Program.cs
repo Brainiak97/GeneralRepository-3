@@ -3,6 +3,7 @@ using PolyclinicService.BLL.Infrastructure;
 using PolyclinicService.DAL.Infrastructure;
 using Shared.Auth;
 using Shared.Common.Infrastructure;
+using Shared.Common.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +13,12 @@ builder.Services.AddDatabaseServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 builder.Services.AddOpenApi();
 
 var swaggerOptions = builder.Configuration.GetSection(nameof(SwaggerOptions)).Get<SwaggerOptions>();
-var serviceName = builder.Configuration.GetValue<string>("ServiceName");
-builder.Services.AddSwagger(swaggerOptions, serviceName);
+builder.Services.AddSwagger(swaggerOptions, serviceName: "PolyclinicService");
 
 var app = builder.Build();
 
@@ -29,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

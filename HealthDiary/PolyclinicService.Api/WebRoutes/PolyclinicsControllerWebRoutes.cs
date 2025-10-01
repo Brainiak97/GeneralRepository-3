@@ -5,28 +5,23 @@ namespace PolyclinicService.Api.WebRoutes;
 /// <summary>
 /// Маршруты до методов контроллера <see cref="PolyclinicsController"/>.
 /// </summary>
-internal static class PolyclinicControllerWebRoutes
+internal static class PolyclinicsControllerWebRoutes
 {
-    /// <summary>
-    /// Базовая часть маршрута до методов PolyclinicsController.
-    /// </summary>
-    public const string BasePath = "api/polyclinic";
-    
     /// <summary>
     /// Маршрут до метода GetPolyclinics.
     /// </summary>
     public const string GetPolyclinicsRoute = "all";
-    
+
     /// <summary>
     /// Маршрут до метода AddPolyclinic.
     /// </summary>
     public const string AddPolyclinicRoute = "add-polyclinic";
-    
+
     /// <summary>
     /// Маршрут до метода UpdatePolyclinicInfo.
     /// </summary>
     public const string UpdatePolyclinicInfoRoute = "update-polyclinic-info";
-    
+
     /// <summary>
     /// Маршрут до метода DeletePolyclinic.
     /// </summary>

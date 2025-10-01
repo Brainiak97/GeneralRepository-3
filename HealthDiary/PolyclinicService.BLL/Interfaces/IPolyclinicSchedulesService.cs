@@ -14,28 +14,28 @@ public interface IPolyclinicSchedulesService
     /// <param name="request">Запрос на добавление слота приёма к врачу в график поликлиники.</param>
     /// <returns>Идентификатор добавленного слота в графике поликлиники.</returns>
     Task<int> AddAppointmentSlotAsync(AddAppoinmentSlotRequest request);
-    
+
     /// <summary>
     /// Добавить слоты приёмов к врачу в график по шаблону.
     /// </summary>
     /// <param name="request">Запрос на добавление слотов приёмов к врачу по шаблону.</param>
     /// <returns><see cref="Task"/>.</returns>
     Task<bool> AddAppointmentSlotsByTemplate(AddAppointmentSlotsByTemplateRequest request);
-    
+
     /// <summary>
     /// Редактировать данные о слоте приёма к врачу в графике.
     /// </summary>
     /// <param name="request">Запрос на редактирование данных слота приёма к врачу.</param>
     /// <returns><see cref="Task"/>.</returns>
     Task UpdateAppointmentSlotAsync(UpdateAppointmentSlotRequest request);
-    
+
     /// <summary>
     /// Редактировать статус слота приёма к врачу в графике.
     /// </summary>
     /// <param name="request">Запрос на редактирование статуса приёма к врачу в графике поликлиники.</param>
     /// <returns><see cref="Task"/>.</returns>
     Task UpdateAppointmentSlotStatusAsync(UpdateAppointmentSlotStatusRequest request);
-    
+
     /// <summary>
     /// Удалить слот приёма к врачу.
     /// </summary>
@@ -56,7 +56,7 @@ public interface IPolyclinicSchedulesService
     /// <param name="id">Идентификатор слота приёма в графике.</param>
     /// <returns>Слот приёма к врачу по идентификатору или <see langword="null"/> если нет.</returns>
     Task<AppointmentSlotDto?> GetAppointmentSlotByIdAsync(int id);
-    
+
     /// <summary>
     /// Вернуть все слоты приёмов ко всем врачам поликлиники на дату.
     /// </summary>

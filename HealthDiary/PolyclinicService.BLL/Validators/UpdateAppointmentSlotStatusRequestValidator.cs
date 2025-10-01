@@ -11,7 +11,6 @@ internal class UpdateAppointmentSlotStatusRequestValidator : AbstractValidator<U
             .GreaterThan(0)
             .WithMessage("Не задан идентификатор слота приёма к врачу");
         RuleFor(x => x.Status)
-            .NotEmpty()
             .IsInEnum()
             .WithMessage("Не задан новый статус слота приёма к врачу");
     }

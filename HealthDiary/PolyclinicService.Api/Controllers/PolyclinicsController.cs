@@ -12,7 +12,7 @@ namespace PolyclinicService.Api.Controllers;
 /// </summary>
 /// <param name="polyclinicsService">Сервис, предоставляющий методы для работы с поликлиниками.</param>
 [ApiController]
-[Route(PolyclinicControllerWebRoutes.BasePath)]
+[Route("api/[controller]")]
 public class PolyclinicsController(IPolyclinicsService polyclinicsService) : ControllerBase
 {
     /// <summary>
@@ -34,7 +34,7 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// Вернуть все поликлиники.
     /// </summary>
     /// <returns>Все поликлиники в сервисе.</returns>
-    [HttpGet(PolyclinicControllerWebRoutes.GetPolyclinicsRoute)]
+    [HttpGet(PolyclinicsControllerWebRoutes.GetPolyclinicsRoute)]
     [Authorize]
     public async Task<IActionResult> GetPolyclinics()
     {
@@ -47,7 +47,7 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// </summary>
     /// <param name="request">Запрос на добавление поликлиники.</param>
     /// <returns>Идентификатор поликлиники.</returns>
-    [HttpPost(PolyclinicControllerWebRoutes.AddPolyclinicRoute)]
+    [HttpPost(PolyclinicsControllerWebRoutes.AddPolyclinicRoute)]
     [Authorize]
     public async Task<IActionResult> AddPolyclinic([FromBody] AddPolyclinicRequest request)
     {
@@ -62,7 +62,7 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// </summary>
     /// <param name="request">Запрос на редактирование данных о поликлинике.</param>
     /// <returns><see cref="IActionResult"/>.</returns>
-    [HttpPut(PolyclinicControllerWebRoutes.UpdatePolyclinicInfoRoute)]
+    [HttpPut(PolyclinicsControllerWebRoutes.UpdatePolyclinicInfoRoute)]
     [Authorize]
     public async Task<IActionResult> UpdatePolyclinicInfo([FromBody] UpdatePolyclinicRequest request)
     {
@@ -75,7 +75,7 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// </summary>
     /// <param name="id">Идентификатор поликлиники.</param>
     /// <returns><see cref="IActionResult"/>.</returns>
-    [HttpDelete(PolyclinicControllerWebRoutes.DeletePolyclinicRoute)]
+    [HttpDelete(PolyclinicsControllerWebRoutes.DeletePolyclinicRoute)]
     [Authorize]
     public async Task<IActionResult> DeletePolyclinic([FromRoute] int id)
     {

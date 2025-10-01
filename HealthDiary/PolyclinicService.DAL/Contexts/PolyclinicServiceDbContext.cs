@@ -39,7 +39,7 @@ internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbCo
         modelBuilder.Entity<Polyclinic>(entity =>
         {
             entity.Property(t => t.Id).UseIdentityAlwaysColumn();
-                
+
             entity.HasMany(p => p.Doctors)
                 .WithMany(d => d.Polyclinics)
                 .UsingEntity<Dictionary<string, object>>(
@@ -55,6 +55,5 @@ internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbCo
         });
 
         modelBuilder.Entity<AppointmentSlot>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
-        modelBuilder.Entity<AppointmentResult>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
     }
 }

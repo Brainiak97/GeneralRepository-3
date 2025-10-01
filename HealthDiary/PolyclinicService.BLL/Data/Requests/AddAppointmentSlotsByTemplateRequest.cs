@@ -9,37 +9,37 @@ public class AddAppointmentSlotsByTemplateRequest
     /// Идентификатор поликлиники.
     /// </summary>
     public required int PolyclinicId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор врачей, для которых добавляются слоты.
     /// </summary>
     public required int[] DoctorIds { get; set; }
-    
+
     /// <summary>
     /// Дата начала периода для формирования слотов.
     /// </summary>
     public required DateOnly PeriodStartDate { get; set; }
-    
+
     /// <summary>
     /// Дата окончания периода для формирования слотов.
     /// </summary>
     public required DateOnly PeriodEndDate { get; set; }
-    
+
     /// <summary>
     /// Продолжительность приёма.
     /// </summary>
     public TimeSpan AppointmentDuration { get; set; }
-    
+
     /// <summary>
     /// Время начала рабочего дня врача.
     /// </summary>
     public TimeOnly WorkDayStartTime { get; set; }
-    
+
     /// <summary>
     /// Время окончания рабочего дня врача.
     /// </summary>
     public TimeOnly WorkDayEndTime { get; set; }
-    
+
     /// <summary>
     /// Продолжительность обеда.
     /// </summary>

@@ -12,7 +12,7 @@ namespace PolyclinicService.Api.Controllers;
 /// </summary>
 /// <param name="doctorsService">Сервис, предоставляющий методы для работы с врачами, зарегистрированными в приложении.</param>
 [ApiController]
-[Route(DoctorsControllerWebRoutes.BasePath)]
+[Route("api/[controller]")]
 public class DoctorsController(IDoctorsService doctorsService) : ControllerBase
 {
     /// <summary>

@@ -9,7 +9,7 @@ public interface IValidationResult
     /// Признак успешного прохождения валидации.
     /// </summary>
     public bool IsValid { get; }
-    
+
     /// <summary>
     /// Список ошибок.
     /// </summary>

@@ -28,6 +28,6 @@ internal class DeletePolyclinicAppointmentSlotsByFilterRequestValidator : Abstra
             .When(r => r.PeriodStartDate is not null)
             .GreaterThanOrEqualTo(r => r.PeriodStartDate)
             .WithMessage("Дата окончания временного интервала для удаления должна быть больше или равна дате начала этого периода")
-            .When(r => r.PeriodStartDate is not null && r.PeriodEndDate is not null);   
+            .When(r => r.PeriodStartDate is not null && r.PeriodEndDate is not null);
     }
 }

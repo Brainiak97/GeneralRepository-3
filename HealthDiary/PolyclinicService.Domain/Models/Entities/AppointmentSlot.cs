@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Shared.Common.Interfaces;
 
@@ -20,7 +21,7 @@ public class AppointmentSlot : IEntityModel<int>
     /// </summary>
     [Comment("Идентификатор врача")]
     public int DoctorId { get; set; }
-    
+
     /// <summary>
     /// Идентификатор поликлинники.
     /// </summary>
@@ -50,14 +51,20 @@ public class AppointmentSlot : IEntityModel<int>
     /// </summary>
     [Comment("Статус приёма в графике")]
     public AppointmentSlotStatus Status { get; set; }
-    
+
     /// <summary>
     /// Навигационное свойство для связи с врачом.
     /// </summary>
     public Doctor Doctor { get; set; } = null!;
-    
+
     /// <summary>
     /// Навигационное свойство для связи с поликлиникой.
     /// </summary>
     public Polyclinic Polyclinic { get; set; } = null!;
+    
+    /// <summary>
+    /// Навигационное свойство для связи с результатом приёма.
+    /// </summary>
+    [ForeignKey(nameof(AppointmentResult.Id))]
+    public AppointmentResult? AppointmentResult { get; set; }
 }

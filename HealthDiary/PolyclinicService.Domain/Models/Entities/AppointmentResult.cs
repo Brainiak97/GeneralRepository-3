@@ -19,14 +19,8 @@ public class AppointmentResult : IEntityModel<int>
     /// Содержание отчёта по приёму пациента.
     /// </summary>
     [Comment("Содержание отчёта по приёму пациента")]
-    public required string ReportContent { get; set; }
-    
-    /// <summary>
-    /// Идентификатор слота на приём к врачу из графика.
-    /// </summary>
-    [Comment("Идентификатор слота на приём к врачу из графика")]
-    public int AppointmentSlotId { get; set; }
-    
+    public string ReportContent { get; set; } = null!;
+
     /// <summary>
     /// Идентификатор шаблона отчёта.
     /// </summary>
