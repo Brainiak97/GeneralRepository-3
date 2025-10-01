@@ -58,7 +58,7 @@ public abstract class ReportTemplateBase<TData> : IReportTemplate
         var dto = JsonSerializer.Deserialize<TData>(data);
         if (dto is null)
         {
-            throw new InvalidOperationException("Ошибка получения данных по отчёту");
+            throw new FormatException("Ошибка получения данных по отчёту");
         }
 
         Compose(container, dto);

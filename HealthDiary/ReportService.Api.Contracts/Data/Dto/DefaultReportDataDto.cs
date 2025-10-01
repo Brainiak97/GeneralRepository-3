@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ReportService.Api.Contracts.Data.Interfaces;
 
 namespace ReportService.Api.Contracts.Data.Dto;
 
@@ -6,7 +7,7 @@ namespace ReportService.Api.Contracts.Data.Dto;
 /// Данные отчёта приёма у кардиолога.
 /// </summary>
 [Display(Name = "Cтандартный отчёт")]
-public record DefaultReportDataDto
+public record DefaultReportDataDto : IReportData
 {
     /// <summary>
     /// Дата приёма.

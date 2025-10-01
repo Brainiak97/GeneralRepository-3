@@ -25,8 +25,10 @@ internal class QuestPdfReportGenerator(
 
         var template = templatesContainer.GetReportTemplate(templateMetadata.ReportTemplateTypeName);
 
-        return Document
+        var report = Document
             .Create(c => template.Compile(c, reportData))
             .GeneratePdf();
+
+        return report;
     }
 }
