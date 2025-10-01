@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReportService.Api.Contracts.Enums;
 using ReportService.Api.WebRoutes;
@@ -10,6 +11,7 @@ namespace ReportService.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ReportsController(IReportService reportService) : ControllerBase
 {
     /// <summary>
@@ -24,7 +26,7 @@ public class ReportsController(IReportService reportService) : ControllerBase
         var response = await reportService.GenerateReportAsync(id, reportFormat);
         return response?.ReportContent is not { Length: > 0 }
             ? BadRequest()
-            : File(response.ReportContent, GetContentTypeByFormat(reportFormat) ,response.FileName);
+            : File(response.ReportContent, GetContentTypeByFormat(reportFormat), response.FileName);
     }
 
     /// <summary>

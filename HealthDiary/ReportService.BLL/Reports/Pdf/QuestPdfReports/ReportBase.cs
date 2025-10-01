@@ -1,4 +1,5 @@
 using System.Text.Json;
+using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using ReportService.Api.Contracts.Data.Interfaces;
 using ReportService.BLL.Reports.Pdf.QuestPdfReports.Interfaces;
@@ -14,12 +15,33 @@ public abstract class ReportTemplateBase<TData> : IReportTemplate
     where TData : IReportData
 {
     /// <summary>
+    /// Заголовок отчёта.
+    /// </summary>
+    private static readonly string ReportHeader = typeof(TData).GetTypeDisplayName();
+
+    /// <summary>
     /// Кэш с именами полей отчёта.
     /// </summary>
     protected static readonly Dictionary<string, string> PropertyDisplayNames =
         typeof(TData)
             .GetProperties()
             .ToDictionary(property => property.Name, property => property.GetPropertyDisplayName());
+
+    /// <summary>
+    /// Собрать заголовок отчёта.
+    /// </summary>
+    /// <param name="container"><see cref="IDocumentContainer"/>.</param>
+    /// <param name="fontSize">Высота текста заголовка.</param>
+    protected virtual void ComposeHeader(IContainer container, int fontSize) =>
+        container.Row(row =>
+        {
+            row
+                .RelativeItem()
+                .Text(ReportHeader)
+                .FontSize(fontSize)
+                .AlignCenter()
+                .Bold();
+        });
 
     /// <summary>
     /// Скомпилировать отчёту по шаблону.

@@ -7,7 +7,7 @@ using ReportService.Api.Contracts.Data.Dto;
 namespace ReportService.BLL.Reports.Pdf.QuestPdfReports;
 
 /// <summary>
-/// Отчёт приёма кардиолога.
+/// Отчёт приёма у кардиолога.
 /// </summary>
 public class CardiologistReportTemplate : ReportTemplateBase<CardiologistReportDataDto>
 {
@@ -20,7 +20,7 @@ public class CardiologistReportTemplate : ReportTemplateBase<CardiologistReportD
             page.Margin(2, Unit.Centimetre);
             page.DefaultTextStyle(TextStyle.Default.FontSize(11));
 
-            page.Header().Element(e => ComposeHeader(e, data));
+            page.Header().Element(e => ComposeHeader(e, 16));
             page.Content().Element(e => ComposeContent(e, data));
             page.Footer().AlignCenter().Text(text =>
             {
@@ -28,19 +28,6 @@ public class CardiologistReportTemplate : ReportTemplateBase<CardiologistReportD
                 text.Span(" / ");
                 text.TotalPages();
             });
-        });
-    }
-
-    private void ComposeHeader(IContainer container, CardiologistReportDataDto reportData)
-    {
-        container.Row(row =>
-        {
-            row
-                .RelativeItem()
-                .Text("Отчёт кардиолога")
-                .FontSize(16)
-                .AlignCenter()
-                .Bold();
         });
     }
 
@@ -56,7 +43,7 @@ public class CardiologistReportTemplate : ReportTemplateBase<CardiologistReportD
                     .Text($"{PropertyDisplayNames[nameof(reportData.DoctorFullName)]}: {reportData.DoctorFullName}")
                     .FontSize(11)
                     .AlignLeft();
-            
+
                 row.RelativeItem()
                     .Text($"{PropertyDisplayNames[nameof(reportData.AppointmentDate)]}: {reportData.AppointmentDate}")
                     .FontSize(11)
@@ -69,7 +56,7 @@ public class CardiologistReportTemplate : ReportTemplateBase<CardiologistReportD
             column.Item().Column(contentColumn =>
             {
                 contentColumn.Spacing(10);
-            
+
                 contentColumn.Item().Component(new PatientBaseInfoSection(reportData, PropertyDisplayNames));
                 contentColumn.Item().Component(new AnamnesisSection(reportData, PropertyDisplayNames));
                 contentColumn.Item().Component(new ExaminationSection(reportData, PropertyDisplayNames));
@@ -198,7 +185,7 @@ public class CardiologistReportTemplate : ReportTemplateBase<CardiologistReportD
                     .Text($"{label}")
                     .SemiBold()
                     .FontSize(11);
-            
+
                 row.RelativeItem(3)
                     .Text(value)
                     .FontSize(11);
@@ -215,7 +202,7 @@ public class CardiologistReportTemplate : ReportTemplateBase<CardiologistReportD
                     .Text(label)
                     .SemiBold()
                     .FontSize(11);
-                
+
                 innerColumn.Item()
                     .PaddingTop(2)
                     .Text(value)

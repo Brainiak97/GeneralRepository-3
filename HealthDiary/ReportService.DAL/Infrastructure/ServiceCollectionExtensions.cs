@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ReportService.DAL.Common.InMemoryStorages;
 using ReportService.DAL.Common.InMemoryStorages.Interfaces;
+using ReportService.DAL.Infrastructure.Configurations;
 using ReportService.DAL.Interfaces.Providers;
 using ReportService.DAL.Interfaces.Repositories;
 using ReportService.DAL.Providers;
@@ -24,7 +25,7 @@ public static class ServiceCollectionExtensions
         services
             .AddInMemoryStorages()
             .AddRepositories()
-            .AddHttpDataProviders();
+            .AddHttpDataProviders(configuration);
 
     private static IServiceCollection AddRepositories(this IServiceCollection services) =>
         services.AddSingleton<IReportTemplatesRepository, ReportTemplatesRepository>();
@@ -32,12 +33,17 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddInMemoryStorages(this IServiceCollection services) =>
         services.AddSingleton<IReportTemplatesInMemoryStorage, ReportTemplatesInMemoryStorage>();
 
-    private static IServiceCollection AddHttpDataProviders(this IServiceCollection services)
+    private static IServiceCollection AddHttpDataProviders(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddHttpClient<IPolyclinicsDataProvider, PolyclinicsDataProvider>(client =>
+        var serviceUrls = configuration.GetSection("ApiClients").Get<ServiceUrls>();
+
+        if (serviceUrls is not null)
         {
-            client.BaseAddress = new Uri("http://localhost:7771");
-        });
+            services.AddHttpClient<IPolyclinicsDataProvider, PolyclinicsDataProvider>(client =>
+            {
+                client.BaseAddress = new Uri(serviceUrls.PolyclinicServiceUrl);
+            });    
+        }
 
         return services;
     }

@@ -12,31 +12,31 @@ public enum ReportFormat
     /// </summary>
     [Display(Name = "pdf")]
     Pdf = 1,
-    
+
     /// <summary>
     /// Xls.
     /// </summary>
     [Display(Name = "xls")]
     Xls = 2,
-    
+
     /// <summary>
     /// Xlsx.
     /// </summary>
     [Display(Name = "xlsx")]
     Xlsx = 3,
-    
+
     /// <summary>
     /// Csv.
     /// </summary>
     [Display(Name = "csv")]
     Csv = 4,
-    
+
     /// <summary>
     /// Docx.
     /// </summary>
     [Display(Name = "docx")]
     Docx = 5,
-    
+
     /// <summary>
     /// Html.
     /// </summary>

@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddJwtAuthentication();
 
-QuestPDF.Settings.License = LicenseType.Community;
+QuestPDF.Settings.License = LicenseType.Community; // Без этого кидает Exception
+
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
