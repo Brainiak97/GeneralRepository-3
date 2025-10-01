@@ -94,7 +94,7 @@ namespace StateService.DAL.Providers
             // === Формируем строки для промпта ===
             var metricsLines = groupedMetrics
                 .Select(kvp => $"- {kvp.Key}: {kvp.Value.AvgValue:F1} {kvp.Value.Unit}".Trim())
-                .ToList() ?? [];
+                .ToList();
 
             var metricsBlock = metricsLines.Count != 0
                 ? string.Join("\n", metricsLines)
