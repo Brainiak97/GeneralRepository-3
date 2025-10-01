@@ -1,12 +1,16 @@
-﻿using MetricService.Domain.Models;
+﻿using StateService.Domain.Dto;
 
 namespace StateService.DAL.Interfaces
 {
     public interface IMetricDataProvider
     {
-        Task<HealthMetricValue> GetHealthMetricsBaseDataAsync(string userId);
-        Task<PhysicalActivity> GetPhysicalActivityDataAsync(string userId);
-        Task<Sleep> GetSleepDataAsync(string userId);
-        Task<Workout> GetWorkoutDataAsync(string userId);
+        // Получить базовые метрики за период
+        Task<List<HealthMetricsDto>> GetHealthMetricsBaseDataAsync(int userId, DateTime startDate, DateTime endDate);
+
+        // Получить тренировки за период
+        Task<List<WorkoutDto>> GetWorkoutDataAsync(int userId, DateTime startDate, DateTime endDate);
+
+        // Получить сон за период
+        Task<List<SleepDto>> GetSleepDataAsync(int userId, DateTime startDate, DateTime endDate);
     }
 }
