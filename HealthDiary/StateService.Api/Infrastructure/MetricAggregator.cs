@@ -8,10 +8,10 @@ namespace StateService.Api.Infrastructure
     {
         public static AggregatedHealthSummaryDto AggregateHealthData(IEnumerable<UserHealthReport> reports)
         {
-            var reportsList = reports.ToList();
-            if (reportsList.Count == 0)
+            if (!reports.Any())
                 throw new EntryNotFoundException("Нет данных.");
 
+            var reportsList = reports.ToList();         
             var startDate = reportsList.Min(r => r.Date);
             var endDate = reportsList.Max(r => r.Date);
             var period = $"{startDate:dd.MM.yyyy} – {endDate:dd.MM.yyyy}";
@@ -21,17 +21,17 @@ namespace StateService.Api.Infrastructure
                 .Where(r => r.HealthMetrics != null)
                 .SelectMany(r => r.HealthMetrics!)
                 .Where(m => m.Value.HasValue) // опционально: фильтруем только с данными
-                .ToList();
+                .ToList() ?? [];
 
             var sleepEntries = reportsList
                 .Where(r => r.Sleep != null)
                 .SelectMany(r => r.Sleep!)
-                .ToList();
+                .ToList() ?? [];
 
             var workouts = reportsList
                 .Where(r => r.PhysicalActivity != null)
                 .SelectMany(r => r.PhysicalActivity!)
-                .ToList();
+                .ToList() ?? [];
 
             return new AggregatedHealthSummaryDto
             {

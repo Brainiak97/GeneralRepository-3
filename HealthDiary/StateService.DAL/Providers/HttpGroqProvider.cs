@@ -23,10 +23,15 @@ namespace StateService.DAL.Providers
         {
             var requestBody = new
             {
-                model = _model,
-                messages = new[] { new { role = "user", content = prompt } },
-                temperature = 0.7,
-                max_tokens = 512
+                model = _model, // имя модели AI, котороя используется для генерации ответа
+                messages = new[] { new { role = "user", content = prompt } }, // массив сообщений в формате чат-истории, как того требует groq-API
+                temperature = 0.7, // параметр "творчетсва" модели
+                                   // диапазон: обычно от 0.0 до 2.0
+                                   // 0.0 — максимально предсказуемый ответ
+                                   // 1.0 — баланс между креативностью и точностью
+                                   // > 1.0 — очень креативный, но может быть нестабильным
+                                   // 0.7 — популярное сбалансированное значение
+                max_tokens = 512 // около 400 слов (достаточный объем для ответа)
             };
 
             var jsonContent = JsonConvert.SerializeObject(requestBody);
@@ -89,9 +94,9 @@ namespace StateService.DAL.Providers
             // === Формируем строки для промпта ===
             var metricsLines = groupedMetrics
                 .Select(kvp => $"- {kvp.Key}: {kvp.Value.AvgValue:F1} {kvp.Value.Unit}".Trim())
-                .ToList();
+                .ToList() ?? [];
 
-            var metricsBlock = metricsLines.Any()
+            var metricsBlock = metricsLines.Count != 0
                 ? string.Join("\n", metricsLines)
                 : "- Нет данных о биометрических показателях";
 
