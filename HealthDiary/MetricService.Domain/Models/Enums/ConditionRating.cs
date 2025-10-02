@@ -6,32 +6,32 @@
     public enum ConditionRating
     {
         /// <summary>
-        /// Оценка состояния НЕ ОПРЕДЕЛЕНО
+        /// НЕ ОПРЕДЕЛЕНО
         /// </summary>
         None,
 
         /// <summary>
-        /// Оценка состояния УЖАСНО
+        /// УЖАСНО
         /// </summary>
         Terribly,
 
         /// <summary>
-        /// Оценка состояния ПЛОХО
+        /// ПЛОХО
         /// </summary>
         Badly,
 
         /// <summary>
-        /// Оценка состояния УДОВЛЕТВОРИТЕЛЬНО
+        /// УДОВЛЕТВОРИТЕЛЬНО
         /// </summary>
         Satisfactory,
 
         /// <summary>
-        /// Оценка состояния ХОРОШО
+        /// ХОРОШО
         /// </summary>
         Well,
 
         /// <summary>
-        /// Оценка состояния ОТЛИЧНО
+        /// ОТЛИЧНО
         /// </summary>
         Great,
     }

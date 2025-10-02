@@ -12,21 +12,6 @@ namespace MetricService.DAL.Repositories
     /// <seealso cref="IHealthConditionRepository" />
     public class HealthConditionRepository(MetricServiceDbContext metricServiceDb) : BaseRepository<HealthCondition>(metricServiceDb), IHealthConditionRepository
     {
-        /// <inheritdoc />
-        public override async Task<bool> UpdateAsync(HealthCondition item)
-        {
-            HealthCondition? healthCondition = await GetByIdAsync(item.Id);
-            if (healthCondition != null)
-            {
-                healthCondition.Symptoms = item.Symptoms;
-                healthCondition.Notes = item.Notes;
-                healthCondition.EmotionalState = item.EmotionalState;
-                healthCondition.PhysicalState = item.PhysicalState;
-                healthCondition.RecordedAt = item.RecordedAt;
-            }
-            return await _contextDb.SaveChangesAsync() == 1;
-        }
-
         /// <inheritdoc/>
         public override async Task<HealthCondition?> GetByIdAsync(int id)
         {
