@@ -44,5 +44,25 @@ namespace FoodService.BLL.Services
 		{
 			await _foodRepository.UpdateAsync<Product, int>( inputProduct );
 		}
+
+		public async Task<Meal> AddMeal( int userId, string? mealName )
+		{
+			var meal = new Meal( userId, mealName );
+			meal = await _foodRepository.AddAsync( meal );
+			return meal;
+		}
+
+		public async Task<Meal?> GetMeal( int mealId )
+		{
+			var meal = await _foodRepository.GetByIdAsync<Meal, int>( mealId );
+			return meal;
+		}
+
+		public async Task<MealItem> AddMealItem( int mealId, int productId, float quantity )
+		{
+			var mealItemNew = new MealItem( mealId, productId, quantity );
+			var mealItem = await _foodRepository.AddAsync( mealItemNew );
+			return mealItem;
+		}
 	}
 }
