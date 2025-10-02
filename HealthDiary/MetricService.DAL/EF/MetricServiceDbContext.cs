@@ -12,6 +12,11 @@ namespace MetricService.DAL.EF
     public class MetricServiceDbContext(DbContextOptions<MetricServiceDbContext> options) : DbContext(options)
     {
         /// <summary>
+        /// Набор данных самочувствия(состояния здоровья)
+        /// </summary>       
+        public DbSet<HealthCondition> HealthConditions { get; set; }
+
+        /// <summary>
         /// Набор данных медицинских показателей здоровья пользователя
         /// </summary>       
         public DbSet<HealthMetric> HealthMetrics { get; set; }
@@ -102,7 +107,7 @@ namespace MetricService.DAL.EF
         {
             base.OnConfiguring(optionsBuilder);
 
-            HealthMetricSeedingData.SeedingData(optionsBuilder);            
+            HealthMetricSeedingData.SeedingData(optionsBuilder);
         }
     }
 }

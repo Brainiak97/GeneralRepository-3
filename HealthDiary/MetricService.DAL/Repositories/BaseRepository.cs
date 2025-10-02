@@ -44,13 +44,17 @@ namespace MetricService.DAL.Repositories
             if (entity != null)
             {
                 _contextDb.Set<T>().Remove(entity);
-            }
-            
+            }                        
+
             return await _contextDb.SaveChangesAsync() == 1;
         }
 
         /// <inheritdoc/>
-        public abstract Task<bool> UpdateAsync(T item);
+        public virtual async Task<bool> UpdateAsync(T item)
+        {
+            _contextDb.Set<T>().Update(item);
+            return await _contextDb.SaveChangesAsync() == 1;
+        }
 
         /// <inheritdoc/>
         public virtual async Task<IEnumerable<T>> GetAllAsync()
