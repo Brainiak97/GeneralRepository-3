@@ -17,6 +17,10 @@ namespace FoodService.DAL
 				.ReverseMap();
 			CreateMap<MealItem, MealItemDto>()
 				.ReverseMap();
+			CreateMap<Diet, Diet>()
+				.ForMember( x => x.Id, opt => opt.Ignore() );
+			CreateMap<Diet, DietDto>()
+				.ReverseMap();
 		}
 	}
 }

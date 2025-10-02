@@ -56,5 +56,24 @@ namespace FoodService.BLL.Interfaces
 		/// <param name="quantity">Количество продукта, г</param>
 		/// <returns></returns>
 		Task<MealItem> AddMealItem( int mealId, int productId, float quantity );
+
+		/// <summary>
+		/// Добавляет суточный план питания пользователя
+		/// </summary>
+		/// <param name="userId">Id пользователя, для которого предназначен план питания</param>
+		/// <param name="name">Навзвание плана питения</param>
+		/// <param name="calories">Суточная норма потребляемых калорий</param>
+		/// <param name="proteins">Суточная норма потребляемых белков</param>
+		/// <param name="fats">Суточная норма потребляемых жиров</param>
+		/// <param name="carbs">Суточная норма потребляемых углеводов</param>
+		/// <returns></returns>
+		Task<Diet> AddDiet( int userId, string? name, float calories, float proteins, float fats, float carbs );
+
+		/// <summary>
+		/// Обновляет поля плана питания
+		/// </summary>
+		/// <param name="diet">Обновляемый план питания</param>
+		/// <returns></returns>
+		Task UpdateDiet( Diet diet );
 	}
 }

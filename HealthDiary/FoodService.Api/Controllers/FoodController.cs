@@ -99,5 +99,37 @@ namespace FoodService.Api.Controllers
 
 			return Ok( mealItemDto );
 		}
+
+		[HttpPost( nameof( AddDiet ) )]
+		public async Task<IActionResult> AddDiet(
+			int userId,
+			string? name,
+			[Required] float calories,
+			[Required] float proteins,
+			[Required] float fats,
+			[Required] float carbs )
+		{
+			// TODO проверка пользователя через UserService
+
+			var diet = await _foodService.AddDiet(
+					userId,
+					name,
+					calories,
+					proteins,
+					fats,
+					carbs );
+
+			var dietDto = _modelMapper.Map<DietDto>( diet );
+			return Ok( dietDto );
+		}
+
+		[HttpPost( nameof( UpdateDiet ) )]
+		public async Task<IActionResult> UpdateDiet( int dietId, DietDto dietDto )
+		{
+			var diet = _modelMapper.Map<Diet>( dietDto );
+			diet.Id = dietId;
+			await _foodService.UpdateDiet( diet );
+			return Ok();
+		}
 	}
 }

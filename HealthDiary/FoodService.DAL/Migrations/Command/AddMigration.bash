@@ -1,0 +1,1 @@
+﻿Add-Migration <name> -startupproject FoodService.Api -project FoodService.DAL -context FoodServiceDbContext

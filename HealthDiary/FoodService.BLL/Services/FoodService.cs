@@ -64,5 +64,24 @@ namespace FoodService.BLL.Services
 			var mealItem = await _foodRepository.AddAsync( mealItemNew );
 			return mealItem;
 		}
+
+		public async Task<Diet> AddDiet( int userId, string? name, float calories, float proteins, float fats, float carbs )
+		{
+			var diets = await _foodRepository.GetAll<Diet>( x => x.UserId == userId );
+			if ( diets.Count > 0 )
+			{
+				throw new InvalidOperationException( $"Для пользователя {userId} уже установлен план питания {diets.First()}" );
+			}
+
+			var dietNew = new Diet( userId, name, calories, proteins, fats, carbs );
+			var diet = await _foodRepository.AddAsync( dietNew );
+
+			return diet;
+		}
+
+		public async Task UpdateDiet( Diet inputDiet )
+		{
+			await _foodRepository.UpdateAsync<Diet, int>( inputDiet );
+		}
 	}
 }
