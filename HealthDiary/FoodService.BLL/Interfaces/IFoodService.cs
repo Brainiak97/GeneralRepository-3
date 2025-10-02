@@ -32,5 +32,29 @@ namespace FoodService.BLL.Interfaces
 		/// <param name="product">Обновляемый продукт</param>
 		/// <returns></returns>
 		Task UpdateProduct( Product product );
+
+		/// <summary>
+		/// Добавляет приём пищи
+		/// </summary>
+		/// <param name="userId">Id пользователя</param>
+		/// <param name="mealName">Название приёма пищи</param>
+		/// <returns></returns>
+		Task<Meal> AddMeal( int userId, string? mealName );
+
+		/// <summary>
+		/// Возвращает запись о приёме пищи
+		/// </summary>
+		/// <param name="mealId">Id приёма пищи</param>
+		/// <returns></returns>
+		Task<Meal?> GetMeal( int mealId );
+
+		/// <summary>
+		/// Добавляет элемент приёма пищи
+		/// </summary>
+		/// <param name="mealId">Приём пищи, для которого добавляется элемент</param>
+		/// <param name="productId">Потребляемый продукт</param>
+		/// <param name="quantity">Количество продукта, г</param>
+		/// <returns></returns>
+		Task<MealItem> AddMealItem( int mealId, int productId, float quantity );
 	}
 }

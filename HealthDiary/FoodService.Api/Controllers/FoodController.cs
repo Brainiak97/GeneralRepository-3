@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using FoodService.BLL.Interfaces;
 using FoodService.DAL.Dtos;
 using FoodService.DAL.Entities;
 using FoodService.DAL.Enums;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoodService.Api.Controllers
 {
@@ -79,6 +79,25 @@ namespace FoodService.Api.Controllers
 			product.Id = productId;
 			await _foodService.UpdateProduct( product );
 			return Ok();
+		}
+
+		[HttpPost( nameof( AddMeal ) )]
+		public async Task<IActionResult> AddMeal( int userId, string? mealName )
+		{
+			// TODO проверка пользователя через UserService
+
+			var meal = await _foodService.AddMeal( userId, mealName );
+			var mealDto = _modelMapper.Map<MealDto>( meal );
+			return Ok( mealDto );
+		}
+
+		[HttpPost( nameof( AddMealItem ) )]
+		public async Task<IActionResult> AddMealItem( int mealId, int productId, float quantity )
+		{
+			var mealItem = await _foodService.AddMealItem( mealId, productId, quantity );
+			var mealItemDto = _modelMapper.Map<MealItemDto>( mealItem );
+
+			return Ok( mealItemDto );
 		}
 	}
 }

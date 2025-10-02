@@ -13,6 +13,10 @@ namespace FoodService.DAL
 			CreateMap<ProductDto, Product>()
 				.ConstructUsing( x => new Product( x.Name, x.Calories, x.Proteins, x.Fats, x.Carbs, x.InfoSourceType ) )
 				.ReverseMap();
+			CreateMap<Meal, MealDto>()
+				.ReverseMap();
+			CreateMap<MealItem, MealItemDto>()
+				.ReverseMap();
 		}
 	}
 }

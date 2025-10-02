@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Shared.Common.Interfaces;
 using Shared.Common.Exceptions;
+using Shared.Common.Interfaces;
 
 namespace FoodService.DAL.Repository
 {
