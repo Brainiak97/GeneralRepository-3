@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using FoodService.DAL.Dtos;
+using FoodService.Api.Contracts.Dtos.Responses;
 using FoodService.DAL.Entities;
 
-namespace FoodService.DAL
+namespace FoodService.Api.Contracts
 {
-	public class AutoMapperProfile : Profile
+	public class AutoMapperDtoProfile : Profile
 	{
-		public AutoMapperProfile()
+		public AutoMapperDtoProfile()
 		{
-			CreateMap<Product, Product>()
-				.ForMember( d => d.Id, opt => opt.Ignore() );
 			CreateMap<ProductDto, Product>()
 				.ConstructUsing( x => new Product( x.Name, x.Calories, x.Proteins, x.Fats, x.Carbs, x.InfoSourceType ) )
 				.ReverseMap();
@@ -17,8 +15,6 @@ namespace FoodService.DAL
 				.ReverseMap();
 			CreateMap<MealItem, MealItemDto>()
 				.ReverseMap();
-			CreateMap<Diet, Diet>()
-				.ForMember( x => x.Id, opt => opt.Ignore() );
 			CreateMap<Diet, DietDto>()
 				.ReverseMap();
 		}

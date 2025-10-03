@@ -1,6 +1,7 @@
-﻿namespace FoodService.DAL.Dtos
+﻿namespace FoodService.Api.Contracts.Dtos.Responses
 {
 	public record DietDto(
+		int Id,
 		int UserId,
 		string Name,
 		DateTime CreateDate,
