@@ -1,3 +1,4 @@
+using ReportService.Api.Contracts.Data.Responses;
 using ReportService.Api.Contracts.Enums;
 
 namespace ReportService.BLL.Interfaces;
@@ -10,8 +11,8 @@ public interface IReportService
     /// <summary>
     /// Сгенерировать отчёт.
     /// </summary>
-    /// <param name="data">Данные для генерации отчёта.</param>
-    /// <param name="format">Формат отчёта.</param>
-    /// <typeparam name="TData">Тип данных отчёта для генерации.</typeparam>
-    void GenerateReport<TData>(TData data, ReportFormat format);
+    /// <param name="appointmentResultId">Идентификатор результата приёма у врача.</param>
+    /// <param name="reportFormat">Формат отчёта.</param>
+    /// <returns>Ответ на запрос генерации отчёта.</returns>
+    Task<GenerateReportResponse> GenerateReportAsync(int appointmentResultId, ReportFormat reportFormat);
 }

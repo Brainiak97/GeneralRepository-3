@@ -1,5 +1,3 @@
-using ReportService.BLL.Common.Interfaces;
-
 namespace ReportService.BLL.Common.Generators;
 
 /// <summary>
@@ -10,8 +8,8 @@ public interface IReportGenerator
     /// <summary>
     /// Сгенерировать отчёт.
     /// </summary>
-    /// <param name="reportData">Содержимое отчёта.</param>
-    /// <typeparam name="TData">Тип - хранилище данных для формирования отчёта.</typeparam>
+    /// <param name="templateId">Идентификатор шаблона отчёта.</param>
+    /// <param name="reportData">Содержимое отчёта (json).</param>
     /// <returns>Сгенерированный отчёт.</returns>
-    byte[] Generate<TData>(TData reportData) where TData : IReportData;
+    Task<byte[]> GenerateAsync(int templateId, string reportData);
 }

@@ -8,10 +8,9 @@ namespace ReportService.DAL.Common.InMemoryStorages.Interfaces;
 internal interface IReportTemplatesInMemoryStorage
 {
     /// <summary>
-    /// Вернуть данные шаблона отчёта по ключу.
+    /// Вернуть метаданные шаблона отчёта по ключу.
     /// </summary>
     /// <param name="key">Ключ - идентификатор шаблона.</param>
-    /// <param name="reportTemplateMetadata">Данные по шаблону отчёта.</param>
-    /// <returns>Признак успешного получения шаблона отчёта по ключу.</returns>
-    bool TryGetValue(int key, out ReportTemplateMetadata reportTemplateMetadata);    
+    /// <returns>Метаданные по шаблону отчёта.</returns>
+    ReportTemplateMetadata? GetByKey(int key);
 }

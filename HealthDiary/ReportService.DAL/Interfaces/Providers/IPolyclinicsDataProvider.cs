@@ -1,3 +1,5 @@
+using ReportService.Domain.Dtos;
+
 namespace ReportService.DAL.Interfaces.Providers;
 
 public interface IPolyclinicsDataProvider
@@ -7,5 +9,5 @@ public interface IPolyclinicsDataProvider
     /// </summary>
     /// <param name="appResultId">Идентификатор результат приёма врача.</param>
     /// <returns>Данные по результату приёма врача.</returns>
-    Task<object> GetAppointmentResultById(int appResultId);
+    Task<AppointmentResultDto?> GetAppointmentResultById(int appResultId);
 }

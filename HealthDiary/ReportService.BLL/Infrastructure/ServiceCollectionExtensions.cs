@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using ReportService.BLL.Common.Generators.Containers;
 using ReportService.BLL.Common.Generators.Pdf;
-using ReportService.BLL.Common.ReportFactory;
+using ReportService.BLL.Common.Templates.QuestPdf.Containers;
 using ReportService.BLL.Interfaces;
 
 namespace ReportService.BLL.Infrastructure;
@@ -22,8 +23,9 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddCommon(this IServiceCollection services) =>
         services
-            .AddSingleton<IReportGeneratorFactory, ReportGeneratorFactory>()
-            .AddSingleton<IPdfReportGenerator, QuestPdfReportGenerator>();
+            .AddSingleton<IPdfReportGenerator, QuestPdfReportGenerator>()
+            .AddSingleton<IReportGeneratorsContainer, ReportGeneratorsContainer>()
+            .AddSingleton<IReportTemplatesContainer, ReportTemplatesContainer>();
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>
         services.AddScoped<IReportService, Services.ReportService>();

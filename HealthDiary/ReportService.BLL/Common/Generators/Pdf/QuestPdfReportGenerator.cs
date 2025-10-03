@@ -1,11 +1,34 @@
-using ReportService.BLL.Common.Interfaces;
+using QuestPDF.Fluent;
+using ReportService.BLL.Common.Templates.QuestPdf.Containers;
+using ReportService.DAL.Interfaces.Repositories;
 
 namespace ReportService.BLL.Common.Generators.Pdf;
 
-internal class QuestPdfReportGenerator : IPdfReportGenerator
+/// <inheritdoc />
+internal class QuestPdfReportGenerator(
+    IReportTemplatesRepository reportTemplatesRepository,
+    IReportTemplatesContainer templatesContainer) : IPdfReportGenerator
 {
-    public byte[] Generate<TData>(TData reportData) where TData : IReportData
+    /// <inheritdoc />
+    public async Task<byte[]> GenerateAsync(int templateId, string reportData)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(reportData))
+        {
+            return [];
+        }
+
+        var templateMetadata = await reportTemplatesRepository.GetByIdAsync(templateId);
+        if (templateMetadata is null)
+        {
+            throw new InvalidOperationException($"Ошибка получения метаданных шаблона с идентификатором {templateId}");
+        }
+
+        var template = templatesContainer.GetReportTemplate(templateMetadata.ReportTemplateTypeName);
+
+        var report = Document
+            .Create(c => template.Compile(c, reportData))
+            .GeneratePdf();
+
+        return report;
     }
 }

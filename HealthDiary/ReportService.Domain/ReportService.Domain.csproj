@@ -8,11 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ReportService.Api.Contracts\ReportService.Api.Contracts.csproj" />
       <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.5" />
+      <PackageReference Include="QuestPDF" Version="2025.7.0" />
     </ItemGroup>
 
 </Project>
