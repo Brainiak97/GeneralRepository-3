@@ -5,6 +5,7 @@ using MetricService.BLL.DTO.AnalysisCategory;
 using MetricService.BLL.DTO.AnalysisResult;
 using MetricService.BLL.DTO.AnalysisType;
 using MetricService.BLL.DTO.DosageForm;
+using MetricService.BLL.DTO.HealthCondition;
 using MetricService.BLL.DTO.HealthMetric;
 using MetricService.BLL.DTO.Intake;
 using MetricService.BLL.DTO.MedicationDTO;
@@ -40,6 +41,10 @@ namespace MetricService.BLL.Common
             CreateMap<PhysicalActivity, PhysicalActivityCreateDTO>().ReverseMap();
             CreateMap<PhysicalActivity, PhysicalActivityUpdateDTO>().ReverseMap();
             CreateMap<PhysicalActivity, PhysicalActivityDTO>().ReverseMap();
+
+            CreateMap<HealthCondition, HealthConditionCreateDTO>().ReverseMap();
+            CreateMap<HealthCondition, HealthConditionUpdateDTO>().ReverseMap();
+            CreateMap<HealthCondition, HealthConditionDTO>().ReverseMap();
 
             CreateMap<HealthMetric, HealthMetricCreateDTO>().ReverseMap();
             CreateMap<HealthMetric, HealthMetricUpdateDTO>().ReverseMap();
