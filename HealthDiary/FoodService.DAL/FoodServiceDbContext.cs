@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using FoodService.DAL.Entities;
+﻿using FoodService.DAL.Entities;
 using FoodService.DAL.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodService.DAL
 {
@@ -161,7 +161,8 @@ namespace FoodService.DAL
 				.HasOne( x => x.Product )
 				.WithMany()
 				.HasForeignKey( x => x.ProductId );
-			modelBuilder.Entity<Diet>().ToTable( "Diet" );
+			modelBuilder.Entity<Diet>().ToTable( "Diet" )
+				.HasAlternateKey( x => x.UserId );
 		}
 	}
 }

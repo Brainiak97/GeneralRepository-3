@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CS8618
 
-namespace FoodService.DAL.Dtos
+namespace FoodService.Api.Contracts.Dtos.Responses
 {
 	public record MealItemDto
 	{

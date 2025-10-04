@@ -1,8 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using FoodService.Api.Contracts;
 using FoodService.BLL.Interfaces;
 using FoodService.DAL;
 using FoodService.DAL.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Shared.Common.Middlewares;
 
 namespace FoodService.Api
@@ -18,7 +19,8 @@ namespace FoodService.Api
 			// Add services to the container.
 			builder.Services.AddPgFoodServiceDbContext( foodServiceDbConnectionString! );
 			builder.Services.AddTransient<IFoodRepository, FoodRepository>();
-			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperProfile>() );
+			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperEfProfile>() );
+			builder.Services.AddAutoMapper( x => x.AddProfile<AutoMapperDtoProfile>() );
 
 			builder.Services.AddControllers();
 			// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

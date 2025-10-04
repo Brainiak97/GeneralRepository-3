@@ -1,6 +1,6 @@
-﻿using FoodService.BLL.Interfaces;
+﻿using FoodService.BLL.Contracts.Commands;
+using FoodService.BLL.Interfaces;
 using FoodService.DAL.Entities;
-using FoodService.DAL.Enums;
 using FoodService.DAL.Repository;
 
 namespace FoodService.BLL.Services
@@ -26,15 +26,15 @@ namespace FoodService.BLL.Services
 			return products;
 		}
 
-		public async Task<Product> AddProduct(
-			InfoSourceType infoSourceType,
-			string name,
-			float calories,
-			float? proteins = null,
-			float? fats = null,
-			float? carbs = null )
+		public async Task<Product> AddProduct( AddProductCommand command )
 		{
-			var productNew = new Product( name, calories, proteins, fats, carbs, infoSourceType );
+			var productNew = new Product(
+				command.Name,
+				command.Calories,
+				command.Proteins,
+				command.Fats,
+				command.Carbs,
+				command.InfoSourceType );
 			var product = await _foodRepository.AddAsync( productNew );
 
 			return product;
@@ -58,11 +58,39 @@ namespace FoodService.BLL.Services
 			return meal;
 		}
 
-		public async Task<MealItem> AddMealItem( int mealId, int productId, float quantity )
+		public async Task<MealItem> AddMealItem( AddMealItemCommand command )
 		{
-			var mealItemNew = new MealItem( mealId, productId, quantity );
+			var mealItemNew = new MealItem(
+				command.MealId,
+				command.ProductId,
+				command.Quantity );
 			var mealItem = await _foodRepository.AddAsync( mealItemNew );
 			return mealItem;
+		}
+
+		public async Task<Diet> AddDiet( AddDietCommand command )
+		{
+			var diets = await _foodRepository.GetAll<Diet>( x => x.UserId == command.UserId );
+			if ( diets.Count > 0 )
+			{
+				throw new InvalidOperationException( $"Для пользователя {command.UserId} уже установлен план питания {diets.First()}" );
+			}
+
+			var dietNew = new Diet(
+				command.UserId,
+				command.Name,
+				command.Calories,
+				command.Proteins,
+				command.Fats,
+				command.Carbs );
+			var diet = await _foodRepository.AddAsync( dietNew );
+
+			return diet;
+		}
+
+		public async Task UpdateDiet( Diet inputDiet )
+		{
+			await _foodRepository.UpdateAsync<Diet, int>( inputDiet );
 		}
 	}
 }
