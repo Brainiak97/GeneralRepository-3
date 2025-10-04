@@ -66,7 +66,7 @@ namespace FoodService.Api.Controllers
 			return Ok( productDto );
 		}
 
-		[HttpPost( nameof( UpdateProduct ) )]
+		[HttpPut( nameof( UpdateProduct ) )]
 		public async Task<IActionResult> UpdateProduct( ProductDto productDto )
 		{
 			var product = _modelMapper.Map<Product>( productDto );
@@ -108,7 +108,7 @@ namespace FoodService.Api.Controllers
 			return Ok( dietDto );
 		}
 
-		[HttpPost( nameof( UpdateDiet ) )]
+		[HttpPut( nameof( UpdateDiet ) )]
 		public async Task<IActionResult> UpdateDiet( DietDto dietDto )
 		{
 			var diet = _modelMapper.Map<Diet>( dietDto );
