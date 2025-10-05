@@ -1,6 +1,6 @@
 ﻿using FoodService.DAL.Enums;
 
-namespace FoodService.DAL.Dtos
+namespace FoodService.Api.Contracts.Dtos.Responses
 {
 	/// <summary>
 	/// Продукт питания
@@ -12,6 +12,7 @@ namespace FoodService.DAL.Dtos
 	/// <param name="Fats">Жиры на 100г</param>
 	/// <param name="Carbs">Углеводы на 100г</param>
 	public record ProductDto(
+		int Id,
 		InfoSourceType InfoSourceType,
 		string Name,
 		float Calories,

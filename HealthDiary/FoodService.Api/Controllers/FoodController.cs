@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AutoMapper;
+﻿using AutoMapper;
+using FoodService.Api.Contracts.Dtos.Requests;
+using FoodService.Api.Contracts.Dtos.Responses;
+using FoodService.BLL.Contracts.Commands;
 using FoodService.BLL.Interfaces;
-using FoodService.DAL.Dtos;
 using FoodService.DAL.Entities;
 using FoodService.DAL.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -53,31 +54,24 @@ namespace FoodService.Api.Controllers
 		}
 
 		[HttpPost( nameof( AddProduct ) )]
-		public async Task<IActionResult> AddProduct(
-			string name,
-			[Required] float calories,
-			float? proteins = null,
-			float? fats = null,
-			float? carbs = null )
+		public async Task<IActionResult> AddProduct( AddProductRequest request )
 		{
-			var product = await _foodService.AddProduct(
-				InfoSourceType.FromUser,
-				name,
-				calories,
-				proteins,
-				fats,
-				carbs );
-
+			var command = _modelMapper.Map<AddProductCommand>( request, opt =>
+			{
+				opt.Items[nameof( AddProductCommand.InfoSourceType )] = InfoSourceType.FromUser;
+			} );
+			var product = await _foodService.AddProduct( command );
 			var productDto = _modelMapper.Map<ProductDto>( product );
+
 			return Ok( productDto );
 		}
 
-		[HttpPost( nameof( UpdateProduct ) )]
-		public async Task<IActionResult> UpdateProduct( int productId, ProductDto productDto )
+		[HttpPut( nameof( UpdateProduct ) )]
+		public async Task<IActionResult> UpdateProduct( ProductDto productDto )
 		{
 			var product = _modelMapper.Map<Product>( productDto );
-			product.Id = productId;
 			await _foodService.UpdateProduct( product );
+
 			return Ok();
 		}
 
@@ -88,16 +82,39 @@ namespace FoodService.Api.Controllers
 
 			var meal = await _foodService.AddMeal( userId, mealName );
 			var mealDto = _modelMapper.Map<MealDto>( meal );
+
 			return Ok( mealDto );
 		}
 
 		[HttpPost( nameof( AddMealItem ) )]
-		public async Task<IActionResult> AddMealItem( int mealId, int productId, float quantity )
+		public async Task<IActionResult> AddMealItem( AddMealItemRequest request )
 		{
-			var mealItem = await _foodService.AddMealItem( mealId, productId, quantity );
+			var command = _modelMapper.Map<AddMealItemCommand>( request );
+			var mealItem = await _foodService.AddMealItem( command );
 			var mealItemDto = _modelMapper.Map<MealItemDto>( mealItem );
 
 			return Ok( mealItemDto );
+		}
+
+		[HttpPost( nameof( AddDiet ) )]
+		public async Task<IActionResult> AddDiet( AddDietRequest request )
+		{
+			// TODO проверка пользователя через UserService
+
+			var command = _modelMapper.Map<AddDietCommand>( request );
+			var diet = await _foodService.AddDiet( command );
+			var dietDto = _modelMapper.Map<DietDto>( diet );
+
+			return Ok( dietDto );
+		}
+
+		[HttpPut( nameof( UpdateDiet ) )]
+		public async Task<IActionResult> UpdateDiet( DietDto dietDto )
+		{
+			var diet = _modelMapper.Map<Diet>( dietDto );
+			await _foodService.UpdateDiet( diet );
+
+			return Ok();
 		}
 	}
 }

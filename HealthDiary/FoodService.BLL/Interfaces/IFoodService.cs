@@ -1,5 +1,5 @@
-﻿using FoodService.DAL.Entities;
-using FoodService.DAL.Enums;
+﻿using FoodService.BLL.Contracts.Commands;
+using FoodService.DAL.Entities;
 
 namespace FoodService.BLL.Interfaces
 {
@@ -22,9 +22,9 @@ namespace FoodService.BLL.Interfaces
 		/// <summary>
 		/// Добавляет продукт в справочник
 		/// </summary>
-		/// <param name="productDto">Добавляемый продукт</param>
+		/// <param name="command">Команда добавления продукта</param>
 		/// <returns>Добавленный продукт</returns>
-		Task<Product> AddProduct( InfoSourceType infoSourceType, string name, float calories, float? proteins = null, float? fats = null, float? carbs = null );
+		Task<Product> AddProduct( AddProductCommand command );
 
 		/// <summary>
 		/// Обновляет поля продукта в справочнике
@@ -50,11 +50,23 @@ namespace FoodService.BLL.Interfaces
 
 		/// <summary>
 		/// Добавляет элемент приёма пищи
-		/// </summary>
-		/// <param name="mealId">Приём пищи, для которого добавляется элемент</param>
-		/// <param name="productId">Потребляемый продукт</param>
-		/// <param name="quantity">Количество продукта, г</param>
+		/// </summary> 
+		/// <param name="command">Команда добавления элемента приёма пищи</param>
 		/// <returns></returns>
-		Task<MealItem> AddMealItem( int mealId, int productId, float quantity );
+		Task<MealItem> AddMealItem( AddMealItemCommand command );
+
+		/// <summary>
+		/// Добавляет суточный план питания пользователя
+		/// </summary>
+		/// <param name="command">Команда добавления плана питания</param>
+		/// <returns></returns>
+		Task<Diet> AddDiet( AddDietCommand command );
+
+		/// <summary>
+		/// Обновляет поля плана питания
+		/// </summary>
+		/// <param name="diet">Обновляемый план питания</param>
+		/// <returns></returns>
+		Task UpdateDiet( Diet diet );
 	}
 }
