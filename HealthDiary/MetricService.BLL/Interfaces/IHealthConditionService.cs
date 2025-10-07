@@ -15,7 +15,7 @@ namespace MetricService.BLL.Interfaces
         /// </summary>
         /// <param name="healthCondition">Данные для создания записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>                 
-        public Task CreateRecordOfHealthCondAsync(HealthCondition healthCondition);
+        public Task CreateHealthConditionAsync(HealthCondition healthCondition);
 
         /// <summary>
         /// Обновить запись о самочувствии(состоянии здоровья) пользователя
@@ -23,7 +23,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="healthCondition">Данные для изменения записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>        
         /// <exception cref="IncorrectOrEmptyResultException">Данные о самочувствии не зарегистрированы</exception>
-        public Task UpdateRecordOfHealthCondAsync(HealthCondition healthCondition);
+        public Task UpdateHealthConditionAsync(HealthCondition healthCondition);
 
         /// <summary>
         /// Удалить запись о самочувствии(состоянии здоровья) пользователя
@@ -31,7 +31,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="healthConditionId">Идентификатор записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="IncorrectOrEmptyResultException">Данные о самочувствии не зарегистрированы</exception>
-        public Task DeleteRecordOfHealthCondAsync(int healthConditionId);
+        public Task DeleteHealthConditionAsync(int healthConditionId);
 
         /// <summary>
         /// Получить запись о самочувствии(состоянии здоровья) пользователя
@@ -40,16 +40,14 @@ namespace MetricService.BLL.Interfaces
         /// <returns>Запись о сне пользователя</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
         /// <exception cref="IncorrectOrEmptyResultException">Данные о самочувствии не зарегистрированы</exception>
-        public Task<HealthCondition> GetRecordOfHealthCondByIdAsync(int healthConditionId);
+        public Task<HealthCondition> GetHealthConditionByIdAsync(int healthConditionId);
 
         /// <summary>
         /// Получить все записи о снах пользователя за период
         /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <param name="begDate">дата начала периода</param>
-        /// <param name="endDate">дата окончания периода</param>               
+        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>                
         /// <returns>Список записей о самочувствии пользователя за период</returns>
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>
-        public Task<IEnumerable<HealthCondition>> GetAllRecordsOfHealthCondByUserIdAsync(int userId, DateTime begDate, DateTime endDate);
+        public Task<IEnumerable<HealthCondition>> GetAllHealthConditionsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
     }
 }

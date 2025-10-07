@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using MetricService.BLL.Exceptions;
+using System.Security.Claims;
 
 namespace MetricService.BLL.Common
 {
@@ -21,6 +22,26 @@ namespace MetricService.BLL.Common
             }
 
             return Convert.ToInt32(author.FindFirstValue(ClaimTypes.NameIdentifier));
+        }
+
+        /// <summary>
+        /// Проверяет, может ли авторизованный пользователь работать с данными от имени другого пользователя.
+        /// Если доступ отсутствует, то бросается исключение
+        /// </summary>
+        /// <param name="author">Авторизованный пользователь</param>
+        /// <param name="targetUser">ИД пользователя, с данными которого собираемся работать</param>
+        /// <param name="entity">Сущность, с данными которой собираемся работать</param>
+        /// <exception cref="ViolationAccessException">Вы можете работать только со своими данными</exception>
+        public static void CheckAccessAndThrow(ClaimsPrincipal author, int targetUser, string entity)
+        {
+            if (!author.IsInRole("Admin") && targetUser != GetAuthorId(author))
+            {
+                throw new ViolationAccessException(
+                    "Вы можете работать только со своими данными",
+                    GetAuthorId(author),
+                    targetUser,
+                    entity);
+            }
         }
     }
 }

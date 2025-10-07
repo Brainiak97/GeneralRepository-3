@@ -1,4 +1,5 @@
-﻿using MetricService.BLL.Exceptions;
+﻿using MetricService.BLL.DTO;
+using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using MetricService.DAL.Interfaces;
 using MetricService.Domain.Models;
@@ -15,118 +16,62 @@ namespace MetricService.BLL.Services
         IAccessToMetricsService accessToMetricsService) : IHealthConditionService
     {
         private readonly IHealthConditionRepository _repository = healthConditionRepository;
-        private readonly ClaimsPrincipal _authorization = authorization;       
+        private readonly ClaimsPrincipal _authorization = authorization;
         private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
 
         ///<inheritdoc/>
-        public async Task CreateRecordOfHealthCondAsync(HealthCondition healthCondition)
+        public async Task CreateHealthConditionAsync(HealthCondition healthCondition)
         {
-            if (!_authorization.IsInRole("Admin") && healthCondition.UserId != Common.Common.GetAuthorId(_authorization))
-            {
-                throw new ViolationAccessException("Вы не можете создавать данные для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    healthCondition.UserId,
-                                                    _repository.Name);
-            }
+            Common.Common.CheckAccessAndThrow(_authorization, healthCondition.UserId, _repository.Name);
 
             await _repository.CreateAsync(healthCondition);
         }
 
         ///<inheritdoc/>
-        public async Task DeleteRecordOfHealthCondAsync(int healthConditionId)
+        public async Task DeleteHealthConditionAsync(int healthConditionId)
         {
-            var healthCondFind = await _repository.GetByIdAsync(healthConditionId);
-
-            if (healthCondFind == null)
-            {
-                throw new IncorrectOrEmptyResultException("Значение самочувствия пользователя не зарегистрировано",
-                                                            new Dictionary<object, object>()
-                                                            {
-                                                                { nameof(healthConditionId), healthConditionId }
-                                                            });
-            }
-
-            if (!_authorization.IsInRole("Admin") && healthCondFind.UserId != Common.Common.GetAuthorId(_authorization))
-            {
-                throw new ViolationAccessException("Вам разрешено удалить только свои значения самочувствия",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    healthCondFind.UserId,
-                                                    _repository.Name);
-            }
+            var healthCondFind = await GetHealthConditionByIdAsync(healthConditionId);
 
             await _repository.DeleteAsync(healthConditionId);
         }
 
         ///<inheritdoc/>
-        public async Task<IEnumerable<HealthCondition>> GetAllRecordsOfHealthCondByUserIdAsync(int userId, DateTime begDate, DateTime endDate)
+        public async Task<IEnumerable<HealthCondition>> GetAllHealthConditionsByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            int grantedUserId = Common.Common.GetAuthorId(_authorization);
+            Common.Common.CheckAccessAndThrow(_authorization, requestListWithPeriodByIdDTO.UserId, _repository.Name);
 
-            if (!_authorization.IsInRole("Admin") && userId != grantedUserId &&
-                            await _accessToMetricsService.CheckAccessToMetricsAsync(userId, grantedUserId) == false)
-            {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о самочувствии",
-                                                grantedUserId,
-                                                userId,
-                                                _repository.Name);
-            }
-
-            var recordsOfHealthCond = (await _repository.GetAllAsync())
-                                        .Where(h => h.UserId == userId &&
-                                                h.RecordedAt >= begDate &&
-                                                h.RecordedAt <= endDate);
+            var recordsOfHealthCond = (
+                await _repository.GetAllAsync())
+                .Where(h => h.UserId == requestListWithPeriodByIdDTO.UserId
+                && h.RecordedAt >= requestListWithPeriodByIdDTO.BegDate
+                && h.RecordedAt <= requestListWithPeriodByIdDTO.EndDate);
 
             return recordsOfHealthCond;
         }
 
         ///<inheritdoc/>
-        public async Task<HealthCondition> GetRecordOfHealthCondByIdAsync(int healthConditionId)
+        public async Task<HealthCondition> GetHealthConditionByIdAsync(int healthConditionId)
         {
             var healthCondFind = await _repository.GetByIdAsync(healthConditionId);
             if (healthCondFind == null)
             {
-                throw new IncorrectOrEmptyResultException("Значение самочувствия пользователя не зарегистрировано",
-                                                            new Dictionary<object, object>()
-                                                            {
-                                                                { nameof(healthConditionId), healthConditionId }
-                                                            });
+                throw new IncorrectOrEmptyResultException(
+                    "Значение самочувствия пользователя не зарегистрировано",
+                    new Dictionary<object, object>()
+                    {
+                        { nameof(healthConditionId), healthConditionId }
+                    });
             }
 
-            int grantedUserId = Common.Common.GetAuthorId(_authorization);
-
-            if (!_authorization.IsInRole("Admin") && healthCondFind.UserId != grantedUserId &&
-                            await _accessToMetricsService.CheckAccessToMetricsAsync(healthCondFind.UserId, grantedUserId) == false)
-            {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои записи о самочувствии",
-                                                grantedUserId,
-                                                healthCondFind.UserId,
-                                                _repository.Name);
-            }
+            Common.Common.CheckAccessAndThrow(_authorization, healthCondFind.UserId, _repository.Name);
 
             return healthCondFind;
         }
 
         ///<inheritdoc/>
-        public async Task UpdateRecordOfHealthCondAsync(HealthCondition healthCondition)
+        public async Task UpdateHealthConditionAsync(HealthCondition healthCondition)
         {
-            var healthCondFind = await _repository.GetByIdAsync(healthCondition.Id);
-
-            if (healthCondFind == null)
-            {
-                throw new IncorrectOrEmptyResultException("Значение самочувствия пользователя не зарегистрировано",
-                                                            new Dictionary<object, object>()
-                                                            {
-                                                                {nameof(healthCondition), healthCondition}
-                                                            });
-            }
-
-            if (!_authorization.IsInRole("Admin") && healthCondFind.UserId != Common.Common.GetAuthorId(_authorization))
-            {
-                throw new ViolationAccessException("Вы не можете изменять значения самочувствия для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    healthCondFind.UserId,
-                                                    _repository.Name);
-            }
+            var healthCondFind = await GetHealthConditionByIdAsync(healthCondition.Id);
 
             healthCondition.UserId = healthCondFind.UserId;
 

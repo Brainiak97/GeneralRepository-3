@@ -29,7 +29,7 @@ namespace MetricService.API.Controllers
         public async Task<IActionResult> CreateHealthCondition([FromBody] HealthConditionCreateDTO healthConditionCreateDTO)
         {
             var healthCondition = _mapper.Map<HealthCondition>(healthConditionCreateDTO);
-            await _healthConditionService.CreateRecordOfHealthCondAsync(healthCondition);
+            await _healthConditionService.CreateHealthConditionAsync(healthCondition);
             return Ok();
         }
 
@@ -43,7 +43,7 @@ namespace MetricService.API.Controllers
         public async Task<IActionResult> UpdateHealthCondition([FromBody] HealthConditionUpdateDTO healthConditionUpdateDTO)
         {
             var healthCondition = _mapper.Map<HealthCondition>(healthConditionUpdateDTO);
-            await _healthConditionService.UpdateRecordOfHealthCondAsync(healthCondition);
+            await _healthConditionService.UpdateHealthConditionAsync(healthCondition);
             return Ok();
         }
 
@@ -56,7 +56,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteHealthCondition(int healthConditionId)
         {
-            await _healthConditionService.DeleteRecordOfHealthCondAsync(healthConditionId);
+            await _healthConditionService.DeleteHealthConditionAsync(healthConditionId);
             return Ok();
         }
 
@@ -65,14 +65,11 @@ namespace MetricService.API.Controllers
         /// </summary>
         /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
         /// <returns></returns>
-        [HttpGet(nameof(GetAllHealthCondition))]
+        [HttpGet(nameof(GetAllHealthConditions))]
         [Authorize]
-        public async Task<IActionResult> GetAllHealthCondition([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IActionResult> GetAllHealthConditions([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            var healthConditions = await _healthConditionService.GetAllRecordsOfHealthCondByUserIdAsync(
-                requestListWithPeriodByIdDTO.UserId,
-                requestListWithPeriodByIdDTO.BegDate,
-                requestListWithPeriodByIdDTO.EndDate);
+            var healthConditions = await _healthConditionService.GetAllHealthConditionsByUserIdAsync(requestListWithPeriodByIdDTO);
 
             if (!healthConditions.Any())
             {
@@ -93,7 +90,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> GetHealthConditionById(int healthConditionId)
         {
-            var healthCondition = await _healthConditionService.GetRecordOfHealthCondByIdAsync(healthConditionId);
+            var healthCondition = await _healthConditionService.GetHealthConditionByIdAsync(healthConditionId);
 
             if (healthCondition == null)
             {
