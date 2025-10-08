@@ -90,12 +90,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> GetHealthConditionById(int healthConditionId)
         {
-            var healthCondition = await _healthConditionService.GetHealthConditionByIdAsync(healthConditionId);
-
-            if (healthCondition == null)
-            {
-                return NotFound();
-            }
+            var healthCondition = await _healthConditionService.GetHealthConditionByIdAsync(healthConditionId);                       
 
             var result = _mapper.Map<HealthConditionDTO>(healthCondition);
 
