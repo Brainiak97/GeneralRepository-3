@@ -18,8 +18,7 @@ namespace MetricService.BLL.Interfaces
         /// Изменить запись о показателях здоровья пользователя
         /// </summary>
         /// <param name="healthMetric">Данные для изменения записи</param>              
-        /// <exception cref="IncorrectOrEmptyResultException">Запись о показателях здоровья пользователя не зарегистрирована</exception>
-        /// <exception cref="ReferenceToEntryException">На сущность имеются ссылки</exception>
+        /// <exception cref="IncorrectOrEmptyResultException">Запись о показателях здоровья пользователя не зарегистрирована</exception>        
         public Task UpdateHealthMetricAsync(HealthMetric healthMetric);
 
         /// <summary>

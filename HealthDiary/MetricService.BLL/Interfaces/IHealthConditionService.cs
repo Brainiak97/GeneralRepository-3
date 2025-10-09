@@ -13,17 +13,17 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Создать запись о самочувствии(состоянии здоровья) пользователя
         /// </summary>
-        /// <param name="healthCondition">Данные для создания записи</param>        
+        /// <param name="healthConditionCreateDTO">Данные для создания записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>                 
-        public Task CreateHealthConditionAsync(HealthCondition healthCondition);
+        public Task CreateHealthConditionAsync(HealthConditionCreateDTO healthConditionCreateDTO);
 
         /// <summary>
         /// Обновить запись о самочувствии(состоянии здоровья) пользователя
         /// </summary>
-        /// <param name="healthCondition">Данные для изменения записи</param>        
+        /// <param name="healthConditionUpdateDTO">Данные для изменения записи</param>        
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>        
         /// <exception cref="IncorrectOrEmptyResultException">Данные о самочувствии не зарегистрированы</exception>
-        public Task UpdateHealthConditionAsync(HealthCondition healthCondition);
+        public Task UpdateHealthConditionAsync(HealthConditionUpdateDTO healthConditionUpdateDTO);
 
         /// <summary>
         /// Удалить запись о самочувствии(состоянии здоровья) пользователя

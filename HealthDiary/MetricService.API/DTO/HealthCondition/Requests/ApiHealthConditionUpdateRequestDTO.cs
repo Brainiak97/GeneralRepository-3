@@ -1,7 +1,7 @@
 ﻿using MetricService.Domain.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace MetricService.BLL.DTO.HealthCondition
+namespace MetricService.API.DTO.HealthCondition.Requests
 {
     /// <summary>
     /// Объект для изменения данных о самочувствии(состоянии здоровья) пользователя
@@ -12,7 +12,7 @@ namespace MetricService.BLL.DTO.HealthCondition
     /// <param name="PhysicalState">Физическое состояние</param>
     /// <param name="Symptoms">Симптомы</param>
     /// <param name="Notes">Дополнительные заметки</param> 
-    public record HealthConditionUpdateDTO(
+    public record ApiHealthConditionUpdateRequestDTO(
         [Required] int Id,
         [Required] DateTime RecordedAt,
         [Required] ConditionRating EmotionalState,
