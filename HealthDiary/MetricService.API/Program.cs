@@ -1,4 +1,5 @@
 ﻿using MetricService.API;
+using MetricService.API.DTO;
 using MetricService.API.ExceptionHandlers;
 using MetricService.BLL.Common;
 using MetricService.DAL.EF;
@@ -13,7 +14,7 @@ namespace MetricService.Api
     /// Основной класс программы
     /// </summary>
     public class Program
-    {   
+    {
         /// <summary>
         /// точка входа в приложение
         /// </summary>
@@ -22,13 +23,13 @@ namespace MetricService.Api
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
-        // Добавление контекста
-        builder.Services.AddDbContext<MetricServiceDbContext>(options =>
-            {                
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-                options.EnableSensitiveDataLogging(false);                
-            });
+
+            // Добавление контекста
+            builder.Services.AddDbContext<MetricServiceDbContext>(options =>
+                {
+                    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging(false);
+                });
 
             // Загрузка общей конфигурации JWT
             builder.Services.AddJwtAuthentication();
@@ -89,7 +90,7 @@ namespace MetricService.Api
 
             builder.Services.AddProblemDetails();
             builder.Services.AddExceptionHandler<BaseExceptionHandler>();
-            builder.Services.AddAutoMapper(cfg=>cfg.AddProfile<MapperProfile>());
+            builder.Services.AddAutoMapper(cfg => cfg.AddProfiles([new MapperProfile(), new ApiMapperProfile()]));
 
             var app = builder.Build();
 
@@ -119,7 +120,7 @@ namespace MetricService.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-                       
+
 
             app.UseAuthentication();
             app.UseAuthorization();

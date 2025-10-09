@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using MetricService.API.DTO.HealthCondition.Requests;
+using MetricService.API.DTO.HealthCondition.Responses;
 using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.HealthCondition;
 using MetricService.BLL.Interfaces;
-using MetricService.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,28 +23,28 @@ namespace MetricService.API.Controllers
         /// <summary>
         /// Зарегистрировать новое значение самочувствия пользователя
         /// </summary>
-        /// <param name="healthConditionCreateDTO">Данные для регистрации нового значения самочувствия пользователя</param>
+        /// <param name="apiHealtConditionCreateRequest">Данные для регистрации нового значения самочувствия пользователя</param>
         /// <returns></returns>
         [HttpPost(nameof(CreateHealthCondition))]
         [Authorize]
-        public async Task<IActionResult> CreateHealthCondition([FromBody] HealthConditionCreateDTO healthConditionCreateDTO)
+        public async Task<IActionResult> CreateHealthCondition([FromBody] ApiHealtConditionCreateRequest apiHealtConditionCreateRequest)
         {
-            var healthCondition = _mapper.Map<HealthCondition>(healthConditionCreateDTO);
-            await _healthConditionService.CreateHealthConditionAsync(healthCondition);
+            var healthConditionCreateDTO = _mapper.Map<HealthConditionCreateDTO>(apiHealtConditionCreateRequest);
+            await _healthConditionService.CreateHealthConditionAsync(healthConditionCreateDTO);
             return Ok();
         }
 
         /// <summary>
         /// Изменить данные о самочувствии(состоянии здоровья) пользователя
         /// </summary>
-        /// <param name="healthConditionUpdateDTO">Данные для изменения значения самочувствия(состояния здоровья) пользователя</param>
+        /// <param name="apiHealthConditionUpdateRequestDTO">Данные для изменения значения самочувствия(состояния здоровья) пользователя</param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateHealthCondition))]
         [Authorize]
-        public async Task<IActionResult> UpdateHealthCondition([FromBody] HealthConditionUpdateDTO healthConditionUpdateDTO)
+        public async Task<IActionResult> UpdateHealthCondition([FromBody] ApiHealthConditionUpdateRequestDTO apiHealthConditionUpdateRequestDTO)
         {
-            var healthCondition = _mapper.Map<HealthCondition>(healthConditionUpdateDTO);
-            await _healthConditionService.UpdateHealthConditionAsync(healthCondition);
+            var healthConditionUpdateDTO = _mapper.Map<HealthConditionUpdateDTO>(apiHealthConditionUpdateRequestDTO);
+            await _healthConditionService.UpdateHealthConditionAsync(healthConditionUpdateDTO);
             return Ok();
         }
 
@@ -63,12 +64,13 @@ namespace MetricService.API.Controllers
         /// <summary>
         /// Получить список значений самочувствия пользователя
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="apiListWithPeriodByIdRequestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [HttpGet(nameof(GetAllHealthConditions))]
         [Authorize]
-        public async Task<IActionResult> GetAllHealthConditions([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IActionResult> GetAllHealthConditions([FromQuery] ApiListWithPeriodByIdRequestDTO apiListWithPeriodByIdRequestDTO)
         {
+            var requestListWithPeriodByIdDTO = _mapper.Map<RequestListWithPeriodByIdDTO>(apiListWithPeriodByIdRequestDTO);
             var healthConditions = await _healthConditionService.GetAllHealthConditionsByUserIdAsync(requestListWithPeriodByIdDTO);
 
             if (!healthConditions.Any())
@@ -76,7 +78,7 @@ namespace MetricService.API.Controllers
                 return Ok("Список пуст");
             }
 
-            var result = _mapper.Map<List<HealthConditionDTO>>(healthConditions);
+            var result = _mapper.Map<List<ApiHealthConditionDTO>>(healthConditions);
 
             return Ok(result);
         }
@@ -92,7 +94,7 @@ namespace MetricService.API.Controllers
         {
             var healthCondition = await _healthConditionService.GetHealthConditionByIdAsync(healthConditionId);                       
 
-            var result = _mapper.Map<HealthConditionDTO>(healthCondition);
+            var result = _mapper.Map<ApiHealthConditionDTO>(healthCondition);
 
             return Ok(result);
         }

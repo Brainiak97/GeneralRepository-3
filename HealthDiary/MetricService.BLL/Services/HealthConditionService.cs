@@ -1,4 +1,6 @@
-﻿using MetricService.BLL.DTO;
+﻿using AutoMapper;
+using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.HealthCondition;
 using MetricService.BLL.Exceptions;
 using MetricService.BLL.Interfaces;
 using MetricService.DAL.Interfaces;
@@ -12,16 +14,17 @@ namespace MetricService.BLL.Services
     /// </summary>
     /// <seealso cref="IHealthMetricValueService" />
     public class HealthConditionService(IHealthConditionRepository healthConditionRepository,
-        ClaimsPrincipal authorization,
-        IAccessToMetricsService accessToMetricsService) : IHealthConditionService
+        ClaimsPrincipal authorization,        
+        IMapper mapper) : IHealthConditionService
     {
         private readonly IHealthConditionRepository _repository = healthConditionRepository;
-        private readonly ClaimsPrincipal _authorization = authorization;
-        private readonly IAccessToMetricsService _accessToMetricsService = accessToMetricsService;
+        private readonly ClaimsPrincipal _authorization = authorization;        
+        private readonly IMapper _mapper=mapper;
 
         ///<inheritdoc/>
-        public async Task CreateHealthConditionAsync(HealthCondition healthCondition)
+        public async Task CreateHealthConditionAsync(HealthConditionCreateDTO healthConditionCreateDTO)
         {
+            var healthCondition = _mapper.Map<HealthCondition>(healthConditionCreateDTO);
             Common.Common.CheckAccessAndThrow(_authorization, healthCondition.UserId, _repository.Name);
 
             await _repository.CreateAsync(healthCondition);
@@ -69,9 +72,11 @@ namespace MetricService.BLL.Services
         }
 
         ///<inheritdoc/>
-        public async Task UpdateHealthConditionAsync(HealthCondition healthCondition)
+        public async Task UpdateHealthConditionAsync(HealthConditionUpdateDTO healthConditionUpdateDTO)
         {
-            var healthCondFind = await GetHealthConditionByIdAsync(healthCondition.Id);
+            var healthCondFind = await GetHealthConditionByIdAsync(healthConditionUpdateDTO.Id);
+
+            var healthCondition = _mapper.Map<HealthCondition>(healthConditionUpdateDTO);
 
             healthCondition.UserId = healthCondFind.UserId;
 

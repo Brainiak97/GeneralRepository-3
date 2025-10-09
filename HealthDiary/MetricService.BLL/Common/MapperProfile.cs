@@ -43,8 +43,7 @@ namespace MetricService.BLL.Common
             CreateMap<PhysicalActivity, PhysicalActivityDTO>().ReverseMap();
 
             CreateMap<HealthCondition, HealthConditionCreateDTO>().ReverseMap();
-            CreateMap<HealthCondition, HealthConditionUpdateDTO>().ReverseMap();
-            CreateMap<HealthCondition, HealthConditionDTO>().ReverseMap();
+            CreateMap<HealthCondition, HealthConditionUpdateDTO>().ReverseMap();            
 
             CreateMap<HealthMetric, HealthMetricCreateDTO>().ReverseMap();
             CreateMap<HealthMetric, HealthMetricUpdateDTO>().ReverseMap();
