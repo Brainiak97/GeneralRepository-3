@@ -26,6 +26,7 @@ namespace FoodService.Api
 			// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 			builder.Services.AddOpenApi();
 
+			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen( options =>
 			{
 				options.SwaggerDoc( "v1", new OpenApiInfo() { Title = "FoodService.Api", Version = "v1" } );
@@ -42,6 +43,7 @@ namespace FoodService.Api
 				app.MapOpenApi();
 				app.UseSwagger();
 				app.UseSwaggerUI();
+				app.UseCors( policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod() );
 			}
 
 			app.UseHttpsRedirection();

@@ -11,7 +11,8 @@
                     "Host": "jsonplaceholder.typicode.com",
                     "Port": 443
                 }
-            ]
+            ],
+            "SwaggerKey": "SwgService1"
         },
         {
             "UpstreamHttpMethod": [ "Post" ],
@@ -106,6 +107,32 @@
                 {
                     "Host": "localhost",
                     "Port": 7188
+                }
+            ]
+        },
+        {
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/ocelot/getproduct",
+            "DownstreamPathTemplate": "/Food/getproduct",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7131
+                }
+            ],
+            "SwaggerKey": "SwgService1"
+        }
+    ],
+    "SwaggerEndPoints": [
+        {
+            "Key": "SwgService1",
+            "Config": [
+                {
+                    "Name": "SwgService 1 API",
+                    "Version": "v1",
+                    "Url": "http://localhost:5004/swagger/v1/swagger.json"
+                    //"Url": "https://localhost:7159/swagger/v1/swagger.json"
                 }
             ]
         }

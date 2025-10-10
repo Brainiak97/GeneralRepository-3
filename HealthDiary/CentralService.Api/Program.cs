@@ -15,10 +15,12 @@ namespace CentralService.Api
 			builder.Services.AddControllers();
 
 			// ocelot
-			builder.Configuration.AddJsonFile( "OcelotRouting.json" );
-			builder.Services.AddOcelot();
+			builder.Configuration.AddJsonFile( "GatewayRouting.json" );
+			builder.Services.AddOcelot( builder.Configuration );
 
 			// swagger 
+			builder.Services.AddSwaggerForOcelot( builder.Configuration );
+			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen( options =>
 			{
 				options.SwaggerDoc( "v1", new OpenApiInfo { Title = "CentralService API", Version = "v1" } );
@@ -31,9 +33,17 @@ namespace CentralService.Api
 			{
 				// swagger 
 				app.UseSwagger();
-				app.UseSwaggerUI();
+				//app.UseSwaggerUI();
+				//app.UseSwaggerUI( c =>
+				//{
+				//	//c.SwaggerEndpoint( "/swagger/v1/OcelotRouting.json", "Ocelot" );
+				//} );
+				app.UseSwaggerForOcelotUI( opt =>
+				{
+					opt.PathToSwaggerGenerator = "/swagger/docs";
+				} );
 			}
-
+			 
 			// controllers
 			app.UseRouting();
 			app.UseEndpoints( endpoints =>

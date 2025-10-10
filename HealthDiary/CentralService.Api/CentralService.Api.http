@@ -28,3 +28,8 @@ GET {{CentralService.Api_HostAddress}}/ocelot/userinfo
 Accept: application/json
 
 ###
+
+GET {{CentralService.Api_HostAddress}}/ocelot/getproduct?productId=5
+Accept: application/json
+
+###
