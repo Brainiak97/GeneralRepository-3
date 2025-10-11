@@ -17,7 +17,8 @@ namespace MetricService.DAL.Repositories
         {
             return await _contextDb.HealthConditions
                 .Include(h => h.User)
-                .FirstOrDefaultAsync(h => h.Id == id);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(h => h.Id == id);                
         }
 
         /// <inheritdoc/>
