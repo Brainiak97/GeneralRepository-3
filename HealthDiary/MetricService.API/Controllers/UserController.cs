@@ -51,22 +51,6 @@ namespace MetricService.Api.Controllers
             await _userService.DeleteProfileAsync(userId);
             return Ok();
         }
-        /// <summary>
-        /// Получить список профилей пользователей
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet(nameof(GetAllUsers))]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var result = await _userService.GetAllUsersAsync();
-
-            if (!result.Any())
-            {
-                return Ok("Список пуст");
-            }
-
-            return Ok(result);
-        }
 
         /// <summary>
         /// Получить профиль пользователя.

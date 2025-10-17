@@ -8,11 +8,7 @@
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// Дата рождения
-        /// </summary>
-        public DateTime DateOfBirth { get; set; }
+        public int Id { get; set; }               
 
         /// <summary>
         /// Рост в сантиметрах
@@ -23,10 +19,5 @@
         /// Вес в килограммах
         /// </summary>
         public float Weight { get; set; }
-
-        /// <summary>
-        /// Возраст
-        /// </summary>
-        public short Age { get; internal set; }
     }
 }
