@@ -5,7 +5,9 @@ using MetricService.BLL.Common;
 using MetricService.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Shared.Auth;
+using Shared.Logging;
 using System.Security.Claims;
 
 namespace MetricService.Api
@@ -23,6 +25,15 @@ namespace MetricService.Api
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Настройка логгера
+            LoggingConfiguration.ConfigureLogger(
+            serviceName: "MetricService",
+            layer: "API",
+            builder.Configuration,
+            environment: builder.Environment.EnvironmentName);
+
+            builder.Host.UseSerilog();
 
             // Добавление контекста
             builder.Services.AddDbContext<MetricServiceDbContext>(options =>
@@ -121,6 +132,9 @@ namespace MetricService.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseCommonRequestLogging();
+
+            app.UseMiddleware<CorrelationIdMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
