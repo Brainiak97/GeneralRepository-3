@@ -10,7 +10,7 @@ namespace StateService.DAL.Providers
 
         public async Task<List<HealthMetricsDto>> GetHealthMetricsBaseDataAsync(int userId, DateTime startDate, DateTime endDate)
         {
-            var url = $"/api/HealthMetricsBase/GetAllHealthMetricsValue" +
+            var url = $"/api/HealthMetricValue/GetAllHealthMetricsValue" +
                       $"?UserId={userId}" +
                       $"&BegDate={startDate:yyyy-MM-dd}" +
                       $"&EndDate={endDate:yyyy-MM-dd}";
