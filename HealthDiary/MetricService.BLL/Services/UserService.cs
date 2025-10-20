@@ -44,24 +44,6 @@ namespace MetricService.BLL.Services
 
         }
 
-
-        /// <inheritdoc/>
-        public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
-        {
-
-            if (!_authorization.IsInRole("Admin"))
-            {
-                throw new ViolationAccessException("Только администраторам разрешено просматривать список пользователей",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    0,
-                                                    _repository.Name);
-            }
-
-            return _mapper.Map<IEnumerable<UserDTO>>(await _repository.GetAllAsync());
-
-        }
-
-
         /// <inheritdoc/>
         public async Task<UserDTO> GetUserByIdAsync(int userId)
         {

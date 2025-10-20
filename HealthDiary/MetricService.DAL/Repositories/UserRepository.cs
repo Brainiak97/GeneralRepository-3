@@ -25,9 +25,8 @@ namespace MetricService.DAL.Repositories
             {
                 user.Weight = item.Weight;
                 user.Height = item.Height;
-                user.DateOfBirth = item.DateOfBirth;                
             }
-            return await _contextDb.SaveChangesAsync() == 1;            
+            return await _contextDb.SaveChangesAsync() == 1;
         }
     }
 }

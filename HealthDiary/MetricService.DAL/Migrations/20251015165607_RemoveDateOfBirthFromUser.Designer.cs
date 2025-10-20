@@ -3,6 +3,7 @@ using System;
 using MetricService.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MetricService.DAL.Migrations
 {
     [DbContext(typeof(MetricServiceDbContext))]
-    partial class MetricServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251015165607_RemoveDateOfBirthFromUser")]
+    partial class RemoveDateOfBirthFromUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +56,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("ProviderUserId");
 
-                    b.ToTable("AccessToMetrics", null, t =>
+                    b.ToTable("AccessToMetrics", t =>
                         {
                             t.HasComment("Доступ к личным метрикам");
                         });
@@ -80,7 +83,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AnalysisCategories", null, t =>
+                    b.ToTable("AnalysisCategories", t =>
                         {
                             t.HasComment("Категории анализов");
                         });
@@ -409,7 +412,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AnalysisResults", null, t =>
+                    b.ToTable("AnalysisResults", t =>
                         {
                             t.HasComment("Результаты анализов");
                         });
@@ -451,7 +454,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("AnalysisCategoryId");
 
-                    b.ToTable("AnalysisTypes", null, t =>
+                    b.ToTable("AnalysisTypes", t =>
                         {
                             t.HasComment("Типы анализов");
                         });
@@ -1223,7 +1226,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DosageForms", null, t =>
+                    b.ToTable("DosageForms", t =>
                         {
                             t.HasComment("Форма выпуска препарата");
                         });
@@ -1303,7 +1306,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthConditions", null, t =>
+                    b.ToTable("HealthConditions", t =>
                         {
                             t.HasComment("состояние здоровья пользователя");
                         });
@@ -1335,7 +1338,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HealthMetrics", null, t =>
+                    b.ToTable("HealthMetrics", t =>
                         {
                             t.HasComment("Показатель здоровья пользователя");
                         });
@@ -1376,7 +1379,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthMetricValues", null, t =>
+                    b.ToTable("HealthMetricValues", t =>
                         {
                             t.HasComment("Значение показателя здоровья пользователя");
                         });
@@ -1411,7 +1414,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("RegimenId");
 
-                    b.ToTable("Intakes", null, t =>
+                    b.ToTable("Intakes", t =>
                         {
                             t.HasComment("Прием лекарств");
                         });
@@ -1445,7 +1448,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("DosageFormId");
 
-                    b.ToTable("Medications", null, t =>
+                    b.ToTable("Medications", t =>
                         {
                             t.HasComment("Медикаменты");
                         });
@@ -1614,7 +1617,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhysicalActivities", null, t =>
+                    b.ToTable("PhysicalActivities", t =>
                         {
                             t.HasComment("Физическая активность");
                         });
@@ -2165,7 +2168,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Regimens", null, t =>
+                    b.ToTable("Regimens", t =>
                         {
                             t.HasComment("Схема приема медикаментов");
                         });
@@ -2196,7 +2199,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("RegimenId");
 
-                    b.ToTable("Reminders", null, t =>
+                    b.ToTable("Reminders", t =>
                         {
                             t.HasComment("Напоминание о приеме лекарств");
                         });
@@ -2235,7 +2238,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sleeps", null, t =>
+                    b.ToTable("Sleeps", t =>
                         {
                             t.HasComment("Сон");
                         });
@@ -2260,7 +2263,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", null, t =>
+                    b.ToTable("Users", t =>
                         {
                             t.HasComment("Пользователь");
                         });
@@ -2301,7 +2304,7 @@ namespace MetricService.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Workouts", null, t =>
+                    b.ToTable("Workouts", t =>
                         {
                             t.HasComment("Тренировки");
                         });
