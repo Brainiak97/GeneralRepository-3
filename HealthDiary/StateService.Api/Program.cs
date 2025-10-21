@@ -1,3 +1,4 @@
+using FoodService.Api.Contracts;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared.Auth;
@@ -38,11 +39,8 @@ if (serviceUrlsFromConfig != null)
     {
         client.BaseAddress = new Uri(serviceUrlsFromConfig.UserServiceUrl);
     });
-    builder.Services.AddHttpClient<IFoodDataProvider, HttpFoodDataProvider>(client =>
-    {
-        client.BaseAddress = new Uri(serviceUrlsFromConfig.FoodServiceUrl);
-    });
-    builder.Services.AddHttpClient<IMetricDataProvider, HttpMetricDataProvider>(client =>
+    builder.Services.AddFoodServiceClient(serviceUrlsFromConfig.FoodServiceUrl);
+	builder.Services.AddHttpClient<IMetricDataProvider, HttpMetricDataProvider>(client =>
     {
         client.BaseAddress = new Uri(serviceUrlsFromConfig.MetricServiceUrl);
     });
