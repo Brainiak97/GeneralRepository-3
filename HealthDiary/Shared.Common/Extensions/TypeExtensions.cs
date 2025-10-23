@@ -11,6 +11,6 @@ public static class TypeExtensions
         return typeDisplayAttribute?.Name ?? throw new InvalidOperationException($"Type {type.FullName} has no display attribute");
     }
 
-    public static string GetPropertyDisplayName(this PropertyInfo property) => 
+    public static string GetPropertyDisplayName(this PropertyInfo property) =>
         property.GetCustomAttribute<DisplayAttribute>()?.Name ?? throw new InvalidOperationException($"Property {property.Name} has no display attribute");
 }
