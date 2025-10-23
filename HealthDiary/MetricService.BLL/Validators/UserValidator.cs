@@ -13,8 +13,6 @@ namespace MetricService.BLL.Validators
         const short HeightMax = 250;
         const short WeightMin = 0;
         const short WeightMax = 400;
-        const short AgeMax = 130;
-        const short AgeMin = 5;
 
         /// <inheritdoc/>  
         public bool Validate(User entity, out Dictionary<string, string> errorList)
@@ -26,9 +24,6 @@ namespace MetricService.BLL.Validators
 
             if ((entity.Weight <= WeightMin) || (entity.Weight > WeightMax))
                 errorList.Add(nameof(entity.Weight), $"Параметр веса могут быть заданы в диапазоне {WeightMin} ... {WeightMax}");
-            var age = DateTime.Now.Year - entity.DateOfBirth.Year;
-            if ((age > AgeMax) || (age < AgeMin))
-                errorList.Add(nameof(entity.DateOfBirth), $"Дата рождения задана некорректно. Возраст может быть в диапазоне {AgeMin} ... {AgeMax}");
 
             return errorList.Count == 0;
         }

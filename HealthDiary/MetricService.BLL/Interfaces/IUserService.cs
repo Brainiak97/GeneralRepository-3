@@ -42,12 +42,5 @@ namespace MetricService.BLL.Interfaces
         /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>  
         /// <exception cref="IncorrectOrEmptyResultException">Возникает когда пользователь с заданным ИД не найден</exception> 
         public Task<UserDTO> GetUserByIdAsync(int userId);
-
-        /// <summary>
-        /// Получить список записей профилей пользователей
-        /// </summary>        
-        /// <returns>Список записей профилей пользователей</returns>,
-        /// <exception cref="ViolationAccessException">Возникает при нарушении уровня доступа к чужим данным</exception>         
-        public Task<IEnumerable<UserDTO>> GetAllUsersAsync();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MetricService.Domain.Models
 {
@@ -11,13 +10,6 @@ namespace MetricService.Domain.Models
     public class User : BaseModel
     {
         /// <summary>
-        /// Дата рождения
-        /// </summary>
-        [Comment("дата рождения")]
-        [Column(TypeName = "date")]
-        public DateTime DateOfBirth { get; set; }
-
-        /// <summary>
         /// Рост в сантиметрах
         /// </summary>
         [Comment("рост в сантиметрах")]
@@ -28,17 +20,5 @@ namespace MetricService.Domain.Models
         /// </summary>
         [Comment("Вес в килограммах")]
         public float Weight { get; set; }
-
-        /// <summary>
-        /// Возраст
-        /// </summary>
-        /// <returns>Значение возраста (лет)</returns>
-        public short Age
-        {
-            get
-            {
-                return (short)((DateTime.Now - DateOfBirth).TotalDays / 365.25);
-            }
-        }
     }
 }
