@@ -28,19 +28,19 @@ namespace MetricService.Api
 
             // Настройка логгера
             LoggingConfiguration.ConfigureLogger(
-            serviceName: "MetricService",
-            layer: "API",
-            builder.Configuration,
-            environment: builder.Environment.EnvironmentName);
+                serviceName: "MetricService",
+                layer: "API",
+                builder.Configuration,
+                environment: builder.Environment.EnvironmentName);
 
             builder.Host.UseSerilog();
 
             // Добавление контекста
             builder.Services.AddDbContext<MetricServiceDbContext>(options =>
-                {
-                    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-                    options.EnableSensitiveDataLogging(false);
-                });
+            {
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.EnableSensitiveDataLogging(false);
+            });
 
             // Загрузка общей конфигурации JWT
             builder.Services.AddJwtAuthentication();
