@@ -4,8 +4,9 @@ using FoodService.Api.Contracts.Dtos.Responses;
 using FoodService.BLL.Contracts.Commands;
 using FoodService.DAL.Entities;
 using FoodService.DAL.Enums;
+using Dto = FoodService.Api.Contracts.Dtos.Enums;
 
-namespace FoodService.Api.Contracts
+namespace FoodService.Api.Mapping
 {
 	public class AutoMapperDtoProfile : Profile
 	{
@@ -24,8 +25,9 @@ namespace FoodService.Api.Contracts
 						Carbs: source.Carbs
 					);
 				} );
+			CreateMap<Dto.InfoSourceType, InfoSourceType>()
+				.ReverseMap();
 			CreateMap<ProductDto, Product>()
-				.ConstructUsing( x => new Product( x.Name, x.Calories, x.Proteins, x.Fats, x.Carbs, x.InfoSourceType ) )
 				.ReverseMap();
 			CreateMap<Meal, MealDto>()
 				.ReverseMap();

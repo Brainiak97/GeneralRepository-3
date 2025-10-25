@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FoodService.Api.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using StateService.Api.Infrastructure;
 using StateService.Api.ViewModels;
 using StateService.BLL.Interfaces;
@@ -9,12 +10,13 @@ namespace StateService.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StateController(IStateService stateService, IGroqProvider groqProvider) : ControllerBase
+    public class StateController(IStateService stateService, IGroqProvider groqProvider, IFoodServiceClient foodServiceClient ) : ControllerBase
     {
         private readonly IStateService _stateService = stateService;
         private readonly IGroqProvider _groqProvider = groqProvider;
+		private readonly IFoodServiceClient _foodServiceClient = foodServiceClient;
 
-        [HttpGet(nameof(GetDailySummary))]
+		[HttpGet(nameof(GetDailySummary))]
         public async Task<IActionResult> GetDailySummary(int userId)
         {
             if (userId == 0)
@@ -96,5 +98,12 @@ namespace StateService.Api.Controllers
                 return StatusCode(500, new { Error = "Ошибка при генерации рекомендаций", Details = ex.Message });
             }
         }
-    }
+
+        [HttpGet( nameof( Test ) )]
+        public async Task<IActionResult> Test( int productId )
+        {
+            var product = await _foodServiceClient.GetProduct( productId );
+            return Ok( product );
+        }
+	}
 }

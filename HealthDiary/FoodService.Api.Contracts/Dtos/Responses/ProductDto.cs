@@ -1,4 +1,4 @@
-﻿using FoodService.DAL.Enums;
+﻿using FoodService.Api.Contracts.Dtos.Enums;
 
 namespace FoodService.Api.Contracts.Dtos.Responses
 {
