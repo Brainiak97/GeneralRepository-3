@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PolyclinicService.DAL.Contexts;
+using Shared.Common.Migrations.Migrators;
 
 namespace PolyclinicService.DAL.Infrastructure.Migrations;
 

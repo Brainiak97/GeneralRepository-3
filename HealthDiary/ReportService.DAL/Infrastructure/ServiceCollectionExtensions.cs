@@ -1,7 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ReportService.DAL.Common.InMemoryStorages;
-using ReportService.DAL.Common.InMemoryStorages.Interfaces;
+using ReportService.DAL.Contexts;
 using ReportService.DAL.Infrastructure.Configurations;
 using ReportService.DAL.Interfaces.Providers;
 using ReportService.DAL.Interfaces.Repositories;
@@ -23,15 +23,17 @@ public static class ServiceCollectionExtensions
     /// <returns><see cref="IServiceCollection"/>.</returns>
     public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration) =>
         services
-            .AddInMemoryStorages()
+            .AddDbContext<ReportServiceDbContext>(options => 
+                {
+                    options.UseNpgsql(configuration.GetConnectionString("DbConnectionString"));
+                },
+                contextLifetime: ServiceLifetime.Scoped,
+                optionsLifetime: ServiceLifetime.Singleton)
             .AddRepositories()
             .AddHttpDataProviders(configuration);
 
     private static IServiceCollection AddRepositories(this IServiceCollection services) =>
-        services.AddSingleton<IReportTemplatesRepository, ReportTemplatesRepository>();
-
-    private static IServiceCollection AddInMemoryStorages(this IServiceCollection services) =>
-        services.AddSingleton<IReportTemplatesInMemoryStorage, ReportTemplatesInMemoryStorage>();
+        services.AddScoped<IReportsRepository, ReportsRepository>();
 
     private static IServiceCollection AddHttpDataProviders(this IServiceCollection services, IConfiguration configuration)
     {

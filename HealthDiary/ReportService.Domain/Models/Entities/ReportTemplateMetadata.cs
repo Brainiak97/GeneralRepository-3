@@ -1,17 +1,29 @@
+using Microsoft.EntityFrameworkCore;
+using Shared.Common.Interfaces;
+
 namespace ReportService.Domain.Models.Entities;
 
 /// <summary>
 /// Метаданные по шаблону отчёта.
 /// </summary>
-public class ReportTemplateMetadata
+[Comment("Метаданные по шаблонам отчётов")]
+public class ReportTemplateMetadata : IEntityModel<int>
 {
+    /// <summary>
+    /// Идентификатор шаблона.
+    /// </summary>
+    [Comment("Идентификатор шаблона")]
+    public int Id { get; set; }
+    
     /// <summary>
     /// Имя шаблона.
     /// </summary>
+    [Comment("Имя шаблона")]
     public required string Name { get; set; }
 
     /// <summary>
     /// Наименование типа источника данных для шаблона отчёта.
     /// </summary>
+    [Comment("Наименование типа источника данных для шаблона отчёта в приложении")]
     public required string ReportTemplateTypeName { get; set; }
 }

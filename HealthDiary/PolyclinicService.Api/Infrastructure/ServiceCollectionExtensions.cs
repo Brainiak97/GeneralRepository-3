@@ -1,4 +1,4 @@
-using PolyclinicService.DAL.Infrastructure.Migrations;
+using Shared.Common.Migrations.Migrators;
 
 namespace PolyclinicService.Api.Infrastructure;
 
