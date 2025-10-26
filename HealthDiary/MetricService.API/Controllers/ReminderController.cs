@@ -1,8 +1,13 @@
-﻿using MetricService.BLL.DTO;
+﻿using AutoMapper;
+using MetricService.API.DTO.HealthCondition.Requests;
+using MetricService.API.DTO.HealthCondition.Responses;
+using MetricService.BLL.DTO;
+using MetricService.BLL.DTO.Reminder;
 using MetricService.BLL.Interfaces;
+using MetricService.BLL.Services;
+using MetricService.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MetricService.BLL.DTO.Reminder;
 
 namespace MetricService.API.Controllers
 {
@@ -13,31 +18,34 @@ namespace MetricService.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class ReminderController(IReminderService reminderService) : Controller
+    public class ReminderController(IReminderService reminderService, IMapper mapper) : Controller
     {
         private readonly IReminderService _reminderService = reminderService;
+        private readonly IMapper _mapper = mapper;
 
         /// <summary>
         /// зарегистрировать напоминание о приеме лекарств
         /// </summary>
-        /// <param name="reminderCreateDTO">Данные для регистрации напоминания о приеме лекарств</param>
+        /// <param name="apiReminderCreateRequestDTO">Данные для регистрации напоминания о приеме лекарств</param>
         /// <returns></returns>
         [HttpPost(nameof(CreateReminder))]
-        public async Task<IActionResult> CreateReminder([FromBody] ReminderCreateDTO reminderCreateDTO)
+        public async Task<IActionResult> CreateReminder([FromBody] ApiReminderCreateRequestDTO apiReminderCreateRequestDTO)
         {
-            await _reminderService.CreateReminderAsync(reminderCreateDTO);
+            var reminderCreateRequestDTO = _mapper.Map<ReminderCreateDTO>(apiReminderCreateRequestDTO);
+            await _reminderService.CreateReminderAsync(reminderCreateRequestDTO);
             return Ok();
         }
 
         /// <summary>
         /// Изменить данные напоминаяния о приеме лекарств
         /// </summary>
-        /// <param name="reminderUpdateDTO">Измененные данные для напоминания оприеме лекарств</param>
+        /// <param name="apiReminderUpdateRequestDTO">Измененные данные для напоминания оприеме лекарств</param>
         /// <returns></returns>
         [HttpPut(nameof(UpdateReminder))]
-        public async Task<IActionResult> UpdateReminder([FromBody] ReminderUpdateDTO reminderUpdateDTO)
+        public async Task<IActionResult> UpdateReminder([FromBody] ApiReminderUpdateRequestDTO apiReminderUpdateRequestDTO)
         {
-            await _reminderService.UpdateReminderAsync(reminderUpdateDTO);
+            var reminderUpdateRequestDTO = _mapper.Map<ReminderUpdateDTO>(apiReminderUpdateRequestDTO);
+            await _reminderService.UpdateReminderAsync(reminderUpdateRequestDTO);
             return Ok();
         }
 
@@ -56,17 +64,21 @@ namespace MetricService.API.Controllers
         /// <summary>
         /// Получить список напоминаний по пользователю за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="apiListWithPeriodByIdRequestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [HttpGet(nameof(GetAllRemindersByUser))]
-        public async Task<IActionResult> GetAllRemindersByUser([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IActionResult> GetAllRemindersByUser([FromQuery] ApiListWithPeriodByIdRequestDTO apiListWithPeriodByIdRequestDTO)
         {
-            var result = await _reminderService.GetAllReminderByUserIdAsync(requestListWithPeriodByIdDTO);
+            var requestListWithPeriodByIdDTO = _mapper.Map<RequestListWithPeriodByIdDTO>(apiListWithPeriodByIdRequestDTO);
 
-            if (!result.Any())
+            var reminders = await _reminderService.GetAllReminderByUserIdAsync(requestListWithPeriodByIdDTO);
+
+            if (!reminders.Any())
             {
                 return Ok("Список пуст");
             }
+
+            var result = _mapper.Map<List<ApiReminderDTO>>(reminders);
 
             return Ok(result);
         }
@@ -74,17 +86,21 @@ namespace MetricService.API.Controllers
         /// <summary>
         /// Получить список напоминаний по схеме приема медикаментов за период
         /// </summary>
-        /// <param name="requestListWithPeriodByRegimenIdDTO">Данные о схеме приема медикаментов и период</param>
+        /// <param name="apiRequestListWithPeriodByRegimenIdDTO">Данные о схеме приема медикаментов и период</param>
         /// <returns></returns>
         [HttpGet(nameof(GetAllRemindersByRegimen))]
-        public async Task<IActionResult> GetAllRemindersByRegimen([FromQuery] RequestListWithPeriodByRegimenIdDTO requestListWithPeriodByRegimenIdDTO)
+        public async Task<IActionResult> GetAllRemindersByRegimen([FromQuery] ApiRequestListWithPeriodByRegimenIdDTO apiRequestListWithPeriodByRegimenIdDTO)
         {
-            var result = await _reminderService.GetAllReminderByRegimenIdAsync(requestListWithPeriodByRegimenIdDTO);
+            var requestListWithPeriodByRegimenIdDTO = _mapper.Map<RequestListWithPeriodByRegimenIdDTO>(apiRequestListWithPeriodByRegimenIdDTO);
 
-            if (!result.Any())
+            var reminders = await _reminderService.GetAllReminderByRegimenIdAsync(requestListWithPeriodByRegimenIdDTO);
+
+            if (!reminders.Any())
             {
                 return Ok("Список пуст");
             }
+
+            var result = _mapper.Map<List<ApiReminderDTO>>(reminders);
 
             return Ok(result);
         }
@@ -97,7 +113,30 @@ namespace MetricService.API.Controllers
         [HttpGet(nameof(GetReminderById))]
         public async Task<IActionResult> GetReminderById(int reminderid)
         {
-            return Ok(await _reminderService.GetReminderByIdAsync(reminderid));
+            var reminder = await _reminderService.GetReminderByIdAsync(reminderid);
+
+            var result = _mapper.Map<ApiReminderDTO>(reminder);
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Доставить напоминаяния пользователю
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(nameof(ReminderDelivery))]
+        public async Task<IActionResult> ReminderDelivery(int userId)
+        {
+            var reminrers = await _reminderService.ReminderDelivery(userId);
+
+            if (!reminrers.Any())
+            {
+                return Ok("Список пуст");
+            }
+
+            var result = _mapper.Map<List<ApiReminderDTO>>(reminrers);
+
+            return Ok(result);
         }
     }
 }

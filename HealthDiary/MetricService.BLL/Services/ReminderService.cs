@@ -21,17 +21,12 @@ namespace MetricService.BLL.Services
         private readonly IRegimenService _regimenService = regimenService;
         private readonly IMapper _mapper = mapper;
 
-
         /// <inheritdoc/>
         public async Task CreateReminderAsync(ReminderCreateDTO reminderCreateDTO)
         {
-            if (!_authorization.IsInRole("Admin"))
-            {
-                throw new ViolationAccessException("Вы не можете создавать данные",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    0,
-                                                    _repository.Name);
-            }
+            var regimen = await _regimenService.GetRegimenByIdAsync(reminderCreateDTO.RegimenId);
+
+            Common.Common.CheckAccessAndThrow(_authorization, regimen.UserId, _repository.Name);
 
             var reminder = _mapper.Map<Reminder>(reminderCreateDTO);
 
@@ -43,40 +38,33 @@ namespace MetricService.BLL.Services
             await _repository.CreateAsync(reminder);
         }
 
+        /// <inheritdoc/>
+        public async Task UpdateReminderAsync(ReminderUpdateDTO reminderUpdateDTO)
+        {
+            var reminderFind = await GetReminderByIdAsync(reminderUpdateDTO.Id);
+
+            var reminder = _mapper.Map<Reminder>(reminderUpdateDTO);
+
+            reminder.IsSend = reminderFind.IsSend;
+            reminder.RegimenId = reminderFind.RegimenId;
+
+            await _repository.UpdateAsync(reminder);
+        }
 
         /// <inheritdoc/>
         public async Task DeleteReminderAsync(int reminderId)
         {
-            _ = await _repository.GetByIdAsync(reminderId) ??
-              throw new IncorrectOrEmptyResultException("Напоминание не зарегистрировано",
-                                                          new Dictionary<object, object>()
-                                                          {
-                                                                { nameof(reminderId), reminderId }
-                                                          });
-
-            if (!_authorization.IsInRole("Admin"))
-            {
-                throw new ViolationAccessException("Вам не разрешено удалить данные",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    0,
-                                                    _repository.Name);
-            }
+            _ = await GetReminderByIdAsync(reminderId);
 
             await _repository.DeleteAsync(reminderId);
         }
 
-
         /// <inheritdoc/>
-        public async Task<IEnumerable<ReminderDTO>> GetAllReminderByRegimenIdAsync(RequestListWithPeriodByRegimenIdDTO requestListWithPeriodByRegimenIdDTO)
+        public async Task<IEnumerable<Reminder>> GetAllReminderByRegimenIdAsync(RequestListWithPeriodByRegimenIdDTO requestListWithPeriodByRegimenIdDTO)
         {
             var regimen = await _regimenService.GetRegimenByIdAsync(requestListWithPeriodByRegimenIdDTO.RegimenId);
 
-            if (!_authorization.IsInRole("Admin") &&
-                regimen.UserId != Common.Common.GetAuthorId(_authorization))
-            {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои напоминания",
-                    Common.Common.GetAuthorId(_authorization), regimen.UserId, _repository.Name);
-            }
+            Common.Common.CheckAccessAndThrow(_authorization, regimen.UserId, _repository.Name);
 
             var reminders = (await _repository.GetAllAsync())
                 .Where(r => r.RegimenId == requestListWithPeriodByRegimenIdDTO.RegimenId &&
@@ -84,78 +72,58 @@ namespace MetricService.BLL.Services
                                     r.RemindAt <= requestListWithPeriodByRegimenIdDTO.EndDate);
 
 
-            return _mapper.Map<IEnumerable<ReminderDTO>>(reminders);
+            return reminders;
         }
 
-
         /// <inheritdoc/>
-        public async Task<IEnumerable<ReminderDTO>> GetAllReminderByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IEnumerable<Reminder>> GetAllReminderByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            if (!_authorization.IsInRole("Admin") &&
-                requestListWithPeriodByIdDTO.UserId != Common.Common.GetAuthorId(_authorization))
-            {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои напоминания",
-                    Common.Common.GetAuthorId(_authorization), requestListWithPeriodByIdDTO.UserId, _repository.Name);
-            }
+            Common.Common.CheckAccessAndThrow(_authorization, requestListWithPeriodByIdDTO.UserId, _repository.Name);
 
             var reminders = (await _repository.GetAllAsync())
                 .Where(r => r.Regimen.UserId == requestListWithPeriodByIdDTO.UserId &&
                                     r.RemindAt >= requestListWithPeriodByIdDTO.BegDate &&
                                     r.RemindAt <= requestListWithPeriodByIdDTO.EndDate);
 
-            return _mapper.Map<IEnumerable<ReminderDTO>>(reminders);
+            return reminders;
         }
 
-
         /// <inheritdoc/>
-        public async Task<ReminderDTO> GetReminderByIdAsync(int reminderId)
+        public async Task<Reminder> GetReminderByIdAsync(int reminderId)
         {
-            var reminderFind = await _repository.GetByIdAsync(reminderId) ??
-                throw new IncorrectOrEmptyResultException("Указанное напоминание не существует",
-                                                        new Dictionary<object, object>()
-                                                        {
-                                                            { nameof(reminderId), reminderId }
-                                                        });
+            var reminderFind = await _repository.GetByIdAsync(reminderId)
+                ?? throw new IncorrectOrEmptyResultException("Указанное напоминание не существует",
+                    new Dictionary<object, object>()
+                    {
+                        { nameof(reminderId), reminderId }
+                    });
 
-            if (!_authorization.IsInRole("Admin") && reminderFind.Regimen.UserId != Common.Common.GetAuthorId(_authorization))
-            {
-                throw new ViolationAccessException("Вам разрешено просматривать только свою тренировку",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    reminderFind.Regimen.UserId,
-                                                    _repository.Name);
-            }
+            Common.Common.CheckAccessAndThrow(_authorization, reminderFind.Regimen.UserId, _repository.Name);
 
-            return _mapper.Map<ReminderDTO>(reminderFind);
+            return reminderFind;
         }
 
-
         /// <inheritdoc/>
-        public async Task UpdateReminderAsync(ReminderUpdateDTO reminderUpdateDTO)
+        public async Task<IEnumerable<Reminder>> ReminderDeliveryAsync(int userId)
         {
-            var reminderFind = await _repository.GetByIdAsync(reminderUpdateDTO.Id) ??
-                throw new IncorrectOrEmptyResultException("Напоминание не зарегистрировано",
-                                                        new Dictionary<object, object>()
-                                                        {
-                                                            {nameof(reminderUpdateDTO), reminderUpdateDTO}
-                                                        });
+            var currentDate = DateTime.UtcNow;
 
-            if (!_authorization.IsInRole("Admin") && reminderFind.Regimen.UserId != Common.Common.GetAuthorId(_authorization))
+            Common.Common.CheckAccessAndThrow(_authorization, userId, _repository.Name);
+
+            var reminders = (await _repository.GetAllAsync())
+                .Where(r => r.Regimen.UserId == userId
+                        && r.RemindAt <= currentDate
+                        && r.IsSend == false);
+            var results = new List<Reminder>();
+            foreach (var reminder in reminders)
             {
-                throw new ViolationAccessException("Вы не можете изменять данные о тренировке для других пользователей",
-                                                    Common.Common.GetAuthorId(_authorization),
-                                                    reminderFind.Regimen.UserId,
-                                                    _repository.Name);
+                {
+                    reminder.IsSend = true;
+                    results.Add(reminder);
+                    await _repository.UpdateAsync(reminder);
+                }
             }
-
-            var reminder = _mapper.Map<Reminder>(reminderUpdateDTO);
-            reminder.RegimenId = reminderFind.RegimenId;
-
-            if (!_validator.Validate(reminder, out Dictionary<string, string> errorList))
-            {
-                throw new ValidateModelException("Некорректные данные о напоминании", errorList);
-            }
-
-            await _repository.UpdateAsync(reminder);
+            return results;
         }
     }
 }

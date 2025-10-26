@@ -3,6 +3,7 @@ using MetricService.API.DTO.HealthCondition.Requests;
 using MetricService.API.DTO.HealthCondition.Responses;
 using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.HealthCondition;
+using MetricService.BLL.DTO.Reminder;
 
 namespace MetricService.API.DTO
 {
@@ -21,8 +22,16 @@ namespace MetricService.API.DTO
             CreateMap<ApiHealthConditionUpdateRequestDTO, HealthConditionUpdateDTO>();
 
             CreateMap<Domain.Models.HealthCondition, ApiHealthConditionDTO>();
-              
-            CreateMap<ApiListWithPeriodByIdRequestDTO, RequestListWithPeriodByIdDTO>();               
+
+            CreateMap<ApiListWithPeriodByIdRequestDTO, RequestListWithPeriodByIdDTO>();
+
+            CreateMap<ApiReminderCreateRequestDTO, ReminderCreateDTO>().ReverseMap();
+
+            CreateMap<ApiReminderUpdateRequestDTO, ReminderUpdateDTO>();
+
+            CreateMap<Domain.Models.Reminder, ApiReminderDTO>();
+
+            CreateMap<ApiRequestListWithPeriodByRegimenIdDTO, RequestListWithPeriodByRegimenIdDTO>();
         }
     }
 }

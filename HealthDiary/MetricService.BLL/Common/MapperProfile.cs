@@ -43,7 +43,7 @@ namespace MetricService.BLL.Common
             CreateMap<PhysicalActivity, PhysicalActivityDTO>().ReverseMap();
 
             CreateMap<HealthCondition, HealthConditionCreateDTO>().ReverseMap();
-            CreateMap<HealthCondition, HealthConditionUpdateDTO>().ReverseMap();            
+            CreateMap<HealthCondition, HealthConditionUpdateDTO>().ReverseMap();
 
             CreateMap<HealthMetric, HealthMetricCreateDTO>().ReverseMap();
             CreateMap<HealthMetric, HealthMetricUpdateDTO>().ReverseMap();
@@ -81,7 +81,7 @@ namespace MetricService.BLL.Common
             CreateMap<Regimen, RegimenCreateDTO>().ReverseMap();
             CreateMap<Regimen, RegimenUpdateDTO>().ReverseMap();
 
-            CreateMap<Reminder, ReminderDTO >().ReverseMap();
+            CreateMap<Reminder, ReminderDTO>().ReverseMap();
             CreateMap<Reminder, ReminderCreateDTO>().ReverseMap();
             CreateMap<Reminder, ReminderUpdateDTO>().ReverseMap();
 

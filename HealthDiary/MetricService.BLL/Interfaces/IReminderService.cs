@@ -1,6 +1,7 @@
 ﻿using MetricService.BLL.DTO.Reminder;
 using MetricService.BLL.DTO;
 using MetricService.BLL.Exceptions;
+using MetricService.Domain.Models;
 
 namespace MetricService.BLL.Interfaces
 {
@@ -12,7 +13,7 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Создать запись напоминания приема медикаментов пользователем
         /// </summary>
-        /// <param name="reminderCreateDTO">Данные для создания записи</param>
+        /// <param name="reminderCreateDTO">Данные для создания, изменения записи</param>
         /// <exception cref="ViolationAccessException">Вы не можете создавать данные</exception>
         /// <exception cref="ValidateModelException">Некорректные данные о напоминании</exception>
         public Task CreateReminderAsync(ReminderCreateDTO reminderCreateDTO);
@@ -20,7 +21,7 @@ namespace MetricService.BLL.Interfaces
         /// <summary>
         /// Обновить запись напоминания приема медикаментов пользователем
         /// </summary>
-        /// <param name="reminderUpdateDTO">Данные для изменения записи</param>
+        /// <param name="reminderUpdateDTO">Данные для создания, изменения записи</param>
         /// <exception cref="IncorrectOrEmptyResultException">Напоминание не зарегистрировано</exception>        
         /// <exception cref="ViolationAccessException">Вы не можете изменять данные о тренировке для других пользователей</exception>
         /// <exception cref="ValidateModelException">Некорректные данные о напоминании</exception>
@@ -41,7 +42,7 @@ namespace MetricService.BLL.Interfaces
         /// <returns>Данные о напоминании приема медикаментов пользователем</returns>
         /// <exception cref="IncorrectOrEmptyResultException">Указанное напоминание не существует</exception>        
         /// <exception cref="ViolationAccessException">Вам разрешено просматривать только свою тренировку</exception>
-        public Task<ReminderDTO> GetReminderByIdAsync(int reminderId);
+        public Task<Reminder> GetReminderByIdAsync(int reminderId);
 
         /// <summary>
         /// Получить список записей напоминаний приема медикаментов пользователем за период
@@ -49,7 +50,7 @@ namespace MetricService.BLL.Interfaces
         /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
         /// <returns>Список записей напоминаний приема медикаментов пользователем за периодм</returns>
         /// <exception cref="ViolationAccessException">Вам разрешено просматривать только свои напоминания</exception>
-        public Task<IEnumerable<ReminderDTO>> GetAllReminderByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
+        public Task<IEnumerable<Reminder>> GetAllReminderByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
 
         /// <summary>
         /// Получить список записей напоминаний по схеме приема за период
@@ -57,6 +58,14 @@ namespace MetricService.BLL.Interfaces
         /// <param name="requestListWithPeriodByRegimenIdDTO">Данные схемы приема медикаментов и период</param>
         /// <returns>Список данных о напоминаниях приема медикаментов пользователем по схеме приема медаментов за период</returns>
         /// <exception cref="ViolationAccessException">Вам разрешено просматривать только свои напоминания</exception>
-        public Task<IEnumerable<ReminderDTO>> GetAllReminderByRegimenIdAsync(RequestListWithPeriodByRegimenIdDTO requestListWithPeriodByRegimenIdDTO);
+        public Task<IEnumerable<Reminder>> GetAllReminderByRegimenIdAsync(RequestListWithPeriodByRegimenIdDTO requestListWithPeriodByRegimenIdDTO);
+
+        /// <summary>
+        /// Доставить напоминания
+        /// </summary>
+        /// <param name="userId">ИД пользователя</param>
+        /// <returns>Список данных о напоминаниях, которые не были доставлены за прошлый период от текущей даты. 
+        /// После выполнения этого метода, все напоминаяния из полученного списка считаются доставленными</returns>
+        public Task<IEnumerable<Reminder>> ReminderDeliveryAsync(int userId);
     }
 }
