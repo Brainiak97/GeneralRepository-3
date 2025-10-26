@@ -19,6 +19,7 @@
 		<ProjectReference Include="..\MetricService.BLL\MetricService.BLL.csproj" />
 		<ProjectReference Include="..\MetricService.DAL\MetricService.DAL.csproj" />
 		<ProjectReference Include="..\MetricService.Domain\MetricService.Domain.csproj" />
+		<ProjectReference Include="..\Shared.Logging\Shared.Logging.csproj" />
 	</ItemGroup>
 
 </Project>
