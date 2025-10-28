@@ -13,8 +13,8 @@ namespace MetricService.BLL.Validators
         public bool Validate(Reminder entity, out Dictionary<string, string> errorList)
         {
             errorList = new Dictionary<string, string>();
-
-            if (entity.RemindAt < DateTime.Now)
+            
+            if (entity.RemindAt < DateTime.UtcNow)
                 errorList.Add(nameof(entity.RemindAt), "Время напоминания уже прошло");
 
             return errorList.Count == 0;
