@@ -22,14 +22,25 @@ namespace EmailService.Api.Controllers
         public async Task<IActionResult> SendEmail([FromBody] SendEmailDto dto)
         {
             var result = await _emailService.SendEmailAsync(dto.To, dto.Subject, dto.Body);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(500, result);
-            }
+
+            return result.Success ? Ok(result) : StatusCode(500, result);
+        }
+
+        /// <summary>
+        /// Отправляет произвольное письмо с вложениями пользователю.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost("SendEmailWithAttachments")]
+        public async Task<IActionResult> SendEmailWithAttachments([FromForm] SendEmailWithAttachmentDto dto)
+        {
+            if (dto.Attachments == null || dto.Attachments.Count == 0)
+                return BadRequest("Необходимо прикрепить хотя бы один файл.");
+
+            var result = await _emailService.SendEmailWithAttachmentAsync(
+                dto.To, dto.Subject, dto.Body, dto.Attachments);
+
+            return result.Success ? Ok(result) : StatusCode(500, result);
         }
 
         /// <summary>
@@ -40,14 +51,8 @@ namespace EmailService.Api.Controllers
         public async Task<IActionResult> SendFromTemplate([FromBody] SendEmailFromTemplateDto dto)
         {
             var result = await _emailService.SendEmailFromTemplateAsync(dto.TemplateName, dto.Placeholders, dto.To);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(500, result);
-            }
+
+            return result.Success ? Ok(result) : StatusCode(500, result);
         }
     }
 }

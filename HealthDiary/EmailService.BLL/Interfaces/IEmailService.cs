@@ -1,4 +1,5 @@
 ﻿using EmailService.BLL.Dto;
+using Microsoft.AspNetCore.Http;
 
 namespace EmailService.BLL.Interfaces
 {
@@ -26,5 +27,16 @@ namespace EmailService.BLL.Interfaces
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает <see cref="EmailStatusResponseDto"/> с результатом отправки.</returns>
         Task<EmailStatusResponseDto> SendEmailFromTemplateAsync(string templateName, Dictionary<string, string> placeholders, string to);
+
+        /// <summary>
+        /// Отправляет email на указанный адрес с заданной темой и содержимым, включаяя вложения.
+        /// </summary>
+        /// <param name="to">Email-адрес получателя.</param>
+        /// <param name="subject">Тема письма.</param>
+        /// <param name="body">HTML-содержимое письма.</param>
+        /// <param name="attachments">Вложения.</param>
+        /// <returns>Задача, представляющая асинхронную операцию. 
+        /// Возвращает <see cref="EmailStatusResponseDto"/> с результатом отправки.</returns>
+        Task<EmailStatusResponseDto> SendEmailWithAttachmentAsync(string to, string subject, string body, List<IFormFile> attachments);
     }
 }

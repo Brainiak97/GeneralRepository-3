@@ -35,5 +35,15 @@
         /// Дата и время отправки письма.
         /// </summary>
         public DateTime SentAt { get; set; }
+
+        /// <summary>
+        /// Наличие вложений.
+        /// </summary>
+        public bool HasAttachment { get; set; }
+
+        /// <summary>
+        /// Вложения.
+        /// </summary>
+        public string? AttachmentFileName { get; set; }
     }
 }
