@@ -89,11 +89,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Logging", "Shared.Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodService.Api.Contracts", "FoodService.Api.Contracts\FoodService.Api.Contracts.csproj", "{5F2E16DA-AB0F-422B-9089-5DA5371ED58A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7F7D961-A6A9-41D8-BA7D-E1916B19C05D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricService.Api.Contracts", "MetricService.Api.Contracts\MetricService.Api.Contracts.csproj", "{C4F3E9E6-D7C9-4BCC-9759-2C4ED2248A47}"
 	ProjectSection(SolutionItems) = preProject
 		compose.yaml = compose.yaml
 	EndProjectSection
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,6 +237,10 @@ Global
 		{5F2E16DA-AB0F-422B-9089-5DA5371ED58A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F2E16DA-AB0F-422B-9089-5DA5371ED58A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F2E16DA-AB0F-422B-9089-5DA5371ED58A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F3E9E6-D7C9-4BCC-9759-2C4ED2248A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F3E9E6-D7C9-4BCC-9759-2C4ED2248A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F3E9E6-D7C9-4BCC-9759-2C4ED2248A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F3E9E6-D7C9-4BCC-9759-2C4ED2248A47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -275,6 +280,7 @@ Global
 		{B7B524CE-801E-4D27-96C9-1E624900565E} = {63050D05-3C7F-480A-86D0-E87D7E7B6C91}
 		{D7B2BC53-948E-47AF-AE19-1FB5972FF377} = {3E9243A7-68EA-4B13-B44E-42CD25414931}
 		{5F2E16DA-AB0F-422B-9089-5DA5371ED58A} = {604A5CE0-DF86-4B13-ADAF-15D930986F5F}
+		{C4F3E9E6-D7C9-4BCC-9759-2C4ED2248A47} = {C151E308-C652-4702-9274-9B06FF5DE265}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F53385AA-EEFC-464F-9C2B-4773A1C1B1DD}
