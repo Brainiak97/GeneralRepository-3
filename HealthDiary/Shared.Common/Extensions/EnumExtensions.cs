@@ -9,5 +9,5 @@ public static class EnumExtensions
     {
         var displayAttribute = value.GetAttributeOfType<DisplayAttribute>();
         return displayAttribute?.Name ?? throw new InvalidOperationException($"Enum value {value.ToString()} has no display attribute");
-    }    
+    }
 }

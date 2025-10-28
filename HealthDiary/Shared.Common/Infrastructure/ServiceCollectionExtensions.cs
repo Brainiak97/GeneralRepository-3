@@ -50,8 +50,7 @@ public static class ServiceCollectionExtensions
                             Type = ReferenceType.SecurityScheme,
                             Id = "Bearer"
                         }
-                    },
-                    Array.Empty<string>()
+                    }, []
                 }
             });
         });

@@ -11,10 +11,9 @@ builder.Services.AddJwtAuthentication();
 
 builder.Services.AddDatabaseServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+
 builder.Services.AddControllers();
-
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-
 builder.Services.AddOpenApi();
 
 var swaggerOptions = builder.Configuration.GetSection(nameof(SwaggerOptions)).Get<SwaggerOptions>();

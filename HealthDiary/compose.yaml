@@ -1,0 +1,10 @@
+﻿services:
+  rabbitmq:
+    image: rabbitmq:4.2.0-rc.1-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   # по этому порту сервис взаимодействует с брокером
+      - "15672:15672" # порт для UI
+    environment:
+      - RABBITMQ_DEFAULT_USER=quest
+      - RABBITMQ_DEFAULT_PASS=quest
