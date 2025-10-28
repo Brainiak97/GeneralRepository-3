@@ -6,44 +6,44 @@ using Ocelot.Middleware;
 
 namespace CentralService.Api
 {
-	public class Program
-	{
-		public static void Main( string[] args )
-		{
-			var builder = WebApplication.CreateBuilder( args );
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-			builder.Services.AddControllers();
+            builder.Services.AddControllers();
 
-			// ocelot
-			builder.Configuration.AddJsonFile( "OcelotRouting.json" );
-			builder.Services.AddOcelot();
+            // ocelot
+            builder.Configuration.AddJsonFile("OcelotRouting.json");
+            builder.Services.AddOcelot();
+            builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
-			// swagger 
-			builder.Services.AddSwaggerGen( options =>
-			{
-				options.SwaggerDoc( "v1", new OpenApiInfo { Title = "CentralService API", Version = "v1" } );
-			} );
+            // swagger 
+            //         builder.Services.AddSwaggerGen( options =>
+            //{
+            //	options.SwaggerDoc( "v1", new OpenApiInfo { Title = "CentralService API", Version = "v1" } );
+            //} );
 
-			var app = builder.Build();
+            var app = builder.Build();
 
-			// Configure the HTTP request pipeline.
-			if ( app.Environment.IsDevelopment() )
-			{
-				// swagger 
-				app.UseSwagger();
-				app.UseSwaggerUI();
-			}
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                // swagger 
+                app.UseSwaggerForOcelotUI();
+            }
 
-			// controllers
-			app.UseRouting();
-			app.UseEndpoints( endpoints =>
-			{
-				endpoints.MapControllers();
-			} );
+            // controllers
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
-			app.UseOcelot();
+            app.UseOcelot();
 
-			app.Run();
-		}
-	}
+            app.Run();
+        }
+    }
 }
