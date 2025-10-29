@@ -1,30 +1,84 @@
-@CentralService.Api_HostAddress = http://localhost:5004
+@CentralService.BaseAddress = http://localhost:5004
 
-GET {{CentralService.Api_HostAddress}}/weatherforecast/
+### FoodService.Api
+
+GET {{CentralService.BaseAddress}}/HealthDiary/GetProduct?productId=55
 Accept: application/json
-
 ###
 
-GET {{CentralService.Api_HostAddress}}/weatherforecast/Test
+GET {{CentralService.BaseAddress}}/HealthDiary/GetProducts?productName=Арбуз
 Accept: application/json
-
-###
-GET {{CentralService.Api_HostAddress}}/own/GetName
-Accept: application/json
-
 ###
 
-GET {{CentralService.Api_HostAddress}}/ocelot/posts/1
-Accept: application/json
-
+POST {{CentralService.BaseAddress}}/HealthDiary/AddProduct
+Content-type: application/json
+{
+  "name": "Овсянка2",
+  "calories": 389.0,
+  "proteins": 16.9,
+  "fats": 6.9,
+  "carbs": 66.3
+}
 ###
 
-GET {{CentralService.Api_HostAddress}}/ocelot/yandex
-Accept: application/json
-
+PUT {{CentralService.BaseAddress}}/HealthDiary/UpdateProduct
+Content-type: application/json
+{
+  "id": 57,
+  "infoSourceType": 1,
+  "name": "Молоко",
+  "calories": 42.5,
+  "proteins": 3.2,
+  "fats": 2.1,
+  "carbs": 4.8
+}
 ###
 
-GET {{CentralService.Api_HostAddress}}/ocelot/userinfo
+POST {{CentralService.BaseAddress}}/HealthDiary/AddMeal?userId=5&mealName=Обед
 Accept: application/json
+###
+
+POST {{CentralService.BaseAddress}}/HealthDiary/AddMealItem
+Content-type: application/json
+{
+  "mealId": 4,
+  "productId": 33,
+  "quantity": 125.5
+}
+###
+
+POST {{CentralService.BaseAddress}}/HealthDiary/AddDiet
+Content-type: application/json
+{
+  "userId": 123,
+  "name": "Мой новый рацион",
+  "calories": 2200.0,
+  "proteins": 120.5,
+  "fats": 70.0,
+  "carbs": 250.0
+}
+
+###
+PUT {{CentralService.BaseAddress}}/HealthDiary/UpdateDiet
+Content-type: application/json
+{
+  "Id": 8,
+  "UserId": 123,
+  "Name": "Мой рацион2",
+  "CreateDate": "2024-07-01T08:30:00",
+  "Calories": 350.5,
+  "Proteins": 200.0,
+  "Fats": 12.3,
+  "Carbs": 45.7
+}
+
+### MetricService.API
+
+POST {{CentralService.BaseAddress}}/HealthDiary/CreateAnalysisCategory
+Content-type: application/json
+{
+  "name": "Клинический анализ крови",
+  "description": "Общий анализ крови, включающий подсчёт форменных элементов и определение гемоглобина."
+}
 
 ###
