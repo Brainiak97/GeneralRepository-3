@@ -1,8 +1,11 @@
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using ReportService.BLL.Common.Generators.Containers;
 using ReportService.BLL.Common.Generators.Pdf;
 using ReportService.BLL.Common.Templates.QuestPdf.Containers;
+using ReportService.BLL.Data.Commands;
 using ReportService.BLL.Interfaces;
+using ReportService.BLL.Validators;
 
 namespace ReportService.BLL.Infrastructure;
 
@@ -19,14 +22,20 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
         services
             .AddCommon()
-            .AddServices();
+            .AddServices()
+            .AddValidators();
 
     private static IServiceCollection AddCommon(this IServiceCollection services) =>
         services
             .AddScoped<IPdfReportGenerator, QuestPdfReportGenerator>()
-            .AddScoped<IReportGeneratorsContainer, ReportGeneratorsContainer>()
+            .AddScoped<IReportGeneratorFactory, ReportGeneratorFactory>()
             .AddSingleton<IReportTemplatesContainer, ReportTemplatesContainer>();
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>
         services.AddScoped<IReportService, Services.ReportService>();
+
+    private static IServiceCollection AddValidators(this IServiceCollection services) =>
+        services
+            .AddSingleton<IValidator<IServiceCommand>, ServiceCommandValidator>()
+            .AddSingleton<IValidator<GenerateReportCommand>, GenerateReportCommandValidator>();
 }

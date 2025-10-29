@@ -10,6 +10,7 @@ public interface IReportGenerator
     /// </summary>
     /// <param name="templateId">Идентификатор шаблона отчёта.</param>
     /// <param name="reportData">Содержимое отчёта (json).</param>
+    /// <param name="cancellationToken">Токен отмены.</param>
     /// <returns>Сгенерированный отчёт.</returns>
-    Task<byte[]> GenerateAsync(int templateId, string reportData);
+    Task<byte[]> GenerateAsync(int templateId, string reportData, CancellationToken cancellationToken);
 }
