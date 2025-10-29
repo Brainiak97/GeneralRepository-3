@@ -6,7 +6,7 @@ namespace ReportService.BLL.Common.Generators.Pdf;
 
 /// <inheritdoc />
 internal class QuestPdfReportGenerator(
-    IReportTemplatesRepository reportTemplatesRepository,
+    IReportsRepository reportsRepository,
     IReportTemplatesContainer templatesContainer) : IPdfReportGenerator
 {
     /// <inheritdoc />
@@ -17,7 +17,7 @@ internal class QuestPdfReportGenerator(
             return [];
         }
 
-        var templateMetadata = await reportTemplatesRepository.GetByIdAsync(templateId);
+        var templateMetadata = await reportsRepository.GetMetadataByIdAsync(templateId);
         if (templateMetadata is null)
         {
             throw new InvalidOperationException($"Ошибка получения метаданных шаблона с идентификатором {templateId}");

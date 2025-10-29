@@ -5,6 +5,7 @@ using PolyclinicService.DAL.Contexts;
 using PolyclinicService.DAL.Infrastructure.Migrations;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.DAL.Repositories;
+using Shared.Common.Migrations.Migrators;
 
 namespace PolyclinicService.DAL.Infrastructure;
 
@@ -20,7 +21,7 @@ public static class ServiceCollectionExtensions
         services
             .AddDbContext<PolyclinicServiceDbContext>(options =>
                 {
-                    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                    options.UseNpgsql(configuration.GetConnectionString("DbConnectionString"));
                 },
                 contextLifetime: ServiceLifetime.Scoped,
                 optionsLifetime: ServiceLifetime.Singleton)

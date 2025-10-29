@@ -127,7 +127,7 @@ namespace MetricService.API.Controllers
         [HttpGet(nameof(ReminderDelivery))]
         public async Task<IActionResult> ReminderDelivery(int userId)
         {
-            var reminrers = await _reminderService.ReminderDelivery(userId);
+            var reminrers = await _reminderService.ReminderDeliveryAsync(userId);
 
             if (!reminrers.Any())
             {

@@ -1,4 +1,4 @@
-namespace PolyclinicService.DAL.Infrastructure.Migrations;
+namespace Shared.Common.Migrations.Migrators;
 
 /// <summary>
 /// Предоставляет методы для миграции базы данных микросервиса.
