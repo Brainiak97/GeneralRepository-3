@@ -1,4 +1,5 @@
 ﻿using MetricService.Api.Contracts.Dtos.AccessToMetrics;
+using Microsoft.AspNetCore.Mvc;
 using Refit;
 
 namespace MetricService.Api.Contracts.Services

@@ -6,6 +6,7 @@ namespace MetricService.Api.Contracts.Services
     /// <summary>
     /// Предоставляет контракт для работы с данные о профиле пользователя системы
     /// </summary>
+    [Headers("Authorization")]
     public interface IUserServiceClient
     {
         const string Controller = "/User";
@@ -38,7 +39,7 @@ namespace MetricService.Api.Contracts.Services
         /// </summary>
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
-        [Get($"{Controller}/{nameof(GetUserById)}")]
+        [Get($"{Controller}/{nameof(GetUserById)}")]        
         Task<UserDTO> GetUserById(int userId);
     }
 }

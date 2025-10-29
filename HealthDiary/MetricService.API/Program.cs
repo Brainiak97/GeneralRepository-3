@@ -1,6 +1,7 @@
 ﻿using MetricService.API;
 using MetricService.API.DTO;
 using MetricService.API.ExceptionHandlers;
+using MetricService.API.Middlewares;
 using MetricService.BLL.Common;
 using MetricService.DAL.EF;
 using Microsoft.EntityFrameworkCore;
@@ -50,11 +51,19 @@ namespace MetricService.Api
 
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             builder.Services.AddScoped<ClaimsPrincipal>(x =>
             {
                 var context = x.GetRequiredService<IHttpContextAccessor>();
                 return context.HttpContext!.User;
             });
+
+            builder.Services.AddScoped<IHeaderDictionary>(x =>
+            {
+                var context = x.GetRequiredService<IHttpContextAccessor>();
+                return context.HttpContext!.Request.Headers;
+            });
+
             builder.Services.AddSingleton<IJwtService, JwtService>();
 
             // Остальные сервисы
@@ -104,6 +113,8 @@ namespace MetricService.Api
             builder.Services.AddAutoMapper(cfg => cfg.AddProfiles([new MapperProfile(), new ApiMapperProfile()]));
 
             var app = builder.Build();
+
+            app.UseMiddleware<MainMiddleware>();
 
             app.UseExceptionHandler();
 

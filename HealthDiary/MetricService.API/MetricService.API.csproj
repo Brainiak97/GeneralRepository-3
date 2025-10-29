@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\MetricService.Api.Contracts\MetricService.Api.Contracts.csproj" />
 		<ProjectReference Include="..\MetricService.BLL\MetricService.BLL.csproj" />
 		<ProjectReference Include="..\MetricService.DAL\MetricService.DAL.csproj" />
 		<ProjectReference Include="..\MetricService.Domain\MetricService.Domain.csproj" />

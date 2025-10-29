@@ -19,7 +19,12 @@ namespace MetricService.Api.Contracts
             };
             var uri = builder.Uri;
 
-            services.AddRefitClient<IMetricServiceClient>().ConfigureHttpClient(x => x.BaseAddress = uri);
+            services.AddRefitClient<IMetricServiceClient>().ConfigureHttpClient(x => x.BaseAddress = uri)
+                .AddHttpMessageHandler(s =>
+                {
+                    return s.GetService<DelegatingHandler>() 
+                        ?? throw new ArgumentNullException($"Зависимость {typeof(DelegatingHandler)} не найдена");
+                });
             return services;
         }
     }

@@ -1,4 +1,6 @@
 ﻿using FoodService.Api.Contracts;
+using MetricService.Api.Contracts;
+using MetricService.Api.Contracts.Dtos.AccessToMetrics;
 using Microsoft.AspNetCore.Mvc;
 using StateService.Api.Infrastructure;
 using StateService.Api.ViewModels;
@@ -10,11 +12,16 @@ namespace StateService.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StateController(IStateService stateService, IGroqProvider groqProvider, IFoodServiceClient foodServiceClient ) : ControllerBase
+    public class StateController(IStateService stateService,
+                                 IGroqProvider groqProvider,
+                                 IFoodServiceClient foodServiceClient,
+                                 IMetricServiceClient metricServiceClient
+                                 ) : ControllerBase
     {
         private readonly IStateService _stateService = stateService;
         private readonly IGroqProvider _groqProvider = groqProvider;
 		private readonly IFoodServiceClient _foodServiceClient = foodServiceClient;
+        private readonly IMetricServiceClient _metricServiceClient = metricServiceClient;       
 
 		[HttpGet(nameof(GetDailySummary))]
         public async Task<IActionResult> GetDailySummary(int userId)
@@ -105,5 +112,26 @@ namespace StateService.Api.Controllers
             var product = await _foodServiceClient.GetProduct( productId );
             return Ok( product );
         }
-	}
+
+        [HttpGet(nameof(GetUserById))]
+        public async Task<IActionResult> GetUserById(int userId)
+        {
+            var user = await _metricServiceClient.GetUserById(userId);
+            return Ok(user);
+        }
+
+        [HttpGet(nameof(GetAllAnalisysCategories))]
+        public async Task<IActionResult> GetAllAnalisysCategories()
+        {
+            var user = await _metricServiceClient.GetAllAnalysisCategories();
+            return Ok(user);
+        }
+
+        [HttpGet(nameof(GetAllAccessToMetricsByProviderAsync))]
+        public async Task<IActionResult> GetAllAccessToMetricsByProviderAsync([FromQuery] RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO)
+        {
+            var list = await _metricServiceClient.GetAllAccessToMetricsByProviderAsync(requestAccessListWithPeriodByIdDTO);
+            return Ok(list);
+        }
+    }
 }

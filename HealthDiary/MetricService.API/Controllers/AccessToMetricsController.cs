@@ -65,6 +65,7 @@ namespace MetricService.API.Controllers
 
             if (!result.Any())
             {
+                /*return Ok(new { emptyresult = true, message = "Список пуст" });*/
                 return Ok("Список пуст");
             }
 
