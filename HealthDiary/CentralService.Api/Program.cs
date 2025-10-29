@@ -30,10 +30,6 @@ namespace CentralService.Api
 			// Configure the HTTP request pipeline.
 			if ( app.Environment.IsDevelopment() )
 			{
-				// swagger for controllers
-				//app.UseSwagger();
-				//app.UseSwaggerUI();
-
 				// swagger for ocelot
 				app.UseSwaggerForOcelotUI();
 			}

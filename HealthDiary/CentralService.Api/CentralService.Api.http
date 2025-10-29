@@ -6,14 +6,14 @@ GET {{CentralService.BaseAddress}}/HealthDiary/GetProduct?productId=55
 Accept: application/json
 ###
 
-GET {{CentralService.BaseAddress}}/HealthDiary/GetProducts?productName=Арбуз
+GET {{CentralService.BaseAddress}}/HealthDiary/GetProducts?productName=РђСЂР±СѓР·
 Accept: application/json
 ###
 
 POST {{CentralService.BaseAddress}}/HealthDiary/AddProduct
 Content-type: application/json
 {
-  "name": "Овсянка2",
+  "name": "РћРІСЃСЏРЅРєР°2",
   "calories": 389.0,
   "proteins": 16.9,
   "fats": 6.9,
@@ -26,7 +26,7 @@ Content-type: application/json
 {
   "id": 57,
   "infoSourceType": 1,
-  "name": "Молоко",
+  "name": "РњРѕР»РѕРєРѕ",
   "calories": 42.5,
   "proteins": 3.2,
   "fats": 2.1,
@@ -34,7 +34,7 @@ Content-type: application/json
 }
 ###
 
-POST {{CentralService.BaseAddress}}/HealthDiary/AddMeal?userId=5&mealName=Обед
+POST {{CentralService.BaseAddress}}/HealthDiary/AddMeal?userId=5&mealName=РћР±РµРґ
 Accept: application/json
 ###
 
@@ -51,7 +51,7 @@ POST {{CentralService.BaseAddress}}/HealthDiary/AddDiet
 Content-type: application/json
 {
   "userId": 123,
-  "name": "Мой новый рацион",
+  "name": "РњРѕР№ РЅРѕРІС‹Р№ СЂР°С†РёРѕРЅ",
   "calories": 2200.0,
   "proteins": 120.5,
   "fats": 70.0,
@@ -64,7 +64,7 @@ Content-type: application/json
 {
   "Id": 8,
   "UserId": 123,
-  "Name": "Мой рацион2",
+  "Name": "РњРѕР№ СЂР°С†РёРѕРЅ2",
   "CreateDate": "2024-07-01T08:30:00",
   "Calories": 350.5,
   "Proteins": 200.0,
@@ -77,8 +77,8 @@ Content-type: application/json
 POST {{CentralService.BaseAddress}}/HealthDiary/CreateAnalysisCategory
 Content-type: application/json
 {
-  "name": "Клинический анализ крови",
-  "description": "Общий анализ крови, включающий подсчёт форменных элементов и определение гемоглобина."
+  "name": "РљР»РёРЅРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР· РєСЂРѕРІРё",
+  "description": "РћР±С‰РёР№ Р°РЅР°Р»РёР· РєСЂРѕРІРё, РІРєР»СЋС‡Р°СЋС‰РёР№ РїРѕРґСЃС‡С‘С‚ С„РѕСЂРјРµРЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ Рё РѕРїСЂРµРґРµР»РµРЅРёРµ РіРµРјРѕРіР»РѕР±РёРЅР°."
 }
 
 ###
