@@ -1,11 +1,11 @@
 using QuestPDF.Infrastructure;
+using ReportService.Api.Mappers;
 using ReportService.BLL.Infrastructure;
 using ReportService.DAL.Infrastructure;
 using Shared.Auth;
 using Shared.Common.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddJwtAuthentication();
 
 QuestPDF.Settings.License = LicenseType.Community; // Без этого кидает Exception
@@ -13,6 +13,8 @@ QuestPDF.Settings.License = LicenseType.Community; // Без этого кида
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
+
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ReportServiceMapperProfile>());
 
 builder.Services.AddOpenApi();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

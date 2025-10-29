@@ -10,7 +10,7 @@ internal class QuestPdfReportGenerator(
     IReportTemplatesContainer templatesContainer) : IPdfReportGenerator
 {
     /// <inheritdoc />
-    public async Task<byte[]> GenerateAsync(int templateId, string reportData)
+    public async Task<byte[]> GenerateAsync(int templateId, string reportData, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(reportData))
         {
