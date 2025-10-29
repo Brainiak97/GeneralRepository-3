@@ -1,4 +1,6 @@
-﻿namespace EmailService.BLL.Dto
+﻿using Microsoft.AspNetCore.Http;
+
+namespace EmailService.BLL.Dto
 {
     /// <summary>
     /// DTO для отправки письма на основе шаблона.
@@ -13,11 +15,16 @@
         /// <summary>
         /// Словарь с подстановочными значениями для шаблона (например, {"username", "JohnDoe"}).
         /// </summary>
-        public required Dictionary<string, string> Placeholders { get; set; }
+        public Dictionary<string, string>? Placeholders { get; set; }
 
         /// <summary>
         /// Адрес электронной почты получателя.
         /// </summary>
         public required string To { get; set; }
+
+        /// <summary>
+        /// Вложения в письмо
+        /// </summary>
+        public List<IFormFile>? Attachments { get; set; }
     }
 }

@@ -19,26 +19,9 @@ namespace EmailService.Api.Controllers
         /// </summary>
         /// <param name="dto">DTO с данными получателя, темой и телом письма</param>
         [HttpPost("SendEmail")]
-        public async Task<IActionResult> SendEmail([FromBody] SendEmailDto dto)
+        public async Task<IActionResult> SendEmail([FromForm] SendEmailDto dto)
         {
-            var result = await _emailService.SendEmailAsync(dto.To, dto.Subject, dto.Body);
-
-            return result.Success ? Ok(result) : StatusCode(500, result);
-        }
-
-        /// <summary>
-        /// Отправляет произвольное письмо с вложениями пользователю.
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost("SendEmailWithAttachments")]
-        public async Task<IActionResult> SendEmailWithAttachments([FromForm] SendEmailWithAttachmentDto dto)
-        {
-            if (dto.Attachments == null || dto.Attachments.Count == 0)
-                return BadRequest("Необходимо прикрепить хотя бы один файл.");
-
-            var result = await _emailService.SendEmailWithAttachmentAsync(
-                dto.To, dto.Subject, dto.Body, dto.Attachments);
+            var result = await _emailService.SendEmailAsync(dto.To, dto.Subject, dto.Body, dto.Attachments);
 
             return result.Success ? Ok(result) : StatusCode(500, result);
         }
@@ -48,9 +31,9 @@ namespace EmailService.Api.Controllers
         /// </summary>
         /// <param name="dto">DTO с названием шаблона, значениями для подстановки и адресом</param>
         [HttpPost("SendFromTemplate")]
-        public async Task<IActionResult> SendFromTemplate([FromBody] SendEmailFromTemplateDto dto)
+        public async Task<IActionResult> SendFromTemplate([FromForm] SendEmailFromTemplateDto dto)
         {
-            var result = await _emailService.SendEmailFromTemplateAsync(dto.TemplateName, dto.Placeholders, dto.To);
+            var result = await _emailService.SendEmailFromTemplateAsync(dto.TemplateName, dto.Placeholders, dto.To, dto.Attachments);
 
             return result.Success ? Ok(result) : StatusCode(500, result);
         }
