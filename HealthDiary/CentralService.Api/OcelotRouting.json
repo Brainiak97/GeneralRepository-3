@@ -110,6 +110,58 @@
             ]
         }
     ],
+    "SwaggerEndPoints": [
+        {
+            "Key": "FoodService",
+            "Config": [
+                {
+                    "Name": "FoodService API",
+                    "Version": "v1",
+                    "Url": "https://localhost:7131/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "MetricService",
+            "Config": [
+                {
+                    "Name": "MetricService API",
+                    "Version": "v1",
+                    "Url": "https://localhost:7173/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "PolyclinicService",
+            "Config": [
+                {
+                    "Name": "PolyclinicService API",
+                    "Version": "v1",
+                    "Url": "https://localhost:7772/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "StateService",
+            "Config": [
+                {
+                    "Name": "StateService API",
+                    "Version": "v1",
+                    "Url": "https://localhost:7012/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "UserService",
+            "Config": [
+                {
+                    "Name": "UserService API",
+                    "Version": "v1",
+                    "Url": "https://localhost:7188/swagger/v1/swagger.json"
+                }
+            ]
+        }
+    ],
     "GlobalConfiguration": {
         "BaseUrl": "http://localhost:5004"
     }

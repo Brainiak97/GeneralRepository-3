@@ -17,6 +17,7 @@ namespace CentralService.Api
 			// ocelot
 			builder.Configuration.AddJsonFile( "OcelotRouting.json" );
 			builder.Services.AddOcelot();
+			builder.Services.AddSwaggerForOcelot( builder.Configuration );
 
 			// swagger 
 			builder.Services.AddSwaggerGen( options =>
@@ -29,9 +30,12 @@ namespace CentralService.Api
 			// Configure the HTTP request pipeline.
 			if ( app.Environment.IsDevelopment() )
 			{
-				// swagger 
-				app.UseSwagger();
-				app.UseSwaggerUI();
+				// swagger for controllers
+				//app.UseSwagger();
+				//app.UseSwaggerUI();
+
+				// swagger for ocelot
+				app.UseSwaggerForOcelotUI();
 			}
 
 			// controllers
