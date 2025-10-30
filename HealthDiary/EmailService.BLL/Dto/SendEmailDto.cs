@@ -1,4 +1,6 @@
-﻿namespace EmailService.BLL.Dto
+﻿using Microsoft.AspNetCore.Http;
+
+namespace EmailService.BLL.Dto
 {
     /// <summary>
     /// DTO для отправки произвольного электронного письма.
@@ -36,5 +38,10 @@
         /// ]]></code>
         /// </example>
         public required string Body { get; set; }
+
+        /// <summary>
+        /// Вложения в письмо
+        /// </summary>
+        public List<IFormFile>? Attachments { get; set; }
     }
 }
