@@ -17,7 +17,6 @@ namespace MetricService.API.Controllers
     {
         private readonly IAnalysisResultService _analysisResultService = analysisResultService;
 
-
         /// <summary>
         /// Зарегистрировать данные анализа пользователя
         /// </summary>

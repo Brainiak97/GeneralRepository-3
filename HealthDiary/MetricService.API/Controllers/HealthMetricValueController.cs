@@ -50,9 +50,9 @@ namespace MetricService.API.Controllers
         /// </summary>
         /// <param name="healthMetricValueId">Идентификатор значения показателя здоровья пользователя</param>
         /// <returns></returns>
-        [HttpDelete(nameof(DeleteHealthMetric))]
+        [HttpDelete(nameof(DeleteHealthMetricValue))]
         [Authorize]
-        public async Task<IActionResult> DeleteHealthMetric(int healthMetricValueId)
+        public async Task<IActionResult> DeleteHealthMetricValue(int healthMetricValueId)
         {
             await _healthMetricValueService.DeleteHealthMetricValueAsync(healthMetricValueId);
             return Ok();
