@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор данных о тренировке пользователя
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; init; }
     }
 }

@@ -1,5 +1,5 @@
-﻿using MetricService.Api.Contracts.Dtos;
-using MetricService.Api.Contracts.Dtos.AnalysisResult;
+﻿using MetricService.Api.Contracts.Dtos.AnalysisResult;
+using MetricService.Api.Contracts.Dtos.Common;
 using Refit;
 
 namespace MetricService.Api.Contracts.Services
@@ -13,18 +13,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать данные анализа пользователя
         /// </summary>
-        /// <param name="analysisResultCreateDTO">Данные анализа пользователя для регистрации</param>
+        /// <param name="createDTO">Данные анализа пользователя для регистрации</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateAnalysisResult)}")]
-        Task CreateAnalysisResult(AnalysisResultCreateDTO analysisResultCreateDTO);
+        Task CreateAnalysisResult(AnalysisResultCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные анализа пользователя
         /// </summary>
-        /// <param name="analysisResultUpdateDTO">Измененные данные анализа пользователя</param>
+        /// <param name="updateDTO">Измененные данные анализа пользователя</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateAnalysisResult)}")]
-        Task UpdateAnalysisResult(AnalysisResultUpdateDTO analysisResultUpdateDTO);
+        Task UpdateAnalysisResult(AnalysisResultUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить данные анализа пользователя
@@ -37,10 +37,10 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Получить список анализов пользователя за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="requestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllAnalysisResults)}")]
-        Task<IEnumerable<AnalysisResultDTO>> GetAllAnalysisResults(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
+        Task<IEnumerable<AnalysisResultDTO>> GetAllAnalysisResults(RequestListWithPeriodByIdDTO requestDTO);
 
         /// <summary>
         /// Получить данные анализа пользователя

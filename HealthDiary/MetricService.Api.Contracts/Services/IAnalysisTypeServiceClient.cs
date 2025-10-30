@@ -12,18 +12,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать новый тип анализов в справочнике "Типы анализов"
         /// </summary>
-        /// <param name="analysisTypeCreateDTO">Данные о новом типе анализов для регистрации</param>
+        /// <param name="createDTO">Данные о новом типе анализов для регистрации</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateAnalysisType)}")]
-        Task CreateAnalysisType(AnalysisTypeCreateDTO analysisTypeCreateDTO);
+        Task CreateAnalysisType(AnalysisTypeCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные о типе анализов в справочнике "Типы анализов"
         /// </summary>
-        /// <param name="analysisTypeUpdateDTO">Данные об изменении типа анализов</param>
+        /// <param name="updateDTO">Данные об изменении типа анализов</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateAnalysisType)}")]
-        Task UpdateAnalysisType(AnalysisTypeUpdateDTO analysisTypeUpdateDTO);
+        Task UpdateAnalysisType(AnalysisTypeUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить данные о типе анализов из справочника "Типы анализов"

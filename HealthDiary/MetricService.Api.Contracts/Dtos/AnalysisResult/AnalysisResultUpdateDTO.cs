@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор результата анализа
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; init; }
     }
 }

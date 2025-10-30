@@ -8,21 +8,21 @@
         /// <summary>
         /// Ссылка на показатель здоровья
         /// </summary>        
-        public int HealthMetricId { get; set; }
+        public int HealthMetricId { get; init; }
 
         /// <summary>
         /// Значение показателя
         /// </summary>         
-        public float Value { get; set; }
+        public float Value { get; init; }
 
         /// <summary>
         /// Дата и время записи
         /// </summary>         
-        public DateTime RecordedAt { get; set; }
+        public DateTime RecordedAt { get; init; }
 
         /// <summary>
         /// Комментарий к записи
         /// </summary>       
-        public string? Comment { get; set; }
+        public string? Comment { get; init; }
     }
 }

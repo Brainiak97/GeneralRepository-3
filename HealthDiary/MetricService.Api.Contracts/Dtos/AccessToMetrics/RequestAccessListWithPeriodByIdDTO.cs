@@ -8,7 +8,7 @@
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId { get; init; }
 
         /// <summary>
         /// Выводить все данные о предоставлении доступа к личным метрикам или только активные(действует доступ)
@@ -16,6 +16,6 @@
         /// <value>
         ///   <c>true</c> Если выводить все данные; иначе <c>false</c>.
         /// </value>
-        public bool AllRecords { get; set; }
+        public bool AllRecords { get; init; }
     }
 }

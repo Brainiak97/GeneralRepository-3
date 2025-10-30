@@ -8,10 +8,10 @@
         /// <summary>
         /// Идентификатор данных о приеме лекарств пользователем
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; init; }
         /// <summary>
         /// Идентификатор данных схемы приема лекарств
         /// </summary>        
-        public int RegimenId { get; set; }
+        public int RegimenId { get; init; }
     }
 }

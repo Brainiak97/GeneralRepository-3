@@ -12,19 +12,19 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать новую категорию анализов в справочнике "Категории анализов"
         /// </summary>
-        /// <param name="analysisCategoryCreateDTO">Данные для регистрации новой категории анализов</param>
+        /// <param name="createDTO">Данные для регистрации новой категории анализов</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateAnalysisCategory)}")]
-        Task CreateAnalysisCategory(AnalysisCategoryCreateDTO analysisCategoryCreateDTO);
+        Task CreateAnalysisCategory(AnalysisCategoryCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные категории анализов в справочнике "Категории анализов"
         /// </summary>
-        /// <param name="analysisCategoryUpdateDTO">Данные для изменения категории анализов</param>
+        /// <param name="updateDTO">Данные для изменения категории анализов</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateAnalysisCategory)}")]
 
-        Task UpdateAnalysisCategory(AnalysisCategoryUpdateDTO analysisCategoryUpdateDTO);
+        Task UpdateAnalysisCategory(AnalysisCategoryUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить категорию анализов из справочника "Категории анализов"

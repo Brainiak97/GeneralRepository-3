@@ -1,4 +1,6 @@
-﻿namespace MetricService.Api.Contracts.Dtos.AnalysisCategory
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MetricService.Api.Contracts.Dtos.AnalysisCategory
 {
     /// <summary>
     /// Базовый объект данных для справочника "Категории анализов"
@@ -7,13 +9,14 @@
     {
         /// <summary>
         /// Наименование категории анализа(например, «Клинический анализ крови», «Биохимия»)
-        /// </summary>
-        public string Name { get; set; } = null!;
+        /// </summary>       
+        
+        public required string Name { get; init; }
 
 
         /// <summary>
         /// Описание категории анализа
         /// </summary>
-        public string? Description { get; set; }
+        public string? Description { get; init; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using MetricService.Api.Contracts.Dtos;
+﻿using MetricService.Api.Contracts.Dtos.Common;
 using MetricService.Api.Contracts.Dtos.Reminder;
 using Refit;
 
@@ -13,18 +13,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// зарегистрировать напоминание о приеме лекарств
         /// </summary>
-        /// <param name="apiReminderCreateRequestDTO">Данные для регистрации напоминания о приеме лекарств</param>
+        /// <param name="createDTO">Данные для регистрации напоминания о приеме лекарств</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateReminder)}")]
-        Task CreateReminder(ApiReminderCreateRequestDTO apiReminderCreateRequestDTO);
+        Task CreateReminder(ApiReminderCreateRequestDTO createDTO);
 
         /// <summary>
         /// Изменить данные напоминаяния о приеме лекарств
         /// </summary>
-        /// <param name="apiReminderUpdateRequestDTO">Измененные данные для напоминания оприеме лекарств</param>
+        /// <param name="updateDTO">Измененные данные для напоминания оприеме лекарств</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateReminder)}")]
-        Task UpdateReminder(ApiReminderUpdateRequestDTO apiReminderUpdateRequestDTO);
+        Task UpdateReminder(ApiReminderUpdateRequestDTO updateDTO);
 
         /// <summary>
         /// Удалить напоминание о приеме лекарств
@@ -37,18 +37,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Получить список напоминаний по пользователю за период
         /// </summary>
-        /// <param name="apiListWithPeriodByIdRequestDTO">Данные пользователя и период</param>
+        /// <param name="requestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllRemindersByUser)}")]
-        Task<IEnumerable<ApiReminderDTO>> GetAllRemindersByUser(ApiListWithPeriodByIdRequestDTO apiListWithPeriodByIdRequestDTO);
+        Task<IEnumerable<ApiReminderDTO>> GetAllRemindersByUser(ApiListWithPeriodByIdRequestDTO requestDTO);
 
         /// <summary>
         /// Получить список напоминаний по схеме приема медикаментов за период
         /// </summary>
-        /// <param name="apiRequestListWithPeriodByRegimenIdDTO">Данные о схеме приема медикаментов и период</param>
+        /// <param name="requestDTO">Данные о схеме приема медикаментов и период</param>
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllRemindersByRegimen)}")]
-        Task<IEnumerable<ApiReminderDTO>> GetAllRemindersByRegimen(ApiRequestListWithPeriodByRegimenIdDTO apiRequestListWithPeriodByRegimenIdDTO);
+        Task<IEnumerable<ApiReminderDTO>> GetAllRemindersByRegimen(ApiRequestListWithPeriodByRegimenIdDTO requestDTO);
 
         /// <summary>
         /// Получить напоминание о приеме лекарств

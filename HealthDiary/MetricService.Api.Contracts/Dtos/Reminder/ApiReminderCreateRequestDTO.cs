@@ -10,11 +10,11 @@
         /// <summary>
         /// Идентификатор схемы приема лекарств
         /// </summary>        
-        public int RegimenId { get; set; }
+        public int RegimenId { get; init; }
 
         /// <summary>
         /// Время напоминания
         /// </summary>        
-        public DateTime RemindAt { get; set; }
+        public DateTime RemindAt { get; init; }
     }
 }

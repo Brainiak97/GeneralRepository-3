@@ -12,18 +12,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать новый показатель здоровья пользователя
         /// </summary>
-        /// <param name="healthMetricCreateDTO">Данные для регистрации нового показателя здоровья пользователя</param>
+        /// <param name="createDTO">Данные для регистрации нового показателя здоровья пользователя</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateHealthMetric)}")]
-        Task CreateHealthMetric(HealthMetricCreateDTO healthMetricCreateDTO);
+        Task CreateHealthMetric(HealthMetricCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные о показателе здоровья пользователя
         /// </summary>
-        /// <param name="healthMetricUpdateDTO">Данные для изменения показателя здоровья пользователя</param>
+        /// <param name="updateDTO">Данные для изменения показателя здоровья пользователя</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateHealthMetric)}")]
-        Task UpdateHealthMetric(HealthMetricUpdateDTO healthMetricUpdateDTO);
+        Task UpdateHealthMetric(HealthMetricUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить данные о показателе здоровья пользователя

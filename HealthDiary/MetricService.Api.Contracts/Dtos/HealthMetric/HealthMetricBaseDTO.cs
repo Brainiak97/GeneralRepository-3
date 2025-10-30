@@ -8,16 +8,16 @@
         /// <summary>
         /// Наименование показателя (например, "Уровень стресса")
         /// </summary>         
-        public string Name { get; set; } = null!;
+        public required string Name { get; init; }
 
         /// <summary>
         /// Описание показателя (например, "Оценивайте стресс от 1 до 10")
         /// </summary>         
-        public string? Description { get; set; }
+        public string? Description { get; init; }
 
         /// <summary>
         /// Единица измерения (шкала, проценты, абсолютные значения)
         /// </summary>        
-        public string? Unit { get; set; } = null!;
+        public string? Unit { get; init; }
     }
 }

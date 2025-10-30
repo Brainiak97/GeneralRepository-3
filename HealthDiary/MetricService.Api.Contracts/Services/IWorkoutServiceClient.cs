@@ -1,4 +1,4 @@
-﻿using MetricService.Api.Contracts.Dtos;
+﻿using MetricService.Api.Contracts.Dtos.Common;
 using MetricService.Api.Contracts.Dtos.Workout;
 using Refit;
 
@@ -13,18 +13,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать тренировку
         /// </summary>
-        /// <param name="workoutDTO">Дянные для регистрации о тренировке</param>
+        /// <param name="createDTO">Дянные для регистрации о тренировке</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateWorkout)}")]
-        Task CreateWorkout(WorkoutCreateDTO workoutDTO);
+        Task CreateWorkout(WorkoutCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные о тренировке
         /// </summary>
-        /// <param name="workoutDTO">Измененные данные о тренировке</param>
+        /// <param name="updateDTO">Измененные данные о тренировке</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateWorkout)}")]
-        Task UpdateWorkout(WorkoutUpdateDTO workoutDTO);
+        Task UpdateWorkout(WorkoutUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить трениовку
@@ -37,10 +37,10 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Получить список тренировок по пользователю за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="requestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllWorkouts)}")]
-        Task<IEnumerable<WorkoutDTO>> GetAllWorkouts(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
+        Task<IEnumerable<WorkoutDTO>> GetAllWorkouts(RequestListWithPeriodByIdDTO requestDTO);
 
         /// <summary>
         /// Получить данные о тренировке

@@ -8,11 +8,11 @@
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>       
-        public int UserId { get; set; }
+        public int UserId { get; init; }
 
         /// <summary>
         /// Идентификатор данных из справочника "Медикаменты"
         /// </summary>       
-        public int MedicationId { get; set; }
+        public int MedicationId { get; init; }
     }
 }

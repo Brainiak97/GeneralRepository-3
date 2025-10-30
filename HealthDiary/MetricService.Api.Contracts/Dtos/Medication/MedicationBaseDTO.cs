@@ -8,11 +8,11 @@
         /// <summary>
         /// Наименование препарата
         /// </summary>        
-        public string Name { get; set; } = string.Empty;
+        public required string Name { get; init; }
 
         /// <summary>
         /// Инструкции по применению
         /// </summary>        
-        public string Instruction { get; set; } = string.Empty;
+        public required string Instruction { get; init; }
     }
 }

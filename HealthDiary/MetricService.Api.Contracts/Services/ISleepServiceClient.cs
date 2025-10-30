@@ -1,4 +1,4 @@
-﻿using MetricService.Api.Contracts.Dtos;
+﻿using MetricService.Api.Contracts.Dtos.Common;
 using MetricService.Api.Contracts.Dtos.Sleep;
 using Refit;
 
@@ -13,18 +13,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать данные о сне пользователя
         /// </summary>
-        /// <param name="sleepDTO">Данные о сне пользователя</param>
+        /// <param name="createDTO">Данные о сне пользователя</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateSleep)}")]
-        Task CreateSleep(SleepCreateDTO sleepDTO);
+        Task CreateSleep(SleepCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные о сне пользователя
         /// </summary>
-        /// <param name="sleepDTO">Измененные данные о сне пользователя</param>
+        /// <param name="updateDTO">Измененные данные о сне пользователя</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateSleep)}")]
-        Task UpdateSleep(SleepUpdateDTO sleepDTO);
+        Task UpdateSleep(SleepUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить данные о сне пользователя
@@ -37,10 +37,10 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Получить список данных о снах пользователя за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="requestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllSleeps)}")]
-        Task<IEnumerable<SleepDTO>> GetAllSleeps(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
+        Task<IEnumerable<SleepDTO>> GetAllSleeps(RequestListWithPeriodByIdDTO requestDTO);
 
         /// <summary>
         /// Получить данные о сне пользователя

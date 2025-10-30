@@ -1,4 +1,4 @@
-﻿using MetricService.Api.Contracts.Dtos;
+﻿using MetricService.Api.Contracts.Dtos.Common;
 using MetricService.Api.Contracts.Dtos.Intake;
 using Refit;
 
@@ -13,18 +13,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать прием лекарств
         /// </summary>
-        /// <param name="intakeDTO">Данные для регисрации о приеме лекарств</param>
+        /// <param name="createDTO">Данные для регисрации о приеме лекарств</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateIntake)}")]
-        Task CreateIntake(IntakeCreateDTO intakeDTO);
+        Task CreateIntake(IntakeCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные примема лекарств
         /// </summary>
-        /// <param name="intakeUpdateDTO">Измененные данные приема лекарств</param>
+        /// <param name="updateDTO">Измененные данные приема лекарств</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateIntake)}")]
-        Task UpdateIntake(IntakeUpdateDTO intakeUpdateDTO);
+        Task UpdateIntake(IntakeUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить данные о приеме лекарств
@@ -37,10 +37,10 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Получить все приемы лекарств по пользователю за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="requestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllIntakes)}")]
-        Task<IEnumerable<IntakeDTO>> GetAllIntakes(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
+        Task<IEnumerable<IntakeDTO>> GetAllIntakes(RequestListWithPeriodByIdDTO requestDTO);
 
         /// <summary>
         /// Получить данные приема лекарств

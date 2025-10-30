@@ -12,19 +12,19 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать медикамент в справочнике "Медикаменты"
         /// </summary>
-        /// <param name="medicationCreateDTO">Данные для регистрации медикамента в справочнике</param>
+        /// <param name="createDTO">Данные для регистрации медикамента в справочнике</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateMedication)}")]
-        Task CreateMedication(MedicationCreateDTO medicationCreateDTO);
+        Task CreateMedication(MedicationCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные регистрации медикамента в справочнике "Медикаменты"
         /// </summary>
-        /// <param name="medicationUpdateDTO">Измененные данные медикамента</param>
+        /// <param name="updateDTO">Измененные данные медикамента</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateMedication)}")]
 
-        Task UpdateMedication(MedicationUpdateDTO medicationUpdateDTO);
+        Task UpdateMedication(MedicationUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить медикамент из справочника "Медикаменты"

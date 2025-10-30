@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор формы выпуска (таблетка, капсул, раствор и т.д.) из справочника "Форма выпуска препарата"
         /// </summary>        
-        public int DosageFormId { get; set; }
+        public int DosageFormId { get; init; }
     }
 }

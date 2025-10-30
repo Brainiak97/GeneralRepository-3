@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId { get; init; }
     }
 }

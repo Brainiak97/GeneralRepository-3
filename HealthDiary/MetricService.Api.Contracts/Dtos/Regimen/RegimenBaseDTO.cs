@@ -8,26 +8,26 @@
         /// <summary>
         /// Прописанная дозировка (например, "1 табл." или "5 мл")
         /// </summary>       
-        public string Dosage { get; set; } = string.Empty;
+        public required string Dosage { get; init; }
 
         /// <summary>
         /// График приема (например, "Утро, обед, вечер")
         /// </summary>        
-        public string Shedule { get; set; } = string.Empty;
+        public required string Shedule { get; init; }
 
         /// <summary>
         /// Дата начала приема
         /// </summary>        
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; init; }
 
         /// <summary>
         /// Предполагаемая дата окончания приема
         /// </summary>        
-        public DateTime? EndDate { get; set; }
+        public DateTime? EndDate { get; init; }
 
         /// <summary>
         /// Заметки или дополнения
         /// </summary>        
-        public string? Comment { get; set; } = string.Empty;
+        public string? Comment { get; init; }
     }
 }

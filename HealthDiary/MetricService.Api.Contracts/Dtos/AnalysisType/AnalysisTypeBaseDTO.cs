@@ -8,29 +8,26 @@
         /// <summary>
         /// Идентификатор данных из справочника "Категории анализов"
         /// </summary>
-        public int AnalysisCategoryId { get; set; }
-
+        public int AnalysisCategoryId { get; init; }
 
         /// <summary>
         /// Название конкретного анализа(например, «Лейкоциты», «Холестерин»)
         /// </summary>
-        public string Name { get; set; } = null!;
-
+        public required string Name { get; init; }
 
         /// <summary>
         ///Эталонное значение мужской
         /// </summary>        
-        public string? ReferenceValueMale { get; set; }
+        public string? ReferenceValueMale { get; init; }
 
         /// <summary>
         ///Эталонное значение женский
         /// </summary>        
-        public string? ReferenceValueFemale { get; set; }
-
+        public string? ReferenceValueFemale { get; init; }
 
         /// <summary>
         /// Единица измерения(например, г/л, ммоль/л)
         /// </summary>        
-        public string? Unit { get; set; }
+        public string? Unit { get; init; }
     }
 }

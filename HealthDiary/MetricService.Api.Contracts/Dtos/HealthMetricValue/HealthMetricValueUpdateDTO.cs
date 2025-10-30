@@ -9,6 +9,6 @@
         /// <summary>
         /// Идентификатор данных значения показателя здоровья пользователя
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; init; }
     }
 }

@@ -12,18 +12,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать новую форму препарата в справочнике "Формы выпуска препарата"
         /// </summary>
-        /// <param name="dosageFormCreateDTO">Данные для регистрации формы препарата</param>
+        /// <param name="createDTO">Данные для регистрации формы препарата</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateDosageForm)}")]
-        Task CreateDosageForm(DosageFormCreateDTO dosageFormCreateDTO);
+        Task CreateDosageForm(DosageFormCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные о форме препарата в справочнике "Формы выпуска препарата"
         /// </summary>
-        /// <param name="dosageFormUpdateDTO">Данные для изменения формы препарата</param>
+        /// <param name="updateDTO">Данные для изменения формы препарата</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateDosageForm)}")]
-        Task UpdateDosageForm(DosageFormUpdateDTO dosageFormUpdateDTO);
+        Task UpdateDosageForm(DosageFormUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить данные формы препарата из справочника "Формы выпуска препарата"

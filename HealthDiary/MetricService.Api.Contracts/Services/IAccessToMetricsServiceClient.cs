@@ -12,18 +12,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Предоставить доступ к личным метрикам
         /// </summary>
-        /// <param name="accessToMetricsCreateDTO">Данные для предоставления доступа</param>        
+        /// <param name="createDTO">Данные для предоставления доступа</param>        
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateAccessToMetricsAsync)}")]
-        Task CreateAccessToMetricsAsync(AccessToMetricsCreateDTO accessToMetricsCreateDTO);
+        Task CreateAccessToMetricsAsync(AccessToMetricsCreateDTO createDTO);
 
         /// <summary>
         /// Изменить доступ к личным метрикам
         /// </summary>
-        /// <param name="accessToMetricsUpdateDTO">Данные для изменения доступа к личным метрикам</param>        
+        /// <param name="updateDTO">Данные для изменения доступа к личным метрикам</param>        
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateAccessToMetricsAsync)}")]
-        Task UpdateAccessToMetricsAsync(AccessToMetricsUpdateDTO accessToMetricsUpdateDTO);
+        Task UpdateAccessToMetricsAsync(AccessToMetricsUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить доступ к личным метрикам
@@ -36,18 +36,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Получить список доступа к личным метрикам для пользователя, предоставившего доступ
         /// </summary>
-        /// <param name="requestAccessListWithPeriodByIdDTO">Данные пользователя, период и типы записей</param>       
+        /// <param name="requestDTO">Данные пользователя, период и типы записей</param>       
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllAccessToMetricsByProviderAsync)}")]
-        Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByProviderAsync(RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO);
+        Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByProviderAsync(RequestAccessListWithPeriodByIdDTO requestDTO);
 
         /// <summary>
         /// Получить список доступа к личным метрикам для пользователя, получившего доступ
         /// </summary>
-        /// <param name="requestAccessListWithPeriodByIdDTO">Данные пользователя, период и типы записей</param>        
+        /// <param name="requestDTO">Данные пользователя, период и типы записей</param>        
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllAccessToMetricsByGrantedAsync)}")]
-        Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByGrantedAsync(RequestAccessListWithPeriodByIdDTO requestAccessListWithPeriodByIdDTO);
+        Task<IEnumerable<AccessToMetricsDTO>> GetAllAccessToMetricsByGrantedAsync(RequestAccessListWithPeriodByIdDTO requestDTO);
 
     }
 }

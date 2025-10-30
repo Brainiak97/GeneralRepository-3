@@ -8,16 +8,16 @@
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         /// <summary>
         /// Рост в сантиметрах
         /// </summary>
-        public short Height { get; set; }
+        public short Height { get; init; }
 
         /// <summary>
         /// Вес в килограммах
         /// </summary>
-        public float Weight { get; set; }
+        public float Weight { get; init; }
     }
 }

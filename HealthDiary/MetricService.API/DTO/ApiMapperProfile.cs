@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-using MetricService.API.DTO.HealthCondition.Requests;
-using MetricService.API.DTO.HealthCondition.Responses;
+using MetricService.Api.Contracts.Dtos.Common;
+using MetricService.Api.Contracts.Dtos.HealthCondition;
+using MetricService.Api.Contracts.Dtos.Reminder;
 using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.HealthCondition;
 using MetricService.BLL.DTO.Reminder;
+using RequestListWithPeriodByIdDTO = MetricService.BLL.DTO.RequestListWithPeriodByIdDTO;
 
 namespace MetricService.API.DTO
 {

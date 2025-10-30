@@ -10,16 +10,16 @@ namespace MetricService.Api.Contracts.Dtos.Intake
         /// <summary>
         /// Дата и время приема
         /// </summary>        
-        public DateTime TakenAt { get; set; }
+        public DateTime TakenAt { get; init; }
 
         /// <summary>
         /// Статусы приема (например, "принято", "пропущено", "перенесено")
         /// </summary>       
-        public IntakeStatus IntakeStatus { get; set; }
+        public IntakeStatus IntakeStatus { get; init; }
 
         /// <summary>
         /// Дополнительные заметки (например, причины пропуска)
         /// </summary>        
-        public string? Comment { get; set; }
+        public string? Comment { get; init; }
     }
 }

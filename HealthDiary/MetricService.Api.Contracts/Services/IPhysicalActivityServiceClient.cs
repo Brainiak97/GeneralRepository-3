@@ -12,18 +12,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегисрировать новую физичекую активность в справочнике "Физическая активность"
         /// </summary>
-        /// <param name="physicalActivityCreateDTO">Данные для регистрации физической активности</param>
+        /// <param name="createDTO">Данные для регистрации физической активности</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreatePhysicalActivity)}")]
-        Task CreatePhysicalActivity(PhysicalActivityCreateDTO physicalActivityCreateDTO);
+        Task CreatePhysicalActivity(PhysicalActivityCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные физической активности в справочнике "Физическая активность"
         /// </summary>
-        /// <param name="physicalActivityUpdateDTO">Данные для изменения физической активности</param>
+        /// <param name="updateDTO">Данные для изменения физической активности</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdatePhysicalActivity)}")]
-        Task UpdatePhysicalActivity(PhysicalActivityUpdateDTO physicalActivityUpdateDTO);
+        Task UpdatePhysicalActivity(PhysicalActivityUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить физическую активность из справочника "Физическая активность"

@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор данны о сне пользователя        
         /// </summary>    
-        public int Id { get; set; }
+        public int Id { get; init; }
     }
 }

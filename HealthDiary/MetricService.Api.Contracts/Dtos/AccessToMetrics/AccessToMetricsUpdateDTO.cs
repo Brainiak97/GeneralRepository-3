@@ -9,11 +9,6 @@
         /// <summary>
         /// Идентификатор данных о доступе к личным метрикам пользователя
         /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Идентификатор пользователя, которому предоставлен доступ к метрикам пользователя
-        /// </summary>        
-        public int GrantedUserId { get; set; }
+        public int Id { get; init; }       
     }
 }

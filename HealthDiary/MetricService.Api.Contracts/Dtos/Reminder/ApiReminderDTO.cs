@@ -10,12 +10,12 @@ namespace MetricService.Api.Contracts.Dtos.Reminder
         /// <summary>
         /// Идентификатор схемы приема лекарств
         /// </summary>        
-        public int RegimenId { get; set; }
+        public int RegimenId { get; init; }
 
         /// <summary>
         /// Время напоминания
         /// </summary>        
-        public DateTime RemindAt { get; set; }
+        public DateTime RemindAt { get; init; }
 
         /// <summary>
         /// Признак, было ли отправлено напоминание
@@ -23,6 +23,6 @@ namespace MetricService.Api.Contracts.Dtos.Reminder
         /// <value>
         ///   <c>true</c> если напоминание доставлено; иначе, <c>false</c>.
         /// </value>
-        public bool IsSend { get; set; }
+        public bool IsSend { get; init; }
     }
 }

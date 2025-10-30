@@ -8,16 +8,16 @@
         /// <summary>
         /// Идентификатор данных схема приема лекарств
         /// </summary>        
-        public int RegimenId { get; set; }
+        public int RegimenId { get; init; }
 
         /// <summary>
         /// Начало периода для выборки
         /// </summary>        
-        public DateTime BegDate { get; set; }
+        public DateTime BegDate { get; init; }
 
         /// <summary>
         /// Конец периода для выборки
         /// </summary>       
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; init; }
     }
 }

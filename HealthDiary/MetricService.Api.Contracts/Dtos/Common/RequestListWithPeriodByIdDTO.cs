@@ -1,4 +1,4 @@
-﻿namespace MetricService.Api.Contracts.Dtos
+﻿namespace MetricService.Api.Contracts.Dtos.Common
 {
     /// <summary>
     /// Объект для получения данных по пользователю за период
@@ -8,16 +8,16 @@
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId { get; init; }
 
         /// <summary>
         /// Начало периода для выборки
         /// </summary>
-        public DateTime BegDate { get; set; }
+        public DateTime BegDate { get; init; }
 
         /// <summary>
         /// Конец периода для выборки
         /// </summary>
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; init; }
     }
 }

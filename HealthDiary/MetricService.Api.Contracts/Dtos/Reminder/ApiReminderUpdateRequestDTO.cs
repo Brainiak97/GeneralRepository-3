@@ -8,11 +8,11 @@
         /// <summary>
         /// Идентификатор напоминания
         /// </summary>        
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         /// <summary>
         /// Время напоминания
         /// </summary>
-        public DateTime RemindAt { get; set; }
+        public DateTime RemindAt { get; init; }
     }
 }

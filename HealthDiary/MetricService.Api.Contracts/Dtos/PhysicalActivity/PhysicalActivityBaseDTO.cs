@@ -9,11 +9,11 @@
         /// <summary>
         /// Наименование физической активности
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public required string Name { get; init; }
 
         /// <summary>
         /// Метаболический эквивалент
         /// </summary>
-        public float EnergyEquivalent { get; set; }
+        public float EnergyEquivalent { get; init; }
     }
 }

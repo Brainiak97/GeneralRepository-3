@@ -1,4 +1,4 @@
-﻿using MetricService.Api.Contracts.Dtos;
+﻿using MetricService.Api.Contracts.Dtos.Common;
 using MetricService.Api.Contracts.Dtos.Regimen;
 using Refit;
 
@@ -13,18 +13,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать схему приема лекарств
         /// </summary>
-        /// <param name="regimenCreateDTO">Данные для регистрации схемы приема лекарств</param>
+        /// <param name="createDTO">Данные для регистрации схемы приема лекарств</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateRegimen)}")]
-        Task CreateRegimen(RegimenCreateDTO regimenCreateDTO);
+        Task CreateRegimen(RegimenCreateDTO createDTO);
 
         /// <summary>
         /// Изменить данные схемы приема лекарств
         /// </summary>
-        /// <param name="regimenUpdateDTO">Данные для изменения схемы приема лекарств</param>
+        /// <param name="updateDTO">Данные для изменения схемы приема лекарств</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateRegimen)}")]
-        Task UpdateRegimen(RegimenUpdateDTO regimenUpdateDTO);
+        Task UpdateRegimen(RegimenUpdateDTO updateDTO);
 
         /// <summary>
         /// Удалить схему приема лекарств
@@ -37,10 +37,10 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Получить все схемы приема лекарств по пользователю за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="requestDTO">Данные пользователя и период</param>
         /// <returns></returns>
         [Get($"{Controller}/{nameof(GetAllRegimens)}")]
-        Task<IEnumerable<RegimenDTO>> GetAllRegimens(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO);
+        Task<IEnumerable<RegimenDTO>> GetAllRegimens(RequestListWithPeriodByIdDTO requestDTO);
 
         /// <summary>
         /// Получить схему приема лекарств

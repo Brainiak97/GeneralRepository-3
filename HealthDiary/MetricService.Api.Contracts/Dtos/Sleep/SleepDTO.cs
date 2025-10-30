@@ -8,11 +8,11 @@
         /// <summary>
         /// Идентификатор данны о сне пользователя
         /// </summary>    
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>        
-        public int UserId { get; set; }
+        public int UserId { get; init; }
     }
 }

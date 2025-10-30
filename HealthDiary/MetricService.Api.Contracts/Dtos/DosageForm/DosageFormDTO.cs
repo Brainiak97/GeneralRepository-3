@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор данных в справочнике
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; init; }
     }
 }

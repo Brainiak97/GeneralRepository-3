@@ -12,18 +12,18 @@ namespace MetricService.Api.Contracts.Services
         /// <summary>
         /// Зарегистрировать новый профиль пользователя
         /// </summary>
-        /// <param name="userDTO">Данные для регистрации профиля пользователя</param>
+        /// <param name="createDTO">Данные для регистрации профиля пользователя</param>
         /// <returns></returns>
         [Post($"{Controller}/{nameof(CreateProfile)}")]
-        Task CreateProfile(UserDTO userDTO);
+        Task CreateProfile(UserDTO createDTO);
 
         /// <summary>
         /// Изменить данные профиля пользователя
         /// </summary>
-        /// <param name="userDTO">Измененные данные профиля пользователя</param>
+        /// <param name="updateDTO">Измененные данные профиля пользователя</param>
         /// <returns></returns>
         [Put($"{Controller}/{nameof(UpdateProfile)}")]
-        Task UpdateProfile(UserDTO userDTO);
+        Task UpdateProfile(UserDTO updateDTO);
 
         /// <summary>
         /// Удалить профиль пользователя и все его данные из системы
