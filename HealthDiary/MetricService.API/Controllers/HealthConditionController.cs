@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using MetricService.API.DTO.HealthCondition.Requests;
-using MetricService.API.DTO.HealthCondition.Responses;
+using MetricService.Api.Contracts.Dtos.Common;
+using MetricService.Api.Contracts.Dtos.HealthCondition;
 using MetricService.BLL.DTO;
 using MetricService.BLL.DTO.HealthCondition;
 using MetricService.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RequestListWithPeriodByIdDTO = MetricService.BLL.DTO.RequestListWithPeriodByIdDTO;
 
 namespace MetricService.API.Controllers
 {
