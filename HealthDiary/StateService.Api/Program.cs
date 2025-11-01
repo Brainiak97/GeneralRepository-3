@@ -1,9 +1,11 @@
 using FoodService.Api.Contracts;
+using MetricService.Api.Contracts;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared.Auth;
 using Shared.Logging;
 using StateService.Api.Configuration;
+using StateService.Api.Handlers;
 using StateService.BLL.Interfaces;
 using StateService.DAL.Interfaces;
 using StateService.DAL.Providers;
@@ -33,14 +35,20 @@ builder.Services.AddScoped<IStateService, StateService.BLL.Services.StateService
 builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("Services"));
 var serviceUrlsFromConfig = builder.Configuration.GetSection("Services").Get<ServiceUrls>();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 if (serviceUrlsFromConfig != null)
 {
+    builder.Services.AddTransient<DelegatingHandler, AuthHeaderHandler>();
+
     builder.Services.AddHttpClient<IUserDataProvider, HttpUserDataProvider>(client =>
     {
         client.BaseAddress = new Uri(serviceUrlsFromConfig.UserServiceUrl);
     });
     builder.Services.AddFoodServiceClient(serviceUrlsFromConfig.FoodServiceUrl);
-	builder.Services.AddHttpClient<IMetricDataProvider, HttpMetricDataProvider>(client =>
+    builder.Services.AddMetricServiceClient(serviceUrlsFromConfig.MetricServiceUrl);
+
+    builder.Services.AddHttpClient<IMetricDataProvider, HttpMetricDataProvider>(client =>
     {
         client.BaseAddress = new Uri(serviceUrlsFromConfig.MetricServiceUrl);
     });
@@ -48,6 +56,8 @@ if (serviceUrlsFromConfig != null)
     {
         client.BaseAddress = new Uri(serviceUrlsFromConfig.GroqUrl);
     });
+
+    builder.Services.AddScoped<IHeaderDictionary>(x => x.GetRequiredService<IHttpContextAccessor>().HttpContext.Request.Headers);
 }
 
 builder.Services.AddSwaggerGen(options =>

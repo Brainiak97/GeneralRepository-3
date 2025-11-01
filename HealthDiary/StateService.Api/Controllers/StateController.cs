@@ -1,22 +1,30 @@
 ﻿using FoodService.Api.Contracts;
+using MetricService.Api.Contracts;
+using MetricService.Api.Contracts.Dtos.Common;
+using MetricService.Api.Contracts.Dtos.Intake;
 using Microsoft.AspNetCore.Mvc;
 using StateService.Api.Infrastructure;
 using StateService.Api.ViewModels;
 using StateService.BLL.Interfaces;
 using StateService.DAL.Interfaces;
+using StateService.Domain.Dto;
 using StateService.Domain.Models;
 
 namespace StateService.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StateController(IStateService stateService, IGroqProvider groqProvider, IFoodServiceClient foodServiceClient ) : ControllerBase
+    public class StateController(IStateService stateService,
+                                 IGroqProvider groqProvider,
+                                 IFoodServiceClient foodServiceClient,
+                                 IMetricServiceClient metricServiceClient) : ControllerBase
     {
         private readonly IStateService _stateService = stateService;
         private readonly IGroqProvider _groqProvider = groqProvider;
-		private readonly IFoodServiceClient _foodServiceClient = foodServiceClient;
+        private readonly IFoodServiceClient _foodServiceClient = foodServiceClient;
+        private readonly IMetricServiceClient _metricServiceClient = metricServiceClient;
 
-		[HttpGet(nameof(GetDailySummary))]
+        [HttpGet(nameof(GetDailySummary))]
         public async Task<IActionResult> GetDailySummary(int userId)
         {
             if (userId == 0)
@@ -99,11 +107,58 @@ namespace StateService.Api.Controllers
             }
         }
 
-        [HttpGet( nameof( Test ) )]
-        public async Task<IActionResult> Test( int productId )
+        [HttpGet(nameof(Test))]
+        public async Task<IActionResult> Test(int productId)
         {
-            var product = await _foodServiceClient.GetProduct( productId );
-            return Ok( product );
+            var product = await _foodServiceClient.GetProduct(productId);
+            return Ok(product);
         }
-	}
+
+        [HttpGet(nameof(GetMedicationProgress))]
+        public async Task<MedicationProgressDto> GetMedicationProgress([FromQuery] RequestListWithPeriodByIdDTO request)
+        {
+            //Соберем все схемы приема лекарств по пользователю, где наша дата входит в периодл приема лекарств
+            var regimens = await _metricServiceClient.GetAllRegimens(request);
+            //соберем все приемы лекарств
+            var intakes = await _metricServiceClient.GetAllIntakes(request);
+            var regimensProgress = new List<RegimenProgressDTO>();
+            foreach (var regimen in regimens)
+            {
+                var tempRegimenProgress = new RegimenProgressDTO()
+                {
+                    Id = regimen.Id,
+                    Comment = regimen.Comment,
+                    Dosage = regimen.Dosage,
+                    Shedule = regimen.Shedule,
+                    EndDate = regimen.EndDate,
+                    MedicationId = regimen.MedicationId,
+                    StartDate = regimen.StartDate,
+                    UserId = regimen.UserId,
+                    Intakes = new List<IntakeDTO>()
+                };
+
+                foreach (var intake in intakes.Where(i => i.RegimenId == regimen.Id))
+                {
+                    tempRegimenProgress.Intakes.Add(
+                        new IntakeDTO()
+                        {
+                            Comment = intake.Comment,
+                            Id = intake.Id,
+                            IntakeStatus = intake.IntakeStatus,
+                            RegimenId = regimen.Id,
+                            TakenAt = intake.TakenAt
+                        }
+                    );
+                }
+
+                regimensProgress.Add( tempRegimenProgress );
+            }
+            return new MedicationProgressDto()
+            {
+                UserId = regimens.FirstOrDefault()?.UserId ?? 0,
+                Regimens = new List<RegimenProgressDTO>(regimensProgress)
+            };
+
+        }
+    }
 }

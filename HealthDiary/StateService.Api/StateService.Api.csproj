@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodService.Api.Contracts\FoodService.Api.Contracts.csproj" />
+    <ProjectReference Include="..\MetricService.Api.Contracts\MetricService.Api.Contracts.csproj" />
     <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
     <ProjectReference Include="..\Shared.Logging\Shared.Logging.csproj" />
     <ProjectReference Include="..\StateService.BLL\StateService.BLL.csproj" />

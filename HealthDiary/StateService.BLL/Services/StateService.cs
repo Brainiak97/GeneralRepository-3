@@ -17,7 +17,7 @@ namespace StateService.BLL.Services
             var reports = await GetPeriodSummaryAsync(userId, today, today);
             
             return reports.FirstOrDefault() ?? throw new EntryNotFoundException("Не удалось получить данные.");
-        }
+        }      
 
         public async Task<IEnumerable<UserHealthReport>> GetPeriodSummaryAsync(int userId, DateTime startDate, DateTime endDate)
         {

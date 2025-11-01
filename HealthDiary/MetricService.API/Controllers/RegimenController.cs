@@ -63,10 +63,10 @@ namespace MetricService.API.Controllers
         {
             var result = await _regimenService.GetAllRegimenByUserIdAsync(requestListWithPeriodByIdDTO);
 
-            if (!result.Any())
+            /*if (!result.Any())
             {
                 return Ok("Список пуст");
-            }
+            }*/
 
             return Ok(result);
         }

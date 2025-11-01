@@ -1,0 +1,67 @@
+{
+  "UserId": 2,
+  "Regimens": [
+    {
+      "Id": 1,
+      "Medication": {
+          "Id": 2,
+          "Name": "пентальгин",
+          "DosageForm": {
+            "Id": 3,
+            "Name": "таблетка"
+          },
+          "Instruction": "Какая то инструкция"
+        },     
+      "Dosage": "1 таблетка",
+      "Shedule": "утром",
+      "StartDate": "2025-01-01",
+      "EndDate": "2025-12-31",
+      "Comment": "комментарий к приему",
+      "Intakes": [
+        {
+          "Id": 1,
+          "TakenAt": "2025-01-02",
+          "IntakeStatus": "принято",
+          "Comment": ""
+        },
+        {
+          "Id": 2,
+          "TakenAt": "2025-01-03",
+          "IntakeStatus": "пропущено",
+          "Comment": "нездоровилось"
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Medication": {
+          "Id": 2,
+          "Name": "касторка",
+          "DosageForm": {
+            "Id": 3,
+            "Name": "жидкость"
+          },
+          "Instruction": "Какая то инструкция к касторке"
+        },      
+      "Dosage": "5 мл",
+      "Shedule": "днем, вечером после еды",
+      "StartDate": "2025-01-01",
+      "EndDate": "2025-06-15",
+      "Comment": "комментарий к приему касторки",
+      "Intakes": [
+        {
+          "Id": 3,
+          "TakenAt": "2025-01-05",
+          "IntakeStatus": "принято",
+          "Comment": ""
+        },
+        {
+          "Id": 4,
+          "TakenAt": "2025-01-05",
+          "IntakeStatus": "принято",
+          "Comment": "хорошо пошло"
+        }
+      ]
+    }
+  ] 
+}
