@@ -1,12 +1,14 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ReportService.DAL.Contexts;
 using ReportService.DAL.Interfaces.Repositories;
 using ReportService.Domain.Models.Entities;
+using Shared.Common.Exceptions;
 
 namespace ReportService.DAL.Repositories;
 
 /// <inheritdoc />
-internal class ReportsRepository(ReportServiceDbContext dbContext) : IReportsRepository
+internal class ReportsRepository(ReportServiceDbContext dbContext, IMapper mapper) : IReportsRepository
 {
     /// <inheritdoc />
     public async Task<Report?> GetByIdAsync(int id) =>
@@ -26,6 +28,14 @@ internal class ReportsRepository(ReportServiceDbContext dbContext) : IReportsRep
     public async Task<bool> UpdateAsync(Report entity)
     {
         ArgumentNullException.ThrowIfNull(entity);
+        var insertedEntity = await dbContext.Reports.FindAsync(entity.Id);
+        if (insertedEntity is null)
+        {
+            throw new EntryNotFoundException($"Ошибка получения отчёта по идентификатору {entity.Id}");
+        }
+
+        mapper.Map(entity, insertedEntity);
+
         dbContext.Reports.Update(entity);
         return await dbContext.SaveChangesAsync() == 1;
     }
