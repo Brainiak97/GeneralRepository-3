@@ -6,5 +6,6 @@ namespace StateService.BLL.Interfaces
     {
         Task<UserHealthReport> GetDailySummaryAsync(int userId);
         Task<IEnumerable<UserHealthReport>> GetPeriodSummaryAsync(int userId, DateTime startDate, DateTime endDate);
+        Task<MedicationProgressDto> GetMedicationProgress(int userId, DateTime currendDate);
     }
 }
