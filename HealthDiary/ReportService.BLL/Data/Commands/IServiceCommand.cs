@@ -11,14 +11,14 @@ public interface IServiceCommand
     /// Идентификатор отчёта.
     /// </summary>
     int ReportId { get; init; }
-    
+
     /// <summary>
     /// Формат отчёта.
     /// </summary>
     ReportFormat ReportFormat { get; init; }
     
     /// <summary>
-    /// Имя файла.
+    /// Имя файла (с расширением).
     /// </summary>
     string FileName { get; init; }
 

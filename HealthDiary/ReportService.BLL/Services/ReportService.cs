@@ -1,6 +1,6 @@
 using AutoMapper;
 using FluentValidation;
-using ReportService.BLL.Common.Generators.Containers;
+using ReportService.BLL.Common.Generators.Factories;
 using ReportService.BLL.Data.Commands;
 using ReportService.BLL.Interfaces;
 using ReportService.DAL.Interfaces.Repositories;
@@ -19,7 +19,7 @@ internal class ReportService(
     : IReportService
 {
     /// <inheritdoc />
-    public async Task<(byte[], string)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken)
+    public async Task<(byte[] Content, string FileName)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken)
     {
         await generateReportCommandValidator.ValidateAndThrowAsync(command, cancellationToken);
 

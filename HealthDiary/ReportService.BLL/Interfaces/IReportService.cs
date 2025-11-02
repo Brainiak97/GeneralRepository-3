@@ -14,7 +14,7 @@ public interface IReportService
     /// <param name="command">Идентификатор результата приёма у врача.</param>
     /// <param name="cancellationToken">Формат отчёта.</param>
     /// <returns>Сгенерированный отчёт.</returns>
-    Task<(byte[], string)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken);
+    Task<(byte[] Content, string FileName)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken);
 
     /// <summary>
     /// Вернуть отчёт по идентификатору.

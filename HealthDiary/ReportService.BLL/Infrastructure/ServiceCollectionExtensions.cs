@@ -1,6 +1,6 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using ReportService.BLL.Common.Generators.Containers;
+using ReportService.BLL.Common.Generators.Factories;
 using ReportService.BLL.Common.Generators.Pdf;
 using ReportService.BLL.Common.Templates.QuestPdf.Containers;
 using ReportService.BLL.Data.Commands;
@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddCommon(this IServiceCollection services) =>
         services
-            .AddScoped<IPdfReportGenerator, QuestPdfReportGenerator>()
+            .AddScoped<IPdfReportGenerator, PdfReportGenerator>()
             .AddScoped<IReportGeneratorFactory, ReportGeneratorFactory>()
             .AddSingleton<IReportTemplatesContainer, ReportTemplatesContainer>();
 

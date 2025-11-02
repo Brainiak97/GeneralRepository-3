@@ -5,7 +5,7 @@ using ReportService.DAL.Interfaces.Repositories;
 namespace ReportService.BLL.Common.Generators.Pdf;
 
 /// <inheritdoc />
-internal class QuestPdfReportGenerator(
+internal class PdfReportGenerator(
     IReportsRepository reportsRepository,
     IReportTemplatesContainer templatesContainer) : IPdfReportGenerator
 {

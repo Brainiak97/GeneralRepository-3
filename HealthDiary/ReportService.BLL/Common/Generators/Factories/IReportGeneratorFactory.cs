@@ -1,6 +1,6 @@
 using ReportService.Domain.Models;
 
-namespace ReportService.BLL.Common.Generators.Containers;
+namespace ReportService.BLL.Common.Generators.Factories;
 
 /// <summary>
 /// Фабрика генераторов отчётов.
