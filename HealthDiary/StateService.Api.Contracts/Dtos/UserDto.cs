@@ -1,6 +1,6 @@
-﻿using UserService.Domain.Models;
+﻿using StateService.Api.Contracts.Dtos.Enums;
 
-namespace StateService.Domain.Dto
+namespace StateService.Api.Contracts.Dtos
 {
     public class UserDto
     {
@@ -37,6 +37,6 @@ namespace StateService.Domain.Dto
         /// <summary>
         /// Получает или задаёт пол пользователя.
         /// </summary>
-        public Gender Gender { get; set; }
+        public GenderDto Gender { get; set; }
     }
 }

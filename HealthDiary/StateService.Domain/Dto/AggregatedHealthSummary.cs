@@ -1,6 +1,6 @@
 ﻿namespace StateService.Domain.Dto
 {
-    public class AggregatedHealthSummaryDto
+    public class AggregatedHealthSummary
     {
         /// <summary>
         /// Период отчёта (например, "01.04.2025 – 10.04.2025")
@@ -11,7 +11,7 @@
         /// Усреднённые значения метрик по их имени
         /// Ключ — MetricName, значение — среднее (или null, если данных нет)
         /// </summary>
-        public List<HealthMetricsDto> HealthMetrics { get; set; } = new();
+        public List<HealthMetrics> HealthMetrics { get; set; } = new();
 
         // --- Сон ---
         public double AvgSleepDurationHours { get; set; }

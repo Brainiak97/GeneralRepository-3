@@ -1,42 +1,50 @@
-﻿using Shared.Common.Exceptions;
+﻿using AutoMapper;
+using MetricService.Api.Contracts;
+using MetricService.Api.Contracts.Dtos.Common;
+using Shared.Common.Exceptions;
 using StateService.BLL.Interfaces;
-using StateService.DAL.Interfaces;
 using StateService.Domain.Dto;
 using StateService.Domain.Models;
 
 namespace StateService.BLL.Services
 {
     public class StateService(
-        IMetricDataProvider metricDataProvider) : IStateService
+        IMetricServiceClient metricServiceClient,
+        IMapper mapper) : IStateService
     {
-        private readonly IMetricDataProvider _metricDataProvider = metricDataProvider;
+        private readonly IMetricServiceClient _metricServiceClient = metricServiceClient;
+        private readonly IMapper _mapper = mapper;
 
         public async Task<UserHealthReport> GetDailySummaryAsync(int userId)
         {
             var today = DateTime.Today;
-            var reports = await GetPeriodSummaryAsync(userId, today, today);
-            
+            var request = new RequestListWithPeriodById { UserId = userId, EndDate = today.AddDays(1), BegDate = today };
+            var reports = await GetPeriodSummaryAsync(request);
+
             return reports.FirstOrDefault() ?? throw new EntryNotFoundException("Не удалось получить данные.");
         }
 
-        public async Task<IEnumerable<UserHealthReport>> GetPeriodSummaryAsync(int userId, DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<UserHealthReport>> GetPeriodSummaryAsync(RequestListWithPeriodById request)
         {
-            if (startDate > endDate)
-                throw new ArgumentException($"Дата начала периода ({startDate}) должна быть раньше даты окончания периода ({endDate}).");
+            if (request.BegDate > request.EndDate)
+                throw new ArgumentException($"Дата начала периода ({request.BegDate}) должна быть раньше даты окончания периода ({request.EndDate}).");
 
-            var metricsTask = _metricDataProvider.GetHealthMetricsBaseDataAsync(userId, startDate, endDate);
-            var workoutsTask = _metricDataProvider.GetWorkoutDataAsync(userId, startDate, endDate);
-            var sleepTask = _metricDataProvider.GetSleepDataAsync(userId, startDate, endDate);
+
+            var requestMetricService = _mapper.Map<RequestListWithPeriodByIdDTO>(request);
+            var metricsTask = _metricServiceClient.GetAllHealthMetricsValue(requestMetricService);
+            var workoutsTask = _metricServiceClient.GetAllWorkouts(requestMetricService);
+            var sleepTask = _metricServiceClient.GetAllSleeps(requestMetricService);
 
             await Task.WhenAll(metricsTask, workoutsTask, sleepTask);
 
-            var metricsList = metricsTask.Result ?? [];
-            var workoutsList = workoutsTask.Result ?? [];
-            var sleepList = sleepTask.Result ?? [];
+            var metricsList = _mapper.Map<List<HealthMetrics>>(metricsTask.Result) ?? [];
+            var workoutsList = _mapper.Map<List<Workout>>(workoutsTask.Result) ?? [];
+            var sleepList = _mapper.Map<List<Sleep>>(sleepTask.Result) ?? [];
+
 
             var dateRange = Enumerable
-                .Range(0, 1 + endDate.Subtract(startDate).Days)
-                .Select(offset => startDate.AddDays(offset))
+                .Range(0, 1 + request.EndDate.Subtract(request.BegDate).Days)
+                .Select(offset => request.BegDate.AddDays(offset))
                 .ToList();
 
             var reports = new List<UserHealthReport>();
@@ -60,7 +68,7 @@ namespace StateService.BLL.Services
                 reports.Add(new UserHealthReport
                 {
                     Date = DateOnly.FromDateTime(date),
-                    HealthMetrics = dailyMetrics,
+                    HealthMetrics = _mapper.Map<List<HealthMetrics>>(dailyMetrics),
                     PhysicalActivity = dailyWorkouts,
                     Sleep = dailySleeps,
                     FoodData = null
@@ -68,6 +76,6 @@ namespace StateService.BLL.Services
             }
 
             return reports;
-        }        
+        }
     }
 }

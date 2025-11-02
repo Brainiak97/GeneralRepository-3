@@ -59,11 +59,11 @@ namespace MetricService.BLL.Services
                                                     requestListWithPeriodByIdDTO.UserId,
                                                     _repository.Name);
             }
-
+            
             var workouts = (await _repository.GetAllAsync())
-                            .Where(w => w.UserId == requestListWithPeriodByIdDTO.UserId &&
-                                    w.StartTime >= requestListWithPeriodByIdDTO.BegDate &&
-                                    w.EndTime <= requestListWithPeriodByIdDTO.EndDate);
+                .Where(w => w.UserId == requestListWithPeriodByIdDTO.UserId
+                && w.StartTime >= requestListWithPeriodByIdDTO.BegDate
+                && w.EndTime <= requestListWithPeriodByIdDTO.EndDate);
 
             return _mapper.Map<IEnumerable<WorkoutDTO>>(workouts);
         }

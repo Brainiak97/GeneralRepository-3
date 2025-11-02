@@ -1,10 +1,14 @@
 using FoodService.Api.Contracts;
+using MetricService.Api.Contracts;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared.Auth;
 using Shared.Logging;
 using StateService.Api.Configuration;
+using StateService.Api.Handlers;
+using StateService.Api.Mapping;
 using StateService.BLL.Interfaces;
+using StateService.BLL.Mapping;
 using StateService.DAL.Interfaces;
 using StateService.DAL.Providers;
 
@@ -25,6 +29,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
+builder.Services.AddAutoMapper(x => x.AddProfiles([new MapperProfile(), new ApiMapperProfile()]));
+
 // Загрузка общей конфигурации JWT
 builder.Services.AddJwtAuthentication();
 
@@ -33,21 +39,21 @@ builder.Services.AddScoped<IStateService, StateService.BLL.Services.StateService
 builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("Services"));
 var serviceUrlsFromConfig = builder.Configuration.GetSection("Services").Get<ServiceUrls>();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 if (serviceUrlsFromConfig != null)
 {
-    builder.Services.AddHttpClient<IUserDataProvider, HttpUserDataProvider>(client =>
-    {
-        client.BaseAddress = new Uri(serviceUrlsFromConfig.UserServiceUrl);
-    });
+    builder.Services.AddTransient<DelegatingHandler, AuthHeaderHandler>();
+    
     builder.Services.AddFoodServiceClient(serviceUrlsFromConfig.FoodServiceUrl);
-	builder.Services.AddHttpClient<IMetricDataProvider, HttpMetricDataProvider>(client =>
-    {
-        client.BaseAddress = new Uri(serviceUrlsFromConfig.MetricServiceUrl);
-    });
+    builder.Services.AddMetricServiceClient(serviceUrlsFromConfig.MetricServiceUrl);
+   
     builder.Services.AddHttpClient<IGroqProvider, HttpGroqProvider>(client =>
     {
         client.BaseAddress = new Uri(serviceUrlsFromConfig.GroqUrl);
     });
+
+    builder.Services.AddScoped<IHeaderDictionary>(x => x.GetRequiredService<IHttpContextAccessor>().HttpContext!.Request.Headers);
 }
 
 builder.Services.AddSwaggerGen(options =>

@@ -1,10 +1,10 @@
-﻿namespace StateService.Domain.Dto
+﻿namespace StateService.Api.Contracts.Dtos
 {
-    public class TempHealthMetric
+    public class TempHealthMetricDto
     {
         public DateTime RecordedAt { get; set; }
         public float Value { get; set; }
         public string? Comment { get; set; }
-        public TempHealthMetricInfo? HealthMetric { get; set; }
+        public TempHealthMetricInfoDto? HealthMetric { get; set; }
     }
 }

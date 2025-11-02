@@ -1,6 +1,6 @@
-﻿namespace StateService.Domain.Dto
+﻿namespace StateService.Api.Contracts.Dtos
 {
-    public class TempHealthMetricInfo
+    public class TempHealthMetricInfoDto
     {
         public string? Name { get; set; }
         public string? Unit { get; set; }

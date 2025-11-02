@@ -103,7 +103,7 @@ namespace MetricService.Api
             builder.Services.AddExceptionHandler<BaseExceptionHandler>();
             builder.Services.AddAutoMapper(cfg => cfg.AddProfiles([new MapperProfile(), new ApiMapperProfile()]));
 
-            var app = builder.Build();
+            var app = builder.Build();            
 
             app.UseExceptionHandler();
 

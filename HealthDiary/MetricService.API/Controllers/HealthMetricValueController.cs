@@ -61,22 +61,17 @@ namespace MetricService.API.Controllers
         /// <summary>
         /// Получить список значений показателей здоровья пользователя
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="request">Данные пользователя и период</param>
         /// <returns></returns>
         [HttpGet(nameof(GetAllHealthMetricsValue))]
         [Authorize]
-        public async Task<IActionResult> GetAllHealthMetricsValue([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IActionResult> GetAllHealthMetricsValue([FromQuery] RequestListWithPeriodByIdDTO request)
         {
             var result = await _healthMetricValueService.GetAllHealthMetricsValueByUserIdAsync(
-                requestListWithPeriodByIdDTO.UserId,
-                requestListWithPeriodByIdDTO.BegDate,
-                requestListWithPeriodByIdDTO.EndDate);
-
-            if (!result.Any())
-            {
-                return Ok("Список пуст");
-            }
-
+                request.UserId,
+                request.BegDate,
+                request.EndDate);
+           
             return Ok(_mapper.Map<List<HealthMetricValueDTO>>(result));
         }
 
@@ -89,12 +84,7 @@ namespace MetricService.API.Controllers
         [Authorize]
         public async Task<IActionResult> GetHealthMetricValueById(int healthMetricValueId)
         {
-            var result = await _healthMetricValueService.GetHealthMetricValueByIdAsync(healthMetricValueId);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
+            var result = await _healthMetricValueService.GetHealthMetricValueByIdAsync(healthMetricValueId);            
 
             return Ok(_mapper.Map<HealthMetricValueDTO>(result));
         }

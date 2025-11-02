@@ -1,12 +1,11 @@
 ﻿using Shared.Common.Exceptions;
-using StateService.Domain.Dto;
-using StateService.Domain.Models;
+using StateService.Api.Contracts.Dtos;
 
 namespace StateService.Api.Infrastructure
 {
     public static class MetricAggregator
     {
-        public static AggregatedHealthSummaryDto AggregateHealthData(IEnumerable<UserHealthReport> reports)
+        public static AggregatedHealthSummaryDto AggregateHealthData(IEnumerable<UserHealthReportDto> reports)
         {
             if (!reports.Any())
                 throw new EntryNotFoundException("Нет данных.");

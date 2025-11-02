@@ -56,17 +56,12 @@ namespace MetricService.API.Controllers
         /// <summary>
         /// Получить список данных о снах пользователя за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="request">Данные пользователя и период</param>
         /// <returns></returns>
         [HttpGet(nameof(GetAllSleeps))]
-        public async Task<IActionResult> GetAllSleeps([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IActionResult> GetAllSleeps([FromQuery] RequestListWithPeriodByIdDTO request)
         {
-            var result = await _sleepService.GetAllRecordsOfSleepByUserIdAsync(requestListWithPeriodByIdDTO);
-
-            if (!result.Any())
-            {
-                return Ok("Список пуст");
-            }
+            var result = await _sleepService.GetAllRecordsOfSleepByUserIdAsync(request);
 
             return Ok(result);
         }

@@ -8,7 +8,7 @@
         /// <summary>
         /// Ссылка на показатель здоровья
         /// </summary>        
-        public int HealthMetricId { get; set; }
+        public int HealthMetricId { get; set; }       
 
         /// <summary>
         /// Значение показателя

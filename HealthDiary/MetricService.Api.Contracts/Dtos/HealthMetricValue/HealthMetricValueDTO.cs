@@ -1,4 +1,6 @@
-﻿namespace MetricService.Api.Contracts.Dtos.HealthMetricValue
+﻿using MetricService.Api.Contracts.Dtos.HealthMetric;
+
+namespace MetricService.Api.Contracts.Dtos.HealthMetricValue
 {
     /// <summary>
     /// Объект данных значений показателей здоровья пользователя
@@ -15,5 +17,10 @@
         /// Идентификатор пользователя
         /// </summary>          
         public int UserId { get; init; }
+
+        /// <summary>
+        /// Показатель здоровья
+        /// </summary>         
+        public required HealthMetricDTO HealthMetric { get; set; }
     }
 }
