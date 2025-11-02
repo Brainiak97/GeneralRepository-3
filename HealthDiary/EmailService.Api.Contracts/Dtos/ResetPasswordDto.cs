@@ -1,4 +1,4 @@
-﻿namespace Shared.EmailClient.Dto
+﻿namespace EmailService.Api.Contracts.Dtos
 {
     /// <summary>
     /// Представляет данные, необходимые для сброса пароля пользователя.

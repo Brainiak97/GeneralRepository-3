@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EmailService.Api.Contracts\EmailService.Api.Contracts.csproj" />
       <ProjectReference Include="..\ReportService.BLL\ReportService.BLL.csproj" />
       <ProjectReference Include="..\ReportService.DAL\ReportService.DAL.csproj" />
       <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />

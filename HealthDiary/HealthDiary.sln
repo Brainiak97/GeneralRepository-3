@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserService", "UserService", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
-	ProjectSection(SolutionItems) = preProject
-		compose.yaml = compose.yaml
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Api", "UserService.Api\UserService.Api.csproj", "{9C9F00B7-3989-46BA-8137-7F04A767C831}"
 EndProject
@@ -96,6 +93,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricService.Api.Contracts
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateService.Api.Contracts", "StateService.Api.Contracts\StateService.Api.Contracts.csproj", "{3FEE2B49-C0A8-4E12-9DF6-AEF65055CD46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.EmailService.Common", "Shared.EmailService.Common\Shared.EmailService.Common.csproj", "{12C48279-EA92-4352-8D8A-68DEE32DF3EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService.Common", "ReportService.Common\ReportService.Common.csproj", "{3B679967-67F5-43A2-94D5-5060E463FB37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.Api.Contracts", "EmailService.Api.Contracts\EmailService.Api.Contracts.csproj", "{85CBD162-BBD3-4B74-8A02-73617FA73860}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{804B1A84-19EB-4152-9776-F589533D451C}"
+EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -246,6 +252,18 @@ Global
 		{3FEE2B49-C0A8-4E12-9DF6-AEF65055CD46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FEE2B49-C0A8-4E12-9DF6-AEF65055CD46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FEE2B49-C0A8-4E12-9DF6-AEF65055CD46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C48279-EA92-4352-8D8A-68DEE32DF3EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C48279-EA92-4352-8D8A-68DEE32DF3EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C48279-EA92-4352-8D8A-68DEE32DF3EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C48279-EA92-4352-8D8A-68DEE32DF3EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B679967-67F5-43A2-94D5-5060E463FB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B679967-67F5-43A2-94D5-5060E463FB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B679967-67F5-43A2-94D5-5060E463FB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B679967-67F5-43A2-94D5-5060E463FB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85CBD162-BBD3-4B74-8A02-73617FA73860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85CBD162-BBD3-4B74-8A02-73617FA73860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85CBD162-BBD3-4B74-8A02-73617FA73860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85CBD162-BBD3-4B74-8A02-73617FA73860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -287,6 +305,9 @@ Global
 		{5F2E16DA-AB0F-422B-9089-5DA5371ED58A} = {604A5CE0-DF86-4B13-ADAF-15D930986F5F}
 		{C4F3E9E6-D7C9-4BCC-9759-2C4ED2248A47} = {C151E308-C652-4702-9274-9B06FF5DE265}
 		{3FEE2B49-C0A8-4E12-9DF6-AEF65055CD46} = {2E2BF723-B720-4502-AC75-924883FD8660}
+		{12C48279-EA92-4352-8D8A-68DEE32DF3EC} = {3E9243A7-68EA-4B13-B44E-42CD25414931}
+		{3B679967-67F5-43A2-94D5-5060E463FB37} = {63050D05-3C7F-480A-86D0-E87D7E7B6C91}
+		{85CBD162-BBD3-4B74-8A02-73617FA73860} = {CCB57C20-F91F-412B-8718-DFA9C110A0D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F53385AA-EEFC-464F-9C2B-4773A1C1B1DD}

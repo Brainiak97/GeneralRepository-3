@@ -1,4 +1,4 @@
-﻿using EmailService.BLL.Dto;
+﻿using EmailService.Api.Contracts.Dtos;
 using EmailService.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +19,7 @@ namespace EmailService.Api.Controllers
         /// </summary>
         /// <param name="dto">DTO с данными получателя, темой и телом письма</param>
         [HttpPost("SendEmail")]
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> SendEmail([FromForm] SendEmailDto dto)
         {
             var result = await _emailService.SendEmailAsync(dto.To, dto.Subject, dto.Body, dto.Attachments);

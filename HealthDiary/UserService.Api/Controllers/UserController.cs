@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Auth;
-using Shared.EmailClient;
-using Shared.EmailClient.Dto;
 using System.Security.Claims;
-using System.Threading;
+using EmailService.Api.Contracts;
+using EmailService.Api.Contracts.Dtos;
+using Shared.EmailService.Common.Builders;
 using UserService.BLL.Dto;
 using UserService.BLL.Interfaces;
 
@@ -15,7 +15,11 @@ namespace UserService.Api.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController(IUserService userService, IEmailServiceClient emailServiceClient, IJwtService jwtService) : ControllerBase
+    public class UserController(
+        IUserService userService,
+        IEmailServiceClient emailServiceClient,
+        IJwtService jwtService,
+        IEmailMessageRequestBuilder messageBuilder) : ControllerBase
     {
         private readonly IUserService _userService = userService;
         private readonly IEmailServiceClient _emailServiceClient = emailServiceClient;
@@ -61,18 +65,16 @@ namespace UserService.Api.Controllers
             var user = await _userService.FindByEmail(email, cancellationToken);
             if (user == null || user.IsEmailConfirmed)
                 return Ok(new { message = "Email подтвержден" });
-
+        
             var token = GenerateEmailVerificationTokenAsync(user.Id, user.Email);
             var link = $"{serviceLink}VerifyEmail?token={token}";
 
-            var emailDto = new SendEmailDto
-            {
-                To = user.Email,
-                Subject = "Подтвердите ваш email",
-                Body = $"<p>Нажмите на ссылку ниже, чтобы подтвердить ваш email:</p><a href='{link}'>{link}</a>"
-            };
+            var messageData = messageBuilder
+                .WithSubject("Подтвердите ваш email")
+                .WithCustomBodyPart($"<p>Нажмите на ссылку ниже, чтобы подтвердить ваш email:</p><a href='{link}'>{link}</a>")
+                .Build(user.Email);
 
-            await _emailServiceClient.SendEmailAsync(emailDto);
+            await _emailServiceClient.SendEmailAsync(messageData);
 
             return Ok(new { message = "Письмо отправлено" });
         }

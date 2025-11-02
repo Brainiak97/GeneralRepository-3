@@ -16,8 +16,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EmailService.Api.Contracts\EmailService.Api.Contracts.csproj" />
+      <ProjectReference Include="..\EmailService.BLL\EmailService.BLL.csproj" />
       <ProjectReference Include="..\ReportService.Api.Contracts\ReportService.Api.Contracts.csproj" />
+      <ProjectReference Include="..\ReportService.Common\ReportService.Common.csproj" />
       <ProjectReference Include="..\ReportService.DAL\ReportService.DAL.csproj" />
+      <ProjectReference Include="..\Shared.EmailClient\Shared.EmailClient.csproj" />
+      <ProjectReference Include="..\Shared.EmailService.Common\Shared.EmailService.Common.csproj" />
     </ItemGroup>
 
 </Project>

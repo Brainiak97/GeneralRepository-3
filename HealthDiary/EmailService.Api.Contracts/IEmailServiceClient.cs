@@ -1,6 +1,7 @@
-﻿using Shared.EmailClient.Dto;
+﻿using EmailService.Api.Contracts.Dtos;
+using Shared.EmailService.Common.Data;
 
-namespace Shared.EmailClient
+namespace EmailService.Api.Contracts
 {
     /// <summary>
     /// Определяет контракт для клиента, взаимодействующего с email-сервисом через HTTP.
@@ -10,10 +11,10 @@ namespace Shared.EmailClient
         /// <summary>
         /// Асинхронно отправляет электронное письмо, используя предоставленные данные.
         /// </summary>
-        /// <param name="dto">Объект <see cref="SendEmailDto"/>, содержащий параметры письма: адрес получателя, тема, тело.</param>
+        /// <param name="emailMessageData">Данные электронного письма.</param>
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает <see langword="true"/>, если письмо было успешно отправлено; иначе — <see langword="false"/>.</returns>
-        Task<bool> SendEmailAsync(SendEmailDto dto);
+        Task<bool> SendEmailAsync(EmailMessageData emailMessageData);
 
         /// <summary>
         /// Асинхронно отправляет электронное письмо, используя указанный шаблон и параметры замены.

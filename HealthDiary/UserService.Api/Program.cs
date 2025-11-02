@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http.Json;
+﻿using EmailService.Api.Contracts;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared.Auth;
-using Shared.EmailClient;
+using Shared.EmailService.Common;
 using Shared.Logging;
 using UserService.Api.Data;
 using UserService.Api.Infrastructure;
@@ -44,6 +45,7 @@ builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 // Email сервис
 builder.Services.AddEmailServiceClient("https://localhost:7281/");
+builder.Services.AddEmailMessageBuilder();
 
 // Загрузка общей конфигурации JWT
 builder.Services.AddJwtAuthentication();

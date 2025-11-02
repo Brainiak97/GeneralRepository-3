@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Shared.EmailClient
+namespace EmailService.Api.Contracts
 {
     /// <summary>
     /// Содержит методы расширения для регистрации email-клиента в коллекции сервисов.

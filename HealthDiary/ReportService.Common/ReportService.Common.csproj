@@ -4,11 +4,10 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />
+      <ProjectReference Include="..\ReportService.Domain\ReportService.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ public interface IReportService
     /// <param name="command">Идентификатор результата приёма у врача.</param>
     /// <param name="cancellationToken">Формат отчёта.</param>
     /// <returns>Сгенерированный отчёт.</returns>
-    Task<(byte[] Content, string FileName)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken);
+    Task<(byte[] Content, string FileName)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Вернуть отчёт по идентификатору.
@@ -22,7 +22,7 @@ public interface IReportService
     /// <param name="reportId">Идентификатор отчёта.</param>
     /// <param name="cancellationToken">Токен отмены.</param>
     /// <returns>Отчёт по идентификатору или <see langword="null"/> если нет.</returns>
-    Task<Report?> GetReportByIdAsync(int reportId, CancellationToken cancellationToken);
+    Task<Report?> GetReportByIdAsync(int reportId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Добавить отчёт.
@@ -30,7 +30,7 @@ public interface IReportService
     /// <param name="command">Команда добавления сгенерированного отчёта.</param>
     /// <param name="cancellationToken"></param>
     /// <returns>Идентификатор отчёта.</returns>
-    Task<int> AddReportAsync(AddReportCommand command, CancellationToken cancellationToken);
+    Task<int> AddReportAsync(AddReportCommand command, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Редактировать отчёт.
@@ -38,7 +38,7 @@ public interface IReportService
     /// <param name="command">Команда редактирования сгенерированного отчёта.</param>
     /// <param name="cancellationToken"></param>
     /// <returns><see cref="Task"/>.</returns>
-    Task UpdateReportAsync(UpdateReportCommand command, CancellationToken cancellationToken);
+    Task UpdateReportAsync(UpdateReportCommand command, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Удалить отчёт.
@@ -46,5 +46,5 @@ public interface IReportService
     /// <param name="reportId">Идентификатор отчёта.</param>
     /// <param name="cancellationToken">Токен отмены.</param>
     /// <returns><see cref="Task"/>.</returns>
-    Task DeleteReportAsync(int reportId, CancellationToken cancellationToken);
+    Task DeleteReportAsync(int reportId, CancellationToken cancellationToken = default);
 }

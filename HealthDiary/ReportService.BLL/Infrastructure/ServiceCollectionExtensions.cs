@@ -5,7 +5,9 @@ using ReportService.BLL.Common.Generators.Pdf;
 using ReportService.BLL.Common.Templates.QuestPdf.Containers;
 using ReportService.BLL.Data.Commands;
 using ReportService.BLL.Interfaces;
+using ReportService.BLL.Services;
 using ReportService.BLL.Validators;
+using Shared.EmailService.Common;
 
 namespace ReportService.BLL.Infrastructure;
 
@@ -28,11 +30,15 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddCommon(this IServiceCollection services) =>
         services
             .AddScoped<IPdfReportGenerator, PdfReportGenerator>()
-            .AddScoped<IReportGeneratorFactory, ReportGeneratorFactory>()
-            .AddSingleton<IReportTemplatesContainer, ReportTemplatesContainer>();
+            .AddScoped<IReportGeneratorFactory>(provider =>
+                new ReportGeneratorFactory(provider.GetRequiredService<IPdfReportGenerator>))
+            .AddSingleton<IReportTemplatesContainer, ReportTemplatesContainer>()
+            .AddEmailMessageBuilder();
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>
-        services.AddScoped<IReportService, Services.ReportService>();
+        services
+            .AddScoped<IReportService, Services.ReportService>()
+            .AddScoped<IEmailSendService, EmailSendService>();   
 
     private static IServiceCollection AddValidators(this IServiceCollection services) =>
         services
