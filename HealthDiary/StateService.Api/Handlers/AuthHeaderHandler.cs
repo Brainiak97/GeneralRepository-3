@@ -12,7 +12,7 @@
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (_headers.Authorization.Count() != 0)
+            if (_headers.Authorization.Any())
             {
                 request.Headers.Add("Authorization", _headers.Authorization.ToString());
             }

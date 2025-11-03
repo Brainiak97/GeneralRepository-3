@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using MetricServiceContracts= MetricService.Api.Contracts.Dtos.Common;
 using MetricService.Api.Contracts.Dtos.HealthMetricValue;
 using MetricService.Api.Contracts.Dtos.Sleep;
 using MetricService.Api.Contracts.Dtos.Workout;
-using StateServiceContracts=StateService.Api.Contracts.Dtos;
-using StateServiceDomainDto=StateService.Domain.Dto;
+using StateServiceDomainDto = StateService.Domain.Dto;
 
 namespace StateService.BLL.Mapping
 {
@@ -12,8 +10,6 @@ namespace StateService.BLL.Mapping
     {
         public MapperProfile()
         {
-            CreateMap<StateServiceContracts.RequestListWithPeriodByIdDto, MetricServiceContracts.RequestListWithPeriodByIdDTO>();
-
             CreateMap<HealthMetricValueDTO, StateServiceDomainDto.HealthMetrics>()
                 .ForMember(dest => dest.MetricDate, opt => opt.MapFrom(src => src.RecordedAt))
                 .ForMember(dest => dest.MetricName, opt => opt.MapFrom(src => src.HealthMetric.Name))

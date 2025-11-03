@@ -37,6 +37,6 @@ namespace StateService.Api.Contracts.Dtos
         /// <summary>
         /// Получает или задаёт пол пользователя.
         /// </summary>
-        public GenderDto Gender { get; set; }
+        public Gender Gender { get; set; }
     }
 }

@@ -10,7 +10,9 @@ namespace StateService.Api.Mapping
 	{
 		public ApiMapperProfile()
 		{
-			CreateMap<StateServiceDomain.UserHealthReport, StateServiceContracts.UserHealthReportDto>();
+            CreateMap<StateServiceContracts.RequestListWithPeriodByIdDto, MetricServiceContracts.RequestListWithPeriodByIdDTO>();
+
+            CreateMap<StateServiceDomain.UserHealthReport, StateServiceContracts.UserHealthReportDto>();
 
             CreateMap<StateServiceDomainDto.Sleep, StateServiceContracts.SleepDto>();
 

@@ -39,10 +39,12 @@ builder.Services.AddScoped<IStateService, StateService.BLL.Services.StateService
 builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("Services"));
 var serviceUrlsFromConfig = builder.Configuration.GetSection("Services").Get<ServiceUrls>();
 
+//предоставляющий объект HttpContext
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 if (serviceUrlsFromConfig != null)
 {
+    //перехватчик HTTP-запросов
     builder.Services.AddTransient<DelegatingHandler, AuthHeaderHandler>();
     
     builder.Services.AddFoodServiceClient(serviceUrlsFromConfig.FoodServiceUrl);

@@ -3,7 +3,7 @@
     /// <summary>
     /// Представляет пол пользователя.
     /// </summary>
-    public enum GenderDto
+    public enum Gender
     {
         /// <summary>
         /// Мужской пол.

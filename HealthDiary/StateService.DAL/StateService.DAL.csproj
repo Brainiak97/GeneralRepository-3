@@ -11,8 +11,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\StateService.Api.Contracts\StateService.Api.Contracts.csproj" />
+  <ItemGroup>    
     <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />
   </ItemGroup>
 
