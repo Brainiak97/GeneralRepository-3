@@ -5,12 +5,12 @@ using ReportService.DAL.Interfaces.Repositories;
 namespace ReportService.BLL.Common.Generators.Pdf;
 
 /// <inheritdoc />
-internal class QuestPdfReportGenerator(
+internal class PdfReportGenerator(
     IReportsRepository reportsRepository,
     IReportTemplatesContainer templatesContainer) : IPdfReportGenerator
 {
     /// <inheritdoc />
-    public async Task<byte[]> GenerateAsync(int templateId, string reportData)
+    public async Task<byte[]> GenerateAsync(int templateId, string reportData, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(reportData))
         {
