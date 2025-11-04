@@ -1,4 +1,4 @@
-﻿namespace StateService.Domain.Dto
+﻿namespace StateService.Api.Contracts.Dtos
 {
     /// <summary>
     /// Упрощённая модель показателей здоровья для передачи в AI

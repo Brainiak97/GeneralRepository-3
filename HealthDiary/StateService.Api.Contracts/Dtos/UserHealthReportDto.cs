@@ -1,8 +1,6 @@
-﻿using StateService.Domain.Dto;
-
-namespace StateService.Domain.Models
+﻿namespace StateService.Api.Contracts.Dtos
 {
-    public class UserHealthReport
+    public class UserHealthReportDto
     {
         /// <summary>
         /// Дата отчёта
@@ -12,21 +10,21 @@ namespace StateService.Domain.Models
         /// <summary>
         /// Медицинские показатели (несколько измерений за день)
         /// </summary>
-        public List<HealthMetrics>? HealthMetrics { get; set; } = [];
+        public List<HealthMetricsDto> HealthMetrics { get; set; } = [];
 
         /// <summary>
         /// Тренировки за день
         /// </summary>
-        public List<Workout>? PhysicalActivity { get; set; } = [];
+        public List<WorkoutDto> PhysicalActivity { get; set; } = [];
 
         /// <summary>
         /// Данные о сне (одна или несколько сессий)
         /// </summary>
-        public List<Sleep>? Sleep { get; set; } = [];
+        public List<SleepDto> Sleep { get; set; } = [];
 
         /// <summary>
         /// Приёмы пищи за день
         /// </summary>
-        public List<object>? FoodData { get; set; } = [];
+        public List<object> FoodData { get; set; } = [];
     }
 }

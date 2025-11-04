@@ -1,6 +1,6 @@
 ﻿namespace StateService.Domain.Dto
 {
-    public class WorkoutDto
+    public class Workout
     {
         /// <summary>
         /// Идентификатор данных и справочника "Физическая активность"

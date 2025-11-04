@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
@@ -16,8 +17,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodService.Api.Contracts\FoodService.Api.Contracts.csproj" />
+    <ProjectReference Include="..\MetricService.Api.Contracts\MetricService.Api.Contracts.csproj" />
     <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
     <ProjectReference Include="..\Shared.Logging\Shared.Logging.csproj" />
+    <ProjectReference Include="..\StateService.Api.Contracts\StateService.Api.Contracts.csproj" />
     <ProjectReference Include="..\StateService.BLL\StateService.BLL.csproj" />
     <ProjectReference Include="..\StateService.DAL\StateService.DAL.csproj" />
     <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />

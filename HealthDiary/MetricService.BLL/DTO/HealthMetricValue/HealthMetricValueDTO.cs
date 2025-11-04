@@ -15,5 +15,10 @@
         /// Идентификатор пользователя
         /// </summary>          
         public int UserId { get; set; }
+
+        /// <summary>
+        /// Показатель здоровья
+        /// </summary>         
+        public required HealthMetricDTO HealthMetric { get; set; }
     }
 }

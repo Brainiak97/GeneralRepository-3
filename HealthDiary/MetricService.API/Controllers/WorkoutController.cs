@@ -56,18 +56,13 @@ namespace MetricService.API.Controllers
         /// <summary>
         /// Получить список тренировок по пользователю за период
         /// </summary>
-        /// <param name="requestListWithPeriodByIdDTO">Данные пользователя и период</param>
+        /// <param name="request">Данные пользователя и период</param>
         /// <returns></returns>
         [HttpGet(nameof(GetAllWorkouts))]
-        public async Task<IActionResult> GetAllWorkouts([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
+        public async Task<IActionResult> GetAllWorkouts([FromQuery] RequestListWithPeriodByIdDTO request)
         {
-            var result = await _workoutService.GetAllWorkoutsByUserIdAsync(requestListWithPeriodByIdDTO);
-
-            if (!result.Any())
-            {
-                return Ok("Список пуст");
-            }
-
+            var result = await _workoutService.GetAllWorkoutsByUserIdAsync(request);
+            
             return Ok(result);
         }
 

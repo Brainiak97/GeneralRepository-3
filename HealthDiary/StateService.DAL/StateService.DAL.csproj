@@ -11,10 +11,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MetricService.Domain\MetricService.Domain.csproj" />
+  <ItemGroup>    
     <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />
-    <ProjectReference Include="..\UserService.Domain\UserService.Domain.csproj" />
   </ItemGroup>
 
 </Project>

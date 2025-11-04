@@ -1,6 +1,6 @@
-﻿using UserService.Domain.Models;
+﻿using StateService.Api.Contracts.Dtos.Enums;
 
-namespace StateService.Domain.Dto
+namespace StateService.Api.Contracts.Dtos
 {
     public class UserDto
     {

@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetricService.Api.Contracts\MetricService.Api.Contracts.csproj" />
+    <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />    
     <ProjectReference Include="..\StateService.DAL\StateService.DAL.csproj" />
     <ProjectReference Include="..\StateService.Domain\StateService.Domain.csproj" />
   </ItemGroup>

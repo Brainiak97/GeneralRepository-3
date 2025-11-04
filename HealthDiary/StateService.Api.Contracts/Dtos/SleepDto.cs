@@ -1,4 +1,4 @@
-﻿namespace StateService.Domain.Dto
+﻿namespace StateService.Api.Contracts.Dtos
 {
     public class SleepDto
     {

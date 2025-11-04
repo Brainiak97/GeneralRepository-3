@@ -69,7 +69,7 @@ namespace StateService.DAL.Providers
         /// <summary>
         /// Генерация рекомендаций по сводке здоровья
         /// </summary>
-        public async Task<string> GetHealthRecommendationsAsync(AggregatedHealthSummaryDto summary)
+        public async Task<string> GetHealthRecommendationsAsync(AggregatedHealthSummary summary)
         {
             var periodText = summary.Period switch
             {
