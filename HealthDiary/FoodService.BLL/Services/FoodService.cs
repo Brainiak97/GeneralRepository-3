@@ -1,4 +1,5 @@
-﻿using FoodService.BLL.Contracts.Commands;
+﻿using System.Collections.Concurrent;
+using FoodService.BLL.Contracts.Commands;
 using FoodService.BLL.Interfaces;
 using FoodService.DAL.Entities;
 using FoodService.DAL.Repository;
@@ -8,10 +9,12 @@ namespace FoodService.BLL.Services
 	public class FoodService : IFoodService
 	{
 		private readonly IFoodRepository _foodRepository;
+		private ConcurrentDictionary<int, SemaphoreSlim> _userSemaphores;
 
-		public FoodService( IFoodRepository foodRepository )
+		public FoodService( IFoodRepository foodRepository, ConcurrentDictionary<int, SemaphoreSlim> userSemaphores )
 		{
 			_foodRepository = foodRepository;
+			_userSemaphores = userSemaphores;
 		}
 
 		public async Task<Product?> GetProduct( int productId )
@@ -70,22 +73,37 @@ namespace FoodService.BLL.Services
 
 		public async Task<Diet> AddDiet( AddDietCommand command )
 		{
-			var diets = await _foodRepository.GetAll<Diet>( x => x.UserId == command.UserId );
-			if ( diets.Count > 0 )
+			// получаем/добавляем semaphore для текущего пользоватедя
+			var semaphore = _userSemaphores.GetOrAdd( command.UserId, new SemaphoreSlim( 1, 1 ) );
+
+			await semaphore.WaitAsync();
+			try
 			{
-				throw new InvalidOperationException( $"Для пользователя {command.UserId} уже установлен план питания {diets.First()}" );
+				var diets = await _foodRepository.GetAll<Diet>( x => x.UserId == command.UserId );
+				if ( diets.Count > 0 )
+				{
+					throw new InvalidOperationException( $"Для пользователя {command.UserId} уже установлен план питания {diets.First()}" );
+				}
+
+				var dietNew = new Diet(
+					command.UserId,
+					command.Name,
+					command.Calories,
+					command.Proteins,
+					command.Fats,
+					command.Carbs );
+				var diet = await _foodRepository.AddAsync( dietNew );
+				return diet;
 			}
+			finally
+			{
+				// освобождаем блокировку
+				semaphore.Release();
 
-			var dietNew = new Diet(
-				command.UserId,
-				command.Name,
-				command.Calories,
-				command.Proteins,
-				command.Fats,
-				command.Carbs );
-			var diet = await _foodRepository.AddAsync( dietNew );
-
-			return diet;
+				// можно было бы удалять семафоры чтобы они не копились (возможна утечка памяти),
+				// но это может привести к ситуации, когда два потока войдут в критическую секцию одновременно
+				// поэтому храним все симафоры - для небольшого количества пользователей (тысяча) это приемлемо
+			}
 		}
 
 		public async Task UpdateDiet( Diet inputDiet )

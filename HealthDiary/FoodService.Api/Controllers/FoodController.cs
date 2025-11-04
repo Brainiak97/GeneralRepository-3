@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using FoodService.Api.Contracts.Dtos.Requests;
 using FoodService.Api.Contracts.Dtos.Responses;
 using FoodService.BLL.Contracts.Commands;
@@ -102,10 +103,18 @@ namespace FoodService.Api.Controllers
 			// TODO проверка пользователя через UserService
 
 			var command = _modelMapper.Map<AddDietCommand>( request );
-			var diet = await _foodService.AddDiet( command );
-			var dietDto = _modelMapper.Map<DietDto>( diet );
 
-			return Ok( dietDto );
+			try
+			{
+				var diet = await _foodService.AddDiet( command );
+				var dietDto = _modelMapper.Map<DietDto>( diet );
+
+				return Ok( dietDto );
+			}
+			catch ( InvalidOperationException exc )
+			{
+				return StatusCode( (int)HttpStatusCode.NotAcceptable );
+			}
 		}
 
 		[HttpPut( nameof( UpdateDiet ) )]
