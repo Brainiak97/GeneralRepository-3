@@ -1,4 +1,6 @@
 using AutoMapper;
+using ReportService.Api.Contracts.Data.Dto;
+using ReportService.BLL.Data;
 using ReportService.BLL.Data.Commands;
 using ReportService.Domain.Models;
 using ReportService.Domain.Models.Entities;
@@ -17,8 +19,15 @@ public class ReportServiceMapperProfile : Profile
     {
         CreateMap<AddReportCommand, Report>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ReportId));
-        CreateMap<UpdateReportCommand, Report>();
+        CreateMap<UpdateReportCommand, Report>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ReportId));
         CreateMap<Api.Contracts.Enums.ReportFormat, ReportFormat>().ReverseMap();
+        CreateMap<ReportTemplateMetadata, ReportTemplateType>()
+            .ConstructUsing((source, context) => new ReportTemplateType(source.Id, source.Name));
+        CreateMap<TemplateField, TemplateFieldDto>()
+            .ConstructUsing((source, context) =>
+                new TemplateFieldDto(source.Name, source.Type, source.DisplayName, source.MayBeNull));
+        CreateMap<ReportTemplateType, ReportTemplateTypeDto>();
         CreateMap<Report, Report>()
             .ForMember(dest => dest.Id, opt => opt.Ignore());
     }

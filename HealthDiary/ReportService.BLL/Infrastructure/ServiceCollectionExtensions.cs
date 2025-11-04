@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using ReportService.BLL.Common.DataSources.Containers;
 using ReportService.BLL.Common.Generators.Factories;
 using ReportService.BLL.Common.Generators.Pdf;
 using ReportService.BLL.Common.Templates.QuestPdf.Containers;
@@ -33,6 +34,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IReportGeneratorFactory>(provider =>
                 new ReportGeneratorFactory(provider.GetRequiredService<IPdfReportGenerator>))
             .AddSingleton<IReportTemplatesContainer, ReportTemplatesContainer>()
+            .AddSingleton<IDataSourceInstancesContainer, DataSourceInstancesContainer>()
             .AddEmailMessageBuilder();
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>

@@ -34,7 +34,8 @@ namespace ReportService.DAL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор шаблона")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false, comment: "Имя шаблона"),
-                    ReportTemplateTypeName = table.Column<string>(type: "text", nullable: false, comment: "Наименование типа источника данных для шаблона отчёта в приложении")
+                    ReportTemplateTypeName = table.Column<string>(type: "text", nullable: false, comment: "Наименование типа шаблона в приложении"),
+                    ReportTemplateSourceTypeName = table.Column<string>(type: "text", nullable: false, comment: "Наименование типа источника данных для шаблона отчёта в приложении")
                 },
                 constraints: table =>
                 {
@@ -44,11 +45,11 @@ namespace ReportService.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "ReportTemplatesMetadata",
-                columns: new[] { "Id", "Name", "ReportTemplateTypeName"},
+                columns: new[] { "Id", "Name", "ReportTemplateTypeName", "ReportTemplateSourceTypeName"},
                 values: new object[,]
                 {
-                    { 1, "Cтандартный отчёт", "DefaultReportTemplate"},
-                    { 2, "Отчёт кардиолога", "CardiologistReportTemplate"},
+                    { 1, "Cтандартный отчёт", "DefaultReportTemplate", "DefaultReportDataDto"},
+                    { 2, "Отчёт кардиолога", "CardiologistReportTemplate", "CardiologistReportDataDto" },
                 });
         }
 

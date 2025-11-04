@@ -47,8 +47,14 @@ internal class ReportsRepository(ReportServiceDbContext dbContext, IMapper mappe
             .ExecuteDeleteAsync();
 
     /// <inheritdoc />
-    public async Task<ReportTemplateMetadata?> GetMetadataByIdAsync(int templateId) =>
+    public async Task<ReportTemplateMetadata?> GetMetadataByIdAsync(int templateId, CancellationToken cancellationToken = default) =>
         await dbContext.ReportTemplatesMetadata
             .AsNoTracking()
-            .SingleOrDefaultAsync(m => m.Id == templateId);
+            .SingleOrDefaultAsync(m => m.Id == templateId, cancellationToken);
+
+    /// <inheritdoc />
+    public async Task<IList<ReportTemplateMetadata>> GetTemplatesMetadata(CancellationToken cancellationToken = default) =>
+        await dbContext.ReportTemplatesMetadata
+            .AsNoTracking()
+            .ToListAsync(cancellationToken); 
 }
