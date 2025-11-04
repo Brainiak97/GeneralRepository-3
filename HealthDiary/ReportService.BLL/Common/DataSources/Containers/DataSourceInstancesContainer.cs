@@ -12,8 +12,8 @@ internal class DataSourceInstancesContainer : IDataSourceInstancesContainer
 
     public DataSourceInstancesContainer()
     {
-        _reportTemplateFields = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(a => a.GetTypes())
+        _reportTemplateFields = typeof(IReportData).Assembly
+            .GetTypes()
             .Where(t => !t.IsAbstract && typeof(IReportData).IsAssignableFrom(t))
             .Select<Type, KeyValuePair<string, List<TemplateField>>>(type =>
             {
@@ -42,7 +42,7 @@ internal class DataSourceInstancesContainer : IDataSourceInstancesContainer
             var mayBeNull = Nullable.GetUnderlyingType(property.PropertyType) is not null || !property.PropertyType.IsValueType;
             var templateField = new TemplateField(
                 property.Name,
-                property.PropertyType.ToString(),
+                property.PropertyType.Name,
                 property.GetPropertyDisplayName(),
                 mayBeNull);
             
