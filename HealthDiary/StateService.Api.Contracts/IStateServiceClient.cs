@@ -19,5 +19,8 @@ namespace StateService.Api.Contracts
 
         [Get($"/{nameof(Test)}")]
         public Task<ProductDto?> Test(int productId);
+
+        [Get($"/{nameof(GetMedicationProgress)}")]
+        public Task<MedicationProgressDto> GetMedicationProgress(RequestListWithPeriodByIdDto request);
     }
 }

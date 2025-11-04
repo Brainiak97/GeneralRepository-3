@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FoodService.Api.Contracts;
-using MetricService.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using StateService.Api.Contracts.Dtos;
 using StateService.Api.Infrastructure;
@@ -15,15 +14,12 @@ namespace StateService.Api.Controllers
     public class StateController(IStateService stateService,
                                  IGroqProvider groqProvider,
                                  IFoodServiceClient foodServiceClient,
-                                 IMapper mapper,
-                                 IMetricServiceClient metricServiceClient) : ControllerBase
+                                 IMapper mapper) : ControllerBase
     {
         private readonly IStateService _stateService = stateService;
         private readonly IGroqProvider _groqProvider = groqProvider;
         private readonly IFoodServiceClient _foodServiceClient = foodServiceClient;
         private readonly IMapper _mapper = mapper;
-        private readonly IMetricServiceClient _metricServiceClient = metricServiceClient;
-
 
         [HttpGet(nameof(GetDailySummary))]
         public async Task<IActionResult> GetDailySummary(int userId)
@@ -113,6 +109,15 @@ namespace StateService.Api.Controllers
         {
             var product = await _foodServiceClient.GetProduct(productId);
             return Ok(product);
+        }
+
+        [HttpGet(nameof(GetMedicationProgress))]
+        public async Task<IActionResult> GetMedicationProgress([FromQuery] RequestListWithPeriodByIdDto request)
+        {
+            var requestForService = _mapper.Map<RequestListWithPeriodById>(request);
+            var medicationProgress = await _stateService.GetMedicationProgress(requestForService);
+            var medicationProgressDto=_mapper.Map<MedicationProgressDto>(medicationProgress);
+            return Ok(medicationProgressDto);
         }
     }
 }

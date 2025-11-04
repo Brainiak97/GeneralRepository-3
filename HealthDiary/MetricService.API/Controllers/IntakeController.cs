@@ -65,11 +65,6 @@ namespace MetricService.API.Controllers
         {
             var result = await _intakeService.GetAllIntakeByUserIdAsync(requestListWithPeriodByIdDTO);
 
-            if (!result.Any())
-            {
-                return Ok("Список пуст");
-            }
-
             return Ok(result);
         }
 
@@ -81,12 +76,7 @@ namespace MetricService.API.Controllers
         [HttpGet(nameof(GetIntakeById))]
         public async Task<IActionResult> GetIntakeById(int intakeId)
         {
-            var result = await _intakeService.GetIntakeByIdAsync(intakeId);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
+            var result = await _intakeService.GetIntakeByIdAsync(intakeId);           
 
             return Ok(result);
         }

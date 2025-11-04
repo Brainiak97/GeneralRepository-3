@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using MetricServiceContracts=MetricService.Api.Contracts.Dtos.Common;
+using MetricServiceContracts = MetricService.Api.Contracts.Dtos.Common;
 using StateServiceContracts = StateService.Api.Contracts.Dtos;
 using StateServiceDomainDto = StateService.Domain.Dto;
 using StateServiceDomain = StateService.Domain.Models;
 
 namespace StateService.Api.Mapping
 {
-	public class ApiMapperProfile : Profile
-	{
-		public ApiMapperProfile()
-		{
+    public class ApiMapperProfile : Profile
+    {
+        public ApiMapperProfile()
+        {
             CreateMap<StateServiceContracts.RequestListWithPeriodByIdDto, MetricServiceContracts.RequestListWithPeriodByIdDTO>();
 
             CreateMap<StateServiceDomain.UserHealthReport, StateServiceContracts.UserHealthReportDto>();
@@ -20,11 +20,21 @@ namespace StateService.Api.Mapping
 
             CreateMap<StateServiceDomainDto.AggregatedHealthSummary, StateServiceContracts.AggregatedHealthSummaryDto>().ReverseMap();
 
-			CreateMap<StateServiceDomainDto.HealthMetrics, StateServiceContracts.HealthMetricsDto>();
+            CreateMap<StateServiceDomainDto.HealthMetrics, StateServiceContracts.HealthMetricsDto>();
 
-			CreateMap<StateServiceContracts.RequestListWithPeriodByIdDto, StateServiceDomainDto.RequestListWithPeriodById>();
+            CreateMap<StateServiceContracts.RequestListWithPeriodByIdDto, StateServiceDomainDto.RequestListWithPeriodById>();
 
             CreateMap<StateServiceDomainDto.RequestListWithPeriodById, MetricServiceContracts.RequestListWithPeriodByIdDTO>();
+
+            CreateMap<StateServiceDomainDto.MedicationProgress, StateServiceContracts.MedicationProgressDto>();
+
+            CreateMap<StateServiceDomainDto.RegimenProgress, StateServiceContracts.RegimenProgressDto>();
+
+            CreateMap<StateServiceDomainDto.Intake, StateServiceContracts.IntakeDto>();
+
+            CreateMap<StateServiceDomainDto.Medication, StateServiceContracts.MedicationDto>();
+
+            CreateMap<StateServiceDomainDto.DosageForm, StateServiceContracts.DosageFormDto>();
         }
-	}
+    }
 }

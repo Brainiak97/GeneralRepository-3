@@ -61,12 +61,7 @@ namespace MetricService.API.Controllers
         [HttpGet(nameof(GetAllRegimens))]
         public async Task<IActionResult> GetAllRegimens([FromQuery] RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            var result = await _regimenService.GetAllRegimenByUserIdAsync(requestListWithPeriodByIdDTO);
-
-            if (!result.Any())
-            {
-                return Ok("Список пуст");
-            }
+            var result = await _regimenService.GetAllRegimenByUserIdAsync(requestListWithPeriodByIdDTO);           
 
             return Ok(result);
         }

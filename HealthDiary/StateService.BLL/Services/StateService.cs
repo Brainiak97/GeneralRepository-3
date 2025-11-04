@@ -26,9 +26,7 @@ namespace StateService.BLL.Services
 
         public async Task<IEnumerable<UserHealthReport>> GetPeriodSummaryAsync(RequestListWithPeriodById request)
         {
-            if (request.BegDate > request.EndDate)
-                throw new ArgumentException($"Дата начала периода ({request.BegDate}) должна быть раньше даты окончания периода ({request.EndDate}).");
-
+            CheckDate(request);
 
             var requestMetricService = _mapper.Map<RequestListWithPeriodByIdDTO>(request);
             var metricsTask = _metricServiceClient.GetAllHealthMetricsValue(requestMetricService);
@@ -76,6 +74,42 @@ namespace StateService.BLL.Services
             }
 
             return reports;
+        }
+
+        public async Task<MedicationProgress> GetMedicationProgress(RequestListWithPeriodById request)
+        {
+            CheckDate(request);
+
+            var requestMetricService = _mapper.Map<RequestListWithPeriodByIdDTO>(request);
+
+            var regimensTask = _metricServiceClient.GetAllRegimens(requestMetricService);
+            var intakesTask = _metricServiceClient.GetAllIntakes(requestMetricService);
+            var medicationTask = _metricServiceClient.GetAllMedications();
+            var dosageFormTask = _metricServiceClient.GetAllDosageForms();
+
+            await Task.WhenAll(regimensTask, intakesTask, medicationTask, dosageFormTask);
+
+            var regimens = regimensTask.Result;
+            var intakes = intakesTask.Result;
+            var medications = medicationTask.Result;
+            var dosageForms = dosageFormTask.Result;
+
+            return new MedicationProgress
+            {
+                UserId = request.UserId,
+                Regimens = _mapper.Map<List<RegimenProgress>>(regimens, opt =>
+                {
+                    opt.Items["DosageForm"] = dosageForms;
+                    opt.Items["Medications"] = medications;
+                    opt.Items["Intakes"] = intakes;
+                })
+            };
+        }
+
+        private void CheckDate(RequestListWithPeriodById request)
+        {
+            if (request.BegDate > request.EndDate)
+                throw new ArgumentException($"Дата начала периода ({request.BegDate}) должна быть раньше даты окончания периода ({request.EndDate}).");
         }
     }
 }

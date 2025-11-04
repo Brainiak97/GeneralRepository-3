@@ -1,30 +1,30 @@
 ﻿namespace StateService.Api.Contracts.Dtos
 {
-    public class SleepDto
+    public record SleepDto
     {
         /// <summary>
         /// Время начала сна
         /// </summary>
-        public DateTime StartSleep { get; set; }
+        public DateTime StartSleep { get; init; }
 
         /// <summary>
         /// Время окончания сна
         /// </summary>        
-        public DateTime EndSleep { get; set; }
+        public DateTime EndSleep { get; init; }
 
         /// <summary>
         /// Качество сна по 5-ой системе
         /// </summary>
-        public short QualityRating { get; set; }
+        public short QualityRating { get; init; }
 
         /// <summary>
         /// Примечания о качестве сна
         /// </summary>
-        public string? Comment { get; set; }
+        public string? Comment { get; init; }
 
         /// <summary>
         /// Длительность сна
         /// </summary>
-        public TimeSpan SleepDuration { get; set; }
+        public TimeSpan SleepDuration { get; init; }
     }
 }
