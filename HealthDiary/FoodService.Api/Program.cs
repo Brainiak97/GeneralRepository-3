@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using FoodService.Api.Mapping;
 using FoodService.BLL.Interfaces;
 using FoodService.DAL;
@@ -33,6 +34,7 @@ namespace FoodService.Api
 
 			// Add services
 			builder.Services.AddScoped<IFoodService, BLL.Services.FoodService>();
+			builder.Services.AddSingleton<ConcurrentDictionary<int, SemaphoreSlim>>();
 
 			var app = builder.Build();
 
