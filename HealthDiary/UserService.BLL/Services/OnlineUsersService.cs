@@ -4,6 +4,9 @@ using UserService.BLL.Dto;
 
 namespace UserService.BLL.Services
 {
+    /// <summary>
+    /// Предоставляет реализацию бизнес-логики для определения количества активных пользователей разных ролей.
+    /// </summary>
     public class OnlineUsersService : IHostedService, IDisposable
     {
         private readonly ConcurrentDictionary<int, UserSessionDto> _activeSessions = new();
@@ -29,11 +32,13 @@ namespace UserService.BLL.Services
                     case "User":
                         Interlocked.Increment(ref _patientCount);
                         break;
+                    default:
+                        break;
                 }
             }
         }
 
-        // Вызывается при явном logout (если есть)
+        // Вызывается при явном logout
         public void RegisterLogout(int userId)
         {
             if (_activeSessions.TryRemove(userId, out var session))

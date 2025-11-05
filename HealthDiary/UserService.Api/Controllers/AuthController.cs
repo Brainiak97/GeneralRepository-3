@@ -43,7 +43,7 @@ namespace UserService.Api.Controllers
         }
 
         /// <summary>
-        /// Регистрирует нового пользователя.
+        /// Регистрирует нового доктора.
         /// </summary>
         /// <param name="cancellationToken">Токен отмены.</param>
         /// <param name="request">Данные для регистрации пользователя.</param>
@@ -57,11 +57,11 @@ namespace UserService.Api.Controllers
         }
 
         /// <summary>
-        /// Регистрирует нового пользователя.
+        /// Добавляет пользовтаеля к докторам.
         /// </summary>
         /// <param name="cancellationToken">Токен отмены.</param>
-        /// <param name="roleName">Данные для регистрации пользователя.</param>
-        /// <param name="userId">Данные для регистрации пользователя.</param>
+        /// <param name="roleName">Наименование роли.</param>
+        /// <param name="userId">Идентификатор пользователя.</param>
         /// <returns>Результат операции регистрации.</returns>
         [HttpPost("AssignRoleToUser")]
         [Authorize(Roles = "Admin")]
@@ -72,19 +72,21 @@ namespace UserService.Api.Controllers
         }
 
         /// <summary>
-        /// Регистрирует нового пользователя.
+        /// Получает активность всех пользователей.
         /// </summary>
         /// <returns>Результат операции регистрации.</returns>
         [HttpPost("GetUsersActivity")]
         public IActionResult GetUsersActivity()
         {
-            return Ok(
-                new UsersActivity
-                {
-                    DoctorsLoggedIn = _onlineUsersService.GetDoctorCount(),
-                    PatientsLoggedIn = _onlineUsersService.GetPatientCount(),
-                    Total = _onlineUsersService.GetDoctorCount() + _onlineUsersService.GetPatientCount()
-                });
+            var doctorsCount = _onlineUsersService.GetDoctorCount();
+            var patientsCount = _onlineUsersService.GetPatientCount();
+            var response = new UsersActivity
+            {
+                DoctorsLoggedIn = doctorsCount,
+                PatientsLoggedIn = patientsCount,
+                Total = doctorsCount + patientsCount
+            };
+            return Ok(response);
         }
     }
 }
