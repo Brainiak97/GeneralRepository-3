@@ -25,7 +25,8 @@ namespace UserService.Api.Data
             var roles = new List<Role>
             {
                 new() { Name = "User" },
-                new() { Name = "Admin" }
+                new() { Name = "Admin" },
+                new() { Name = "Doctor" },
             };
 
             foreach (var role in roles)

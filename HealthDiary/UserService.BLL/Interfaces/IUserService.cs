@@ -13,9 +13,10 @@ namespace UserService.BLL.Interfaces
         /// </summary>
         /// <param name="request">Объект <see cref="RegisterRequestDto"/>, содержащий данные регистрации.</param>
         /// <param name="cancellationToken">Токен отмены.</param>
+        /// <param name="isDoctor">Флаг для регистрации врача.</param>
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает <see cref="AuthResponseDto"/> с данными аутентификации.</returns>
-        Task<AuthResponseDto> Register(RegisterRequestDto request, CancellationToken cancellationToken);
+        Task<AuthResponseDto> Register(RegisterRequestDto request, CancellationToken cancellationToken, bool isDoctor = false);
 
         /// <summary>
         /// Выполняет вход пользователя по имени пользователя (или email) и паролю.
@@ -105,5 +106,13 @@ namespace UserService.BLL.Interfaces
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает положительный или отрицательный результат.</returns>
         Task<bool> BlockUserAsync(int userId, bool isBlocked, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Присоединяет указанную роль к указанному пользователю.
+        /// </summary>
+        /// <param name="roleName">Наименование роли</param>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <param name="cancellationToken">Токен отмены.</param>
+        Task AssignRoleToUser(string roleName, int userId, CancellationToken cancellationToken);
     }
 }
