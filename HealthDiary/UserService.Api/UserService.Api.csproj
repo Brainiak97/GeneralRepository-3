@@ -19,6 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\EmailService.Api.Contracts\EmailService.Api.Contracts.csproj" />
 		<ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
 		<ProjectReference Include="..\Shared.EmailClient\Shared.EmailClient.csproj" />
 		<ProjectReference Include="..\Shared.Logging\Shared.Logging.csproj" />

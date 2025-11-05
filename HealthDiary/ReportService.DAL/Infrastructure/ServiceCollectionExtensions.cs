@@ -2,10 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ReportService.DAL.Contexts;
-using ReportService.DAL.Infrastructure.Configurations;
-using ReportService.DAL.Interfaces.Providers;
 using ReportService.DAL.Interfaces.Repositories;
-using ReportService.DAL.Providers;
 using ReportService.DAL.Repositories;
 
 namespace ReportService.DAL.Infrastructure;
@@ -23,30 +20,14 @@ public static class ServiceCollectionExtensions
     /// <returns><see cref="IServiceCollection"/>.</returns>
     public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration) =>
         services
-            .AddDbContext<ReportServiceDbContext>(options => 
+            .AddDbContext<ReportServiceDbContext>(options =>
                 {
                     options.UseNpgsql(configuration.GetConnectionString("DbConnectionString"));
                 },
                 contextLifetime: ServiceLifetime.Scoped,
                 optionsLifetime: ServiceLifetime.Singleton)
-            .AddRepositories()
-            .AddHttpDataProviders(configuration);
+            .AddRepositories();
 
     private static IServiceCollection AddRepositories(this IServiceCollection services) =>
         services.AddScoped<IReportsRepository, ReportsRepository>();
-
-    private static IServiceCollection AddHttpDataProviders(this IServiceCollection services, IConfiguration configuration)
-    {
-        var serviceUrls = configuration.GetSection("ApiClients").Get<ServiceUrls>();
-
-        if (serviceUrls is not null)
-        {
-            services.AddHttpClient<IPolyclinicsDataProvider, PolyclinicsDataProvider>(client =>
-            {
-                client.BaseAddress = new Uri(serviceUrls.PolyclinicServiceUrl);
-            });    
-        }
-
-        return services;
-    }
 }
