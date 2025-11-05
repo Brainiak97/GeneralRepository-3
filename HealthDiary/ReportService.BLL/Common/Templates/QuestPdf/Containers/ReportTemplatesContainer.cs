@@ -13,14 +13,14 @@ internal sealed class ReportTemplatesContainer : IReportTemplatesContainer
         _questPdfReportTemplates = Assembly.GetExecutingAssembly()
             .GetTypes()
             .Where(t => !t.IsAbstract && typeof(IReportTemplate).IsAssignableFrom(t))
-            .Select<Type, KeyValuePair<string, IReportTemplate>>(type =>
+            .Select<Type, (string Key, IReportTemplate Value)>(type =>
             {
                 if (Activator.CreateInstance(type) is not IReportTemplate instance)
                 {
                     throw new InvalidOperationException($"Ошибка создания шаблона отчёта с типом {type.Name}");
                 }
 
-                return new KeyValuePair<string, IReportTemplate>(type.Name, instance);
+                return new (type.Name, instance);
             })
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);    
     }

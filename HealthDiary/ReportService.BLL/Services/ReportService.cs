@@ -22,7 +22,7 @@ internal class ReportService(
     : IReportService
 {
     /// <inheritdoc />
-    public async Task<(byte[] Content, string FileName)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken)
+    public async Task<(byte[] Content, string FileName)> GenerateReportAsync(GenerateReportCommand command, CancellationToken cancellationToken = default)
     {
         await generateReportCommandValidator.ValidateAndThrowAsync(command, cancellationToken);
 
@@ -38,11 +38,11 @@ internal class ReportService(
     }
 
     /// <inheritdoc />
-    public async Task<Report?> GetReportByIdAsync(int reportId, CancellationToken cancellationToken) =>
+    public async Task<Report?> GetReportByIdAsync(int reportId, CancellationToken cancellationToken = default) =>
         await reportsRepository.GetByIdAsync(reportId);
 
     /// <inheritdoc />
-    public async Task<int> AddReportAsync(AddReportCommand command, CancellationToken cancellationToken)
+    public async Task<int> AddReportAsync(AddReportCommand command, CancellationToken cancellationToken = default)
     {
         await serviceCommandValidator.ValidateAndThrowAsync(command, cancellationToken);
         
@@ -51,7 +51,7 @@ internal class ReportService(
     }
 
     /// <inheritdoc />
-    public async Task UpdateReportAsync(UpdateReportCommand command, CancellationToken cancellationToken)
+    public async Task UpdateReportAsync(UpdateReportCommand command, CancellationToken cancellationToken = default)
     {
         await serviceCommandValidator.ValidateAndThrowAsync(command, cancellationToken);
         
@@ -60,7 +60,7 @@ internal class ReportService(
     }
 
     /// <inheritdoc />
-    public async Task DeleteReportAsync(int reportId, CancellationToken cancellationToken) =>
+    public async Task DeleteReportAsync(int reportId, CancellationToken cancellationToken = default) =>
         await reportsRepository.DeleteAsync(reportId);
 
     /// <inheritdoc />

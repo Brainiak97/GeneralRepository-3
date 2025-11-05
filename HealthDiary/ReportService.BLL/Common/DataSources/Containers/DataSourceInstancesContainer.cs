@@ -15,10 +15,10 @@ internal class DataSourceInstancesContainer : IDataSourceInstancesContainer
         _reportTemplateFields = typeof(IReportData).Assembly
             .GetTypes()
             .Where(t => !t.IsAbstract && typeof(IReportData).IsAssignableFrom(t))
-            .Select<Type, KeyValuePair<string, List<TemplateField>>>(type =>
+            .Select<Type, (string Key, List<TemplateField> Value)>(type =>
             {
                 var templateFields = GetTypeTemplateFields(type);
-                return new KeyValuePair<string, List<TemplateField>>(type.Name, templateFields);
+                return new (type.Name, templateFields);
             })
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
