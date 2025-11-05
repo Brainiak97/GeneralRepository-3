@@ -23,9 +23,9 @@ public class ReportServiceMapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ReportId));
         CreateMap<Api.Contracts.Enums.ReportFormat, ReportFormat>().ReverseMap();
         CreateMap<ReportTemplateMetadata, ReportTemplateType>()
-            .ConstructUsing((source, context) => new ReportTemplateType(source.Id, source.Name));
+            .ConstructUsing((source, _) => new ReportTemplateType(source.Id, source.Name));
         CreateMap<TemplateField, TemplateFieldDto>()
-            .ConstructUsing((source, context) =>
+            .ConstructUsing((source, _) =>
                 new TemplateFieldDto(source.Name, source.Type, source.DisplayName, source.MayBeNull));
         CreateMap<ReportTemplateType, ReportTemplateTypeDto>();
         CreateMap<Report, Report>()

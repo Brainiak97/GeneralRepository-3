@@ -22,7 +22,6 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ReportServiceMapperProfile>());
 
 builder.Services.AddOpenApi();
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 var swaggerOptions = builder.Configuration.GetSection(nameof(SwaggerOptions)).Get<SwaggerOptions>();
 builder.Services.AddSwagger(swaggerOptions, "ReportService");

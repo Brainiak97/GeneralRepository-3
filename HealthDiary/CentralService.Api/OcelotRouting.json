@@ -106,1473 +106,1473 @@
       "SwaggerKey": "FoodService"
     },
 
-    // MetricService.API AnalysisCategory
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateAnalysisCategory",
-      "DownstreamPathTemplate": "/api/AnalysisCategory/CreateAnalysisCategory",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API AnalysisCategory
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAnalysisCategory",
-      "DownstreamPathTemplate": "/api/AnalysisCategory/UpdateAnalysisCategory",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateAnalysisCategory",
+            "DownstreamPathTemplate": "/api/AnalysisCategory/CreateAnalysisCategory",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteAnalysisCategory",
-      "DownstreamPathTemplate": "/api/AnalysisCategory/DeleteAnalysisCategory",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAnalysisCategory",
+            "DownstreamPathTemplate": "/api/AnalysisCategory/UpdateAnalysisCategory",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllAnalysisCategories",
-      "DownstreamPathTemplate": "/api/AnalysisCategory/GetAllAnalysisCategories",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteAnalysisCategory",
+            "DownstreamPathTemplate": "/api/AnalysisCategory/DeleteAnalysisCategory",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAnalysisCategoryById",
-      "DownstreamPathTemplate": "/api/AnalysisCategory/GetAnalysisCategoryById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllAnalysisCategories",
+            "DownstreamPathTemplate": "/api/AnalysisCategory/GetAllAnalysisCategories",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/FindAnalysisCategoryByName",
-      "DownstreamPathTemplate": "/api/AnalysisCategory/FindAnalysisCategoryByName",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAnalysisCategoryById",
+            "DownstreamPathTemplate": "/api/AnalysisCategory/GetAnalysisCategoryById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/FindAnalysisCategoryByName",
+            "DownstreamPathTemplate": "/api/AnalysisCategory/FindAnalysisCategoryByName",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API AnalysisResul
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateAnalysisResult",
-      "DownstreamPathTemplate": "/api/AnalysisResul/CreateAnalysisResult",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API AnalysisResul
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAnalysisResult",
-      "DownstreamPathTemplate": "/api/AnalysisResul/UpdateAnalysisResult",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateAnalysisResult",
+            "DownstreamPathTemplate": "/api/AnalysisResul/CreateAnalysisResult",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteAnalysisResult",
-      "DownstreamPathTemplate": "/api/AnalysisResul/DeleteAnalysisResult",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAnalysisResult",
+            "DownstreamPathTemplate": "/api/AnalysisResul/UpdateAnalysisResult",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllAnalysisResults",
-      "DownstreamPathTemplate": "/api/AnalysisResul/GetAllAnalysisResults",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteAnalysisResult",
+            "DownstreamPathTemplate": "/api/AnalysisResul/DeleteAnalysisResult",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAnalysisResultById",
-      "DownstreamPathTemplate": "/api/AnalysisResul/GetAnalysisResultById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllAnalysisResults",
+            "DownstreamPathTemplate": "/api/AnalysisResul/GetAllAnalysisResults",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAnalysisResultById",
+            "DownstreamPathTemplate": "/api/AnalysisResul/GetAnalysisResultById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API AnalysisType
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateAnalysisType",
-      "DownstreamPathTemplate": "/api/AnalysisType/CreateAnalysisType",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API AnalysisType
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAnalysisType",
-      "DownstreamPathTemplate": "/api/AnalysisType/UpdateAnalysisType",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateAnalysisType",
+            "DownstreamPathTemplate": "/api/AnalysisType/CreateAnalysisType",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteAnalysisType",
-      "DownstreamPathTemplate": "/api/AnalysisType/DeleteAnalysisType",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAnalysisType",
+            "DownstreamPathTemplate": "/api/AnalysisType/UpdateAnalysisType",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllAnalysisTypes",
-      "DownstreamPathTemplate": "/api/AnalysisType/GetAllAnalysisTypes",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteAnalysisType",
+            "DownstreamPathTemplate": "/api/AnalysisType/DeleteAnalysisType",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAnalysisTypeById",
-      "DownstreamPathTemplate": "/api/AnalysisType/GetAnalysisTypeById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllAnalysisTypes",
+            "DownstreamPathTemplate": "/api/AnalysisType/GetAllAnalysisTypes",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/FindAnalysisTypeByName",
-      "DownstreamPathTemplate": "/api/AnalysisType/FindAnalysisTypeByName",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAnalysisTypeById",
+            "DownstreamPathTemplate": "/api/AnalysisType/GetAnalysisTypeById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/FindAnalysisTypeByName",
+            "DownstreamPathTemplate": "/api/AnalysisType/FindAnalysisTypeByName",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API DosageForm
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateDosageForm",
-      "DownstreamPathTemplate": "/api/DosageForm/CreateDosageForm",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API DosageForm
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateDosageForm",
-      "DownstreamPathTemplate": "/api/DosageForm/UpdateDosageForm",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateDosageForm",
+            "DownstreamPathTemplate": "/api/DosageForm/CreateDosageForm",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteDosageForm",
-      "DownstreamPathTemplate": "/api/DosageForm/DeleteDosageForm",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateDosageForm",
+            "DownstreamPathTemplate": "/api/DosageForm/UpdateDosageForm",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllDosageForms",
-      "DownstreamPathTemplate": "/api/DosageForm/GetAllDosageForms",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteDosageForm",
+            "DownstreamPathTemplate": "/api/DosageForm/DeleteDosageForm",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetDosageFormById",
-      "DownstreamPathTemplate": "/api/DosageForm/GetDosageFormById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllDosageForms",
+            "DownstreamPathTemplate": "/api/DosageForm/GetAllDosageForms",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetDosageFormById",
+            "DownstreamPathTemplate": "/api/DosageForm/GetDosageFormById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API HealthCondition
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateHealthCondition",
-      "DownstreamPathTemplate": "/api/HealthCondition/CreateHealthCondition",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API HealthCondition
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateHealthCondition",
-      "DownstreamPathTemplate": "/api/HealthCondition/UpdateHealthCondition",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateHealthCondition",
+            "DownstreamPathTemplate": "/api/HealthCondition/CreateHealthCondition",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteHealthCondition",
-      "DownstreamPathTemplate": "/api/HealthCondition/DeleteHealthCondition",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateHealthCondition",
+            "DownstreamPathTemplate": "/api/HealthCondition/UpdateHealthCondition",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllHealthConditions",
-      "DownstreamPathTemplate": "/api/HealthCondition/GetAllHealthConditions",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteHealthCondition",
+            "DownstreamPathTemplate": "/api/HealthCondition/DeleteHealthCondition",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetHealthConditionById",
-      "DownstreamPathTemplate": "/api/HealthCondition/GetHealthConditionById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllHealthConditions",
+            "DownstreamPathTemplate": "/api/HealthCondition/GetAllHealthConditions",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetHealthConditionById",
+            "DownstreamPathTemplate": "/api/HealthCondition/GetHealthConditionById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API HealthMetric
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateHealthMetric",
-      "DownstreamPathTemplate": "/api/HealthMetric/CreateHealthMetric",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API HealthMetric
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateHealthMetric",
-      "DownstreamPathTemplate": "/api/HealthMetric/UpdateHealthMetric",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateHealthMetric",
+            "DownstreamPathTemplate": "/api/HealthMetric/CreateHealthMetric",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteHealthMetric",
-      "DownstreamPathTemplate": "/api/HealthMetric/DeleteHealthMetric",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateHealthMetric",
+            "DownstreamPathTemplate": "/api/HealthMetric/UpdateHealthMetric",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllHealthMetrics",
-      "DownstreamPathTemplate": "/api/HealthMetric/GetAllHealthMetrics",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteHealthMetric",
+            "DownstreamPathTemplate": "/api/HealthMetric/DeleteHealthMetric",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetHealthMetricById",
-      "DownstreamPathTemplate": "/api/HealthMetric/GetHealthMetricById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllHealthMetrics",
+            "DownstreamPathTemplate": "/api/HealthMetric/GetAllHealthMetrics",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetHealthMetricById",
+            "DownstreamPathTemplate": "/api/HealthMetric/GetHealthMetricById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API HealthMetricValue
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateHealthMetricValue",
-      "DownstreamPathTemplate": "/api/HealthMetricValue/CreateHealthMetricValue",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API HealthMetricValue
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateHealthMetricValue",
-      "DownstreamPathTemplate": "/api/HealthMetricValue/UpdateHealthMetricValue",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateHealthMetricValue",
+            "DownstreamPathTemplate": "/api/HealthMetricValue/CreateHealthMetricValue",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteHealthMetricValue",
-      "DownstreamPathTemplate": "/api/HealthMetricValue/DeleteHealthMetricValue",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateHealthMetricValue",
+            "DownstreamPathTemplate": "/api/HealthMetricValue/UpdateHealthMetricValue",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllHealthMetricsValue",
-      "DownstreamPathTemplate": "/api/HealthMetricValue/GetAllHealthMetricsValue",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteHealthMetricValue",
+            "DownstreamPathTemplate": "/api/HealthMetricValue/DeleteHealthMetricValue",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetHealthMetricValueById",
-      "DownstreamPathTemplate": "/api/HealthMetricValue/GetHealthMetricValueById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllHealthMetricsValue",
+            "DownstreamPathTemplate": "/api/HealthMetricValue/GetAllHealthMetricsValue",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetHealthMetricValueById",
+            "DownstreamPathTemplate": "/api/HealthMetricValue/GetHealthMetricValueById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API Intake
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateIntake",
-      "DownstreamPathTemplate": "/api/Intake/CreateIntake",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API Intake
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateIntake",
-      "DownstreamPathTemplate": "/api/Intake/UpdateIntake",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateIntake",
+            "DownstreamPathTemplate": "/api/Intake/CreateIntake",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteIntake",
-      "DownstreamPathTemplate": "/api/Intake/DeleteIntake",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateIntake",
+            "DownstreamPathTemplate": "/api/Intake/UpdateIntake",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllIntakes",
-      "DownstreamPathTemplate": "/api/Intake/GetAllIntakes",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteIntake",
+            "DownstreamPathTemplate": "/api/Intake/DeleteIntake",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetIntakeById",
-      "DownstreamPathTemplate": "/api/Intake/GetIntakeById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllIntakes",
+            "DownstreamPathTemplate": "/api/Intake/GetAllIntakes",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetIntakeById",
+            "DownstreamPathTemplate": "/api/Intake/GetIntakeById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API Medication
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateMedication",
-      "DownstreamPathTemplate": "/api/Medication/CreateMedication",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API Medication
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateMedication",
-      "DownstreamPathTemplate": "/api/Medication/UpdateMedication",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateMedication",
+            "DownstreamPathTemplate": "/api/Medication/CreateMedication",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteMedication",
-      "DownstreamPathTemplate": "/api/Medication/DeleteMedication",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateMedication",
+            "DownstreamPathTemplate": "/api/Medication/UpdateMedication",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllMedications",
-      "DownstreamPathTemplate": "/api/Medication/GetAllMedications",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteMedication",
+            "DownstreamPathTemplate": "/api/Medication/DeleteMedication",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetMedicationById",
-      "DownstreamPathTemplate": "/api/Medication/GetMedicationById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllMedications",
+            "DownstreamPathTemplate": "/api/Medication/GetAllMedications",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetMedicationById",
+            "DownstreamPathTemplate": "/api/Medication/GetMedicationById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API PhysicalActivity
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreatePhysicalActivity",
-      "DownstreamPathTemplate": "/api/PhysicalActivity/CreatePhysicalActivity",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API PhysicalActivity
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdatePhysicalActivity",
-      "DownstreamPathTemplate": "/api/PhysicalActivity/UpdatePhysicalActivity",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreatePhysicalActivity",
+            "DownstreamPathTemplate": "/api/PhysicalActivity/CreatePhysicalActivity",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeletePhysicalActivity",
-      "DownstreamPathTemplate": "/api/PhysicalActivity/DeletePhysicalActivity",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdatePhysicalActivity",
+            "DownstreamPathTemplate": "/api/PhysicalActivity/UpdatePhysicalActivity",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllPhysicalActivities",
-      "DownstreamPathTemplate": "/api/PhysicalActivity/GetAllPhysicalActivities",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeletePhysicalActivity",
+            "DownstreamPathTemplate": "/api/PhysicalActivity/DeletePhysicalActivity",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetPhysicalActivityById",
-      "DownstreamPathTemplate": "/api/PhysicalActivity/GetPhysicalActivityById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllPhysicalActivities",
+            "DownstreamPathTemplate": "/api/PhysicalActivity/GetAllPhysicalActivities",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/FindPhysicalActivityByName",
-      "DownstreamPathTemplate": "/api/PhysicalActivity/FindPhysicalActivityByName",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetPhysicalActivityById",
+            "DownstreamPathTemplate": "/api/PhysicalActivity/GetPhysicalActivityById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/FindPhysicalActivityByName",
+            "DownstreamPathTemplate": "/api/PhysicalActivity/FindPhysicalActivityByName",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API Regimen
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateRegimen",
-      "DownstreamPathTemplate": "/api/Regimen/CreateRegimen",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API Regimen
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateRegimen",
-      "DownstreamPathTemplate": "/api/Regimen/UpdateRegimen",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateRegimen",
+            "DownstreamPathTemplate": "/api/Regimen/CreateRegimen",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteRegimenAsync",
-      "DownstreamPathTemplate": "/api/Regimen/DeleteRegimenAsync",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateRegimen",
+            "DownstreamPathTemplate": "/api/Regimen/UpdateRegimen",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllRegimens",
-      "DownstreamPathTemplate": "/api/Regimen/GetAllRegimens",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteRegimenAsync",
+            "DownstreamPathTemplate": "/api/Regimen/DeleteRegimenAsync",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetRegimenById",
-      "DownstreamPathTemplate": "/api/Regimen/GetRegimenById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllRegimens",
+            "DownstreamPathTemplate": "/api/Regimen/GetAllRegimens",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetRegimenById",
+            "DownstreamPathTemplate": "/api/Regimen/GetRegimenById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API Reminder
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateReminder",
-      "DownstreamPathTemplate": "/api/Reminder/CreateReminder",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API Reminder
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateReminder",
-      "DownstreamPathTemplate": "/api/Reminder/UpdateReminder",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateReminder",
+            "DownstreamPathTemplate": "/api/Reminder/CreateReminder",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteReminderAsync",
-      "DownstreamPathTemplate": "/api/Reminder/DeleteReminderAsync",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateReminder",
+            "DownstreamPathTemplate": "/api/Reminder/UpdateReminder",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllRemindersByUser",
-      "DownstreamPathTemplate": "/api/Reminder/GetAllRemindersByUser",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteReminderAsync",
+            "DownstreamPathTemplate": "/api/Reminder/DeleteReminderAsync",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllRemindersByRegimen",
-      "DownstreamPathTemplate": "/api/Reminder/GetAllRemindersByRegimen",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllRemindersByUser",
+            "DownstreamPathTemplate": "/api/Reminder/GetAllRemindersByUser",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetReminderById",
-      "DownstreamPathTemplate": "/api/Reminder/GetReminderById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllRemindersByRegimen",
+            "DownstreamPathTemplate": "/api/Reminder/GetAllRemindersByRegimen",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/ReminderDelivery",
-      "DownstreamPathTemplate": "/api/Reminder/ReminderDelivery",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetReminderById",
+            "DownstreamPathTemplate": "/api/Reminder/GetReminderById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/ReminderDelivery",
+            "DownstreamPathTemplate": "/api/Reminder/ReminderDelivery",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API Sleep
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateSleep",
-      "DownstreamPathTemplate": "/api/Sleep/CreateSleep",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API Sleep
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateSleep",
-      "DownstreamPathTemplate": "/api/Sleep/UpdateSleep",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateSleep",
+            "DownstreamPathTemplate": "/api/Sleep/CreateSleep",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteSleep",
-      "DownstreamPathTemplate": "/api/Sleep/DeleteSleep",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateSleep",
+            "DownstreamPathTemplate": "/api/Sleep/UpdateSleep",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllSleeps",
-      "DownstreamPathTemplate": "/api/Sleep/GetAllSleeps",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteSleep",
+            "DownstreamPathTemplate": "/api/Sleep/DeleteSleep",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetSleepById",
-      "DownstreamPathTemplate": "/api/Sleep/GetSleepById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllSleeps",
+            "DownstreamPathTemplate": "/api/Sleep/GetAllSleeps",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetSleepById",
+            "DownstreamPathTemplate": "/api/Sleep/GetSleepById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // MetricService.API Workout
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/CreateWorkout",
-      "DownstreamPathTemplate": "/api/Workout/CreateWorkout",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // MetricService.API Workout
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateWorkout",
-      "DownstreamPathTemplate": "/api/Workout/UpdateWorkout",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/CreateWorkout",
+            "DownstreamPathTemplate": "/api/Workout/CreateWorkout",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteWorkoutAsync",
-      "DownstreamPathTemplate": "/api/Workout/DeleteWorkoutAsync",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateWorkout",
+            "DownstreamPathTemplate": "/api/Workout/UpdateWorkout",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAllWorkouts",
-      "DownstreamPathTemplate": "/api/Workout/GetAllWorkouts",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteWorkoutAsync",
+            "DownstreamPathTemplate": "/api/Workout/DeleteWorkoutAsync",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetWorkoutById",
-      "DownstreamPathTemplate": "/api/Workout/GetWorkoutById",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAllWorkouts",
+            "DownstreamPathTemplate": "/api/Workout/GetAllWorkouts",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7173
-        }
-      ],
-      "SwaggerKey": "MetricService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetWorkoutById",
+            "DownstreamPathTemplate": "/api/Workout/GetWorkoutById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7173
+                }
+            ],
+            "SwaggerKey": "MetricService"
+        },
 
-    // PolyclinicService.Api AppointmentResults
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/SaveAppointmentResult",
-      "DownstreamPathTemplate": "/api/AppointmentResults/save-appointment-result",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // PolyclinicService.Api AppointmentResults
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentResult",
-      "DownstreamPathTemplate": "/api/AppointmentResults/update-appointment-result",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/SaveAppointmentResult",
+            "DownstreamPathTemplate": "/api/AppointmentResults/save-appointment-result",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteAppointmentResult/{id}",
-      "DownstreamPathTemplate": "/api/AppointmentResults/{id}/delete",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentResult",
+            "DownstreamPathTemplate": "/api/AppointmentResults/update-appointment-result",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAppointmentResult/{id}",
-      "DownstreamPathTemplate": "/api/appointmentresults/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteAppointmentResult/{id}",
+            "DownstreamPathTemplate": "/api/AppointmentResults/{id}/delete",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAppointmentResult/{id}",
+            "DownstreamPathTemplate": "/api/appointmentresults/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
 
-    // PolyclinicService.Api Doctors
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetDoctorById/{id}",
-      "DownstreamPathTemplate": "/api/doctors/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // PolyclinicService.Api Doctors
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetDoctors",
-      "DownstreamPathTemplate": "/api/doctors/all",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetDoctorById/{id}",
+            "DownstreamPathTemplate": "/api/doctors/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicDoctors/{polyclinicId}",
-      "DownstreamPathTemplate": "/api/doctors/get-polyclinic-doctors/{polyclinicId}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetDoctors",
+            "DownstreamPathTemplate": "/api/doctors/all",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/AddDoctor",
-      "DownstreamPathTemplate": "/api/doctors/add-doctor",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicDoctors/{polyclinicId}",
+            "DownstreamPathTemplate": "/api/doctors/get-polyclinic-doctors/{polyclinicId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateDoctorInfo",
-      "DownstreamPathTemplate": "/api/doctors/update-doctor-info",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/AddDoctor",
+            "DownstreamPathTemplate": "/api/doctors/add-doctor",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteDoctor/{id}",
-      "DownstreamPathTemplate": "/api/doctors/delete-doctor/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateDoctorInfo",
+            "DownstreamPathTemplate": "/api/doctors/update-doctor-info",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteDoctor/{id}",
+            "DownstreamPathTemplate": "/api/doctors/delete-doctor/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
 
-    // PolyclinicService.Api PolyclinicSchedules
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlot",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/add-appointment-slot",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // PolyclinicService.Api PolyclinicSchedules
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlotsByTemplate",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/add-appointment-slots-by-template",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlot",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/add-appointment-slot",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlot",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/update-appointment-slot",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlotsByTemplate",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/add-appointment-slots-by-template",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlotStatus",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/update-appointment-slot-status",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlot",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/update-appointment-slot",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteAppointmentSlot/{id}",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/delete-appointment-slot/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlotStatus",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/update-appointment-slot-status",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeletePolyclinicAppointmentSlotsByFilter",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/delete-polyclinic-appointment-slot-by-filter",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteAppointmentSlot/{id}",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/delete-appointment-slot/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAppointmentSlotById/{id}",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeletePolyclinicAppointmentSlotsByFilter",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/delete-polyclinic-appointment-slot-by-filter",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicAppointmentSlotsByDateAsync",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/get-polyclinic-appointment-slot-by-date",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAppointmentSlotById/{id}",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetDoctorActiveAppointmentSlotsAsync",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/get-doctor-active-appointment-slots",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicAppointmentSlotsByDateAsync",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/get-polyclinic-appointment-slot-by-date",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetDoctorActiveAppointmentSlotsAsync",
+            "DownstreamPathTemplate": "/api/polyclinicschedules/get-doctor-active-appointment-slots",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
 
-    // PolyclinicService.Api Polyclinics
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicById/{id}",
-      "DownstreamPathTemplate": "/api/polyclinics/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // PolyclinicService.Api Polyclinics
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetPolyclinics",
-      "DownstreamPathTemplate": "/api/polyclinics/all",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicById/{id}",
+            "DownstreamPathTemplate": "/api/polyclinics/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/AddPolyclinic",
-      "DownstreamPathTemplate": "/api/polyclinics/add-polyclinic",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetPolyclinics",
+            "DownstreamPathTemplate": "/api/polyclinics/all",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdatePolyclinicInfo",
-      "DownstreamPathTemplate": "/api/polyclinics/update-polyclinic-info",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/AddPolyclinic",
+            "DownstreamPathTemplate": "/api/polyclinics/add-polyclinic",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeletePolyclinic/{id}",
-      "DownstreamPathTemplate": "/api/polyclinics/delete-doctor/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdatePolyclinicInfo",
+            "DownstreamPathTemplate": "/api/polyclinics/update-polyclinic-info",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeletePolyclinic/{id}",
+            "DownstreamPathTemplate": "/api/polyclinics/delete-doctor/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
 
-    // UserService.Api
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/Register",
-      "DownstreamPathTemplate": "/api/Auth/Register",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // UserService.Api
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/Login",
-      "DownstreamPathTemplate": "/api/Auth/Login",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/Register",
+            "DownstreamPathTemplate": "/api/Auth/Register",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/SendVerificationEmail",
-      "DownstreamPathTemplate": "/api/User/SendVerificationEmail",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/Login",
+            "DownstreamPathTemplate": "/api/Auth/Login",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/VerifyEmail",
-      "DownstreamPathTemplate": "/api/User/VerifyEmail",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/SendVerificationEmail",
+            "DownstreamPathTemplate": "/api/User/SendVerificationEmail",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/ForgotPassword",
-      "DownstreamPathTemplate": "/api/User/ForgotPassword",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/VerifyEmail",
+            "DownstreamPathTemplate": "/api/User/VerifyEmail",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/ResetPassword",
-      "DownstreamPathTemplate": "/api/User/ResetPassword",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/ForgotPassword",
+            "DownstreamPathTemplate": "/api/User/ForgotPassword",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateUser",
-      "DownstreamPathTemplate": "/api/User/UpdateUser",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/ResetPassword",
+            "DownstreamPathTemplate": "/api/User/ResetPassword",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/BlockUser",
-      "DownstreamPathTemplate": "/api/User/BlockUser",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateUser",
+            "DownstreamPathTemplate": "/api/User/UpdateUser",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UnblockUser",
-      "DownstreamPathTemplate": "/api/User/UnblockUser",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/BlockUser",
+            "DownstreamPathTemplate": "/api/User/BlockUser",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteUser",
-      "DownstreamPathTemplate": "/api/User/DeleteUser",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UnblockUser",
+            "DownstreamPathTemplate": "/api/User/UnblockUser",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/RestoreUser",
-      "DownstreamPathTemplate": "/api/User/RestoreUser",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteUser",
+            "DownstreamPathTemplate": "/api/User/DeleteUser",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7188
-        }
-      ],
-      "SwaggerKey": "UserService"
-    },
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/RestoreUser",
+            "DownstreamPathTemplate": "/api/User/RestoreUser",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7188
+                }
+            ],
+            "SwaggerKey": "UserService"
+        },
 
     // StateService.Api
     {
