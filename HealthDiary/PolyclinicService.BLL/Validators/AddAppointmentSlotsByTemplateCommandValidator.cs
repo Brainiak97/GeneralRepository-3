@@ -1,13 +1,13 @@
 using FluentValidation;
-using PolyclinicService.BLL.Data.Requests;
+using PolyclinicService.BLL.Data.Commands;
 
 namespace PolyclinicService.BLL.Validators;
 
-internal class AddAppointmentSlotsByTemplateRequestValidator : AbstractValidator<AddAppointmentSlotsByTemplateRequest>
+internal class AddAppointmentSlotsByTemplateCommandValidator : AbstractValidator<AddAppointmentSlotsByTemplateCommand>
 {
     private static readonly DayOfWeek[] WeekDays = [DayOfWeek.Saturday, DayOfWeek.Sunday];
 
-    public AddAppointmentSlotsByTemplateRequestValidator()
+    public AddAppointmentSlotsByTemplateCommandValidator()
     {
         RuleFor(r => r.PolyclinicId)
             .GreaterThan(0)

@@ -10,7 +10,7 @@ namespace PolyclinicService.DAL.Contexts;
 /// Инициализирует новый экземпляр контекста базы данных.
 /// </remarks>
 /// <param name="options">Настройки контекста базы данных.</param>
-internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbContext> options) : DbContext(options)
+public class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbContext> options) : DbContext(options)
 {
     /// <summary>
     /// Возвращает или устанавливает набор сущностей <see cref="Polyclinic"/> в базе данных.

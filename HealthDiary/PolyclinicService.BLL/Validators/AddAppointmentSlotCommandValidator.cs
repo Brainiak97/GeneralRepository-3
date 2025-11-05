@@ -1,11 +1,11 @@
 using FluentValidation;
-using PolyclinicService.BLL.Data.Requests;
+using PolyclinicService.BLL.Data.Commands;
 
 namespace PolyclinicService.BLL.Validators;
 
-internal class AddAppointmentSlotRequestValidator : AbstractValidator<AddAppoinmentSlotRequest>
+internal class AddAppointmentSlotCommandValidator : AbstractValidator<AddAppoinmentSlotCommand>
 {
-    public AddAppointmentSlotRequestValidator()
+    public AddAppointmentSlotCommandValidator()
     {
         RuleFor(r => r.DoctorId)
             .GreaterThan(0)

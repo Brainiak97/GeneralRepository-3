@@ -2,10 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PolyclinicService.DAL.Contexts;
-using PolyclinicService.DAL.Infrastructure.Migrations;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.DAL.Repositories;
-using Shared.Common.Migrations.Migrators;
 
 namespace PolyclinicService.DAL.Infrastructure;
 
@@ -25,7 +23,6 @@ public static class ServiceCollectionExtensions
                 },
                 contextLifetime: ServiceLifetime.Scoped,
                 optionsLifetime: ServiceLifetime.Singleton)
-            .AddScoped<IDatabaseMigrator, EfCoreDatabaseMigrator>()
             .AddRepositories();
 
     private static IServiceCollection AddRepositories(this IServiceCollection services) =>

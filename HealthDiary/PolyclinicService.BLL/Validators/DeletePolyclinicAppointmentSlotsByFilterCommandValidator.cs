@@ -1,11 +1,11 @@
 using FluentValidation;
-using PolyclinicService.BLL.Data.Requests;
+using PolyclinicService.BLL.Data.Commands;
 
 namespace PolyclinicService.BLL.Validators;
 
-internal class DeletePolyclinicAppointmentSlotsByFilterRequestValidator : AbstractValidator<DeletePolyclinicAppointmentSlotsByFilterRequest>
+internal class DeletePolyclinicAppointmentSlotsByFilterCommandValidator : AbstractValidator<DeletePolyclinicAppointmentSlotsByFilterCommand>
 {
-    public DeletePolyclinicAppointmentSlotsByFilterRequestValidator()
+    public DeletePolyclinicAppointmentSlotsByFilterCommandValidator()
     {
         RuleFor(r => r.DoctorId)
             .GreaterThan(0)

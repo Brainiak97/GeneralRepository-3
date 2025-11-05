@@ -1,11 +1,11 @@
 using FluentValidation;
-using PolyclinicService.BLL.Data.Requests;
+using PolyclinicService.BLL.Data.Commands;
 
 namespace PolyclinicService.BLL.Validators;
 
-internal class PolyclinicAppointmentSlotsByDateRequestValidator : AbstractValidator<PolyclinicAppointmentSlotsByDateRequest>
+internal class PolyclinicAppointmentSlotsByDateCommandValidator : AbstractValidator<PolyclinicAppointmentSlotsByDateCommand>
 {
-    public PolyclinicAppointmentSlotsByDateRequestValidator()
+    public PolyclinicAppointmentSlotsByDateCommandValidator()
     {
         RuleFor(r => r.Date)
             .GreaterThan(DateTime.MinValue)

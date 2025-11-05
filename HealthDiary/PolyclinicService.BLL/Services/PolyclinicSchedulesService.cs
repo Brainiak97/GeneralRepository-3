@@ -2,8 +2,8 @@ using AutoMapper;
 using MetricService.Api.Contracts;
 using PolyclinicService.BLL.Common.ServiceModelsValidator.Interfaces;
 using PolyclinicService.BLL.Data;
+using PolyclinicService.BLL.Data.Commands;
 using PolyclinicService.BLL.Data.Dtos;
-using PolyclinicService.BLL.Data.Requests;
 using PolyclinicService.BLL.Interfaces;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.Domain.Models;
@@ -23,121 +23,142 @@ internal class PolyclinicSchedulesService(
     : IPolyclinicSchedulesService
 {
     /// <inheritdoc />
-    public async Task<int> AddAppointmentSlotAsync(AddAppoinmentSlotRequest request)
+    public async Task<int> AddAppointmentSlotAsync(
+        AddAppoinmentSlotCommand command,
+        CancellationToken cancellationToken = default)
     {
-        await modelValidator.ValidateAndThrowAsync(request);
+        await modelValidator.ValidateAndThrowAsync(command);
 
-        var appSlot = mapper.Map<AppointmentSlot>(request);
+        var appSlot = mapper.Map<AppointmentSlot>(command);
         return await appointmentSlotsRepository.AddAsync(appSlot);
     }
 
     /// <inheritdoc />
-    public async Task<bool> AddAppointmentSlotsByTemplate(AddAppointmentSlotsByTemplateRequest request)
+    public async Task<bool> AddAppointmentSlotsByTemplate(
+        AddAppointmentSlotsByTemplateCommand command,
+        CancellationToken cancellationToken = default)
     {
-        await modelValidator.ValidateAndThrowAsync(request);
+        await modelValidator.ValidateAndThrowAsync(command);
 
         var calculatedSlots = appointmentSlotsCalculator.CalculateSlots(
             new AppointmentSlotsCalculationContext(
-                request.PolyclinicId,
-                request.DoctorIds,
-                request.PeriodStartDate,
-                request.PeriodEndDate,
-                request.AppointmentDuration,
-                request.WorkDayStartTime,
-                request.WorkDayEndTime,
-                request.LunchDuration,
-                request.IncludedWeekendDays));
+                command.PolyclinicId,
+                command.DoctorIds,
+                command.PeriodStartDate,
+                command.PeriodEndDate,
+                command.AppointmentDuration,
+                command.WorkDayStartTime,
+                command.WorkDayEndTime,
+                command.LunchDuration,
+                command.IncludedWeekendDays));
 
         return await appointmentSlotsRepository
             .AddBatchAsync(calculatedSlots.Select(mapper.Map<AppointmentSlot>).ToArray());
     }
 
     /// <inheritdoc />
-    public async Task UpdateAppointmentSlotAsync(UpdateAppointmentSlotRequest request)
+    public async Task UpdateAppointmentSlotAsync(
+        UpdateAppointmentSlotCommand command,
+        CancellationToken cancellationToken = default)
     {
-        await modelValidator.ValidateAndThrowAsync(request);
+        await modelValidator.ValidateAndThrowAsync(command);
 
-        var insertedSlot = await appointmentSlotsRepository.GetByIdAsync(request.Id);
+        var newEntity = mapper.Map<AppointmentSlot>(command);
+        await appointmentSlotsRepository.UpdateAsync(newEntity);
+    }
+
+    /// <inheritdoc />
+    public async Task UpdateAppointmentSlotStatusAsync(
+        UpdateAppointmentSlotStatusCommand command,
+        CancellationToken cancellationToken = default)
+    {
+        await modelValidator.ValidateAndThrowAsync(command);
+
+        var insertedSlot = await appointmentSlotsRepository.GetByIdAsync(command.AppointmentSlotId);
         if (insertedSlot is null)
         {
             throw new EntryNotFoundException("Слот приёма к врачу не найден");
         }
 
-        insertedSlot.PolyclinicId = request.PolyclinicId ?? insertedSlot.PolyclinicId;
-        insertedSlot.DoctorId = request.DoctorId ?? insertedSlot.DoctorId;
-        insertedSlot.UserId = request.UserId ?? insertedSlot.UserId;
-        insertedSlot.Date = request.Date ?? insertedSlot.Date;
-        insertedSlot.Duration = request.Duration ?? insertedSlot.Duration;
-
+        insertedSlot.Status = command.Status;
         await appointmentSlotsRepository.UpdateAsync(insertedSlot);
     }
 
     /// <inheritdoc />
-    public async Task UpdateAppointmentSlotStatusAsync(UpdateAppointmentSlotStatusRequest request)
-    {
-        await modelValidator.ValidateAndThrowAsync(request);
-
-        var insertedSlot = await appointmentSlotsRepository.GetByIdAsync(request.AppointmentSlotId);
-        if (insertedSlot is null)
-        {
-            throw new EntryNotFoundException("Слот приёма к врачу не найден");
-        }
-
-        insertedSlot.Status = request.Status;
-        await appointmentSlotsRepository.UpdateAsync(insertedSlot);
-    }
-
-    /// <inheritdoc />
-    public async Task DeleteAppointmentSlotAsync(int id) =>
+    public async Task DeleteAppointmentSlotAsync(int id, CancellationToken cancellationToken = default) =>
         await appointmentSlotsRepository.DeleteAsync(id);
 
     /// <inheritdoc />
-    public async Task DeletePolyclinicAppointmentSlotsByFilterAsync(DeletePolyclinicAppointmentSlotsByFilterRequest request)
+    public async Task DeletePolyclinicAppointmentSlotsByFilterAsync(
+        DeletePolyclinicAppointmentSlotsByFilterCommand command,
+        CancellationToken cancellationToken = default)
     {
-        await modelValidator.ValidateAndThrowAsync(request);
+        await modelValidator.ValidateAndThrowAsync(command);
 
         await appointmentSlotsRepository.DeleteByFilterAsync(
             s =>
-                (request.DoctorId == null || s.DoctorId == request.DoctorId) &&
-                (request.PolyclinicId == null || s.PolyclinicId == request.PolyclinicId) &&
-                ((request.PeriodStartDate == null && request.PeriodEndDate == null) || s.Date >= request.PeriodStartDate && s.Date <= request.PeriodEndDate));
+                (command.DoctorId == null || s.DoctorId == command.DoctorId) &&
+                (command.PolyclinicId == null || s.PolyclinicId == command.PolyclinicId) &&
+                ((command.PeriodStartDate == null && command.PeriodEndDate == null) || s.Date >= command.PeriodStartDate && s.Date <= command.PeriodEndDate));
     }
 
     /// <inheritdoc />
-    public async Task<AppointmentSlotDto?> GetAppointmentSlotByIdAsync(int id) =>
+    public async Task<AppointmentSlotDto?> GetAppointmentSlotByIdAsync(int id, CancellationToken cancellationToken = default) =>
         mapper.Map<AppointmentSlotDto?>(await appointmentSlotsRepository.GetByIdAsync(id));
 
     /// <inheritdoc />
-    public async Task<AppointmentSlotDto[]> GetPolyclinicAppointmentSlotsByDateAsync(PolyclinicAppointmentSlotsByDateRequest request)
+    public async Task<AppointmentSlotDto[]> GetPolyclinicAppointmentSlotsByDateAsync(
+        PolyclinicAppointmentSlotsByDateCommand command,
+        CancellationToken cancellationToken = default)
     {
-        var validationResult = await modelValidator.ValidateAsync(request);
+        var validationResult = await modelValidator.ValidateAsync(command);
         if (!validationResult.IsValid)
         {
             return [];
         }
 
         var result = await appointmentSlotsRepository.GetByFilterAsync(s =>
-            s.PolyclinicId == request.PolyclinicId &&
-            s.Date >= request.Date.Date &&
-            s.Date <= request.Date.Date.AddDays(1)) ?? [];
+            s.PolyclinicId == command.PolyclinicId &&
+            s.Date >= command.Date.Date &&
+            s.Date <= command.Date.Date.AddDays(1)) ?? [];
 
         return result.Select(mapper.Map<AppointmentSlotDto>).ToArray();
     }
 
     /// <inheritdoc />
-    public async Task<AppointmentSlotDto[]> GetDoctorActiveAppointmentSlotsAsync(DoctorActiveAppointmentSlotsRequest request)
+    public async Task<AppointmentSlotDto[]> GetDoctorActiveAppointmentSlotsAsync(
+        DoctorActiveAppointmentSlotsCommand command,
+        CancellationToken cancellationToken = default)
     {
-        var validationResult = await modelValidator.ValidateAsync(request);
+        var validationResult = await modelValidator.ValidateAsync(command);
         if (!validationResult.IsValid)
         {
             return [];
         }
 
         var result = await appointmentSlotsRepository.GetByFilterAsync(s =>
-            s.DoctorId == request.DoctorId &&
-            (request.PolyclinicId == null || s.PolyclinicId == request.PolyclinicId) &&
-            (request.Date == null || (s.Date >= request.Date.Value.Date && s.Date <= request.Date.Value.Date.AddDays(1))) &&
+            s.DoctorId == command.DoctorId &&
+            (command.PolyclinicId == null || s.PolyclinicId == command.PolyclinicId) &&
+            (command.Date == null || (s.Date >= command.Date.Value.Date && s.Date <= command.Date.Value.Date.AddDays(1))) &&
             s.Status != AppointmentSlotStatus.Closed) ?? [];
+
+        return result.Select(mapper.Map<AppointmentSlotDto>).ToArray();
+    }
+
+    public async Task<AppointmentSlotDto[]> GetPatientAppointmentSlotsAsync(
+        GetPatientAppointmentSlotsCommand command,
+        CancellationToken cancellationToken = default)
+    {
+        var validationResult = await modelValidator.ValidateAsync(command);
+        if (!validationResult.IsValid)
+        {
+            return [];
+        }
+
+        var result = await appointmentSlotsRepository.GetByFilterAsync(s =>
+            s.UserId == command.PatientId &&
+            (command.StartDate == null || s.Date >= command.StartDate) &&
+            (command.EndDate == null || s.Date <= command.EndDate)) ?? [];
 
         return result.Select(mapper.Map<AppointmentSlotDto>).ToArray();
     }

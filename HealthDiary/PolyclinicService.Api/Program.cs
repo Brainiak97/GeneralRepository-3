@@ -1,7 +1,9 @@
-using PolyclinicService.Api.Infrastructure;
+using PolyclinicService.Api.Mappers;
 using PolyclinicService.BLL.Infrastructure;
 using PolyclinicService.DAL.Infrastructure;
+using PolyclinicService.DAL.Contexts;
 using Shared.Auth;
+using Shared.Common.EFCore;
 using Shared.Common.Infrastructure;
 using Shared.Common.Middlewares;
 using MetricService.Api.Contracts;
@@ -13,9 +15,10 @@ builder.Services.AddJwtAuthentication();
 
 builder.Services.AddDatabaseServices(builder.Configuration);
 builder.Services.AddApplicationServices();
-
 builder.Services.AddControllers();
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<PolyclinicServiceMapperProfile>());
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -38,12 +41,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    await app.InitializeServiceDatabaseAsync();
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
 
+app.Services.ApplyDbMigration<PolyclinicServiceDbContext>();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();

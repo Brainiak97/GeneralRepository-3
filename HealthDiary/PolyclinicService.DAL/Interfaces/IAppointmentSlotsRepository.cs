@@ -24,14 +24,6 @@ public interface IAppointmentSlotsRepository : IRepository<AppointmentSlot, int>
     Task<IEnumerable<AppointmentSlot>?> GetByFilterAsync(Expression<Func<AppointmentSlot, bool>> filter);
 
     /// <summary>
-    /// Изменить слоты на приём к врачу по фильтру.
-    /// </summary>
-    /// <param name="filter">Выражение для фильтрации слотов в запросе.</param>
-    /// <param name="entity">Сущность с данными для обновления.</param>
-    /// <returns></returns>
-    Task<bool> UpdateByFilterAsync(Expression<Func<AppointmentSlot, bool>> filter, AppointmentSlot entity);
-
-    /// <summary>
     /// Удалить слоты на приём к врачу по фильтру.
     /// </summary>
     /// <param name="filter">Выражение для фильтрации слотов в запросе.</param>

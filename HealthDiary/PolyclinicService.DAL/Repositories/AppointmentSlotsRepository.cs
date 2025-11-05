@@ -1,13 +1,18 @@
 using System.Linq.Expressions;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PolyclinicService.DAL.Contexts;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.Domain.Models.Entities;
+using Shared.Common.Exceptions;
 
 namespace PolyclinicService.DAL.Repositories;
 
 /// <inheritdoc />
-internal class AppointmentSlotsRepository(PolyclinicServiceDbContext context) : IAppointmentSlotsRepository
+internal class AppointmentSlotsRepository(
+    PolyclinicServiceDbContext context,
+    IMapper mapper)
+    : IAppointmentSlotsRepository
 {
     /// <inheritdoc />
     public async Task<AppointmentSlot?> GetByIdAsync(int id) =>
@@ -41,21 +46,11 @@ internal class AppointmentSlotsRepository(PolyclinicServiceDbContext context) : 
         var contextEntity = await context.AppointmentSlots.FindAsync(entity.Id);
         if (contextEntity is null)
         {
-            return false;
+            throw new EntryNotFoundException("Слот приёма к врачу не найден");
         }
 
-        context.AppointmentSlots.Update(FillSlotFieldsForUpdate(contextEntity, entity));
+        context.AppointmentSlots.Update(mapper.Map(entity, contextEntity));
         return await context.SaveChangesAsync() == 1;
-    }
-
-    public async Task<bool> UpdateByFilterAsync(Expression<Func<AppointmentSlot, bool>> filter, AppointmentSlot entity)
-    {
-        ArgumentNullException.ThrowIfNull(filter);
-        ArgumentNullException.ThrowIfNull(entity);
-
-        var contextEntities = context.AppointmentSlots.AsNoTracking().Where(filter);
-        context.AppointmentSlots.UpdateRange(contextEntities.Select(e => FillSlotFieldsForUpdate(entity, e)));
-        return await context.SaveChangesAsync() > 0;
     }
 
     /// <inheritdoc />
@@ -69,15 +64,5 @@ internal class AppointmentSlotsRepository(PolyclinicServiceDbContext context) : 
     {
         ArgumentNullException.ThrowIfNull(filter);
         await context.AppointmentSlots.Where(filter).ExecuteDeleteAsync();
-    }
-
-    private AppointmentSlot FillSlotFieldsForUpdate(AppointmentSlot sourceEntity, AppointmentSlot targetEntity)
-    {
-        targetEntity.DoctorId = sourceEntity.DoctorId;
-        targetEntity.UserId = sourceEntity.UserId;
-        targetEntity.Date = sourceEntity.Date;
-        targetEntity.Duration = sourceEntity.Duration;
-        targetEntity.Status = sourceEntity.Status;
-        return targetEntity;
     }
 }
