@@ -1,6 +1,6 @@
 ﻿namespace StateService.Api.Contracts.Dtos
 {
-    public class RequestListWithPeriodByIdDto
+    public record RequestListWithPeriodByIdDto
     {
         /// <summary>
         /// Идентификатор пользователя

@@ -70,22 +70,12 @@ namespace MetricService.BLL.Services
         /// <inheritdoc/>
         public async Task<IEnumerable<RegimenDTO>> GetAllRegimenByUserIdAsync(RequestListWithPeriodByIdDTO requestListWithPeriodByIdDTO)
         {
-            int grantedUserId = Common.Common.GetAuthorId(_authorization);
-
-            if (!_authorization.IsInRole("Admin") &&
-                requestListWithPeriodByIdDTO.UserId != grantedUserId &&
-                await _accessToMetricsService.CheckAccessToMetricsAsync(requestListWithPeriodByIdDTO.UserId, grantedUserId) == false)
-            {
-                throw new ViolationAccessException("Вам разрешено просматривать только свои схемы приема",
-                    grantedUserId,
-                    requestListWithPeriodByIdDTO.UserId,
-                    _repository.Name);
-            }
+            Common.Common.CheckAccessAndThrow(_authorization, requestListWithPeriodByIdDTO.UserId, _repository.Name);
 
             var regimens = (await _repository.GetAllAsync())
-                .Where(r => r.UserId == requestListWithPeriodByIdDTO.UserId &&
-                                    r.StartDate >= requestListWithPeriodByIdDTO.BegDate &&
-                                    r.StartDate <= requestListWithPeriodByIdDTO.EndDate);
+                .Where(r => r.UserId == requestListWithPeriodByIdDTO.UserId
+                    && requestListWithPeriodByIdDTO.BegDate <= r.EndDate
+                    && requestListWithPeriodByIdDTO.EndDate >= r.StartDate);
 
             return _mapper.Map<IEnumerable<RegimenDTO>>(regimens);
         }
