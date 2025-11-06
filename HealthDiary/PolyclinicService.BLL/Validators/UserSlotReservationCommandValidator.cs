@@ -1,11 +1,11 @@
 using FluentValidation;
-using PolyclinicService.BLL.Data.Requests;
+using PolyclinicService.BLL.Data.Commands;
 
 namespace PolyclinicService.BLL.Validators;
 
-internal class UserSlotReservationRequestValidator : AbstractValidator<UserSlotReservationRequest>
+internal class UserSlotReservationCommandValidator : AbstractValidator<UserSlotReservationCommand>
 {
-    public UserSlotReservationRequestValidator()
+    public UserSlotReservationCommandValidator()
     {
         RuleFor(r => r.SlotId)
             .GreaterThan(0)

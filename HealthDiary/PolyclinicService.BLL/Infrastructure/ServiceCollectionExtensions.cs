@@ -38,7 +38,7 @@ public static class ServiceCollectionExtensions
         services
             .AddSingleton<IValidatorsProvider, ValidatorsProvider>()
             .AddSingleton<IServiceModelValidator, ServiceModelValidator>()
-            .AddSingleton<IValidator<UserSlotReservationRequest>, UserSlotReservationRequestValidator>()
+            .AddSingleton<IValidator<UserSlotReservationCommand>, UserSlotReservationCommandValidator>()
             .AddSingleton<IValidator<AddPolyclinicRequest>, AddPolyclinicRequestValidator>()
             .AddSingleton<IValidator<UpdatePolyclinicRequest>, UpdatePolyclinicRequestValidator>()
             .AddSingleton<IValidator<AddDoctorRequest>, AddDoctorRequestValidator>()

@@ -1362,6 +1362,19 @@
             "SwaggerKey": "PolyclinicService"
         },
         {
+          "UpstreamHttpMethod": [ "Post" ],
+          "UpstreamPathTemplate": "/HealthDiary/SlotReservation",
+          "DownstreamPathTemplate": "/api/polyclinicschedules/SlotReservation",
+          "DownstreamScheme": "https",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 7772
+            }
+          ],
+          "SwaggerKey": "PolyclinicService"
+        },    
+        {
             "UpstreamHttpMethod": [ "Get" ],
             "UpstreamPathTemplate": "/HealthDiary/GetPatientAppointmentSlots",
             "DownstreamPathTemplate": "/api/PolyclinicSchedules/GetPatientAppointmentSlots",

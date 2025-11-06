@@ -97,9 +97,12 @@ public interface IPolyclinicSchedulesService
     /// <summary>
     /// Резервация слота пользователем с подтверждением доступа к личным метрикам.
     /// </summary>
-    /// <param name="request">Запрос для резервации слота приема.</param>
+    /// <param name="command">Команда для резервации слота приема.</param>
+    /// <param name="cancellationToken">Токен отмены.</param>
     /// <returns></returns>
-    Task SlotReservationAsync(UserSlotReservationRequest request);
+    Task SlotReservationAsync(
+        UserSlotReservationCommand command,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Вернуть все слоты приёма пациента.

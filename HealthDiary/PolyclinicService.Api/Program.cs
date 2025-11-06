@@ -26,7 +26,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("Services"));
 var serviceUrlsFromConfig = builder.Configuration.GetSection("Services").Get<ServiceUrls>();
 
-if (serviceUrlsFromConfig != null)
+if (serviceUrlsFromConfig is not null)
 {
     builder.Services.AddMetricServiceClient(serviceUrlsFromConfig.MetricServiceUrl);
 }

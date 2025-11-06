@@ -12,6 +12,7 @@ namespace PolyclinicService.Api.Controllers;
 /// Предоставляет API методы для работы с графиками приёмов поликлиник.
 /// </summary>
 /// <param name="polyclinicSchedulesService">Сервис, предоставляющий методы для работы с графиками приёма поликлиники.</param>
+/// <param name="mapper"><see cref="IMapper"/>.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
@@ -160,11 +161,11 @@ public class PolyclinicSchedulesController(
     /// </summary>
     /// <param name="request">Запрос на получение активных слотов приёмов к врачу.</param>
     /// <returns>Активные слоты приёмов к врачу.</returns>
-    [HttpPost(PolyclinicSchedulesControllerWebRoutes.SlotReservationAsync)]
-    [Authorize]
-    public async Task<IActionResult> SlotReservationAsync([FromBody] UserSlotReservationRequest request)
+    [HttpPost(nameof(SlotReservation))]
+    public async Task<IActionResult> SlotReservation([FromBody] UserSlotReservationRequest request)
     {
-        await polyclinicSchedulesService.SlotReservationAsync(request);
+        var command = mapper.Map<UserSlotReservationCommand>(request);
+        await polyclinicSchedulesService.SlotReservationAsync(command);
         return Ok();
     }
 }

@@ -33,6 +33,7 @@ public class PolyclinicServiceMapperProfile : Profile
         CreateMap<PolyclinicAppointmentSlotsByDateRequest, PolyclinicAppointmentSlotsByDateCommand>();
         CreateMap<DoctorActiveAppointmentSlotsRequest, DoctorActiveAppointmentSlotsCommand>();
         CreateMap<DeletePolyclinicAppointmentSlotsByFilterRequest, DeletePolyclinicAppointmentSlotsByFilterCommand>();
+        CreateMap<UserSlotReservationRequest, UserSlotReservationCommand>();
 
         CreateMap<AddAppoinmentSlotCommand, AppointmentSlot>();
         CreateMap<UpdateAppointmentSlotCommand, AppointmentSlot>();

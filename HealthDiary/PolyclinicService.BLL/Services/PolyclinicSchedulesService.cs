@@ -145,6 +145,7 @@ internal class PolyclinicSchedulesService(
         return result.Select(mapper.Map<AppointmentSlotDto>).ToArray();
     }
 
+    /// <inheritdoc />
     public async Task<AppointmentSlotDto[]> GetPatientAppointmentSlotsAsync(
         GetPatientAppointmentSlotsCommand command,
         CancellationToken cancellationToken = default)
@@ -164,11 +165,13 @@ internal class PolyclinicSchedulesService(
     }
 
     /// <inheritdoc />
-    public async Task SlotReservationAsync(UserSlotReservationRequest request)
+    public async Task SlotReservationAsync(
+        UserSlotReservationCommand command,
+        CancellationToken cancellationToken = default)
     {
-        await modelValidator.ValidateAndThrowAsync(request);
+        await modelValidator.ValidateAndThrowAsync(command);
 
-        var slot = await appointmentSlotsRepository.GetByIdAsync(request.SlotId) ??
+        var slot = await appointmentSlotsRepository.GetByIdAsync(command.SlotId) ??
             throw new EntryNotFoundException("Слот приёма к врачу не найден.");
 
         if (slot.UserId != null)
@@ -176,15 +179,15 @@ internal class PolyclinicSchedulesService(
             throw new InvalidOperationException("Слот уже занят.");
         }
 
-        slot.UserId = request.UserId;
+        slot.UserId = command.UserId;
 
         await appointmentSlotsRepository.UpdateAsync(slot);
 
-        if (request.IssuePermitOfMetrics)
+        if (command.IssuePermitOfMetrics)
         {
             var metricAccessRequest = new AccessToMetricsCreateDTO
             {
-                ProviderUserId = request.UserId,
+                ProviderUserId = command.UserId,
                 GrantedUserId = slot.DoctorId,
                 AccessExpirationDate = DateOnly.FromDateTime(slot.Date.AddDays(1)), // добавляем день доступа от даты приема для врача
                                                                                     // например, для доступа к анализам, которые были сданы после приема
