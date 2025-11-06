@@ -4,7 +4,6 @@ using Shared.Auth;
 using UserService.BLL.Dto;
 using UserService.BLL.Interfaces;
 using UserService.DAL.Interfaces;
-using UserService.Domain;
 using UserService.Domain.Models;
 
 namespace UserService.BLL.Services
@@ -90,12 +89,11 @@ namespace UserService.BLL.Services
         }
 
         /// <summary>
-        /// 
+        /// Назначает роль.
         /// </summary>
-        /// <param name="roleName"></param>
-        /// <param name="userId"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <param name="roleName">Наименование назначаемой роли.</param>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="cancellationToken">Токен отмены.</param>
         public async Task AssignRoleToUser(string roleName, int userId, CancellationToken cancellationToken)
         {
             var role = await _userRepository.GetRoleByNameAsync(roleName, cancellationToken);
