@@ -148,7 +148,12 @@ internal class PolyclinicSchedulesService(
         await modelValidator.ValidateAndThrowAsync(request);
 
         var slot = await appointmentSlotsRepository.GetByIdAsync(request.SlotId) ??
-            throw new EntryNotFoundException("Слот приёма к врачу не найден");
+            throw new EntryNotFoundException("Слот приёма к врачу не найден.");
+
+        if (slot.UserId != null)
+        {
+            throw new InvalidOperationException("Слот уже занят.");
+        }
 
         slot.UserId = request.UserId;
 

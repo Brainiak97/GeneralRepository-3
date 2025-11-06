@@ -18,6 +18,6 @@
         /// <summary>
         /// Указывает предоставлять ли врачу доступ к показателям пользователя.
         /// </summary>
-        public bool IssuePermitOfMetrics { get; set; } = false;
+        public bool IssuePermitOfMetrics { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using Shared.Auth;
 using Shared.Common.Infrastructure;
 using Shared.Common.Middlewares;
 using MetricService.Api.Contracts;
+using PolyclinicService.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +18,16 @@ builder.Services.AddControllers();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddOpenApi();
 
-//предоставл€ющий объект HttpContext
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddMetricServiceClient("https://localhost:7173/");
+
+builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("Services"));
+var serviceUrlsFromConfig = builder.Configuration.GetSection("Services").Get<ServiceUrls>();
+
+if (serviceUrlsFromConfig != null)
+{
+    builder.Services.AddMetricServiceClient(serviceUrlsFromConfig.MetricServiceUrl);
+}
+
 builder.Services.AddScoped<IHeaderDictionary>(x => x.GetRequiredService<IHttpContextAccessor>().HttpContext!.Request.Headers);
 
 var swaggerOptions = builder.Configuration.GetSection(nameof(SwaggerOptions)).Get<SwaggerOptions>();

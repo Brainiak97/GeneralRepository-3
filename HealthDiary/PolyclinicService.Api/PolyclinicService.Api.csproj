@@ -18,7 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MetricService.Api.Contracts\MetricService.Api.Contracts.csproj" />
       <ProjectReference Include="..\PolyclinicService.BLL\PolyclinicService.BLL.csproj" />
       <ProjectReference Include="..\PolyclinicService.DAL\PolyclinicService.DAL.csproj" />
       <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
