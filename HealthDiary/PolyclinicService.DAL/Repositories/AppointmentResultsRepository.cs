@@ -11,8 +11,8 @@ internal class AppointmentResultsRepository(PolyclinicServiceDbContext context) 
     /// <inheritdoc />
     public async Task<AppointmentResult?> GetByIdAsync(int id) =>
         await context.AppointmentResults
-            .AsNoTracking()
-            .SingleOrDefaultAsync();
+        .AsNoTracking()
+        .SingleOrDefaultAsync(a => a.Id == id);
 
     /// <inheritdoc />
     public async Task<int> AddAsync(AppointmentResult entity)
