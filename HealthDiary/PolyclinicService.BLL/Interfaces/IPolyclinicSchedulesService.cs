@@ -70,4 +70,11 @@ public interface IPolyclinicSchedulesService
     /// <param name="request">Запрос на получение активных слотов приёмов к врачу.</param>
     /// <returns>Активные слоты приёмов к врачу.</returns>
     Task<AppointmentSlotDto[]> GetDoctorActiveAppointmentSlotsAsync(DoctorActiveAppointmentSlotsRequest request);
+
+    /// <summary>
+    /// Резервация слота пользователем с подтверждением доступа к личным метрикам.
+    /// </summary>
+    /// <param name="request">Запрос для резервации слота приема.</param>
+    /// <returns></returns>
+    Task SlotReservationAsync(UserSlotReservationRequest request);
 }

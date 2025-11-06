@@ -1,4 +1,5 @@
 using AutoMapper;
+using MetricService.Api.Contracts;
 using PolyclinicService.BLL.Common.ServiceModelsValidator.Interfaces;
 using PolyclinicService.BLL.Data;
 using PolyclinicService.BLL.Data.Dtos;
@@ -8,15 +9,17 @@ using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.Domain.Models;
 using PolyclinicService.Domain.Models.Entities;
 using Shared.Common.Exceptions;
+using MetricService.Api.Contracts.Dtos.AccessToMetrics;
 
 namespace PolyclinicService.BLL.Services;
 
 /// <inheritdoc />
-internal class PolyclinicSchedulesService
-    (IAppointmentSlotsRepository appointmentSlotsRepository,
-     IAppointmentSlotsCalculator appointmentSlotsCalculator,
-     IServiceModelValidator modelValidator,
-     IMapper mapper)
+internal class PolyclinicSchedulesService(
+    IMetricServiceClient metricServiceClient,
+    IAppointmentSlotsRepository appointmentSlotsRepository,
+    IAppointmentSlotsCalculator appointmentSlotsCalculator,
+    IServiceModelValidator modelValidator,
+    IMapper mapper)
     : IPolyclinicSchedulesService
 {
     /// <inheritdoc />
@@ -137,5 +140,37 @@ internal class PolyclinicSchedulesService
             s.Status != AppointmentSlotStatus.Closed) ?? [];
 
         return result.Select(mapper.Map<AppointmentSlotDto>).ToArray();
+    }
+
+    /// <inheritdoc />
+    public async Task SlotReservationAsync(UserSlotReservationRequest request)
+    {
+        await modelValidator.ValidateAndThrowAsync(request);
+
+        var slot = await appointmentSlotsRepository.GetByIdAsync(request.SlotId) ??
+            throw new EntryNotFoundException("Слот приёма к врачу не найден.");
+
+        if (slot.UserId != null)
+        {
+            throw new InvalidOperationException("Слот уже занят.");
+        }
+
+        slot.UserId = request.UserId;
+
+        await appointmentSlotsRepository.UpdateAsync(slot);
+
+        if (request.IssuePermitOfMetrics)
+        {
+            var metricAccessRequest = new AccessToMetricsCreateDTO
+            {
+                ProviderUserId = request.UserId,
+                GrantedUserId = slot.DoctorId,
+                AccessExpirationDate = DateOnly.FromDateTime(slot.Date.AddDays(1)), // добавляем день доступа от даты приема для врача
+                                                                                    // например, для доступа к анализам, которые были сданы после приема
+                IsPermanentAccess = false
+            };
+
+            await metricServiceClient.CreateAccessToMetricsAsync(metricAccessRequest);
+        }
     }
 }

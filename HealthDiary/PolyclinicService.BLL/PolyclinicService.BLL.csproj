@@ -10,10 +10,11 @@
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="15.0.0" />
       <PackageReference Include="FluentValidation" Version="12.0.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MetricService.Api.Contracts\MetricService.Api.Contracts.csproj" />
       <ProjectReference Include="..\PolyclinicService.DAL\PolyclinicService.DAL.csproj" />
     </ItemGroup>
 

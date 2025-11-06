@@ -46,4 +46,9 @@ internal static class PolyclinicSchedulesControllerWebRoutes
     /// Маршрут до метода GetDoctorActiveAppointmentSlots.
     /// </summary>
     public const string GetDoctorActiveAppointmentSlotsRoute = "get-doctor-active-appointment-slots";
+
+    /// <summary>
+    /// Маршрут до метода GetDoctorActiveAppointmentSlots.
+    /// </summary>
+    public const string SlotReservationAsync = "slot-reservation";
 }

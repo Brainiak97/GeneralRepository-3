@@ -134,4 +134,17 @@ public class PolyclinicSchedulesController(IPolyclinicSchedulesService polyclini
         var result = await polyclinicSchedulesService.GetDoctorActiveAppointmentSlotsAsync(request);
         return Ok(result);
     }
+
+    /// <summary>
+    /// Резервация слота пользователем с подтверждением доступа к личным метрикам.
+    /// </summary>
+    /// <param name="request">Запрос на получение активных слотов приёмов к врачу.</param>
+    /// <returns>Активные слоты приёмов к врачу.</returns>
+    [HttpPost(PolyclinicSchedulesControllerWebRoutes.SlotReservationAsync)]
+    [Authorize]
+    public async Task<IActionResult> SlotReservationAsync([FromBody] UserSlotReservationRequest request)
+    {
+        await polyclinicSchedulesService.SlotReservationAsync(request);
+        return Ok();
+    }
 }
