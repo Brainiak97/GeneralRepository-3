@@ -49,7 +49,8 @@ internal class AppointmentSlotsRepository(
             throw new EntryNotFoundException("Слот приёма к врачу не найден");
         }
 
-        context.AppointmentSlots.Update(mapper.Map(entity, contextEntity));
+        contextEntity = mapper.Map(entity, contextEntity);
+        context.AppointmentSlots.Update(contextEntity);
         return await context.SaveChangesAsync() == 1;
     }
 

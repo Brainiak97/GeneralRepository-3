@@ -103,7 +103,7 @@ public class PolyclinicSchedulesController(
     /// <param name="id">Идентификатор слота приёма в графике.</param>
     /// <returns>Слот приёма к врачу по идентификатору.</returns>
     [HttpGet(nameof(GetAppointmentSlotById))]
-    public async Task<IActionResult> GetAppointmentSlotById([FromRoute] int id)
+    public async Task<IActionResult> GetAppointmentSlotById([FromQuery] int id)
     {
         var result = await polyclinicSchedulesService.GetAppointmentSlotByIdAsync(id);
         return result is not null

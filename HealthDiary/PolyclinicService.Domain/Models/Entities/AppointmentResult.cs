@@ -28,6 +28,12 @@ public class AppointmentResult : IEntityModel<int>
     public int ReportTemplateId { get; set; }
 
     /// <summary>
+    /// Идентификатор слота приёма в графике поликлиники.
+    /// </summary>
+    [Comment("Идентификатор слота приёма в графике поликлиники")]
+    public int AppointmentSlotId { get; set; }
+
+    /// <summary>
     /// Данные о приёме к врачу по графику поликлиники.
     /// </summary>
     public AppointmentSlot AppointmentSlot { get; set; } = null!;

@@ -54,6 +54,14 @@ public class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbCont
                         .HasForeignKey("PolyclinicId"));
         });
 
-        modelBuilder.Entity<AppointmentSlot>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
+        modelBuilder.Entity<AppointmentSlot>(entity =>
+        {
+            entity.Property(x => x.Id).UseIdentityAlwaysColumn();
+            
+            entity.HasOne(p => p.AppointmentResult)
+                .WithOne(r => r.AppointmentSlot)
+                .HasForeignKey<AppointmentResult>(r => r.AppointmentSlotId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }
