@@ -9,8 +9,10 @@ using Shared.EmailService.Common;
 using Shared.Logging;
 using UserService.Api.Data;
 using UserService.Api.Infrastructure;
+using UserService.Api.Middlewares;
 using UserService.BLL;
 using UserService.BLL.Interfaces;
+using UserService.BLL.Services;
 using UserService.DAL.EF;
 using UserService.DAL.Interfaces;
 using UserService.DAL.Repositories;
@@ -55,6 +57,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService.BLL.Services.UserService>();
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddSingleton<IJwtService, JwtService>();
+
+builder.Services.AddSingleton<OnlineUsersService>();
+builder.Services.AddHostedService(sp => sp.GetRequiredService<OnlineUsersService>());
 
 // Остальные сервисы
 builder.Services.AddControllers()
@@ -136,6 +141,7 @@ app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.UseMiddleware<ActivityMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

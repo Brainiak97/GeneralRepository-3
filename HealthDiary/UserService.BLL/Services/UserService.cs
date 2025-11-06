@@ -11,22 +11,29 @@ namespace UserService.BLL.Services
     /// <summary>
     /// Предоставляет реализацию бизнес-логики для регистрации, аутентификации и управления пользователями.
     /// </summary>
-    public class UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtService jwtService, IMapper mapper) : IUserService
+    public class UserService(
+        IUserRepository userRepository,
+        IPasswordHasher<User> passwordHasher,
+        IJwtService jwtService,
+        IMapper mapper,
+        OnlineUsersService onlineUsersService) : IUserService
     {
         private readonly IUserRepository _userRepository = userRepository;
         private readonly IPasswordHasher<User> _passwordHasher = passwordHasher; // Для хеширования паролей
         private readonly IJwtService _jwtService = jwtService; // Для генерации JWT-токенов
         private readonly IMapper _mapper = mapper; // Для генерации JWT-токенов
+        private readonly OnlineUsersService _onlineUsersService = onlineUsersService;
 
         /// <summary>
         /// Регистрирует нового пользователя на основе предоставленных данных.
         /// </summary>
         /// <param name="cancellationToken">Токен отмены.</param>
+        /// <param name="isDoctor">Флаг для регистрации врача.</param>
         /// <param name="request">Объект <see cref="RegisterRequestDto"/>, содержащий данные о пользователе.</param>
         /// <returns>Задача, представляющая асинхронную операцию. 
         /// Возвращает <see cref="AuthResponseDto"/> с данными аутентификации.</returns>
         /// <exception cref="Exception">Выбрасывается, если логин или email уже заняты.</exception>
-        public async Task<AuthResponseDto> Register(RegisterRequestDto request, CancellationToken cancellationToken)
+        public async Task<AuthResponseDto> Register(RegisterRequestDto request, CancellationToken cancellationToken, bool isDoctor = false)
         {
             // Проверка на существование пользователя
             if (await _userRepository.GetUserByUsernameAsync(request.Username, cancellationToken) != null)
@@ -55,12 +62,22 @@ namespace UserService.BLL.Services
             var createdUser = await _userRepository.AddAsync(user, cancellationToken);
 
             // Назначаем роль "User" по умолчанию
-            var role = await _userRepository.GetRoleByNameAsync("User", cancellationToken);
-            if (role != null)
-                await _userRepository.AssignRoleToUserAsync(createdUser.Id, role.Id, cancellationToken);
+            await AssignRoleToUser("User", createdUser.Id, cancellationToken);
+
+            // Если регистрация доктора - назначаем роль
+            if (isDoctor)
+            {
+                await AssignRoleToUser("Doctor", createdUser.Id, cancellationToken);
+            }
 
             // Генерируем JWT-токен
-            string token = _jwtService.GenerateToken(createdUser, createdUser.Roles);
+            return GetAuthResponse(createdUser);
+        }
+
+        private AuthResponseDto GetAuthResponse(User user)
+        {
+            // Генерируем JWT-токен
+            string token = _jwtService.GenerateToken(user, user.Roles);
 
             // Возвращаем ответ с токеном
             return new AuthResponseDto
@@ -69,6 +86,19 @@ namespace UserService.BLL.Services
                 Email = user.Email,
                 Token = token
             };
+        }
+
+        /// <summary>
+        /// Назначает роль.
+        /// </summary>
+        /// <param name="roleName">Наименование назначаемой роли.</param>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <param name="cancellationToken">Токен отмены.</param>
+        public async Task AssignRoleToUser(string roleName, int userId, CancellationToken cancellationToken)
+        {
+            var role = await _userRepository.GetRoleByNameAsync(roleName, cancellationToken);
+            if (role != null)
+                await _userRepository.AssignRoleToUserAsync(userId, role.Id, cancellationToken);
         }
 
         /// <summary>
@@ -102,6 +132,8 @@ namespace UserService.BLL.Services
 
             if (_jwtService.ValidateToken(token, null) == null)
                 throw new Exception("Токен доступа поврежден");
+
+            _onlineUsersService.RegisterLogin(user.Id, user.Roles.Any(_ => _.Name == "Doctor") ? "Doctor" : "User");
 
             return new AuthResponseDto
             {
