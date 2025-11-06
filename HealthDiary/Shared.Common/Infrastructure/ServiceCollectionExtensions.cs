@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Shared.Common.Infrastructure;
 
@@ -12,7 +13,6 @@ public static class ServiceCollectionExtensions
 
         services.AddSwaggerGen(options =>
         {
-
             options.SwaggerDoc(
                 "v1",
                 new OpenApiInfo
@@ -25,22 +25,35 @@ public static class ServiceCollectionExtensions
                     Contact = swaggerOptions.Contact,
                 });
 
-            var xmlDocPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"{serviceName}.*.xml");
-            foreach (var xmlDocPath in xmlDocPaths)
-            {
-                options.IncludeXmlComments(xmlDocPath);
-            }
+            AddSwaggerDocumentation(options, serviceName);
+            AddSecurityOptions(options);
+        });
 
-            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
-                Scheme = "Bearer"
-            });
+        return services;
+    }
 
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    private static void AddSwaggerDocumentation(SwaggerGenOptions options, string serviceName)
+    {
+        var xmlDocPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"{serviceName}.*.xml");
+        foreach (var xmlDocPath in xmlDocPaths)
+        {
+            options.IncludeXmlComments(xmlDocPath);
+        }
+    }
+
+    private static void AddSecurityOptions(SwaggerGenOptions options)
+    {
+        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+
+        options.AddSecurityRequirement(
+            new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -48,13 +61,10 @@ public static class ServiceCollectionExtensions
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
+                            Id = "Bearer",
                         }
                     }, []
                 }
-            });
-        });
-
-        return services;
+            });    
     }
 }

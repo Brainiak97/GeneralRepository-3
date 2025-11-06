@@ -1,3 +1,4 @@
+using ReportService.BLL.Data;
 using ReportService.BLL.Data.Commands;
 using ReportService.Domain.Models.Entities;
 
@@ -47,4 +48,19 @@ public interface IReportService
     /// <param name="cancellationToken">Токен отмены.</param>
     /// <returns><see cref="Task"/>.</returns>
     Task DeleteReportAsync(int reportId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Вернуть тип шаблонов.
+    /// </summary>
+    /// <param name="cancellationToken">Токен отмены.</param>
+    /// <returns>Все шаблоны отчётов.</returns>
+    Task<ReportTemplateType[]> GetReportTemplateTypesAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Вернуть шаблон отчёта по идентификатору.
+    /// </summary>
+    /// <param name="templateId">Идентификатор шаблона.</param>
+    /// <param name="cancellationToken">Токен отмены.</param>
+    /// <returns>Шаблон отчёта.</returns>
+    Task<List<TemplateField>> GetReportTemplateByIdAsync(int templateId, CancellationToken cancellationToken = default);
 }

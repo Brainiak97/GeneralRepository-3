@@ -1613,7 +1613,7 @@
         }
       ],
       "SwaggerKey": "StateService"
-    },    
+    },
     {
       "UpstreamHttpMethod": [ "Get" ],
       "UpstreamPathTemplate": "/HealthDiary/GetMedicationProgress",
@@ -1626,6 +1626,47 @@
         }
       ],
       "SwaggerKey": "StateService"
+    },
+
+    // ReportService.Api
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/HealthDiary/GetReportTemplateTypes",
+      "DownstreamPathTemplate": "/api/Reports/GetReportTemplateTypes",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7226
+        }
+      ],
+      "SwaggerKey": "ReportService"
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/HealthDiary/DownloadReport",
+      "DownstreamPathTemplate": "/api/Reports/DownloadReport",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7226
+        }
+      ],
+      "SwaggerKey": "ReportService"
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/HealthDiary/GetReportTemplateById",
+      "DownstreamPathTemplate": "/api/Reports/GetReportTemplateById",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7226
+        }
+      ],
+      "SwaggerKey": "ReportService"
     }
   ],
   "SwaggerEndPoints": [
@@ -1676,6 +1717,16 @@
           "Name": "UserService API",
           "Version": "v1",
           "Url": "https://localhost:7188/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "ReportService",
+      "Config": [
+        {
+          "Name": "ReportService API",
+          "Version": "v1",
+          "Url": "https://localhost:7226/swagger/v1/swagger.json"
         }
       ]
     }

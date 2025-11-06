@@ -7,12 +7,19 @@ using ReportService.Domain.Models;
 
 namespace ReportService.BLL.Consumers;
 
+/// <summary>
+/// Обработчик сообщения о запросе генерации отчёта. 
+/// </summary>
+/// <param name="reportService"><see cref="IReportService"/>.</param>
+/// <param name="emailSendService"><see cref="IEmailSendService"/>.</param>
+/// <param name="mapper"><see cref="IMapper"/>.</param>
 public class GenerateReportRequestedConsumer(
     IReportService reportService,
     IEmailSendService emailSendService,
     IMapper mapper)
     : IConsumer<GenerateReportRequested>
 {
+    /// <inheritdoc />
     public async Task Consume(ConsumeContext<GenerateReportRequested> context)
     {
         var message = context?.Message ?? throw new ArgumentNullException(nameof(context));

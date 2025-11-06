@@ -22,8 +22,14 @@ public class ReportTemplateMetadata : IEntityModel<int>
     public required string Name { get; set; }
 
     /// <summary>
-    /// Наименование типа источника данных для шаблона отчёта.
+    /// Наименование типа шаблона в приложении.
+    /// </summary>
+    [Comment("Наименование типа шаблона в приложении")]
+    public required string ReportTemplateTypeName { get; set; }
+
+    /// <summary>
+    /// Наименование типа источника данных для шаблона отчёта в приложении.
     /// </summary>
     [Comment("Наименование типа источника данных для шаблона отчёта в приложении")]
-    public required string ReportTemplateTypeName { get; set; }
+    public required string ReportTemplateSourceTypeName { get; set; }
 }

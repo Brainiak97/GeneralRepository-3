@@ -17,7 +17,7 @@ internal class PdfReportGenerator(
             return [];
         }
 
-        var templateMetadata = await reportsRepository.GetMetadataByIdAsync(templateId);
+        var templateMetadata = await reportsRepository.GetMetadataByIdAsync(templateId, cancellationToken);
         if (templateMetadata is null)
         {
             throw new InvalidOperationException($"Ошибка получения метаданных шаблона с идентификатором {templateId}");

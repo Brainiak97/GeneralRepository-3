@@ -11,7 +11,7 @@ using ReportService.DAL.Contexts;
 namespace ReportService.DAL.Migrations
 {
     [DbContext(typeof(ReportServiceDbContext))]
-    [Migration("20251029054506_Initial")]
+    [Migration("20251104195723_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -70,10 +70,15 @@ namespace ReportService.DAL.Migrations
                         .HasColumnType("text")
                         .HasComment("Имя шаблона");
 
-                    b.Property<string>("ReportTemplateTypeName")
+                    b.Property<string>("ReportTemplateSourceTypeName")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasComment("Наименование типа источника данных для шаблона отчёта в приложении");
+
+                    b.Property<string>("ReportTemplateTypeName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasComment("Наименование типа шаблона в приложении");
 
                     b.HasKey("Id");
 
