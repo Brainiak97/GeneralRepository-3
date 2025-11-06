@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MetricService.Api.Contracts\MetricService.Api.Contracts.csproj" />
       <ProjectReference Include="..\PolyclinicService.DAL\PolyclinicService.DAL.csproj" />
     </ItemGroup>
 
