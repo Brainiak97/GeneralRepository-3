@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
+    <ProjectReference Include="..\UserService.Api.Contracts\UserService.Api.Contracts.csproj" />
     <ProjectReference Include="..\UserService.DAL\UserService.DAL.csproj" />
     <ProjectReference Include="..\UserService.Domain\UserService.Domain.csproj" />
   </ItemGroup>

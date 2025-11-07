@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UserService.BLL.Dto;
+using UserService.Api.Contracts.Dtos;
 using UserService.BLL.Interfaces;
 using UserService.BLL.Services;
 

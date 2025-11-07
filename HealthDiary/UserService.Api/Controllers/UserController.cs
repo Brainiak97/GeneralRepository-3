@@ -5,8 +5,8 @@ using System.Security.Claims;
 using EmailService.Api.Contracts;
 using EmailService.Api.Contracts.Dtos;
 using Shared.EmailService.Common.Builders;
-using UserService.BLL.Dto;
 using UserService.BLL.Interfaces;
+using UserService.Api.Contracts.Dtos;
 
 namespace UserService.Api.Controllers
 {
@@ -76,7 +76,7 @@ namespace UserService.Api.Controllers
 
             await _emailServiceClient.SendEmailAsync(messageData);
 
-            return Ok(new { message = "Письмо отправлено" });
+            return Ok(new ResponseMessage { Message = "Письмо отправлено" });
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace UserService.Api.Controllers
 
             await _userService.ConfirmEmailAsync(emailClaim.Value, cancellationToken);
 
-            return Ok(new { message = "Email подтвержден" });
+            return Ok( new ResponseMessage { Message = "Email подтвержден" });
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace UserService.Api.Controllers
 
             await _emailServiceClient.SendEmailFromTemplateAsync(emailDto);
 
-            return Ok(new { message = "Письмо отправлено" });
+            return Ok(new ResponseMessage { Message = "Письмо отправлено" });
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace UserService.Api.Controllers
 
             await _userService.ResetPassword(emailClaim.Value, dto.NewPassword, cancellationToken);
 
-            return Ok(new { message = "Пароль успешно изменён" });
+            return Ok(new ResponseMessage { Message = "Пароль успешно изменён" });
         }
 
         /// <summary>
