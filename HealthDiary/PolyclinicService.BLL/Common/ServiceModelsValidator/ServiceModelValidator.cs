@@ -1,11 +1,10 @@
 using FluentValidation;
 using PolyclinicService.BLL.Common.ServiceModelsValidator.Interfaces;
-using IValidatorFactory = PolyclinicService.BLL.Common.ServiceModelsValidator.Interfaces.IValidatorFactory;
 
 namespace PolyclinicService.BLL.Common.ServiceModelsValidator;
 
 /// <inheritdoc />
-internal class ServiceModelValidator(IValidatorFactory validatorFactory) : IServiceModelValidator
+internal class ServiceModelValidator(IValidatorsProvider validatorsProvider) : IServiceModelValidator
 {
     /// <inheritdoc />
     public async Task ValidateAndThrowAsync<TModel>(TModel model)
@@ -13,7 +12,7 @@ internal class ServiceModelValidator(IValidatorFactory validatorFactory) : IServ
     {
         ArgumentNullException.ThrowIfNull(model);
 
-        var validator = validatorFactory.CreateRequiredValidator(model);
+        var validator = validatorsProvider.GetRequiredValidator(model);
         await validator.ValidateAndThrowAsync(model);
     }
 
@@ -22,7 +21,7 @@ internal class ServiceModelValidator(IValidatorFactory validatorFactory) : IServ
     {
         ArgumentNullException.ThrowIfNull(model);
 
-        var validator = validatorFactory.CreateRequiredValidator(model);
+        var validator = validatorsProvider.GetRequiredValidator(model);
         var validationResult = await validator.ValidateAsync(model);
 
         return new ValidationResult

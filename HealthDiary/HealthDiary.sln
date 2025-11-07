@@ -103,6 +103,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Api.Contracts", "UserService.Api.Contracts\UserService.Api.Contracts.csproj", "{F91F6BD2-26C8-7829-93E7-AA120D11F904}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolyclinicService.Api.Contracts", "PolyclinicService.Api.Contracts\PolyclinicService.Api.Contracts.csproj", "{0D984E0C-8CCF-472F-828C-A684F9E53FE9}"
+EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -269,6 +272,10 @@ Global
 		{F91F6BD2-26C8-7829-93E7-AA120D11F904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F91F6BD2-26C8-7829-93E7-AA120D11F904}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F91F6BD2-26C8-7829-93E7-AA120D11F904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D984E0C-8CCF-472F-828C-A684F9E53FE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D984E0C-8CCF-472F-828C-A684F9E53FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D984E0C-8CCF-472F-828C-A684F9E53FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D984E0C-8CCF-472F-828C-A684F9E53FE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -314,6 +321,7 @@ Global
 		{3B679967-67F5-43A2-94D5-5060E463FB37} = {63050D05-3C7F-480A-86D0-E87D7E7B6C91}
 		{85CBD162-BBD3-4B74-8A02-73617FA73860} = {CCB57C20-F91F-412B-8718-DFA9C110A0D5}
 		{F91F6BD2-26C8-7829-93E7-AA120D11F904} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
+		{0D984E0C-8CCF-472F-828C-A684F9E53FE9} = {CCA7D8C2-3E9E-4CFA-AF47-85F59BAC99C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F53385AA-EEFC-464F-9C2B-4773A1C1B1DD}

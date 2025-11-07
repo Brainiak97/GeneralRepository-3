@@ -1,11 +1,14 @@
-using PolyclinicService.Api.Infrastructure;
+using PolyclinicService.Api.Mappers;
 using PolyclinicService.BLL.Infrastructure;
 using PolyclinicService.DAL.Infrastructure;
+using PolyclinicService.DAL.Contexts;
 using Shared.Auth;
+using Shared.Common.EFCore;
 using Shared.Common.Infrastructure;
 using Shared.Common.Middlewares;
 using MetricService.Api.Contracts;
 using PolyclinicService.Api.Configuration;
+using PolyclinicService.DAL.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +16,14 @@ builder.Services.AddJwtAuthentication();
 
 builder.Services.AddDatabaseServices(builder.Configuration);
 builder.Services.AddApplicationServices();
-
 builder.Services.AddControllers();
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<PolyclinicServiceMapperProfile>();
+    cfg.AddProfile<PolyclinicServiceDalMapperProfile>();
+});
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -23,7 +31,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("Services"));
 var serviceUrlsFromConfig = builder.Configuration.GetSection("Services").Get<ServiceUrls>();
 
-if (serviceUrlsFromConfig != null)
+if (serviceUrlsFromConfig is not null)
 {
     builder.Services.AddMetricServiceClient(serviceUrlsFromConfig.MetricServiceUrl);
 }
@@ -38,12 +46,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    await app.InitializeServiceDatabaseAsync();
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
 
+app.Services.ApplyDbMigration<PolyclinicServiceDbContext>();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();

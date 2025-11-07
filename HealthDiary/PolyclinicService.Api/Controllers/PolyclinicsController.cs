@@ -13,6 +13,7 @@ namespace PolyclinicService.Api.Controllers;
 /// <param name="polyclinicsService">Сервис, предоставляющий методы для работы с поликлиниками.</param>
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class PolyclinicsController(IPolyclinicsService polyclinicsService) : ControllerBase
 {
     /// <summary>
@@ -21,7 +22,6 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// <param name="id">Идентификатор поликлиники.</param>
     /// <returns>Данные о поликлинике по идентификатору.</returns>
     [HttpGet("{id:int}")]
-    [Authorize]
     public async Task<IActionResult> GetPolyclinicById([FromRoute] int id)
     {
         var result = await polyclinicsService.GetPolyclinicById(id);
@@ -35,7 +35,6 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// </summary>
     /// <returns>Все поликлиники в сервисе.</returns>
     [HttpGet(PolyclinicsControllerWebRoutes.GetPolyclinicsRoute)]
-    [Authorize]
     public async Task<IActionResult> GetPolyclinics()
     {
         var result = await polyclinicsService.GetAllPolyclinics();
@@ -48,7 +47,6 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// <param name="request">Запрос на добавление поликлиники.</param>
     /// <returns>Идентификатор поликлиники.</returns>
     [HttpPost(PolyclinicsControllerWebRoutes.AddPolyclinicRoute)]
-    [Authorize]
     public async Task<IActionResult> AddPolyclinic([FromBody] AddPolyclinicRequest request)
     {
         var result = await polyclinicsService.AddPolyclinicAsync(request);
@@ -63,7 +61,6 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// <param name="request">Запрос на редактирование данных о поликлинике.</param>
     /// <returns><see cref="IActionResult"/>.</returns>
     [HttpPut(PolyclinicsControllerWebRoutes.UpdatePolyclinicInfoRoute)]
-    [Authorize]
     public async Task<IActionResult> UpdatePolyclinicInfo([FromBody] UpdatePolyclinicRequest request)
     {
         await polyclinicsService.UpdatePolyclinicInfoAsync(request);
@@ -76,7 +73,6 @@ public class PolyclinicsController(IPolyclinicsService polyclinicsService) : Con
     /// <param name="id">Идентификатор поликлиники.</param>
     /// <returns><see cref="IActionResult"/>.</returns>
     [HttpDelete(PolyclinicsControllerWebRoutes.DeletePolyclinicRoute)]
-    [Authorize]
     public async Task<IActionResult> DeletePolyclinic([FromRoute] int id)
     {
         await polyclinicsService.DeletePolyclinicAsync(id);

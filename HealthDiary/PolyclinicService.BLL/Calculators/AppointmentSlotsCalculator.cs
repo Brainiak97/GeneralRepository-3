@@ -84,7 +84,7 @@ internal class AppointmentSlotsCalculator : IAppointmentSlotsCalculator
                             PolyclinicId = polyclinicId,
                             DoctorId = doctorId,
                             Status = AppointmentSlotStatus.Created,
-                            Date = new DateTime(date, slotStartTime, DateTimeKind.Local),
+                            Date = new DateTime(date, slotStartTime, DateTimeKind.Utc),
                             Duration = appointmentDuration,
                         }));
 

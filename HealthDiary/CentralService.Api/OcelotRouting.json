@@ -1243,137 +1243,150 @@
       "SwaggerKey": "PolyclinicService"
     },
 
-    // PolyclinicService.Api PolyclinicSchedules
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlot",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/add-appointment-slot",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+        // PolyclinicService.Api PolyclinicSchedules
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlotsByTemplate",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/add-appointment-slots-by-template",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlot",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/AddAppointmentSlot",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlot",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/update-appointment-slot",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/AddAppointmentSlotsByTemplate",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/AddAppointmentSlotsByTemplate",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Put" ],
-      "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlotStatus",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/update-appointment-slot-status",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlot",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/UpdateAppointmentSlot",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeleteAppointmentSlot/{id}",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/delete-appointment-slot/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Put" ],
+            "UpstreamPathTemplate": "/HealthDiary/UpdateAppointmentSlotStatus",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/UpdateAppointmentSlotStatus",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Delete" ],
-      "UpstreamPathTemplate": "/HealthDiary/DeletePolyclinicAppointmentSlotsByFilter",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/delete-polyclinic-appointment-slot-by-filter",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeleteAppointmentSlot",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/DeleteAppointmentSlot",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetAppointmentSlotById/{id}",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamPathTemplate": "/HealthDiary/DeletePolyclinicAppointmentSlotsByFilter",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/DeletePolyclinicAppointmentSlotsByFilter",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicAppointmentSlotsByDateAsync",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/get-polyclinic-appointment-slot-by-date",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetAppointmentSlotById",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/GetAppointmentSlotById",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/GetDoctorActiveAppointmentSlotsAsync",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/get-doctor-active-appointment-slots",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetPolyclinicAppointmentSlotsByDate",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/GetPolyclinicAppointmentSlotsByDate",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
-    {
-      "UpstreamHttpMethod": [ "Post" ],
-      "UpstreamPathTemplate": "/HealthDiary/SlotReservationAsync",
-      "DownstreamPathTemplate": "/api/polyclinicschedules/slot-reservation",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "UpstreamHttpMethod": [ "Post" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetDoctorActiveAppointmentSlots",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/GetDoctorActiveAppointmentSlots",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
         {
-          "Host": "localhost",
-          "Port": 7772
-        }
-      ],
-      "SwaggerKey": "PolyclinicService"
-    },
+          "UpstreamHttpMethod": [ "Post" ],
+          "UpstreamPathTemplate": "/HealthDiary/SlotReservation",
+          "DownstreamPathTemplate": "/api/polyclinicschedules/SlotReservation",
+          "DownstreamScheme": "https",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 7772
+            }
+          ],
+          "SwaggerKey": "PolyclinicService"
+        },    
+        {
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamPathTemplate": "/HealthDiary/GetPatientAppointmentSlots",
+            "DownstreamPathTemplate": "/api/PolyclinicSchedules/GetPatientAppointmentSlots",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7772
+                }
+            ],
+            "SwaggerKey": "PolyclinicService"
+        },
 
     // PolyclinicService.Api Polyclinics
     {

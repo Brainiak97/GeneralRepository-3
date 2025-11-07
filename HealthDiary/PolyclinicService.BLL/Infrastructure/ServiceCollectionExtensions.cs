@@ -3,12 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using PolyclinicService.BLL.Calculators;
 using PolyclinicService.BLL.Common.ServiceModelsValidator;
 using PolyclinicService.BLL.Common.ServiceModelsValidator.Interfaces;
+using PolyclinicService.BLL.Data.Commands;
 using PolyclinicService.BLL.Data.Requests;
 using PolyclinicService.BLL.Interfaces;
-using PolyclinicService.BLL.Mappers;
 using PolyclinicService.BLL.Services;
 using PolyclinicService.BLL.Validators;
-using IValidatorFactory = PolyclinicService.BLL.Common.ServiceModelsValidator.Interfaces.IValidatorFactory;
 
 namespace PolyclinicService.BLL.Infrastructure;
 
@@ -26,8 +25,7 @@ public static class ServiceCollectionExtensions
         services
             .AddServices()
             .AddValidators()
-            .AddCalculators()
-            .AddMappers();
+            .AddCalculators();
     
     private static IServiceCollection AddServices(this IServiceCollection services) =>
         services
@@ -38,26 +36,24 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddValidators(this IServiceCollection services) =>
         services
-            .AddSingleton<IValidatorFactory, ValidationFactory>()
+            .AddSingleton<IValidatorsProvider, ValidatorsProvider>()
             .AddSingleton<IServiceModelValidator, ServiceModelValidator>()
-            .AddSingleton<IValidator<UserSlotReservationRequest>, UserSlotReservationRequestValidator>()
+            .AddSingleton<IValidator<UserSlotReservationCommand>, UserSlotReservationCommandValidator>()
             .AddSingleton<IValidator<AddPolyclinicRequest>, AddPolyclinicRequestValidator>()
             .AddSingleton<IValidator<UpdatePolyclinicRequest>, UpdatePolyclinicRequestValidator>()
             .AddSingleton<IValidator<AddDoctorRequest>, AddDoctorRequestValidator>()
             .AddSingleton<IValidator<UpdateDoctorRequest>, UpdateDoctorRequestValidator>()
-            .AddSingleton<IValidator<AddAppoinmentSlotRequest>, AddAppointmentSlotRequestValidator>()
-            .AddSingleton<IValidator<AddAppointmentSlotsByTemplateRequest>, AddAppointmentSlotsByTemplateRequestValidator>()
-            .AddSingleton<IValidator<UpdateAppointmentSlotRequest>, UpdateAppointmentSlotRequestValidator>()
-            .AddSingleton<IValidator<UpdateAppointmentSlotStatusRequest>, UpdateAppointmentSlotStatusRequestValidator>()
-            .AddSingleton<IValidator<DoctorActiveAppointmentSlotsRequest>, DoctorActiveAppointmentSlotsRequestValidator>()
-            .AddSingleton<IValidator<PolyclinicAppointmentSlotsByDateRequest>, PolyclinicAppointmentSlotsByDateRequestValidator>()
-            .AddSingleton<IValidator<DeletePolyclinicAppointmentSlotsByFilterRequest>, DeletePolyclinicAppointmentSlotsByFilterRequestValidator>()
+            .AddSingleton<IValidator<AddAppoinmentSlotCommand>, AddAppointmentSlotCommandValidator>()
+            .AddSingleton<IValidator<AddAppointmentSlotsByTemplateCommand>, AddAppointmentSlotsByTemplateCommandValidator>()
+            .AddSingleton<IValidator<UpdateAppointmentSlotCommand>, UpdateAppointmentSlotCommandValidator>()
+            .AddSingleton<IValidator<UpdateAppointmentSlotStatusCommand>, UpdateAppointmentSlotStatusCommandValidator>()
+            .AddSingleton<IValidator<DoctorActiveAppointmentSlotsCommand>, DoctorActiveAppointmentSlotsCommandValidator>()
+            .AddSingleton<IValidator<PolyclinicAppointmentSlotsByDateCommand>, PolyclinicAppointmentSlotsByDateCommandValidator>()
+            .AddSingleton<IValidator<DeletePolyclinicAppointmentSlotsByFilterCommand>, DeletePolyclinicAppointmentSlotsByFilterCommandValidator>()
             .AddSingleton<IValidator<SaveAppointmentResultRequest>, SaveAppointmentResultRequestValidator>()
-            .AddSingleton<IValidator<UpdateAppointmentResultRequest>, UpdateAppointmentResultRequestValidator>();
+            .AddSingleton<IValidator<UpdateAppointmentResultRequest>, UpdateAppointmentResultRequestValidator>()
+            .AddSingleton<IValidator<GetPatientAppointmentSlotsCommand>, GetPatientAppointmentSlotsCommandValidator>();
 
     private static IServiceCollection AddCalculators(this IServiceCollection services) =>
         services.AddSingleton<IAppointmentSlotsCalculator, AppointmentSlotsCalculator>();
-
-    private static IServiceCollection AddMappers(this IServiceCollection services) =>
-        services.AddAutoMapper(cfg => cfg.AddProfile<PolyclinicServiceMapperProfile>());
 }

@@ -10,7 +10,7 @@ namespace PolyclinicService.DAL.Contexts;
 /// Инициализирует новый экземпляр контекста базы данных.
 /// </remarks>
 /// <param name="options">Настройки контекста базы данных.</param>
-internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbContext> options) : DbContext(options)
+public class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbContext> options) : DbContext(options)
 {
     /// <summary>
     /// Возвращает или устанавливает набор сущностей <see cref="Polyclinic"/> в базе данных.
@@ -54,6 +54,14 @@ internal class PolyclinicServiceDbContext(DbContextOptions<PolyclinicServiceDbCo
                         .HasForeignKey("PolyclinicId"));
         });
 
-        modelBuilder.Entity<AppointmentSlot>(entity => entity.Property(x => x.Id).UseIdentityAlwaysColumn());
+        modelBuilder.Entity<AppointmentSlot>(entity =>
+        {
+            entity.Property(x => x.Id).UseIdentityAlwaysColumn();
+            
+            entity.HasOne(p => p.AppointmentResult)
+                .WithOne(r => r.AppointmentSlot)
+                .HasForeignKey<AppointmentResult>(r => r.AppointmentSlotId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }
