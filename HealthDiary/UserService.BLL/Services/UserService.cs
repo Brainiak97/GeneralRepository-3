@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Shared.Auth;
-using UserService.BLL.Dto;
+using UserService.Api.Contracts.Dtos;
 using UserService.BLL.Interfaces;
 using UserService.DAL.Interfaces;
 using UserService.Domain.Models;
@@ -43,6 +43,7 @@ namespace UserService.BLL.Services
                 throw new Exception("Такой адрес электронной почты уже используется");
 
             // Создаем пользователя
+            var gender =  mapper.Map<Gender>( request.Gender );
             var user = new User
             {
                 Username = request.Username,
@@ -51,7 +52,7 @@ namespace UserService.BLL.Services
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 CreatedAt = DateTime.UtcNow,
-                Gender = request.Gender,
+                Gender = gender,
                 DateOfBirth = request.DateOfBirth,
                 Status = UserStatus.Active,
                 IsEmailConfirmed = false,

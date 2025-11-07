@@ -1,4 +1,4 @@
-﻿namespace UserService.BLL.Dto
+﻿namespace UserService.Api.Contracts.Dtos
 {
     /// <summary>
     /// Представляет данные ответа при успешной аутентификации пользователя.

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using UserService.BLL.Dto;
+﻿using UserService.Api.Contracts.Dtos;
 
 namespace UserService.BLL.Interfaces
 {

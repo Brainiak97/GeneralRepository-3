@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System.Collections.Concurrent;
-using UserService.BLL.Dto;
+using UserService.Api.Contracts.Dtos;
 
 namespace UserService.BLL.Services
 {

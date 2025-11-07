@@ -23,6 +23,7 @@
 		<ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
 		<ProjectReference Include="..\Shared.EmailClient\Shared.EmailClient.csproj" />
 		<ProjectReference Include="..\Shared.Logging\Shared.Logging.csproj" />
+		<ProjectReference Include="..\UserService.Api.Contracts\UserService.Api.Contracts.csproj" />
 		<ProjectReference Include="..\UserService.BLL\UserService.BLL.csproj" />
 	</ItemGroup>
 

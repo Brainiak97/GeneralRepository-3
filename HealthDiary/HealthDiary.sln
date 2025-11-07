@@ -101,7 +101,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.Api.Contracts"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{804B1A84-19EB-4152-9776-F589533D451C}"
 EndProject
-
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Api.Contracts", "UserService.Api.Contracts\UserService.Api.Contracts.csproj", "{F91F6BD2-26C8-7829-93E7-AA120D11F904}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -264,6 +265,10 @@ Global
 		{85CBD162-BBD3-4B74-8A02-73617FA73860}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85CBD162-BBD3-4B74-8A02-73617FA73860}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85CBD162-BBD3-4B74-8A02-73617FA73860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F91F6BD2-26C8-7829-93E7-AA120D11F904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F91F6BD2-26C8-7829-93E7-AA120D11F904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F91F6BD2-26C8-7829-93E7-AA120D11F904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F91F6BD2-26C8-7829-93E7-AA120D11F904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -308,6 +313,7 @@ Global
 		{12C48279-EA92-4352-8D8A-68DEE32DF3EC} = {3E9243A7-68EA-4B13-B44E-42CD25414931}
 		{3B679967-67F5-43A2-94D5-5060E463FB37} = {63050D05-3C7F-480A-86D0-E87D7E7B6C91}
 		{85CBD162-BBD3-4B74-8A02-73617FA73860} = {CCB57C20-F91F-412B-8718-DFA9C110A0D5}
+		{F91F6BD2-26C8-7829-93E7-AA120D11F904} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F53385AA-EEFC-464F-9C2B-4773A1C1B1DD}

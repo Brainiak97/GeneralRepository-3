@@ -1,6 +1,6 @@
-﻿using UserService.Domain.Models;
+﻿using UserService.Api.Contracts.Dtos.Enums;
 
-namespace UserService.BLL.Dto
+namespace UserService.Api.Contracts.Dtos
 {
     /// <summary>
     /// Представляет данные пользователя для передачи между слоями приложения.

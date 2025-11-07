@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using UserService.BLL.Dto;
+using UserService.Api.Contracts.Dtos;
+using Dto = UserService.Api.Contracts.Dtos.Enums;
 using UserService.Domain.Models;
 
 namespace UserService.BLL
@@ -14,6 +15,7 @@ namespace UserService.BLL
         /// </summary>
         public MapperProfile()
         {
+            CreateMap<Dto.Gender, Gender>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Role, RoleDto>().ReverseMap();
 
