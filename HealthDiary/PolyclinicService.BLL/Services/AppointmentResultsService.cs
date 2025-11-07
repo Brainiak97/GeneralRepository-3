@@ -28,9 +28,6 @@ internal class AppointmentResultsService(
     {
         await serviceModelValidator.ValidateAndThrowAsync(request);
 
-        var appResult = mapper.Map<AppointmentResult>(request);
-        var appResultId = await appointmentResultsRepository.AddAsync(appResult);
-        
         var slotInfo = await polyclinicSchedulesService.GetAppointmentSlotByIdAsync(request.AppointmentSlotId);
         if (slotInfo is null)
         {
@@ -50,6 +47,9 @@ internal class AppointmentResultsService(
             throw new InvalidOperationException(
                 $"Не найдены данные пациента по приёму с идентификатором {request.AppointmentSlotId}");
         }
+
+        var appResult = mapper.Map<AppointmentResult>(request);
+        var appResultId = await appointmentResultsRepository.AddAsync(appResult);
 
         await messagePublisher.PublishAsync(
             new GenerateReportRequested
