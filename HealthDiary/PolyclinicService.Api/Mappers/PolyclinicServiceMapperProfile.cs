@@ -37,9 +37,6 @@ public class PolyclinicServiceMapperProfile : Profile
 
         CreateMap<AddAppoinmentSlotCommand, AppointmentSlot>();
         CreateMap<UpdateAppointmentSlotCommand, AppointmentSlot>();
-
-        CreateMap<AppointmentSlot, AppointmentSlot>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore());
         
         CreateMap<AppointmentSlotDto, AppointmentSlot>().ReverseMap();
 

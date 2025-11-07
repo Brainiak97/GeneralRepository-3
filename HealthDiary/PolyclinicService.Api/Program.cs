@@ -8,6 +8,7 @@ using Shared.Common.Infrastructure;
 using Shared.Common.Middlewares;
 using MetricService.Api.Contracts;
 using PolyclinicService.Api.Configuration;
+using PolyclinicService.DAL.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,11 @@ builder.Services.AddDatabaseServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
 
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<PolyclinicServiceMapperProfile>());
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<PolyclinicServiceMapperProfile>();
+    cfg.AddProfile<PolyclinicServiceDalMapperProfile>();
+});
 
 builder.Services.AddOpenApi();
 
