@@ -78,7 +78,7 @@ public class PolyclinicSchedulesController(
     /// <param name="id">Идентификатор слота приёма в графике.</param>
     /// <returns><see cref="IActionResult"/>.</returns>
     [HttpDelete(nameof(DeleteAppointmentSlot))]
-    public async Task<IActionResult> DeleteAppointmentSlot([FromRoute] int id)
+    public async Task<IActionResult> DeleteAppointmentSlot([FromQuery] int id)
     {
         await polyclinicSchedulesService.DeleteAppointmentSlotAsync(id);
         return Ok();

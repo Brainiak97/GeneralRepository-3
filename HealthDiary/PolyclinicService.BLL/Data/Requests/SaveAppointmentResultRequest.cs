@@ -19,4 +19,9 @@ public class SaveAppointmentResultRequest
     /// Идентификатор шаблона отчёта.
     /// </summary>
     public required int ReportTemplateId { get; set; }
+    
+    /// <summary>
+    /// Признак необходимости отправки отчёта по почте.
+    /// </summary>
+    public bool NeedSendToEmail { get; set; }
 }
