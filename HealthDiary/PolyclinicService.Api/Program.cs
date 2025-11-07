@@ -9,6 +9,8 @@ using Shared.Common.Middlewares;
 using MetricService.Api.Contracts;
 using PolyclinicService.Api.Configuration;
 using PolyclinicService.DAL.Mapper;
+using Shared.Common.MessageBrokers;
+using UserService.Api.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,12 +36,15 @@ var serviceUrlsFromConfig = builder.Configuration.GetSection("Services").Get<Ser
 if (serviceUrlsFromConfig is not null)
 {
     builder.Services.AddMetricServiceClient(serviceUrlsFromConfig.MetricServiceUrl);
+    builder.Services.AddUserServiceClient(serviceUrlsFromConfig.UserServiceUrl);
 }
 
 builder.Services.AddScoped<IHeaderDictionary>(x => x.GetRequiredService<IHttpContextAccessor>().HttpContext!.Request.Headers);
 
 var swaggerOptions = builder.Configuration.GetSection(nameof(SwaggerOptions)).Get<SwaggerOptions>();
 builder.Services.AddSwagger(swaggerOptions, serviceName: "PolyclinicService");
+
+builder.Services.AddRabbitMq(builder.Configuration);
 
 var app = builder.Build();
 

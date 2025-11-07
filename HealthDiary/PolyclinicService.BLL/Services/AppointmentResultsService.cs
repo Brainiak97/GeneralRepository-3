@@ -5,7 +5,11 @@ using PolyclinicService.BLL.Data.Requests;
 using PolyclinicService.BLL.Interfaces;
 using PolyclinicService.DAL.Interfaces;
 using PolyclinicService.Domain.Models.Entities;
+using ReportService.Api.Contracts.Enums;
+using ReportService.Api.Contracts.Events;
 using Shared.Common.Exceptions;
+using Shared.Common.MessageBrokers.RabbitMQ.Publishers;
+using UserService.Api.Contracts;
 
 namespace PolyclinicService.BLL.Services;
 
@@ -13,7 +17,10 @@ namespace PolyclinicService.BLL.Services;
 internal class AppointmentResultsService(
     IAppointmentResultsRepository appointmentResultsRepository,
     IServiceModelValidator serviceModelValidator,
-    IMapper mapper)
+    IMapper mapper,
+    IUserServiceClient userServiceClient,
+    IPolyclinicSchedulesService polyclinicSchedulesService,
+    IMessagePublisher messagePublisher)
     : IAppointmentResultsService
 {
     /// <inheritdoc />
@@ -22,7 +29,40 @@ internal class AppointmentResultsService(
         await serviceModelValidator.ValidateAndThrowAsync(request);
 
         var appResult = mapper.Map<AppointmentResult>(request);
-        return await appointmentResultsRepository.AddAsync(appResult);
+        var appResultId = await appointmentResultsRepository.AddAsync(appResult);
+        
+        var slotInfo = await polyclinicSchedulesService.GetAppointmentSlotByIdAsync(request.AppointmentSlotId);
+        if (slotInfo is null)
+        {
+            throw new InvalidOperationException(
+                $"Не найдена информация по слоту приёма с идентификатором {request.AppointmentSlotId}");
+        }
+
+        if (slotInfo.UserId is null)
+        {
+            throw new InvalidOperationException(
+                $"По слоту {request.AppointmentSlotId} нет записанного пациента");
+        }
+
+        var userData = await userServiceClient.GetUserInfoAsync(slotInfo.UserId.Value, CancellationToken.None);
+        if (userData is null)
+        {
+            throw new InvalidOperationException(
+                $"Не найдены данные пациента по приёму с идентификатором {request.AppointmentSlotId}");
+        }
+
+        await messagePublisher.PublishAsync(
+            new GenerateReportRequested
+            {
+                EntityId = request.AppointmentSlotId,
+                ReportContent = request.ReportContent,
+                ReportFormat = ReportFormat.Pdf,
+                ReportTemplateId = request.ReportTemplateId,
+                NeedSendToEmail = request.NeedSendToEmail,
+                EmailAddress = userData.Email,
+            });
+
+        return appResultId;
     }
 
     /// <inheritdoc />

@@ -9,6 +9,6 @@ public interface IMessagePublisher
     /// <param name="cancellationToken">Токен отмены.</param>
     /// <typeparam name="TMessage"></typeparam>
     /// <returns></returns>
-    Task PublishAsync<TMessage>(TMessage message, CancellationToken cancellationToken)
+    Task PublishAsync<TMessage>(TMessage message, CancellationToken cancellationToken = default)
         where TMessage : IMessage;
 }

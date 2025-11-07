@@ -22,6 +22,7 @@
       <ProjectReference Include="..\PolyclinicService.BLL\PolyclinicService.BLL.csproj" />
       <ProjectReference Include="..\PolyclinicService.DAL\PolyclinicService.DAL.csproj" />
       <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
+      <ProjectReference Include="..\UserService.Api.Contracts\UserService.Api.Contracts.csproj" />
     </ItemGroup>
 
 </Project>
