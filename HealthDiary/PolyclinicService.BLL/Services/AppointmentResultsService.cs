@@ -44,8 +44,8 @@ internal class AppointmentResultsService(
                 $"По слоту {request.AppointmentSlotId} нет записанного пациента");
         }
 
-        var userData = await userServiceClient.GetUserInfoAsync(slotInfo.UserId.Value, CancellationToken.None);
-        if (userData is null)
+        var patientInfo = await userServiceClient.GetUserInfoAsync(slotInfo.UserId.Value, CancellationToken.None);
+        if (patientInfo is null)
         {
             throw new InvalidOperationException(
                 $"Не найдены данные пациента по приёму с идентификатором {request.AppointmentSlotId}");
@@ -59,7 +59,7 @@ internal class AppointmentResultsService(
                 ReportFormat = ReportFormat.Pdf,
                 ReportTemplateId = request.ReportTemplateId,
                 NeedSendToEmail = request.NeedSendToEmail,
-                EmailAddress = userData.Email,
+                EmailAddress = patientInfo.Email,
             });
 
         return appResultId;
